@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* --- THEME: OFF-WHITE & BLACK --- */
+  --bg-body: #F9FAFB;
+  --bg-sidebar: #0f172a;
+  /* User specificed dark sidebar in prompt 'Correct code' - I will stick to this for contrast or keep white? User said .sidebar { background: #0f172a } in instructions */
+  --bg-card: #FFFFFF;
+  --text-main: #111827;
+  --text-muted: #6B7280;
+  --accent: #10B981;
+  --border-color: #E2E8F0;
+
+  /* --- DIMENSIONS --- */
+  --sidebar-width: 260px;
+}
+
+/* GLOBAL RESET */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+}
+
+/* =========================================
+   FIX 2: RESPONSIVE TABLES & SCROLLING
+   ========================================= */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  /* Allow horizontal scroll if table is too wide */
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+  /* Force scroll on small screens */
+}
+
+/* =========================================
+   FIX #4: PAGE CONTAINER
+   ========================================= */
+.page-container {
+  width: 100%;
+  max-width: 1200px;
+  /* User requested 1200px */
+  margin: 0 auto;
+  /* Horizontal Center */
+  padding: 32px;
+  /* Breathing room */
+}
+
+/* =========================================
+   FIX #2: GRID FORMS
+   ========================================= */
+.tracker-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* 2 Columns */
+  gap: 20px;
+  background: var(--bg-card);
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+}
+
+/* Span full width for textareas or headers */
+.form-full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: #F8FAFC;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* =========================================
+   FIX #3: CARD GRIDS (Fields/Lists)
+   ========================================= */
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* Standard Card Style */
+.card-panel {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================
+   UTILITIES
+   ========================================= */
+.btn-primary {
+  background-color: var(--accent);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  transition: filter 0.2s;
+}
+
+.btn-primary:hover {
+  filter: brightness(110%);
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
