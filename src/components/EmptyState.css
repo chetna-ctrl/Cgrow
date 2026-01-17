@@ -1,0 +1,126 @@
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 1rem;
+    border: 2px dashed #cbd5e1;
+    min-height: 400px;
+}
+
+.empty-state-icon {
+    color: #10b981;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+}
+
+.empty-state-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+}
+
+.empty-state-description {
+    font-size: 1rem;
+    color: #64748b;
+    max-width: 500px;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.empty-state-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.empty-state-primary button,
+.empty-state-primary a {
+    background: #10b981;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.empty-state-primary button:hover,
+.empty-state-primary a:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.empty-state-secondary button,
+.empty-state-secondary a {
+    background: white;
+    color: #10b981;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    border: 2px solid #10b981;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.empty-state-secondary button:hover,
+.empty-state-secondary a:hover {
+    background: #f0fdf4;
+    transform: translateY(-2px);
+}
+
+.empty-state-learn-more {
+    margin-top: 1.5rem;
+}
+
+.empty-state-learn-more a {
+    color: #10b981;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+}
+
+.empty-state-learn-more a:hover {
+    color: #059669;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .empty-state {
+        padding: 3rem 1.5rem;
+        min-height: 300px;
+    }
+
+    .empty-state-title {
+        font-size: 1.25rem;
+    }
+
+    .empty-state-description {
+        font-size: 0.875rem;
+    }
+
+    .empty-state-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .empty-state-primary button,
+    .empty-state-primary a,
+    .empty-state-secondary button,
+    .empty-state-secondary a {
+        width: 100%;
+    }
+}

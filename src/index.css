@@ -5,13 +5,17 @@
 @tailwind utilities;
 
 :root {
-  /* --- THEME: OFF-WHITE & BLACK --- */
+  /* --- THEME: OFF-WHITE & BLACK (High Contrast) --- */
   --bg-body: #F9FAFB;
   --bg-sidebar: #0f172a;
-  /* User specificed dark sidebar in prompt 'Correct code' - I will stick to this for contrast or keep white? User said .sidebar { background: #0f172a } in instructions */
   --bg-card: #FFFFFF;
-  --text-main: #111827;
-  --text-muted: #6B7280;
+
+  /* HIGH CONTRAST TEXT RULES */
+  --text-main: #0f172a;
+  /* Slate 900 (Use instead of gray-800) */
+  --text-muted: #334155;
+  /* Slate 700 (Use instead of gray-400/500) */
+
   --accent: #10B981;
   --border-color: #E2E8F0;
 
