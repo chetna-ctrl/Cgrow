@@ -5,7 +5,7 @@
  */
 
 const API_ENDPOINT = 'https://api.data.gov.in/resource/9ef27131-652a-4a3a-813b-1bc8afcc60c1'; // Example Agmarknet Resource
-const API_KEY = process.env.REACT_APP_DATA_GOV_IN_KEY;
+const API_KEY = import.meta.env.VITE_DATA_GOV_IN_KEY;
 
 // Market Fallbacks (In case API is throttled or key missing)
 const MARKET_FALLBACKS = {
