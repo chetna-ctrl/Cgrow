@@ -35,6 +35,27 @@ import OnboardingTutorial from '../../components/OnboardingTutorial';
 import { calculateHealthDecay, getTrendBasedDefaults } from '../../utils/trendAnalysis';
 import { requestNotificationPermission, scheduleReminder, areNotificationsEnabled } from '../../utils/notificationUtils';
 import { useGhostSync } from './hooks/useGhostSync';
+const getTimeAgo = (date) => {
+    if (!date) return null;
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    const intervals = {
+        year: 31536000,
+        month: 2592000,
+        week: 604800,
+        day: 86400,
+        hour: 3600,
+        minute: 60
+    };
+
+    for (const [unit, value] of Object.entries(intervals)) {
+        const interval = Math.floor(seconds / value);
+        if (interval >= 1) {
+            return `${interval} ${unit}${interval > 1 ? 's' : ''} ago`;
+        }
+    }
+    return 'Just now';
+};
+
 import ErrorBoundary from '../../components/ErrorBoundary';
 import { NFTSchematic, SensorNetworkDiagram } from '../../components/AgriTechVisuals';
 
