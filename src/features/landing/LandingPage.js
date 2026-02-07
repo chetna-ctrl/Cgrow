@@ -55,6 +55,16 @@ const LandingPage = () => {
                                 </span>
                             </div>
                         </div>
+
+                        <div className="mt-12 flex items-center gap-6 p-6 bg-slate-50/50 rounded-3xl border border-slate-100 shadow-inner max-w-xl">
+                            <div className="w-24 h-24 bg-white rounded-2xl p-2 shadow-xl border-2 border-emerald-500/20 flex-shrink-0">
+                                <img src="/logo_cgro.png" alt="cGrow Logo Design" className="w-full h-full object-contain" />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-slate-900 text-lg">C-GRO Operations</h4>
+                                <p className="text-sm text-slate-500 leading-tight">Advanced Farm Intelligence & Biophysics Research. Our logo represents the cycle of life and technological precision.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
