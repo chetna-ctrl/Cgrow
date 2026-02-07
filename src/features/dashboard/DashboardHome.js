@@ -509,13 +509,7 @@ const DashboardContent = () => {
                         <CheckCircle size={14} /> 1-Tap OK
                     </button>
 
-                    <button
-                        onClick={() => setShowInfoModal(true)}
-                        className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-600 border border-slate-200 shadow-sm hover:shadow-md group"
-                    >
-                        <HelpCircle size={14} className="text-emerald-500 group-hover:scale-110 transition-transform" />
-                        {t("What is this?", "Farming Guide")}
-                    </button>
+
 
                     <div className="flex items-center gap-3 bg-white p-1.5 rounded-2xl shadow-sm border border-slate-100">
                         <button
