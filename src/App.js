@@ -62,11 +62,25 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setLoading(false);
-    });
+    // 1. Get initial session with safety timeout
+    const authTimeout = setTimeout(() => {
+      if (loading) {
+        console.warn("Auth check timed out. Proceeding to app...");
+        setLoading(false);
+      }
+    }, 5000);
+
+    supabase.auth.getSession()
+      .then(({ data: { session } }) => {
+        setSession(session);
+      })
+      .catch(err => {
+        console.error("Auth error:", err);
+      })
+      .finally(() => {
+        clearTimeout(authTimeout);
+        setLoading(false);
+      });
 
     // 2. Listen for changes
     const {
@@ -75,7 +89,10 @@ function App() {
       setSession(session);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      clearTimeout(authTimeout);
+      subscription.unsubscribe();
+    };
   }, []);
 
   if (loading) return <LoadingFallback />;

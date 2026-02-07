@@ -407,14 +407,32 @@ export function estimatePPFD(lightType, weatherCondition = 'Sunny') {
 
 /**
  * Calculate Daily Light Integral (DLI)
- * @param {number} ppfd - PPFD value
+ * Hybrid Engine: Uses Sensor Data if available, else falls back to estimation
+ * 
+ * @param {number} ppfd - PPFD value (from Sensor or Estimate)
  * @param {number} hours - Light hours per day
+ * @param {number} sensorLux - Optional: Real-time Lux reading from IoT
+ * @param {string} lightType - Type of light (for conversion factor)
  * @returns {number} DLI in mol/m²/day
  */
-export function calculateDLI(ppfd, hours) {
+export function calculateDLI(ppfd, hours, sensorLux = null, lightType = 'LED_TUBES_WHITE') {
+    let finalPPFD = ppfd;
+
+    // 1. IOT SENSOR OVERRIDE (Precision Mode)
+    if (sensorLux && sensorLux > 0) {
+        // Conversion Factors (Scientific)
+        const conversionFactor =
+            (lightType === 'SUNLIGHT' || lightType === 'WINDOW') ? 0.0185 : // Sun
+                (lightType.includes('LED') || lightType.includes('GROW')) ? 0.022 : // LED
+                    0.0135; // Fluorescent/CFL
+
+        finalPPFD = sensorLux * conversionFactor;
+        console.log(`📡 IoT DLI Mode: ${sensorLux} Lux -> ${finalPPFD.toFixed(1)} PPFD`);
+    }
+
     // Formula: PPFD * Hours * 3600 / 1,000,000
     // Simplified: PPFD * Hours * 0.0036
-    return parseFloat((ppfd * hours * 0.0036).toFixed(2));
+    return parseFloat((finalPPFD * hours * 0.0036).toFixed(2));
 }
 
 // ============================================================

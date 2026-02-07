@@ -45,7 +45,7 @@ export const fetchMarketPrice = async (crop) => {
     } catch (error) {
         // Return intelligence-based fallback
         const fallback = MARKET_FALLBACKS[crop] || MARKET_FALLBACKS['Radish'];
-        console.log(`Using market fallback for ${crop}`);
+        // console.log(`Using market fallback for ${crop}`);
         return {
             pricePerKg: fallback.modal_price / 100,
             market: 'Intelligence Estimate',

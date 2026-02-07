@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import { Clock, Save, Sprout, Droplets, AlertTriangle, CheckCircle, BookOpen, Download, Sun, Info, Upload, WifiOff, Beaker, Search, HelpCircle, Wind } from 'lucide-react';
+import { Clock, Save, Sprout, Droplets, AlertTriangle, CheckCircle, BookOpen, Download, Sun, Info, Upload } from 'lucide-react';
 import { supabase } from '../../lib/supabaseClient';
 import { calculateStreak } from '../../utils/agronomyLogic';
 import { calculateDays } from '../../utils/predictions';
@@ -20,7 +20,7 @@ import {
     analyzeNutrientHealth
 } from '../../utils/agriUtils';
 import { detectThermalStress } from '../../utils/agronomyAlgorithms'; // Fixed Import Source
-import { CheckSquare, ClipboardList, Activity } from 'lucide-react'; // Added Icons
+import { CheckSquare, ClipboardList, Activity, Search, HelpCircle, Wind } from 'lucide-react'; // Restored/Consolidated
 import ScientificInfoModal from '../../components/ScientificInfoModal';
 import { useBeginnerMode } from '../../context/BeginnerModeContext';
 import CostCalculator from '../../components/CostCalculator';
@@ -214,8 +214,8 @@ const DailyTrackerPage = () => {
     const { batches } = useMicrogreens();
     const { systems } = useHydroponics();
 
-    const activeBatches = batches.filter(b => b.status && !b.status.toLowerCase().includes('harvested'));
-    const activeSystems = systems.filter(s => s.status && !s.status.toLowerCase().includes('harvested'));
+    const activeBatches = useMemo(() => batches.filter(b => b.status && !b.status.toLowerCase().includes('harvested')), [batches]);
+    const activeSystems = useMemo(() => systems.filter(s => s.status && !s.status.toLowerCase().includes('harvested')), [systems]);
 
     // NEW: Handle Deep Linking from Dashboard
     useEffect(() => {
@@ -229,63 +229,6 @@ const DailyTrackerPage = () => {
             document.getElementById('hydroponics-section')?.scrollIntoView({ behavior: 'smooth' });
         }
     }, [location.state]);
-
-    // NEW: IoT AUTO-FILL LOGIC
-    const [isAutoFilled, setIsAutoFilled] = useState(false);
-
-    const fetchLatestIoTData = async (type, targetId) => {
-        if (!targetId) return; // Removed isDemoMode() check
-
-        try {
-            const field = type === 'Microgreens' ? 'batch_id' : 'target_id';
-            const { data: logs, error } = await supabase
-                .from('daily_logs')
-                .select('*')
-                .eq(field, targetId)
-                .order('created_at', { ascending: false })
-                .limit(1);
-
-            if (logs && logs.length > 0) {
-                const log = logs[0];
-                const now = new Date();
-                const logTime = new Date(log.created_at);
-                const diffMin = (now - logTime) / (1000 * 60);
-
-                // Only auto-fill if log is fresh (< 60 mins old)
-                if (diffMin < 60) {
-                    if (type === 'Microgreens') {
-                        setMicrogreensEntry(prev => ({
-                            ...prev,
-                            humidity: log.humidity || prev.humidity,
-                            temperature: log.temp || prev.temperature
-                        }));
-                    } else {
-                        setHydroponicsEntry(prev => ({
-                            ...prev,
-                            ph: log.ph || prev.ph,
-                            ec: log.ec || prev.ec,
-                            waterTemp: log.water_temp || prev.water_temp,
-                            temperature: log.temp || prev.temperature,
-                            waterLevel: log.water_level || prev.waterLevel
-                        }));
-                    }
-                    setIsAutoFilled(true);
-                    setTimeout(() => setIsAutoFilled(false), 5000); // UI feedback duration
-                }
-            }
-        } catch (e) {
-            console.error("IoT Auto-fill failed", e);
-        }
-    };
-
-    // Trigger IoT fetch when target changes
-    useEffect(() => {
-        if (microgreensEntry.batchId) fetchLatestIoTData('Microgreens', microgreensEntry.batchId);
-    }, [microgreensEntry.batchId]);
-
-    useEffect(() => {
-        if (hydroponicsEntry.targetId) fetchLatestIoTData('Hydroponics', hydroponicsEntry.targetId);
-    }, [hydroponicsEntry.targetId]);
 
     // Calculate Smart Advice when Batch Changes or Inputs Change
     useEffect(() => {
@@ -316,13 +259,6 @@ const DailyTrackerPage = () => {
         return null;
     }, [microgreensEntry.temperature, microgreensEntry.humidity]);
 
-    // GAP 3: Conflict Warning Logic (Microgreens)
-    const microgreensConflict = useMemo(() => {
-        if (!vpdData || !microgreensEntry.visualCheck) return false;
-        const sensorAnomaly = vpdData.risk_factor === 'HIGH';
-        const userPerfect = microgreensEntry.visualCheck === 'Looking Perfect ✨';
-        return sensorAnomaly && userPerfect;
-    }, [vpdData, microgreensEntry.visualCheck]);
 
     // Calculate Nutrient Health
     const nutrientWarnings = useMemo(() => {
@@ -339,13 +275,6 @@ const DailyTrackerPage = () => {
         return [];
     }, [hydroponicsEntry.ph, hydroponicsEntry.ec, hydroponicsEntry.waterTemp, hydroponicsEntry.temperature]);
 
-    // GAP 3: Conflict Warning Logic (Hydroponics)
-    const hydroponicsConflict = useMemo(() => {
-        if (!nutrientWarnings || !hydroponicsEntry.visualCheck) return false;
-        const sensorAnomaly = nutrientWarnings.some(w => w.severity === 'CRITICAL' || w.severity === 'HIGH');
-        const userPerfect = hydroponicsEntry.visualCheck === 'Crystal Clear & Green ✨';
-        return sensorAnomaly && userPerfect;
-    }, [nutrientWarnings, hydroponicsEntry.visualCheck]);
 
     // INTELLIGENCE: Thermal Stress (Invisible Check)
     const thermalAlert = useMemo(() => {
@@ -828,16 +757,6 @@ const DailyTrackerPage = () => {
                             </div>
                         </div>
 
-                        {/* IoT Auto-fill Notification */}
-                        {isAutoFilled && (
-                            <div className="bg-emerald-100 text-emerald-800 p-2 rounded-lg text-xs font-bold flex items-center gap-2 animate-bounce">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                                </span>
-                                Auto-filled from recent Sensor data 📡
-                            </div>
-                        )}
 
                         {/* SMART ADVICE CARD */}
                         {smartAdvice && (
@@ -861,15 +780,6 @@ const DailyTrackerPage = () => {
                                         </div>
                                     </div>
 
-                                    {/* Conflict Warning (GAP 3) */}
-                                    {microgreensConflict && (
-                                        <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-2xl flex items-center gap-3 animate-pulse">
-                                            <AlertTriangle className="text-amber-600" size={24} />
-                                            <p className="text-sm font-black text-amber-800">
-                                                ⚠️ {t("Sensor data doesn't fully match observation — please recheck leaves.", "Data anomaly detected: Sensors and visual observation are in conflict.")}
-                                            </p>
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                         )}
@@ -1307,16 +1217,6 @@ const DailyTrackerPage = () => {
                             })()}
                         </div>
 
-                        {/* IoT Auto-fill Notification */}
-                        {isAutoFilled && (
-                            <div className="bg-blue-100 text-blue-800 p-2 rounded-lg text-xs font-bold flex items-center gap-2 animate-bounce">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                                </span>
-                                Sensors synced: pH, EC, Temp auto-filled 📡
-                            </div>
-                        )}
 
                         {/* SMART ASSISTANT BLOCK */}
                         <HydroGuide />
@@ -1574,15 +1474,6 @@ const DailyTrackerPage = () => {
                             />
                         </div>
 
-                        {/* Conflict Warning (GAP 3) */}
-                        {hydroponicsConflict && (
-                            <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-2xl flex items-center gap-3 animate-pulse">
-                                <AlertTriangle className="text-amber-600" size={24} />
-                                <p className="text-sm font-black text-amber-800">
-                                    ⚠️ {t("Sensor data doesn't fully match observation — please recheck plants.", "Data anomaly detected: Water sensors and visual observation are in conflict.")}
-                                </p>
-                            </div>
-                        )}
 
                         <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white p-3 rounded-lg font-bold hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-2">
                             {loading ? 'Saving...' : <><Save size={18} /> Save Hydroponics Log</>}

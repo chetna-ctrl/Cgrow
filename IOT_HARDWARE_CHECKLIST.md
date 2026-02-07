@@ -7,6 +7,7 @@ Before starting, ensure you have the following:
 - [ ] **ESP32 DevKit v1** (or compatible 30/38 pin module)
 - [ ] **DHT22** (Air Temp & Humidity Sensor)
 - [ ] **Capacitive Soil Moisture Sensor v1.2** (Corrosion resistant)
+- [ ] **BH1750 Light Sensor** (Lux Measurement)
 - [ ] **1-Channel Relay Module** (5V or 3.3V trigger)
 - [ ] **12V DC Water Pump** (Small submersible)
 - [ ] **12V 2A Power Adapter** (For pump)
@@ -22,6 +23,8 @@ Connect your sensors to the ESP32 using this standard configuration:
 | :--- | :--- | :--- |
 | **DHT22 Data** | **GPIO 4** | Digital Communication |
 | **Soil Analog (A0)** | **GPIO 34** | Moisture Level Reading |
+| **BH1750 (SCL)** | **GPIO 22** | Light Sensor Clock |
+| **BH1750 (SDA)** | **GPIO 21** | Light Sensor Data |
 | **Relay Signal (IN)** | **GPIO 18** | Pump ON/OFF Trigger |
 | **Onboard LED** | **GPIO 2** | WiFi/Heatlh Heartbeat |
 
