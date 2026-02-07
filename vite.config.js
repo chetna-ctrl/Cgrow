@@ -24,7 +24,7 @@ export default defineConfig({
 
     // Build configuration
     build: {
-        outDir: 'build',
+        outDir: 'dist',
         sourcemap: false,
         // Ensure compatibility with older browsers (matching CRA defaults)
         target: 'es2015',
