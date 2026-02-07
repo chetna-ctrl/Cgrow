@@ -35,29 +35,8 @@ import OnboardingTutorial from '../../components/OnboardingTutorial';
 import { calculateHealthDecay, getTrendBasedDefaults } from '../../utils/trendAnalysis';
 import { requestNotificationPermission, scheduleReminder, areNotificationsEnabled } from '../../utils/notificationUtils';
 import { useGhostSync } from './hooks/useGhostSync';
-// Phase 4: Dashboard Smart Alerts & Health Score Active
-const getTimeAgo = (date) => {
-    if (!date) return null;
-    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
-    const intervals = {
-        year: 31536000,
-        month: 2592000,
-        week: 604800,
-        day: 86400,
-        hour: 3600,
-        minute: 60
-    };
-
-    for (const [unit, value] of Object.entries(intervals)) {
-        const interval = Math.floor(seconds / value);
-        if (interval >= 1) {
-            return `${interval} ${unit}${interval > 1 ? 's' : ''} ago`;
-        }
-    }
-    return 'Just now';
-};
-
 import ErrorBoundary from '../../components/ErrorBoundary';
+import { NFTSchematic, SensorNetworkDiagram } from '../../components/AgriTechVisuals';
 
 const DashboardHome = () => {
     return (
@@ -401,7 +380,12 @@ const DashboardContent = () => {
     return (
         <div className="flex flex-col gap-6">
             {/* HEADER & GLOBAL TOGGLE: Premium Header with attention guidance */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-2">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-2 relative">
+                {/* Subtle Background Diagram */}
+                <div className="absolute -top-10 -right-20 w-80 h-40 opacity-[0.03] pointer-events-none hidden lg:block">
+                    <NFTSchematic />
+                </div>
+
                 <div>
                     <h1 className="text-3xl font-black text-slate-800 tracking-tighter flex items-center gap-3">
                         <span className="text-emerald-600">cGrow</span> Operations
@@ -538,6 +522,9 @@ const DashboardContent = () => {
                 <div className="md:col-span-5 row-span-2 group">
                     <div className="h-full bg-white rounded-3xl p-8 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all relative overflow-hidden flex flex-col justify-center">
                         <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-50 rounded-full -mr-24 -mt-24 opacity-50 group-hover:scale-110 transition-transform"></div>
+                        <div className="absolute -bottom-10 -left-10 w-40 h-40 opacity-[0.04] pointer-events-none">
+                            <SensorNetworkDiagram />
+                        </div>
                         <HealthMeter
                             latestLog={latestLog}
                             healthIndex={farmHealthIndex}

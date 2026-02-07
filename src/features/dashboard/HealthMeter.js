@@ -3,6 +3,7 @@ import { calculateFarmHealth } from '../../utils/agriUtils';
 import { useBeginnerMode } from '../../context/BeginnerModeContext';
 import { AlertTriangle, CheckCircle, Activity, Wind, Droplets } from 'lucide-react';
 import RemediationModal from '../../components/RemediationModal';
+import { GrowthStages } from '../../components/AgriTechVisuals';
 
 const HealthMeter = ({ latestLog, healthIndex, riskItems = [], dataAge, isStale }) => {
     const { t } = useBeginnerMode();
@@ -110,6 +111,14 @@ const HealthMeter = ({ latestLog, healthIndex, riskItems = [], dataAge, isStale 
                         <p className="text-xs text-slate-500 leading-relaxed">
                             {score >= 90 ? "Optimal conditions maintained." : reasons[0] || "Check vital signs."}
                         </p>
+                    </div>
+                )}
+
+                {/* Subtle Growth Stage Indicator */}
+                {!isAggregate && (
+                    <div className="mt-2 pt-2 border-t border-slate-100">
+                        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1 text-center">Current Growth Stage</p>
+                        <GrowthStages stage={score > 80 ? 3 : score > 50 ? 2 : 1} />
                     </div>
                 )}
             </div>

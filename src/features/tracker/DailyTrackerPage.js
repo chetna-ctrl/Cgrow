@@ -1373,19 +1373,19 @@ const DailyTrackerPage = () => {
                         {/* pH & EC */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-bold text-blue-900 mb-1">
-                                    pH Level
+                                <label className="block text-sm font-bold text-blue-900 mb-1 flex items-center gap-1">
+                                    <Activity size={12} className="text-blue-500" /> pH Level
                                     <ScientificContextTooltip title="Precipitation Theory" content="When pH is high (>6.5), nutrients like Iron and Phosphorus form solid crystals (precipitate) and become unavailable to the plant." />
                                 </label>
-                                <input type="number" step="0.1" placeholder="6.0" className="w-full p-2 border border-blue-300 rounded-lg"
+                                <input type="number" step="0.1" placeholder="6.0" className="w-full p-2 border border-blue-300 rounded-lg text-sm"
                                     value={hydroponicsEntry.ph} onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, ph: e.target.value })} />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-blue-900 mb-1">
-                                    EC (mS/cm)
+                                <label className="block text-sm font-bold text-blue-900 mb-1 flex items-center gap-1">
+                                    <Zap size={12} className="text-blue-500" /> EC (mS/cm)
                                     <ScientificContextTooltip title="Ionic Concentration" content="EC levels indicate the total dissolved salts. High EC causes osmotic shock, while low EC leads to nutrient starvation." />
                                 </label>
-                                <input type="number" step="0.1" placeholder="1.8" className="w-full p-2 border border-blue-300 rounded-lg"
+                                <input type="number" step="0.1" placeholder="1.8" className="w-full p-2 border border-blue-300 rounded-lg text-sm"
                                     value={hydroponicsEntry.ec} onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, ec: e.target.value })} />
                                 {parseFloat(hydroponicsEntry.ec) > 0 && parseFloat(hydroponicsEntry.ec) < 1.5 && (
                                     <div className="mt-2 p-2 bg-yellow-100 border border-yellow-300 rounded text-xs text-yellow-800 font-bold animate-pulse">
@@ -1395,15 +1395,19 @@ const DailyTrackerPage = () => {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-2 gap-4 mt-4">
                             <div>
-                                <label className="block text-sm font-bold text-blue-900 mb-1">Air Temp (°C)</label>
-                                <input type="number" step="0.1" placeholder="24" className="w-full p-2 border border-blue-300 rounded-lg"
+                                <label className="block text-sm font-bold text-blue-900 mb-1 flex items-center gap-1">
+                                    <Thermometer size={12} className="text-blue-500" /> Air Temp (°C)
+                                </label>
+                                <input type="number" step="0.1" placeholder="24" className="w-full p-2 border border-blue-300 rounded-lg text-sm"
                                     value={hydroponicsEntry.temperature} onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, temperature: e.target.value })} />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-blue-900 mb-1">Air Humidity (%)</label>
-                                <input type="number" step="0.1" placeholder="60" className="w-full p-2 border border-blue-300 rounded-lg"
+                                <label className="block text-sm font-bold text-blue-900 mb-1 flex items-center gap-1">
+                                    <Droplets size={12} className="text-blue-500" /> Air Humidity (%)
+                                </label>
+                                <input type="number" step="0.1" placeholder="60" className="w-full p-2 border border-blue-300 rounded-lg text-sm"
                                     value={hydroponicsEntry.humidity} onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, humidity: e.target.value })} />
                             </div>
                         </div>
