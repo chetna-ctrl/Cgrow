@@ -35,7 +35,7 @@ const LandingPage = () => {
                     <div className="max-w-7xl mx-auto relative z-10">
                         <div className="max-w-3xl">
                             <h1 className="text-7xl font-black text-slate-900 leading-[0.95] tracking-tighter mb-8">
-                                <span className="flex items-center gap-2"><Leaf size={48} className="text-emerald-500" /> Grow Your Future.</span>
+                                Conscious Growth.
                                 <span className="block text-emerald-600">Smartly Automated.</span>
                             </h1>
                             <p className="text-xl text-slate-500 font-medium leading-relaxed mb-10">
