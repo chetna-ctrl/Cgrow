@@ -5,6 +5,7 @@ import { FarmProvider } from './context/FarmContext';
 import { BeginnerModeProvider } from './context/BeginnerModeContext';
 import { Sprout } from 'lucide-react';
 import { supabase } from './lib/supabaseClient';
+import GlobalErrorBoundary from './components/GlobalErrorBoundary';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Initialize Query Client with optimized defaults
@@ -38,7 +39,7 @@ const SchedulerPage = React.lazy(() => import('./pages/SchedulerPage')); // PHAS
 const FarmingGuidePage = React.lazy(() => import('./features/guide/FarmingGuidePage'));
 const IoTDevicesPage = React.lazy(() => import('./features/iot/IoTDevicesPage'));
 // BUILD VERSION (Diagnostic)
-window.CGROW_BUILD = "2026-02-07-v1.2-IOT-FIX";
+window.CGROW_BUILD = "2026-02-07-v1.3-STABILITY";
 console.log(`%c[cGrow Ops] Initializing Build: ${window.CGROW_BUILD}`, "color: #10b981; font-weight: bold;");
 const LoadingFallback = () => (
   <div className="flex flex-col items-center justify-center h-full w-full min-h-[400px]">
@@ -62,13 +63,13 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. Get initial session with safety timeout
+    // 1. Get initial session with safety timeout (Reduced to 3s for speed)
     const authTimeout = setTimeout(() => {
       if (loading) {
-        console.warn("Auth check timed out. Force-clearing loading...");
+        console.warn("Auth check timed out (3s). Force-clearing loading...");
         setLoading(false);
       }
-    }, 5000);
+    }, 3000);
 
     // Initial check
     const checkSession = async () => {
@@ -113,52 +114,54 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BeginnerModeProvider>
         <FarmProvider>
-          <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-            <Routes>
-              {/* Public Landing Page */}
-              <Route path="/" element={
-                !session ? (
-                  <Suspense fallback={<LoadingFallback />}>
-                    <LandingPage />
-                  </Suspense>
-                ) : <Navigate to="/dashboard" replace />
-              } />
-
-              <Route path="/login" element={
-                !session ? (
-                  <Suspense fallback={<LoadingFallback />}>
-                    <LoginPage />
-                  </Suspense>
-                ) : <Navigate to="/dashboard" replace />
-              } />
-
-              <Route path="/*" element={
-                <ProtectedRoute session={session}>
-                  <DashboardLayout onLogout={() => supabase.auth.signOut()}>
+          <GlobalErrorBoundary>
+            <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+              <Routes>
+                {/* Public Landing Page */}
+                <Route path="/" element={
+                  !session ? (
                     <Suspense fallback={<LoadingFallback />}>
-                      <Routes>
-                        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                        <Route path="/dashboard" element={<DashboardHome />} />
-                        <Route path="/tracker" element={<DailyTrackerPage />} />
-                        <Route path="/fields" element={<FieldsPage />} />
-                        <Route path="/finance" element={<FinancePage />} />
-                        <Route path="/market" element={<MarketPage />} />
-                        <Route path="/microgreens" element={<MicrogreensPage />} />
-                        <Route path="/hydroponics" element={<HydroponicsPage />} />
-                        <Route path="/agronomy" element={<AgronomyPage />} />
-                        <Route path="/analytics" element={<AnalyticsPage />} />
-                        <Route path="/scheduler" element={<SchedulerPage />} />
-                        <Route path="/guide" element={<FarmingGuidePage />} />
-                        <Route path="/iot-devices" element={<IoTDevicesPage />} />
-                        <Route path="/weather" element={<WeatherPage />} />
-                        <Route path="/settings" element={<SettingsPage />} />
-                      </Routes>
+                      <LandingPage />
                     </Suspense>
-                  </DashboardLayout>
-                </ProtectedRoute>
-              } />
-            </Routes>
-          </Router>
+                  ) : <Navigate to="/dashboard" replace />
+                } />
+
+                <Route path="/login" element={
+                  !session ? (
+                    <Suspense fallback={<LoadingFallback />}>
+                      <LoginPage />
+                    </Suspense>
+                  ) : <Navigate to="/dashboard" replace />
+                } />
+
+                <Route path="/*" element={
+                  <ProtectedRoute session={session}>
+                    <DashboardLayout onLogout={() => supabase.auth.signOut()}>
+                      <Suspense fallback={<LoadingFallback />}>
+                        <Routes>
+                          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                          <Route path="/dashboard" element={<DashboardHome />} />
+                          <Route path="/tracker" element={<DailyTrackerPage />} />
+                          <Route path="/fields" element={<FieldsPage />} />
+                          <Route path="/finance" element={<FinancePage />} />
+                          <Route path="/market" element={<MarketPage />} />
+                          <Route path="/microgreens" element={<MicrogreensPage />} />
+                          <Route path="/hydroponics" element={<HydroponicsPage />} />
+                          <Route path="/agronomy" element={<AgronomyPage />} />
+                          <Route path="/analytics" element={<AnalyticsPage />} />
+                          <Route path="/scheduler" element={<SchedulerPage />} />
+                          <Route path="/guide" element={<FarmingGuidePage />} />
+                          <Route path="/iot-devices" element={<IoTDevicesPage />} />
+                          <Route path="/weather" element={<WeatherPage />} />
+                          <Route path="/settings" element={<SettingsPage />} />
+                        </Routes>
+                      </Suspense>
+                    </DashboardLayout>
+                  </ProtectedRoute>
+                } />
+              </Routes>
+            </Router>
+          </GlobalErrorBoundary>
         </FarmProvider>
       </BeginnerModeProvider>
     </QueryClientProvider>

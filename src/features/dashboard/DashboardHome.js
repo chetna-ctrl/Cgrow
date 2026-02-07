@@ -69,7 +69,8 @@ const DashboardHome = () => {
 
 const DashboardContent = () => {
     const [slideIndex, setSlideIndex] = useState(0);
-    const [weatherData, setWeatherData] = useState({ temp: null, humidity: null, rain: 0, solar: 0 });
+    // STABILITY: Init with safe defaults (avg conditions) to prevent "Arithmetic NaN" crashes on cold load
+    const [weatherData, setWeatherData] = useState({ temp: 24, humidity: 60, rain: 0, solar: 0 });
     const [marketPrices, setMarketPrices] = useState({});
     const [loadingInsights, setLoadingInsights] = useState(true);
     const [showInfoModal, setShowInfoModal] = useState(false);
