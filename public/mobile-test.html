@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mobile Connectivity Test</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 20px 0;
+            background: #059669;
+            color: white;
+            border: none;
+            border-radius: 8px;
+        }
+
+        #log {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            text-align: left;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>📶 Mobile Network Test</h2>
+    <p>Tap the button to test connection to Supabase DB.</p>
+
+    <button onclick="testConnection()">Run Test</button>
+
+    <div id="status">Waiting...</div>
+    <div id="log">Logs will appear here...</div>
+
+    <script>
+        const SUPABASE_URL = "https://hgddilitfwtyqblttvso.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhnZGRpbGl0Znd0eXFibHR0dnNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5NzM5NjQsImV4cCI6MjA4MzU0OTk2NH0.OaplCMXCQtiwpLWAhgWVil6K3pmXSz2j-ptfXDYKp_E";
+
+        function log(msg) {
+            const el = document.getElementById('log');
+            el.innerHTML += '\n' + msg;
+            console.log(msg);
+        }
+
+        async function testConnection() {
+            const statusEl = document.getElementById('status');
+            statusEl.innerText = "Testing...";
+            statusEl.className = "";
+            document.getElementById('log').innerHTML = "Initializing request...";
+
+            try {
+                const start = Date.now();
+                log(`Target: ${SUPABASE_URL}`);
+
+                // Direct REST API call (Bypassing Supabase Client Lib)
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/iot_devices?select=count&limit=1`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+
+                const end = Date.now();
+                log(`Status Code: ${response.status}`);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    statusEl.innerText = "✅ SUCCESS";
+                    statusEl.className = "success";
+                    log(`Response: ${JSON.stringify(data)}`);
+                    log(`Time: ${end - start}ms`);
+                } else {
+                    statusEl.innerText = "❌ SERVER ERROR";
+                    statusEl.className = "error";
+                    log(`Error: ${response.statusText}`);
+                }
+            } catch (err) {
+                statusEl.innerText = "❌ NETWORK FAIL";
+                statusEl.className = "error";
+                log(`Exception: ${err.message}`);
+                log(`Name: ${err.name}`);
+                if (err.message === 'Failed to fetch') {
+                    log('HINT: This usually means blocked Internet or DNS issue.');
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

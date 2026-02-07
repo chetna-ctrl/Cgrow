@@ -3,7 +3,7 @@
  * Analyzes daily logs to predict crop health and provide recommendations
  */
 
-export const predictCropHealth = (logs) => {
+export const predictCropHealth = (logs, systemType = 'Hydroponics') => {
     if (!logs || logs.length === 0) {
         return {
             score: 0,
@@ -15,38 +15,53 @@ export const predictCropHealth = (logs) => {
         };
     }
 
+    const isMicrogreens = systemType === 'Microgreens';
+
     // Calculate scores for each parameter
-    const phScore = calculatePHScore(logs);
-    const ecScore = calculateECScore(logs);
+    const phScore = calculatePHScore(logs, isMicrogreens);
+    const ecScore = calculateECScore(logs, isMicrogreens);
     const tempScore = calculateTempScore(logs);
-    const stabilityScore = calculateStabilityScore(logs);
+    const stabilityScore = calculateStabilityScore(logs, isMicrogreens);
 
     // Total score (weighted average)
-    const totalScore = Math.round(
-        phScore.score * 0.3 +
-        ecScore.score * 0.3 +
-        tempScore.score * 0.2 +
-        stabilityScore.score * 0.2
-    );
+    let totalScore;
+    if (isMicrogreens) {
+        // For Microgreens, we ignore pH/EC or give them full points
+        // Let's re-weight: Temp (40%), Stability (60%)
+        totalScore = Math.round(
+            tempScore.score * 2.0 + // Scaled to 40
+            stabilityScore.score * 3.0 // Scaled to 60
+        );
+    } else {
+        totalScore = Math.round(
+            phScore.score * 0.3 +
+            ecScore.score * 0.3 +
+            tempScore.score * 0.2 +
+            stabilityScore.score * 0.2
+        );
+    }
 
-    // Determine status
-    const status = getHealthStatus(totalScore);
+    // Determine status - Fallback to Warning if logs exist but score is low
+    let status = getHealthStatus(totalScore);
+    if (logs.length > 0 && totalScore === 0) status = 'Warning';
 
     // Calculate trend
-    const trend = calculateTrend(logs);
+    const trend = calculateTrend(logs, systemType);
 
     // Generate issues and recommendations
     const issues = [];
     const recommendations = [];
 
-    if (phScore.score < 25) {
-        issues.push(`pH ${phScore.avg > 6.5 ? 'too high' : 'too low'} (${phScore.avg.toFixed(1)})`);
-        recommendations.push(phScore.avg > 6.5 ? 'Add pH Down solution (0.2L per 10L)' : 'Add pH Up solution (0.1L per 10L)');
-    }
+    if (!isMicrogreens) {
+        if (phScore.score < 25) {
+            issues.push(`pH ${phScore.avg > 6.5 ? 'too high' : 'too low'} (${phScore.avg.toFixed(1)})`);
+            recommendations.push(phScore.avg > 6.5 ? 'Add pH Down solution (0.2L per 10L)' : 'Add pH Up solution (0.1L per 10L)');
+        }
 
-    if (ecScore.score < 25) {
-        issues.push(`EC ${ecScore.avg > 2.5 ? 'too high' : 'too low'} (${ecScore.avg.toFixed(1)} mS)`);
-        recommendations.push(ecScore.avg > 2.5 ? 'Dilute with fresh water' : 'Add nutrient solution');
+        if (ecScore.score < 25) {
+            issues.push(`EC ${ecScore.avg > 2.5 ? 'too high' : 'too low'} (${ecScore.avg.toFixed(1)} mS)`);
+            recommendations.push(ecScore.avg > 2.5 ? 'Dilute with fresh water' : 'Add nutrient solution');
+        }
     }
 
     if (tempScore.score < 15) {
@@ -81,7 +96,8 @@ export const predictCropHealth = (logs) => {
 };
 
 // Calculate pH score (0-30 points)
-const calculatePHScore = (logs) => {
+const calculatePHScore = (logs, isMicrogreens = false) => {
+    if (isMicrogreens) return { score: 30, status: 'Not Required', avg: 0 };
     const phValues = logs.map(l => parseFloat(l.ph)).filter(v => !isNaN(v));
     if (phValues.length === 0) return { score: 0, status: 'No Data', avg: 0 };
 
@@ -100,7 +116,8 @@ const calculatePHScore = (logs) => {
 };
 
 // Calculate EC score (0-30 points)
-const calculateECScore = (logs) => {
+const calculateECScore = (logs, isMicrogreens = false) => {
+    if (isMicrogreens) return { score: 30, status: 'Not Required', avg: 0 };
     const ecValues = logs.map(l => parseFloat(l.ec)).filter(v => !isNaN(v));
     if (ecValues.length === 0) return { score: 0, status: 'No Data', avg: 0 };
 
@@ -138,7 +155,29 @@ const calculateTempScore = (logs) => {
 };
 
 // Calculate Stability score (0-20 points)
-const calculateStabilityScore = (logs) => {
+const calculateStabilityScore = (logs, isMicrogreens = false) => {
+    if (isMicrogreens) {
+        const tempValues = logs.map(l => parseFloat(l.temp)).filter(v => !isNaN(v));
+        const humValues = logs.map(l => parseFloat(l.humidity)).filter(v => !isNaN(v));
+
+        if (tempValues.length < 2 || humValues.length < 2) {
+            return { score: 10, status: 'Insufficient Data' };
+        }
+
+        const tempVar = calculateVariance(tempValues);
+        const humVar = calculateVariance(humValues);
+
+        let score = 0;
+        if (tempVar < 1.5 && humVar < 5) score = 20;
+        else if (tempVar < 3 && humVar < 10) score = 10;
+        else score = 5;
+
+        return {
+            score,
+            status: score >= 15 ? 'Stable' : score >= 8 ? 'Fair' : 'Unstable'
+        };
+    }
+
     const phValues = logs.map(l => parseFloat(l.ph)).filter(v => !isNaN(v));
     const ecValues = logs.map(l => parseFloat(l.ec)).filter(v => !isNaN(v));
 
@@ -177,7 +216,7 @@ const getHealthStatus = (score) => {
 };
 
 // Calculate trend (Improving/Stable/Declining)
-const calculateTrend = (logs) => {
+const calculateTrend = (logs, systemType = 'Hydroponics') => {
     if (logs.length < 3) return 'Stable';
 
     // Compare first half vs second half
@@ -185,8 +224,8 @@ const calculateTrend = (logs) => {
     const firstHalf = logs.slice(0, mid);
     const secondHalf = logs.slice(mid);
 
-    const firstScore = predictCropHealth(firstHalf).score;
-    const secondScore = predictCropHealth(secondHalf).score;
+    const firstScore = predictCropHealth(firstHalf, systemType).score;
+    const secondScore = predictCropHealth(secondHalf, systemType).score;
 
     if (secondScore > firstScore + 5) return 'Improving';
     if (secondScore < firstScore - 5) return 'Declining';

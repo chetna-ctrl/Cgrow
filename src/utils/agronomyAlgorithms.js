@@ -2,7 +2,13 @@
 // AGRONOMY ALGORITHMS - DECISION LOGIC
 // ========================================
 
-import { CROPS, SOIL_TYPES, GROWING_MEDIA, CLIMATE_ZONES, NUTRIENT_DEFICIENCIES } from '../data/agronomyDatabase';
+import { SOIL_TYPES, GROWING_MEDIA, CLIMATE_ZONES, NUTRIENT_DEFICIENCIES } from '../data/agronomyDatabase';
+import { CROP_LIBRARY } from '../data/hydroponicCrops';
+
+// Legacy CROPS mapping for backward compatibility if needed, 
+// but we prefer CROP_LIBRARY for Hydroponics.
+const CROPS = CROP_LIBRARY;
+
 
 /**
  * ALGORITHM 1: Crop Recommendation Engine
@@ -365,6 +371,56 @@ export const predictYield = (cropType, currentNPK, ph, ec, temperature) => {
     };
 };
 
+/**
+ * ALGORITHM 9: Thermal Stress Detector (NEW)
+ * Based on: Specific Crop Thresholds
+ */
+export const detectThermalStress = (cropId, currentTemp) => {
+    const crop = CROP_LIBRARY[cropId?.toLowerCase()];
+    if (!crop || !currentTemp) return null;
+
+    const { min, max, optimal } = crop.temp;
+
+    // Cold Stress
+    if (currentTemp < min) {
+        return {
+            status: "Cold Stress ❄️",
+            risk: "High",
+            symptoms: crop.type === 'Herb' ? "Leaves turning purple/red (Phosphorus lockout)" : "Stunted growth, nutrient lockout",
+            action: "Install water heater or move to warmer area."
+        };
+    }
+
+    // Heat Stress
+    if (currentTemp > max) {
+        // Specific advice based on crop
+        let riskMsg = "Slow growth, root rot risk";
+        let actionMsg = "Add chillers, ice bottles, or increase shading";
+
+        if (crop.name.includes('Lettuce') || crop.name.includes('Spinach')) {
+            riskMsg = "BOLTING RISK! (Bitter taste & Flowers)";
+            actionMsg = "CRITICAL: Lower temp immediately to prevent bolting.";
+        } else if (crop.name.includes('Tomato')) {
+            riskMsg = "Blossom Drop (Flowers falling off)";
+        }
+
+        return {
+            status: "Heat Stress 🔥",
+            risk: "High",
+            symptoms: riskMsg,
+            action: actionMsg
+        };
+    }
+
+    // Optimal
+    return {
+        status: "Optimal ✅",
+        risk: "None",
+        symptoms: "Ideal range for photosynthesis",
+        action: "Maintain current conditions"
+    };
+};
+
 export default {
     recommendCrop,
     calculateNutrientNeeds,
@@ -373,5 +429,6 @@ export default {
     selectGrowingMedia,
     predictDiseaseRisk,
     checkHarvestReadiness,
-    predictYield
+    predictYield,
+    detectThermalStress
 };

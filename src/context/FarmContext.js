@@ -53,23 +53,23 @@ export const FarmProvider = ({ children }) => {
     // 3. LOGIC & ACTIONS
 
     // --- HYDROPONICS ACTIONS ---
-    const calculateStatus = (ph, ec, temp) => {
+    const calculateStatus = React.useCallback((ph, ec, temp) => {
         if (ph < 5.5 || ph > 6.5) return 'Critical';
         if (ec < 1.0 || ec > 2.5) return 'Warning';
         if (temp > 25) return 'Warning';
         return 'Healthy';
-    };
+    }, []);
 
-    const addSystem = (newSystem) => {
+    const addSystem = React.useCallback((newSystem) => {
         const sys = {
             ...newSystem,
             status: calculateStatus(newSystem.ph, newSystem.ec, newSystem.temp),
             lastCheck: new Date().toISOString()
         };
         setHydroSystems(prev => [...prev, sys]);
-    };
+    }, [calculateStatus]);
 
-    const updateSystem = (id, field, value) => {
+    const updateSystem = React.useCallback((id, field, value) => {
         setHydroSystems(prev => prev.map(sys => {
             if (sys.id === id) {
                 const updated = { ...sys, [field]: value };
@@ -82,36 +82,36 @@ export const FarmProvider = ({ children }) => {
             }
             return sys;
         }));
-    };
+    }, [calculateStatus]);
 
     // --- LOGS ACTIONS ---
-    const addLog = (log) => {
+    const addLog = React.useCallback((log) => {
         const newLog = { ...log, id: Date.now(), timestamp: new Date().toISOString() };
         setDailyLogs(prev => [newLog, ...prev]);
-    };
+    }, []);
 
     // --- MICROGREENS ACTIONS ---
-    const addBatch = (batch) => {
+    const addBatch = React.useCallback((batch) => {
         const newBatch = { ...batch, id: Date.now(), status: 'Growing', timestamp: new Date().toISOString() };
         setMicrogreens(prev => [...prev, newBatch]);
-    };
+    }, []);
 
-    const harvestBatch = (id) => {
+    const harvestBatch = React.useCallback((id) => {
         setMicrogreens(prev => prev.map(b => b.id === id ? { ...b, status: 'Harvested', harvestDate: new Date().toISOString() } : b));
-    };
+    }, []);
 
     // --- DERIVED STATS (Getters) ---
-    const getHydroStats = () => ({
+    const getHydroStats = React.useCallback(() => ({
         totalSystems: hydroSystems.length,
         criticalCount: hydroSystems.filter(s => s.status === 'Critical').length,
         healthyCount: hydroSystems.filter(s => s.status === 'Healthy').length,
         avgPh: hydroSystems.length ? (hydroSystems.reduce((acc, s) => acc + Number(s.ph), 0) / hydroSystems.length).toFixed(1) : 0
-    });
+    }), [hydroSystems]);
 
-    const getLatestLog = () => dailyLogs[0] || null;
+    const getLatestLog = React.useCallback(() => dailyLogs[0] || null, [dailyLogs]);
 
     // EXPOSED VALUE
-    const value = {
+    const value = React.useMemo(() => ({
         // State
         hydroSystems,
         dailyLogs,
@@ -125,7 +125,7 @@ export const FarmProvider = ({ children }) => {
         // Helpers
         getHydroStats,
         getLatestLog
-    };
+    }), [hydroSystems, dailyLogs, microgreens, addSystem, updateSystem, addLog, addBatch, harvestBatch, getHydroStats, getLatestLog]);
 
     return (
         <FarmContext.Provider value={value}>

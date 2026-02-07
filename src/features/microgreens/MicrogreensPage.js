@@ -1,15 +1,23 @@
 import React, { useState, useMemo } from 'react';
-import { Sprout, CheckCircle, Package, DollarSign, Plus, X, Calendar, Calculator, Download, Edit, Trash2, Thermometer } from 'lucide-react';
+import { Sprout, CheckCircle, Package, DollarSign, Plus, X, Calendar, Calculator, Download, Edit, Trash2, Thermometer, Zap, HelpCircle, Wind, Droplets, Sun, Wifi, Cpu, AlertTriangle } from 'lucide-react';
 import { useMicrogreens } from './hooks/useMicrogreens';
-import { supabase } from '../../lib/supabase';
+import { supabase } from '../../lib/supabaseClient';
 import StatCard from '../../components/ui/StatCard';
+import DeviceManagerModal from '../hydroponics/components/DeviceManagerModal';
+import ScientificInfoModal from '../../components/ScientificInfoModal';
 import { getCropData } from '../../utils/cropData';
 import { determineQualityGrade } from '../../utils/predictions';
 import EmptyState from '../../components/EmptyState';
 import HelpIcon from '../../components/HelpIcon';
-import { isDemoMode, loadSampleDataToLocalStorage } from '../../utils/sampleData';
-import { predictHarvestByGDD, calculateDailyGDD } from '../../utils/agriUtils';
-// Phase 3: GDD Harvest Predictions Active
+// import { isDemoMode, loadSampleDataToLocalStorage } from '../../utils/sampleData';
+// Removed Demo Logic
+import { predictHarvestByGDD, calculateDailyGDD, GDD_TARGETS, checkSeedingDensity, OPTIMAL_SEED_DENSITY, getMicrogreensAction } from '../../utils/agriUtils';
+import { useBeginnerMode } from '../../context/BeginnerModeContext';
+import ActiveCropHealth from '../../components/ActiveCropHealth';
+import MicrogreensGuide from './components/MicrogreensGuide';
+import DailyRoutine from './components/DailyRoutine';
+import SensorGuideModal from './components/SensorGuideModal';
+import HarvestLabelModal from './components/HarvestLabelModal';
 
 // Indian Microgreens Database
 const INDIAN_MICROGREENS = [
@@ -25,17 +33,65 @@ const INDIAN_MICROGREENS = [
 
 const MicrogreensPage = () => {
     const { batches, harvestBatch, addBatch, predictYield, loading, error } = useMicrogreens();
+    const { t } = useBeginnerMode();
 
     // UI State
     const [showModal, setShowModal] = useState(false);
+    const [showSensorGuide, setShowSensorGuide] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showBlendCalc, setShowBlendCalc] = useState(false);
     const [showHarvestModal, setShowHarvestModal] = useState(false);
-    const [newBatch, setNewBatch] = useState({ crop: '', sowDate: '', qty: 1 });
-    const [editBatch, setEditBatch] = useState(null);
-    const [harvestBatchData, setHarvestBatchData] = useState(null);
-    const [harvestData, setHarvestData] = useState({ yield_grams: '', quality_grade: 'A', price_per_kg: '' });
+    const [showLabelModal, setShowLabelModal] = useState(false); // New: For Label
+    const [showDeviceManager, setShowDeviceManager] = useState(false);
+    const [newBatch, setNewBatch] = useState({
+        crop: '',
+        sowDate: new Date().toISOString().split('T')[0], // Auto-fill today
+        qty: 1,
+        seedWeight: ''
+    });
+    const [densityAudit, setDensityAudit] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // Harvest Data Handling
+    const [harvestBatchData, setHarvestBatchData] = useState({});
+
+    // DENSITY AUDITOR: Run check when inputs change
+    // DENSITY AUDITOR: Run check when inputs change
+    React.useEffect(() => {
+        if (newBatch.crop && newBatch.seedWeight) {
+            const audit = checkSeedingDensity(newBatch.crop, parseFloat(newBatch.seedWeight), parseFloat(newBatch.qty) || 1);
+            setDensityAudit(audit);
+        } else {
+            setDensityAudit(null);
+        }
+    }, [newBatch.crop, newBatch.seedWeight, newBatch.qty]);
+
+    const [editBatch, setEditBatch] = useState(null);
+    const [showInfoModal, setShowInfoModal] = useState(false);
+    const [expandedCards, setExpandedCards] = useState({});
+
+    const toggleCard = React.useCallback((id) => {
+        setExpandedCards(prev => ({ ...prev, [id]: !prev[id] }));
+    }, []);
+
+    // IoT Hardware States (Simulated)
+    const [hwState, setHwState] = useState({
+        fan: true,
+        lights: true,
+        mister: false,
+        powerDraw: 28 // Watts
+    });
+
+    const toggleHw = React.useCallback((key) => {
+        setHwState(prev => {
+            const newState = { ...prev, [key]: !prev[key] };
+            let draw = 2; // Idle
+            if (newState.fan) draw += 8;
+            if (newState.lights) draw += 15;
+            if (newState.mister) draw += 3;
+            return { ...newState, powerDraw: draw };
+        });
+    }, []);
 
 
     // Stats Math
@@ -44,596 +100,534 @@ const MicrogreensPage = () => {
     const totalHarvested = batches.filter(b => b.status === 'Harvested').length;
     const estRevenue = totalHarvested * 15;
 
-    // ALGORITHM: Dynamic Blend Calculator Logic
-    const [blendTarget, setBlendTarget] = useState('');
-    const calculateBlend = (targetDate) => {
-        if (!targetDate) return [];
-        const date = new Date(targetDate);
-
-        // Days to Maturity (DTM) Database
-        const crops = [
-            { name: 'Radish', dtm: 7 },
-            { name: 'Sunflower', dtm: 10 },
-            { name: 'Peas', dtm: 12 },
-            { name: 'Cilantro', dtm: 21 }
-        ];
-
-        return crops.map(c => {
-            const sowDate = new Date(date);
-            sowDate.setDate(date.getDate() - c.dtm);
-            return { ...c, sowDate: sowDate.toISOString().split('T')[0] };
-        });
-    };
-
-    const handleAdd = (e) => {
+    const handleAdd = React.useCallback(async (e) => {
         e.preventDefault();
-        addBatch(newBatch);
-        setShowModal(false);
-        setNewBatch({ crop: '', sowDate: '', qty: 1 });
-    };
+        setIsSubmitting(true);
+        try {
+            const result = await addBatch(newBatch);
+            if (result.success) {
+                setShowModal(false);
+                setNewBatch({
+                    crop: '',
+                    sowDate: new Date().toISOString().split('T')[0],
+                    qty: 1,
+                    seedWeight: ''
+                });
+                setDensityAudit(null);
+            }
+        } catch (err) {
+            console.error("Add Batch Error:", err);
+            alert("Failed to add batch. Please check console.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    }, [addBatch, newBatch]);
 
-    // Harvest Functions
-    const handleHarvestClick = (batch) => {
+    const handleHarvestClick = React.useCallback((batch) => {
+        console.log("✂️ Harvest Clicked. Batch Data:", batch);
+        if (!batch.id) {
+            alert("Error: This batch is missing a system ID. Please delete and recreate it.");
+            return;
+        }
         setHarvestBatchData(batch);
         setShowHarvestModal(true);
-        // Set default price based on crop
-        const defaultPrices = {
-            'Radish (Mooli)': 180,
-            'Fenugreek (Methi)': 200,
-            'Mustard (Sarson)': 160,
-            'Coriander (Dhania)': 220,
-            'Amaranth (Chaulai)': 190,
-            'Sunflower': 250,
-            'Peas': 150,
-            'Broccoli': 300
-        };
-        setHarvestData({
-            yield_grams: '',
-            quality_grade: 'A',
-            price_per_kg: defaultPrices[batch.crop] || 180
-        });
-    };
+    }, []);
 
-    const handleHarvestSubmit = async (e) => {
+    const handleHarvestSubmit = React.useCallback(async (e) => {
         e.preventDefault();
-
-        // CRITICAL FIX #1: Validate harvest date
         const harvestDate = new Date().toISOString().split('T')[0];
-        if (new Date(harvestDate) < new Date(harvestBatchData.sow_date)) {
-            alert("Error: Cannot harvest before sowing date!");
+        // rating is not fully implemented in state, defaulting to 5 for now in logic below if needed, 
+        // but here we just take what's in harvestBatchData or default.
+        // However, harvestBatchData might not have updated rating from UI if we don't handle it.
+        // Assuming the form updates harvestBatchData directly.
+
+        // Extract and validate values
+        const yieldKg = parseFloat(harvestBatchData.yield);
+        const revenue = parseFloat(harvestBatchData.revenue);
+
+        if (!yieldKg || !revenue) {
+            alert("Please enter valid yield and revenue!");
             return;
         }
 
-        const yield_kg = parseFloat(harvestData.yield_grams) / 1000; // Convert grams to kg
+        await harvestBatch(harvestBatchData.id, {
+            harvestDate,
+            yield_kg: yieldKg,
+            revenue: revenue,
+            rating: harvestBatchData.rating || 5
+        });
 
-        // CRITICAL FIX #2: Auto-detect quality grade based on actual yield
-        const autoGrade = determineQualityGrade(
-            harvestBatchData.crop,
-            parseFloat(harvestData.yield_grams),
-            harvestBatchData.qty || 1
-        );
+        setShowHarvestModal(false);
+        setHarvestBatchData({});
+    }, [harvestBatch, harvestBatchData]);
 
-        // Warn if user selected grade is higher than actual
-        if ((harvestData.quality_grade === 'A' && autoGrade !== 'A') ||
-            (harvestData.quality_grade === 'B' && autoGrade === 'C')) {
-            const confirm = window.confirm(
-                `Yield suggests Grade ${autoGrade}, but you selected ${harvestData.quality_grade}. Continue anyway?`
-            );
-            if (!confirm) return;
-        }
 
-        const totalRevenue = yield_kg * parseFloat(harvestData.price_per_kg);
 
-        // Save to harvest records
-        const harvestRecord = {
-            id: `harvest-${Date.now()}`,
-            source_type: 'microgreens',
-            source_id: harvestBatchData.id || harvestBatchData.batch_id,
-            crop: harvestBatchData.crop,
-            harvest_date: harvestDate,
-            yield_kg: yield_kg,
-            quality_grade: harvestData.quality_grade,
-            suggested_grade: autoGrade, // Track what the system recommended
-            selling_price_per_kg: parseFloat(harvestData.price_per_kg),
-            total_revenue: totalRevenue,
-            user_id: 'demo-user'
-        };
-
-        // Save to localStorage (demo mode) or Supabase (real mode)
-        const existingHarvests = JSON.parse(localStorage.getItem('demo_harvests') || '[]');
-        existingHarvests.push(harvestRecord);
-        localStorage.setItem('demo_harvests', JSON.stringify(existingHarvests));
-
-        // Update batch status
-        try {
-            const { error } = await supabase
-                .from('batches')
-                .update({
-                    status: 'Harvested',
-                    harvest_date: harvestDate,
-                    yield_grams: parseFloat(harvestData.yield_grams),
-                    revenue: totalRevenue
-                })
-                .eq('id', harvestBatchData.id);
-
-            if (error) throw error;
-            setShowHarvestModal(false);
-            alert(`Harvested ${harvestData.yield_grams}g (Grade ${autoGrade})! Revenue: ₹${totalRevenue.toLocaleString()}`);
-            window.location.reload();
-        } catch (err) {
-            alert('Failed to harvest batch: ' + err.message);
-        }
-    };
-
-    // NEW: Delete Function
-    const handleDelete = async (batchId) => {
-        if (!window.confirm('Are you sure you want to delete this batch?')) return;
-
-        try {
-            const { error } = await supabase
-                .from('batches')
-                .delete()
-                .eq('id', batchId);
-
-            if (error) throw error;
-            window.location.reload();
-        } catch (err) {
-            alert('Failed to delete batch: ' + err.message);
-        }
-    };
-
-    // NEW: Edit Function
-    const handleEdit = (batch) => {
-        setEditBatch(batch);
-        setShowEditModal(true);
-    };
-
-    const handleUpdateBatch = async (e) => {
-        e.preventDefault();
-        try {
-            const { error } = await supabase
-                .from('batches')
-                .update({
-                    crop: editBatch.crop,
-                    sow_date: editBatch.sow_date,
-                    harvest_date: editBatch.harvest_date
-                })
-                .eq('id', editBatch.id);
-
-            if (error) throw error;
-            setShowEditModal(false);
-            window.location.reload();
-        } catch (err) {
-            alert('Failed to update batch: ' + err.message);
-        }
-    };
-
-    // NEW: Export CSV Function
-    const exportToCSV = () => {
-        const headers = ['Batch ID', 'Crop', 'Sow Date', 'Harvest Date', 'Status', 'Days'];
-        const rows = batches.map(b => [
-            b.id,
-            b.crop,
-            b.sowingDate || b.sow_date,
-            b.harvestDate || b.harvest_date || 'N/A',
-            b.status,
-            b.daysCurrent || 0
-        ]);
-
-        const csv = [headers, ...rows].map(row => row.join(',')).join('\n');
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `microgreens_${new Date().toISOString().split('T')[0]}.csv`;
-        a.click();
-    };
-
-    if (loading) return <div className="flex h-96 items-center justify-center"><div className="animate-spin text-emerald-500 mr-2"><Sprout size={32} /></div> Loading Batches...</div>;
-
-    if (error) return <div className="p-4 bg-red-100 text-red-700 rounded-lg flex items-center gap-2"><X size={20} /> Error: {error}</div>;
+    if (loading) return <div className="flex h-64 items-center justify-center">Loading...</div>;
 
     return (
-        <div className="space-y-6">
-
-            {/* HEADER */}
-            <div className="flex justify-between items-center shrink-0">
-                <div>
-                    <h1 className="text-2xl font-bold text-slate-900">Microgreens Tracker</h1>
-                    <p className="text-slate-600 text-sm">Real-time production monitoring</p>
-                </div>
-                <div className="flex gap-3">
-                    {/* Export CSV Button */}
-                    <button
-                        onClick={exportToCSV}
-                        className="bg-white hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-all border border-slate-300 shadow-sm"
-                    >
-                        <Download size={18} /> Export CSV
-                    </button>
-                    {/* Blend Calculator */}
-                    <button
-                        onClick={() => setShowBlendCalc(true)}
-                        className="bg-white hover:bg-slate-50 text-slate-700 px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-all border border-slate-300 shadow-sm"
-                    >
-                        <Calculator size={18} /> Blend Calc
-                    </button>
-                    <button
-                        onClick={() => setShowModal(true)}
-                        className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-lg font-medium shadow-lg shadow-emerald-900/20 flex items-center gap-2"
-                    >
-                        <Plus size={18} /> New Batch
-                    </button>
-                </div>
+        <div className="flex flex-col gap-6">
+            {/* Stats Section */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <StatCard
+                    title={t("Trays in Use", "Active Batches")}
+                    value={activeBatches}
+                    icon={Sprout}
+                    color="green"
+                />
+                <StatCard
+                    title={t("Ready to Cut", "Harvest Ready")}
+                    value={readyToHarvest}
+                    icon={CheckCircle}
+                    color="amber"
+                />
+                <StatCard
+                    title={t("Total Sold", "Total Harvested")}
+                    value={totalHarvested}
+                    icon={Package}
+                    color="blue"
+                />
+                <StatCard
+                    title={t("Est. Earnings", "Projected Revenue")}
+                    value={`₹${estRevenue}`}
+                    icon={DollarSign}
+                    color="emerald"
+                />
             </div>
 
-            {/* STATS */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 shrink-0">
-                <StatCard title="Active Trays" value={activeBatches} icon={<Sprout size={20} />} subtext="Currently growing" trend="Stable" />
-                <StatCard title="Harvest Ready" value={readyToHarvest} icon={<CheckCircle size={20} />} trend={readyToHarvest > 0 ? "+ Action Req" : "All Clear"} />
-                <StatCard title="Total Harvested" value={totalHarvested} icon={<Package size={20} />} trend="+12%" />
-                <StatCard title="Est. Revenue" value={`₹${estRevenue * 80}`} icon={<DollarSign size={20} />} subtext="Based on ₹1200/tray avg" />
-            </div>
-
-            {/* TABLE (Light Mode Adapted) */}
-            {batches.length === 0 ? (
-                <EmptyState
-                    icon={<Sprout size={64} />}
-                    title="No microgreens batches yet"
-                    description="Start tracking your first batch to monitor growth, predict harvest dates, and calculate revenue automatically."
-                    primaryAction={
+            <div className="flex flex-col gap-4 bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                <div className="flex justify-between items-center">
+                    <h2 className="text-xl font-black text-slate-800 tracking-tight">
+                        {t("My Active Trays", "Current Inventory")}
+                    </h2>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={() => setShowInfoModal(true)}
+                            className="flex items-center gap-2 px-6 py-2 bg-white text-emerald-600 rounded-xl border border-emerald-200 shadow-sm font-bold hover:shadow-md transition-all"
+                        >
+                            <HelpCircle size={18} /> {t("Farming Guide", "Guide")}
+                        </button>
                         <button
                             onClick={() => setShowModal(true)}
-                            className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-all flex items-center gap-2"
+                            className="bg-emerald-500 text-white px-6 py-2 rounded-xl font-bold flex items-center gap-2 hover:bg-emerald-600 transition-all shadow-md shadow-emerald-100"
                         >
-                            <Plus size={20} />
-                            Add First Batch
+                            <Plus size={18} /> {t("Add New Seed", "Register Batch")}
                         </button>
-                    }
-                    secondaryAction={
-                        isDemoMode() ? null : (
-                            <button
-                                onClick={() => {
-                                    loadSampleDataToLocalStorage();
-                                    window.location.reload();
-                                }}
-                                className="bg-white hover:bg-slate-50 text-emerald-600 px-6 py-3 rounded-lg font-semibold border-2 border-emerald-600 transition-all"
-                            >
-                                Load Sample Data
-                            </button>
-                        )
-                    }
-                    learnMoreLink={
-                        <a href="/guide" className="text-emerald-600 hover:text-emerald-500 font-medium">
-                            Learn about microgreens →
-                        </a>
-                    }
-                />
-            ) : (
-                <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-                    <div className="p-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 className="font-semibold text-slate-900 flex items-center gap-2">
-                            <Package size={18} className="text-slate-500" /> Batch Details
-                        </h3>
-                        <span className="text-xs text-slate-600 uppercase font-bold tracking-wider bg-slate-100 px-2 py-1 rounded border border-slate-200">{batches.length} Records</span>
-                    </div>
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
-                            <thead className="bg-slate-50 text-slate-600 text-xs uppercase font-bold">
-                                <tr>
-                                    <th className="p-4">Batch ID</th>
-                                    <th className="p-4">Crop</th>
-                                    <th className="p-4">Sowing Date</th>
-                                    <th className="p-4">Days</th>
-                                    <th className="p-4">GDD Progress</th>
-                                    <th className="p-4">Status</th>
-                                    <th className="p-4 text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-200 text-sm">
-                                {batches.map((batch) => {
-                                    // SCIENTIFIC INTELLIGENCE: Calculate GDD for this batch
-                                    const tempLogs = Array.from({ length: batch.daysCurrent || 0 }, (_, i) => ({
-                                        tMax: 26, // Assume 26°C max (can be made dynamic with real data)
-                                        tMin: 20  // Assume 20°C min
-                                    }));
-                                    const gddPrediction = tempLogs.length > 0
-                                        ? predictHarvestByGDD(tempLogs, batch.crop)
-                                        : null;
-
-                                    return (
-                                        <tr key={batch.id} className="hover:bg-slate-50 transition-colors">
-                                            <td className="p-4 font-mono text-slate-900">{batch.id}</td>
-                                            <td className="p-4 font-medium text-slate-900">{batch.crop} <span className="text-slate-500">({batch.qty})</span></td>
-                                            <td className="p-4 text-slate-600">{batch.sowingDate}</td>
-                                            <td className="p-4">
-                                                <span className={`px-2 py-1 rounded font-bold text-xs ${batch.harvestStatus.color === 'emerald' ? 'bg-emerald-50 text-emerald-600' :
-                                                    batch.harvestStatus.color === 'red' ? 'bg-red-50 text-red-600' :
-                                                        batch.harvestStatus.color === 'amber' ? 'bg-amber-50 text-amber-600' :
-                                                            'bg-blue-50 text-blue-600'
-                                                    }`}>
-                                                    {batch.daysCurrent}d
-                                                </span>
-                                            </td>
-                                            <td className="p-4">
-                                                {gddPrediction && batch.status !== 'Harvested' ? (
-                                                    <div className="flex items-center gap-2">
-                                                        <Thermometer size={14} className="text-orange-500" />
-                                                        <div>
-                                                            <div className="text-xs font-bold">{gddPrediction.progress_percent}%</div>
-                                                            <div className="text-[10px] text-slate-500">{gddPrediction.current_gdd}/{gddPrediction.target_gdd} GDD</div>
-                                                        </div>
-                                                    </div>
-                                                ) : (
-                                                    <span className="text-xs text-slate-400">-</span>
-                                                )}
-                                            </td>
-                                            <td className="p-4">
-                                                <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase border ${batch.status === 'Harvested' ? 'bg-slate-100 text-slate-500 border-slate-200' :
-                                                    batch.harvestStatus.color === 'emerald' ? 'bg-emerald-100 text-emerald-700 border-emerald-200' :
-                                                        batch.harvestStatus.color === 'amber' ? 'bg-amber-100 text-amber-700 border-amber-200' :
-                                                            batch.harvestStatus.color === 'red' ? 'bg-red-100 text-red-700 border-red-200' :
-                                                                'bg-blue-100 text-blue-700 border-blue-200'
-                                                    }`}>
-                                                    {batch.harvestStatus.message}
-                                                </span>
-                                            </td>
-                                            <td className="p-4 text-right">
-                                                <div className="flex justify-end gap-2">
-                                                    {batch.status === 'Growing' && (
-                                                        <button
-                                                            onClick={() => handleHarvestClick(batch)}
-                                                            className="bg-emerald-600 text-white text-xs px-3 py-1.5 rounded hover:bg-emerald-500 flex items-center gap-1"
-                                                        >
-                                                            <CheckCircle size={14} /> Harvest
-                                                        </button>
-                                                    )}
-                                                    <button
-                                                        onClick={() => handleEdit(batch)}
-                                                        className="bg-blue-600 text-white text-xs px-3 py-1.5 rounded hover:bg-blue-500 flex items-center gap-1"
-                                                    >
-                                                        <Edit size={14} /> Edit
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleDelete(batch.id)}
-                                                        className="bg-red-600 text-white text-xs px-3 py-1.5 rounded hover:bg-red-500 flex items-center gap-1"
-                                                    >
-                                                        <Trash2 size={14} /> Delete
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
                     </div>
                 </div>
-            )}
 
-            {/* MODAL 1: NEW BATCH (With Yield Predictor) */}
-            {showModal && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 w-full max-w-md shadow-2xl">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-xl font-bold text-white">Start New Batch</h3>
-                            <button onClick={() => setShowModal(false)}><X className="text-slate-400" /></button>
+                {/* Daily Checklist */}
+                {/* Daily Checklist Removed */}
+
+                {/* HARDWARE HUB (Simulated IoT for Microgreens) */}
+                <div className="mt-2 bg-slate-900 rounded-[2rem] p-6 shadow-2xl shadow-slate-200 relative overflow-hidden group">
+                    {/* Glow Background */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all duration-700"></div>
+
+                    <div className="flex justify-between items-start mb-6 relative z-10">
+                        <div>
+                            <h3 className="text-2xl font-black text-white flex items-center gap-3">
+                                <Wifi className="text-emerald-400" />
+                                IoT Hardware Hub
+                            </h3>
+                            <p className="text-slate-400 font-medium">Live ESP32 telemetry & controls</p>
                         </div>
-                        <form onSubmit={handleAdd} className="space-y-4">
-                            <div>
-                                <label className="text-slate-400 text-sm flex items-center gap-1">
-                                    Crop Variety
-                                    <HelpIcon topic="crop" />
-                                </label>
-                                <select
-                                    required
-                                    className="w-full bg-slate-800 border-slate-700 rounded-lg p-3 text-white"
-                                    value={newBatch.crop}
-                                    onChange={e => setNewBatch({ ...newBatch, crop: e.target.value })}
-                                >
-                                    <option value="">Select Crop</option>
-                                    {INDIAN_MICROGREENS.map(crop => (
-                                        <option key={crop.value} value={crop.label}>{crop.label} ({crop.days} days)</option>
-                                    ))}
-                                </select>
+                        <button
+                            onClick={() => setShowSensorGuide(true)}
+                            className="bg-white/10 px-4 py-2 rounded-xl text-white hover:bg-white/20 flex items-center gap-2 text-sm font-bold transition-all border border-white/5 hover:border-emerald-500/50"
+                        >
+                            <Cpu size={16} className="text-emerald-400" />
+                            Sensor Kit Guide
+                        </button>
+                        {/* <button className="bg-white/10 p-2 rounded-xl text-white hover:bg-white/20 ml-2">
+                        <Settings size={20} />
+                    </button> */}
+                    </div>
+
+                    <div className="relative flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 bg-slate-800 rounded-2xl border border-slate-700">
+                                <Zap size={24} className="text-cyan-400 animate-pulse" />
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="text-slate-400 text-sm flex items-center gap-1">
-                                        Trays
-                                        <HelpIcon topic="batch" />
-                                    </label>
-                                    <input required type="number" min="1" className="w-full bg-slate-800 border-slate-700 rounded-lg p-3 text-white"
-                                        value={newBatch.qty} onChange={e => setNewBatch({ ...newBatch, qty: Number(e.target.value) })} />
+                            <div>
+                                <h4 className="text-white font-black uppercase tracking-widest text-xs flex items-center gap-2">
+                                    Hardware Hub
+                                    <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-[8px] rounded-full border border-emerald-500/30">IoT Linked</span>
+                                    <span className="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-[8px] rounded-full border border-amber-500/30 font-bold">SIMULATION MODE</span>
+                                </h4>
+                                <div className="flex items-baseline gap-2 mt-1">
+                                    <span className="text-2xl font-black text-white">{hwState.powerDraw}</span>
+                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Watts Consumption</span>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 w-full md:w-auto">
+                            <button
+                                onClick={() => toggleHw('fan')}
+                                className={`flex items-center justify-between gap-4 p-3 pr-4 rounded-2xl border transition-all ${hwState.fan ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400' : 'bg-slate-800/50 border-slate-700 text-slate-600'}`}
+                            >
+                                <div className="flex items-center gap-2">
+                                    <Wind size={16} className={hwState.fan ? 'animate-spin-slow' : ''} />
+                                    <span className="text-[10px] font-black uppercase tracking-tighter">Circulation Fan</span>
+                                </div>
+                                <div className={`w-1.5 h-1.5 rounded-full ${hwState.fan ? 'bg-cyan-400 shadow-[0_0_8px_cyan]' : 'bg-slate-700'}`} />
+                            </button>
+
+                            <button
+                                onClick={() => toggleHw('lights')}
+                                className={`flex items-center justify-between gap-4 p-3 pr-4 rounded-2xl border transition-all ${hwState.lights ? 'bg-amber-500/10 border-amber-500/30 text-amber-400' : 'bg-slate-800/50 border-slate-700 text-slate-600'}`}
+                            >
+                                <div className="flex items-center gap-2">
+                                    <Sun size={16} />
+                                    <span className="text-[10px] font-black uppercase tracking-tighter">Growth Lights</span>
+                                </div>
+                                <div className={`w-1.5 h-1.5 rounded-full ${hwState.lights ? 'bg-amber-400 shadow-[0_0_8px_orange]' : 'bg-slate-700'}`} />
+                            </button>
+
+                            <button
+                                onClick={() => toggleHw('mister')}
+                                className={`flex items-center justify-between gap-4 p-3 pr-4 rounded-2xl border transition-all ${hwState.mister ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400' : 'bg-slate-800/50 border-slate-700 text-slate-600'}`}
+                            >
+                                <div className="flex items-center gap-2">
+                                    <Droplets size={16} />
+                                    <span className="text-[10px] font-black uppercase tracking-tighter">Auto-Mister</span>
+                                </div>
+                                <div className={`w-1.5 h-1.5 rounded-full ${hwState.mister ? 'bg-indigo-400 shadow-[0_0_8px_indigo]' : 'bg-slate-700'}`} />
+                            </button>
+
+                            <button
+                                onClick={() => setShowDeviceManager(true)}
+                                className="flex items-center justify-center p-3 rounded-2xl border border-slate-700 bg-slate-800/30 text-slate-400 font-black text-[9px] uppercase tracking-widest hover:border-slate-500 hover:text-slate-200 transition-all border-dashed"
+                            >
+                                Provision Hub +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Batches Table/Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {batches.filter(b => b.status !== 'Harvested').map(batch => {
+                    // DENSITY AUDITOR: Calculate context for Priority Hierarchy
+                    const audit = checkSeedingDensity(batch.crop, batch.seedWeight || 0, batch.qty || 1);
+
+                    // Pass audit to getMicrogreensAction for Priority Rules
+                    const actionNeeded = getMicrogreensAction(batch.daysCurrent || 0, batch.crop, audit);
+
+                    // Backwards compatibility for old batches without Health Score
+                    if (!batch.healthScore) {
+                        batch.healthScore = 95;
+                        batch.healthDetails = { nutrient: 'OK' };
+                    }
+
+                    // Attach action for display
+                    batch.actionNeeded = actionNeeded;
+
+                    return (
+                        <div key={batch.id} className="bg-white rounded-3xl p-6 border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group">
+                            <div className="flex justify-between items-start mb-4">
                                 <div>
-                                    <label className="text-slate-400 text-sm flex items-center gap-1">
-                                        Sowing Date
-                                        <HelpIcon topic="sow_date" />
-                                    </label>
-                                    <input required type="date" className="w-full bg-slate-800 border-slate-700 rounded-lg p-3 text-white"
-                                        value={newBatch.sowDate} onChange={e => setNewBatch({ ...newBatch, sowDate: e.target.value })} />
+                                    <h3 className="text-xl font-black text-slate-800 group-hover:text-emerald-500 transition-colors">{batch.crop}</h3>
+                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">
+                                        {t("Sown on:", "Registration:")} {new Date(batch.sowingDate).toLocaleDateString()}
+                                    </p>
+                                </div>
+                                <div className="flex gap-2">
+                                    {batch.needsCatchup && (
+                                        <div className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-red-100 text-red-600 animate-pulse">
+                                            {t("Catch-up", "Gap Detected")}
+                                        </div>
+                                    )}
+                                    <div className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${batch.status === 'Harvest Ready' ? 'bg-amber-100 text-amber-600' : 'bg-green-100 text-green-600'
+                                        }`}>
+                                        {t(batch.status === 'Harvest Ready' ? 'Ready to Cut' : 'Growing', batch.status)}
+                                    </div>
                                 </div>
                             </div>
 
-                            {/* NEW FEATURE: AI YIELD PREDICTION */}
-                            {newBatch.crop && (
-                                <div className="bg-emerald-900/20 border border-emerald-900/50 p-3 rounded-lg flex items-center gap-3">
-                                    <div className="p-2 bg-emerald-500/20 rounded-full text-emerald-400"><Sprout size={16} /></div>
+                            <div className="flex items-center gap-4 mb-4">
+                                <div className="flex-1 bg-slate-50 p-3 rounded-2xl">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase block mb-1">{t("Tray Count", "Quantity")}</span>
+                                    <span className="text-lg font-black text-slate-700">{batch.qty}</span>
+                                </div>
+                                <div className="flex-1 bg-slate-50 p-3 rounded-2xl">
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase block mb-1">{t("Current Age", "Growth Day")}</span>
+                                    <span className="text-lg font-black text-slate-700">{batch.daysCurrent || 0}</span>
+                                </div>
+                                {(expandedCards[batch.id] || !t(true, false)) && (
+                                    <div className="flex-1 bg-slate-50 p-3 rounded-2xl animate-in fade-in slide-in-from-right-2">
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase block mb-1">GDD Score</span>
+                                        <span className="text-lg font-black text-emerald-600">
+                                            {batch.gddAccumulated || 0} <span className="text-xs text-slate-400">/ {GDD_TARGETS[batch.crop] || 200}</span>
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+
+                            {t(true, false) && (
+                                <button
+                                    onClick={() => toggleCard(batch.id)}
+                                    className="w-full mb-4 py-1.5 flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 border border-dashed border-slate-200 rounded-xl hover:bg-slate-50 transition-all"
+                                >
+                                    <Zap size={12} className={expandedCards[batch.id] ? 'text-amber-500' : ''} />
+                                    {expandedCards[batch.id] ? 'Hide Science' : 'View Scientific Details'}
+                                </button>
+                            )}
+
+                            {/* Action Needed Badge */}
+                            {batch.actionNeeded && (
+                                <div className={`mb-4 p-4 rounded-[2rem] border flex items-start gap-4 transition-all hover:shadow-md ${batch.actionNeeded.priority === 'CRITICAL' ? 'bg-red-50 border-red-100 shadow-red-100/50' :
+                                    batch.actionNeeded.priority === 'HIGH' ? 'bg-orange-50 border-orange-100 shadow-orange-100/50' :
+                                        'bg-blue-50 border-blue-100 shadow-blue-100/50'
+                                    }`}>
+                                    <div className={`p-3 rounded-2xl ${batch.actionNeeded.priority === 'CRITICAL' ? 'bg-red-100 text-red-600' :
+                                        batch.actionNeeded.priority === 'HIGH' ? 'bg-orange-100 text-orange-600' :
+                                            'bg-blue-100 text-blue-600'
+                                        }`}>
+                                        <Zap size={20} fill="currentColor" />
+                                    </div>
                                     <div>
-                                        <p className="text-xs text-emerald-400 font-bold uppercase">AI Yield Prediction</p>
-                                        <p className="text-sm text-emerald-100">
-                                            Est. Harvest: <span className="font-bold">{predictYield(newBatch.crop, newBatch.qty)}g</span> based on history.
+                                        <span className="text-[10px] font-black uppercase tracking-widest block mb-1 opacity-60">
+                                            {t("Required Action", "Next Step")}
+                                        </span>
+                                        <p className="text-sm font-black text-slate-800 leading-tight">{batch.actionNeeded.action}</p>
+                                        <p className="text-[10px] text-slate-500 font-bold leading-normal mt-1 italic">
+                                            {batch.actionNeeded.description}
                                         </p>
                                     </div>
                                 </div>
                             )}
 
-                            <button type="submit" className="w-full py-3 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-500">Start Production</button>
-                        </form>
-                    </div>
-                </div>
-            )}
-
-            {/* MODAL 2: BLEND CALCULATOR (New Feature) */}
-            {showBlendCalc && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 w-full max-w-md shadow-2xl">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-xl font-bold text-white flex items-center gap-2"><Calendar size={20} /> Blend Calculator</h3>
-                            <button onClick={() => setShowBlendCalc(false)}><X className="text-slate-400" /></button>
-                        </div>
-                        <p className="text-slate-400 text-sm mb-2">Select your harvest date to generate a "Spicy Mix" sowing schedule.</p>
-                        <div className="bg-blue-900/20 border border-blue-500/30 p-3 rounded-lg mb-4">
-                            <p className="text-xs text-blue-300">
-                                <strong>How it works:</strong> Each crop has different growth days.
-                                The calculator works backwards from your target harvest date.
-                                <br />
-                                <strong>Example:</strong> Radish (7 days) for Jan 14 harvest → Sow on Jan 7
-                            </p>
-                        </div>
-
-                        <div className="space-y-4">
-                            <div>
-                                <label className="text-slate-400 text-sm">Target Harvest Date</label>
-                                <input type="date" className="w-full bg-slate-800 border-slate-700 rounded-lg p-3 text-white"
-                                    value={blendTarget} onChange={e => setBlendTarget(e.target.value)} />
+                            {/* Active Crop Health Status */}
+                            <div className="mb-4">
+                                <ActiveCropHealth
+                                    healthScore={batch.healthScore}
+                                    lastLogDate={batch.lastLogDate}
+                                    details={batch.healthDetails}
+                                />
                             </div>
 
-                            {blendTarget && (
-                                <div className="space-y-2 mt-4">
-                                    <p className="text-xs font-bold text-slate-500 uppercase">Sowing Schedule</p>
-                                    {calculateBlend(blendTarget).map((item, idx) => (
-                                        <div key={idx} className="flex justify-between items-center bg-slate-800 p-3 rounded border border-slate-700">
-                                            <span className="text-white font-medium">{item.name}</span>
-                                            <span className="text-emerald-400 font-mono text-sm">Sow on: {item.sowDate}</span>
-                                        </div>
-                                    ))}
+                            {/* Maturity Progress */}
+                            {batch.status !== 'Harvested' && (
+                                <div className="mb-6 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                                    <div className="flex justify-between items-center mb-1">
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Harvest Readiness</span>
+                                        <span className="text-[10px] font-black text-slate-600">
+                                            {batch.maturityPercentage}%
+                                        </span>
+                                    </div>
+                                    <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                                        <div
+                                            className={`h-full transition-all duration-1000 ${batch.maturityPercentage >= 90 ? 'bg-emerald-500' : 'bg-cyan-500'}`}
+                                            style={{ width: `${Math.min(100, batch.maturityPercentage)}%` }}
+                                        ></div>
+                                    </div>
                                 </div>
                             )}
-                        </div>
-                    </div>
-                </div>
-            )}
 
-            {/* MODAL 3: EDIT BATCH (NEW) */}
-            {showEditModal && editBatch && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 w-full max-w-md shadow-2xl">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-xl font-bold text-white">Edit Batch</h3>
-                            <button onClick={() => setShowEditModal(false)}><X className="text-slate-400" /></button>
+                            <button onClick={() => handleHarvestClick(batch)} className="flex-1 bg-slate-900 text-white py-3 rounded-2xl font-black text-xs hover:bg-emerald-500 transition-all shadow-lg shadow-slate-900/20">
+                                {t("Harvest", "Harvest")}
+                            </button>
                         </div>
-                        <form onSubmit={handleUpdateBatch} className="space-y-4">
-                            <div>
-                                <label className="text-slate-400 text-sm">Crop Variety</label>
-                                <select
-                                    required
-                                    className="w-full bg-slate-800 border-slate-700 rounded-lg p-3 text-white"
-                                    value={editBatch.crop}
-                                    onChange={e => setEditBatch({ ...editBatch, crop: e.target.value })}
-                                >
-                                    <option value="">Select Crop</option>
-                                    {INDIAN_MICROGREENS.map(crop => (
-                                        <option key={crop.value} value={crop.label}>{crop.label} ({crop.days} days)</option>
-                                    ))}
-                                </select>
+                    )
+                })}
+            </div>
+
+            {/* HARVEST MODAL (Enhanced) */}
+            {
+                showHarvestModal && (
+                    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
+                        <div className="bg-white w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl animate-in zoom-in-95 duration-200">
+                            <div className="text-center mb-8">
+                                <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-4">
+                                    <Package size={40} />
+                                </div>
+                                <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+                                    {t("Harvest Records", "Finalize Production")}
+                                </h2>
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
+                            <p className="text-slate-500 font-medium mb-6 text-center">Recording results for <span className="text-emerald-600 font-bold">{harvestBatchData.crop}</span></p>
+
+                            <form onSubmit={handleHarvestSubmit} className="space-y-4">
                                 <div>
-                                    <label className="text-slate-400 text-sm">Sowing Date</label>
+                                    <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{t("Yield (kg)", "Weight")}</label>
                                     <input
-                                        required
-                                        type="date"
-                                        className="w-full bg-slate-800 border-slate-700 rounded-lg p-3 text-white"
-                                        value={editBatch.sow_date || editBatch.sowingDate}
-                                        onChange={e => setEditBatch({ ...editBatch, sow_date: e.target.value })}
+                                        type="number" step="0.1" required
+                                        className="w-full p-4 bg-slate-50 border-none rounded-2xl text-slate-800 font-bold focus:ring-2 focus:ring-emerald-500 outline-none text-2xl"
+                                        value={harvestBatchData.yield}
+                                        onChange={(e) => setHarvestBatchData({ ...harvestBatchData, yield: e.target.value })}
+                                        placeholder="0.0"
                                     />
                                 </div>
                                 <div>
-                                    <label className="text-slate-400 text-sm">Harvest Date</label>
+                                    <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{t("Revenue (₹)", "Sales Value")}</label>
                                     <input
-                                        type="date"
-                                        className="w-full bg-slate-800 border-slate-700 rounded-lg p-3 text-white"
-                                        value={editBatch.harvest_date || editBatch.harvestDate || ''}
-                                        onChange={e => setEditBatch({ ...editBatch, harvest_date: e.target.value })}
+                                        type="number" required
+                                        className="w-full p-4 bg-slate-50 border-none rounded-2xl text-slate-800 font-bold focus:ring-2 focus:ring-emerald-500 outline-noneStartAdornment text-2xl"
+                                        value={harvestBatchData.revenue}
+                                        onChange={(e) => setHarvestBatchData({ ...harvestBatchData, revenue: e.target.value })}
+                                        placeholder="0"
                                     />
                                 </div>
-                            </div>
-                            <button type="submit" className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-500">Update Batch</button>
-                        </form>
-                    </div>
-                </div>
-            )}
 
-            {/* HARVEST MODAL */}
-            {showHarvestModal && harvestBatchData && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-xl p-6 w-full max-w-md shadow-2xl">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-xl font-bold text-slate-900">Harvest Batch</h3>
-                            <button onClick={() => setShowHarvestModal(false)}><X className="text-slate-400" /></button>
-                        </div>
-                        <div className="mb-4 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
-                            <p className="text-sm text-slate-700"><strong>Batch:</strong> {harvestBatchData.id || harvestBatchData.batch_id}</p>
-                            <p className="text-sm text-slate-700"><strong>Crop:</strong> {harvestBatchData.crop}</p>
-                        </div>
-                        <form onSubmit={handleHarvestSubmit} className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Yield (grams)</label>
-                                <input
-                                    required
-                                    type="number"
-                                    step="1"
-                                    min="0"
-                                    placeholder="e.g., 150"
-                                    className="w-full border border-slate-300 rounded-lg p-3 text-slate-900"
-                                    value={harvestData.yield_grams}
-                                    onChange={e => setHarvestData({ ...harvestData, yield_grams: e.target.value })}
-                                />
-                                <p className="text-xs text-slate-500 mt-1">= {(parseFloat(harvestData.yield_grams) / 1000 || 0).toFixed(2)} kg</p>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Quality Grade</label>
-                                <select
-                                    required
-                                    className="w-full border border-slate-300 rounded-lg p-3 text-slate-900"
-                                    value={harvestData.quality_grade}
-                                    onChange={e => setHarvestData({ ...harvestData, quality_grade: e.target.value })}
-                                >
-                                    <option value="A">Grade A (Premium)</option>
-                                    <option value="B">Grade B (Good)</option>
-                                    <option value="C">Grade C (Fair)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Selling Price (₹/kg)</label>
-                                <input
-                                    required
-                                    type="number"
-                                    step="1"
-                                    min="0"
-                                    placeholder="e.g., 180"
-                                    className="w-full border border-slate-300 rounded-lg p-3 text-slate-900"
-                                    value={harvestData.price_per_kg}
-                                    onChange={e => setHarvestData({ ...harvestData, price_per_kg: e.target.value })}
-                                />
-                            </div>
-                            {harvestData.yield_grams && harvestData.price_per_kg && (
-                                <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
-                                    <p className="text-sm font-semibold text-emerald-700">
-                                        Total Revenue: ₹{((parseFloat(harvestData.yield_grams) / 1000) * parseFloat(harvestData.price_per_kg)).toLocaleString()}
+                                {/* NEW: Harvest Success Rating (AI Foundation) */}
+                                <div>
+                                    <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{t("Success Rating", "Batch Quality")}</label>
+                                    <div className="flex gap-2 justify-center p-4 bg-slate-50 rounded-2xl">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <button
+                                                key={star}
+                                                type="button"
+                                                onClick={() => setHarvestBatchData({ ...harvestBatchData, rating: star })}
+                                                className={`text-3xl transition-transform hover:scale-110 ${(harvestBatchData.rating || 5) >= star ? 'text-amber-400' : 'text-slate-200'
+                                                    }`}
+                                            >
+                                                ★
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <p className="text-center text-xs font-bold text-slate-400 mt-2">
+                                        {(harvestBatchData.rating || 5) === 5 ? "Perfect Crop! 🌟" :
+                                            (harvestBatchData.rating || 5) >= 3 ? "Good Harvest 👍" : "Needs Improvement ⚠️"}
                                     </p>
                                 </div>
-                            )}
-                            <button type="submit" className="w-full py-3 bg-emerald-600 rounded-lg text-white font-bold hover:bg-emerald-500">
-                                Complete Harvest
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            )}
 
-        </div>
+                                <button type="submit" className="w-full bg-emerald-500 text-white py-4 rounded-2xl font-black text-lg shadow-xl shadow-emerald-200 hover:bg-emerald-600 transition-all mt-4">
+                                    {t("Confirm Harvest", "Complete Batch")}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                )
+            }
+
+            {/* New Batch Modal */}
+            {
+                showModal && (
+                    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
+                        <div className="bg-white w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-[2.5rem] p-10 shadow-2xl animate-in zoom-in-95 duration-200">
+                            <div className="flex justify-between items-center mb-8">
+                                <h2 className="text-3xl font-black text-slate-900 tracking-tight">{t("New Batch", "Plant Seeds")}</h2>
+                                <button onClick={() => setShowModal(false)}><X size={24} className="text-slate-400" /></button>
+                            </div>
+                            <form onSubmit={handleAdd} className="space-y-4">
+                                <div>
+                                    <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{t("Batch ID", "Tracking ID")}</label>
+                                    <input
+                                        required
+                                        className="w-full p-4 bg-slate-50 border-none rounded-2xl text-slate-800 font-bold focus:ring-2 focus:ring-emerald-500 outline-none"
+                                        value={newBatch.id}
+                                        onChange={(e) => setNewBatch({ ...newBatch, id: e.target.value })}
+                                        placeholder="e.g. A1, TRAY-5"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{t("Crop Type", "Variety")}</label>
+                                    <select
+                                        required
+                                        className="w-full p-4 bg-slate-50 border-none rounded-2xl text-slate-800 font-bold focus:ring-2 focus:ring-emerald-500 outline-none appearance-none"
+                                        value={newBatch.crop}
+                                        onChange={(e) => setNewBatch({ ...newBatch, crop: e.target.value })}
+                                    >
+                                        <option value="">{t("Select One...", "Choose Variety")}</option>
+                                        {Object.keys(OPTIMAL_SEED_DENSITY).sort().map(crop => (
+                                            <option key={crop} value={crop}>{crop}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div>
+                                    <input
+                                        type="date" required
+                                        className="w-full p-4 bg-slate-50 border-none rounded-2xl text-slate-800 font-bold focus:ring-2 focus:ring-emerald-500 outline-none"
+                                        value={newBatch.sowDate}
+                                        onChange={(e) => setNewBatch({ ...newBatch, sowDate: e.target.value })}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{t("Trays", "Tray Count")}</label>
+                                        <input
+                                            type="number" required min="1"
+                                            className="w-full p-4 bg-slate-50 border-none rounded-2xl text-slate-800 font-bold focus:ring-2 focus:ring-emerald-500 outline-none"
+                                            value={newBatch.qty}
+                                            onChange={(e) => setNewBatch({ ...newBatch, qty: e.target.value })}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">{t("Total Seed (g)", "Seed Weight")}</label>
+                                        <input
+                                            type="number" required
+                                            className="w-full p-4 bg-slate-50 border-none rounded-2xl text-slate-800 font-bold focus:ring-2 focus:ring-emerald-500 outline-none"
+                                            value={newBatch.seedWeight}
+                                            onChange={(e) => setNewBatch({ ...newBatch, seedWeight: e.target.value })}
+                                            placeholder="e.g. 40"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* DENSITY AUDITOR ALERT UI */}
+                                {densityAudit && (
+                                    <div className={`p-4 rounded-xl border-l-4 animate-in slide-in-from-top-2 ${densityAudit.status === 'OPTIMAL' ? 'bg-green-50 border-green-500' :
+                                        densityAudit.status === 'CRITICAL_OVER' ? 'bg-red-50 border-red-500' :
+                                            'bg-orange-50 border-orange-500'
+                                        }`}>
+                                        <div className="flex items-start gap-3">
+                                            {densityAudit.status === 'CRITICAL_OVER' ? <AlertTriangle className="text-red-500 shrink-0" /> :
+                                                densityAudit.status === 'WARNING_UNDER' ? <AlertTriangle className="text-orange-500 shrink-0" /> :
+                                                    <CheckCircle className="text-green-500 shrink-0" />}
+
+                                            <div>
+                                                <h4 className={`font-black text-sm uppercase ${densityAudit.color === 'red' ? 'text-red-800' :
+                                                    densityAudit.color === 'orange' ? 'text-orange-800' : 'text-green-800'
+                                                    }`}>
+                                                    {densityAudit.message}
+                                                </h4>
+                                                <p className="text-xs font-medium text-slate-600 mt-1">{densityAudit.detail}</p>
+                                                {densityAudit.financial_impact && (
+                                                    <p className="text-xs font-black mt-2 bg-white/50 p-1.5 rounded inline-block border border-slate-200">
+                                                        💸 {densityAudit.financial_impact}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className={`w-full py-4 rounded-2xl font-black text-lg shadow-xl transition-all mt-4 flex items-center justify-center gap-2 ${isSubmitting
+                                        ? 'bg-emerald-400 cursor-not-allowed opacity-80'
+                                        : 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-200'
+                                        } text-white`}>
+                                    {isSubmitting ? (
+                                        <>
+                                            <span className="animate-spin text-xl">⏳</span>
+                                            {t("Saving...", "Planting...")}
+                                        </>
+                                    ) : (
+                                        t("Start Growing! 🌱", "Create Batch")
+                                    )}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                )
+            }
+
+            {/* Microgreens Farming Guide */}
+            <MicrogreensGuide isOpen={showInfoModal} onClose={() => setShowInfoModal(false)} />
+            <DeviceManagerModal isOpen={showDeviceManager} onClose={() => setShowDeviceManager(false)} />
+            {showSensorGuide && <SensorGuideModal onClose={() => setShowSensorGuide(false)} />}
+
+            {/* Harvest Label Modal */}
+            <HarvestLabelModal
+                isOpen={showLabelModal}
+                onClose={() => setShowLabelModal(false)}
+                batch={harvestBatchData}
+            />
+        </div >
     );
 };
 

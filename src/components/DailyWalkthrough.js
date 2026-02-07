@@ -5,8 +5,8 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, ChevronLeft, CheckCircle, Thermometer, Droplet, Zap, Eye, Sparkles } from 'lucide-react';
 import { calculateVPD, getVpdStatus, calculateStreak, getStreakBadge } from '../utils/agronomyLogic';
-import { supabase } from '../lib/supabase';
-import { isDemoMode } from '../utils/sampleData';
+import { supabase } from '../lib/supabaseClient';
+// import { isDemoMode } from '../utils/sampleData';
 
 const DailyWalkthrough = ({ systemId, systemType, onComplete, onCancel }) => {
     const [step, setStep] = useState(1);
@@ -36,22 +36,17 @@ const DailyWalkthrough = ({ systemId, systemType, onComplete, onCancel }) => {
     useEffect(() => {
         const loadStreak = async () => {
             try {
-                if (isDemoMode()) {
-                    const logs = JSON.parse(localStorage.getItem('demo_logs') || '[]');
-                    setStreak(calculateStreak(logs));
-                } else {
-                    const { data: { user } } = await supabase.auth.getUser();
-                    if (!user) return;
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) return;
 
-                    const { data: logs } = await supabase
-                        .from('daily_logs')
-                        .select('created_at')
-                        .eq('user_id', user.id)
-                        .order('created_at', { ascending: false })
-                        .limit(60);
+                const { data: logs } = await supabase
+                    .from('daily_logs')
+                    .select('created_at')
+                    .eq('user_id', user.id)
+                    .order('created_at', { ascending: false })
+                    .limit(60);
 
-                    setStreak(calculateStreak(logs || []));
-                }
+                setStreak(calculateStreak(logs || []));
             } catch (err) {
                 console.error('Streak load error:', err);
             }
@@ -78,23 +73,15 @@ const DailyWalkthrough = ({ systemId, systemType, onComplete, onCancel }) => {
                 created_at: new Date().toISOString()
             };
 
-            if (isDemoMode()) {
-                // Save to localStorage for demo mode
-                const existingLogs = JSON.parse(localStorage.getItem('demo_logs') || '[]');
-                existingLogs.push({ ...logData, id: Date.now() });
-                localStorage.setItem('demo_logs', JSON.stringify(existingLogs));
-                setStreak(calculateStreak(existingLogs));
-            } else {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (!user) throw new Error('Not logged in');
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) throw new Error('Not logged in');
 
-                const { error } = await supabase
-                    .from('daily_logs')
-                    .insert([{ ...logData, user_id: user.id }]);
+            const { error } = await supabase
+                .from('daily_logs')
+                .insert([{ ...logData, user_id: user.id }]);
 
-                if (error) throw error;
-                setStreak(streak + 1); // Optimistic update
-            }
+            if (error) throw error;
+            setStreak(streak + 1); // Optimistic update
 
             setStep(5); // Success screen
         } catch (err) {
@@ -141,8 +128,8 @@ const DailyWalkthrough = ({ systemId, systemType, onComplete, onCancel }) => {
                                     setStep(2);
                                 }}
                                 className={`p-4 rounded-xl border-2 transition-all hover:scale-105 ${formData.visual_check === opt.value
-                                        ? `border-${opt.color}-500 bg-${opt.color}-50`
-                                        : 'border-slate-200 hover:border-slate-300'
+                                    ? `border-${opt.color}-500 bg-${opt.color}-50`
+                                    : 'border-slate-200 hover:border-slate-300'
                                     }`}
                             >
                                 <span className="text-3xl mb-2 block">{opt.emoji}</span>
@@ -214,18 +201,18 @@ const DailyWalkthrough = ({ systemId, systemType, onComplete, onCancel }) => {
                     {/* VPD Display */}
                     {vpd !== null && (
                         <div className={`p-5 rounded-xl mb-6 border-2 ${vpdInfo.color === 'green' ? 'bg-emerald-50 border-emerald-200' :
-                                vpdInfo.color === 'blue' ? 'bg-blue-50 border-blue-200' :
-                                    vpdInfo.color === 'red' ? 'bg-red-50 border-red-200' :
-                                        'bg-amber-50 border-amber-200'
+                            vpdInfo.color === 'blue' ? 'bg-blue-50 border-blue-200' :
+                                vpdInfo.color === 'red' ? 'bg-red-50 border-red-200' :
+                                    'bg-amber-50 border-amber-200'
                             }`}>
                             <div className="flex justify-between items-center mb-2">
                                 <span className="text-2xl font-bold text-slate-800">
                                     VPD: {vpd} kPa
                                 </span>
                                 <span className={`px-3 py-1 rounded-full text-sm font-bold ${vpdInfo.color === 'green' ? 'bg-emerald-500 text-white' :
-                                        vpdInfo.color === 'blue' ? 'bg-blue-500 text-white' :
-                                            vpdInfo.color === 'red' ? 'bg-red-500 text-white' :
-                                                'bg-amber-500 text-white'
+                                    vpdInfo.color === 'blue' ? 'bg-blue-500 text-white' :
+                                        vpdInfo.color === 'red' ? 'bg-red-500 text-white' :
+                                            'bg-amber-500 text-white'
                                     }`}>
                                     {vpdInfo.icon} {vpdInfo.label}
                                 </span>
@@ -405,15 +392,15 @@ const DailyWalkthrough = ({ systemId, systemType, onComplete, onCancel }) => {
 
                     {/* Streak Badge */}
                     <div className={`inline-block p-6 rounded-2xl mb-6 ${streakBadge.color === 'orange' ? 'bg-orange-50 border-2 border-orange-200' :
-                            streakBadge.color === 'purple' ? 'bg-purple-50 border-2 border-purple-200' :
-                                streakBadge.color === 'yellow' ? 'bg-yellow-50 border-2 border-yellow-200' :
-                                    'bg-emerald-50 border-2 border-emerald-200'
+                        streakBadge.color === 'purple' ? 'bg-purple-50 border-2 border-purple-200' :
+                            streakBadge.color === 'yellow' ? 'bg-yellow-50 border-2 border-yellow-200' :
+                                'bg-emerald-50 border-2 border-emerald-200'
                         }`}>
                         <span className="text-5xl mb-2 block">{streakBadge.emoji}</span>
                         <span className={`text-xl font-bold ${streakBadge.color === 'orange' ? 'text-orange-600' :
-                                streakBadge.color === 'purple' ? 'text-purple-600' :
-                                    streakBadge.color === 'yellow' ? 'text-yellow-600' :
-                                        'text-emerald-600'
+                            streakBadge.color === 'purple' ? 'text-purple-600' :
+                                streakBadge.color === 'yellow' ? 'text-yellow-600' :
+                                    'text-emerald-600'
                             }`}>
                             {streakBadge.label}
                         </span>

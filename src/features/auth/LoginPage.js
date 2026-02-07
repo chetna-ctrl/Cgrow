@@ -47,6 +47,7 @@ const LoginPage = () => {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
+                    // This creates: http://localhost:3000/dashboard OR http://192.168.x.x:3000/dashboard
                     redirectTo: `${window.location.origin}/dashboard`
                 }
             });
@@ -58,22 +59,26 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-cyan-50 flex items-center justify-center p-6">
+        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-6">
             <div className="max-w-md w-full">
                 {/* Logo with Back Button */}
-                <div className="text-center mb-8">
-                    <div className="flex items-center justify-center gap-2 mb-4">
-                        <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                            <Sprout className="text-emerald-600" size={48} />
-                            <h1 className="text-4xl font-bold text-slate-900">Agri OS</h1>
+                <div className="text-center mb-10">
+                    <div className="flex flex-col items-center justify-center gap-4 mb-6">
+                        <Link to="/" className="flex flex-col items-center gap-3 hover:opacity-90 transition-opacity">
+                            <div className="w-24 h-24 bg-white rounded-3xl p-3 shadow-2xl shadow-emerald-500/10 border border-emerald-500/20">
+                                <img src="/logo_cgro.png" alt="cGrow" className="w-full h-full object-contain" />
+                            </div>
+                            <h1 className="text-5xl font-black text-white tracking-tighter">cGrow</h1>
                         </Link>
                     </div>
-                    <p className="text-slate-600">Smart Farm Management System</p>
+                    <p className="text-slate-400 font-medium tracking-tight px-4 underline decoration-emerald-500/30 underline-offset-4">
+                        Conscious Growth & Research Operations
+                    </p>
                     <Link
                         to="/"
-                        className="inline-flex items-center gap-1 text-sm text-emerald-600 hover:text-emerald-500 mt-2 font-medium"
+                        className="inline-flex items-center gap-1 text-xs text-emerald-500 hover:text-emerald-400 mt-6 font-bold uppercase tracking-widest"
                     >
-                        ← Back to Home
+                        ← Return to Operations
                     </Link>
                 </div>
 
@@ -169,9 +174,35 @@ const LoginPage = () => {
                     </div>
                 </div>
 
-                <p className="text-center text-slate-500 text-sm mt-6">
-                    By continuing, you agree to our Terms of Service and Privacy Policy
-                </p>
+                <div className="mt-8 text-center bg-slate-50 p-4 rounded-xl border border-slate-100">
+                    <p className="text-slate-500 text-sm mb-2">Trouble verifying?</p>
+                    <button
+                        onClick={async () => {
+                            try {
+                                alert('Testing connection to Supabase...');
+                                const start = Date.now();
+                                // Race between Fetch and 10s Timeout
+                                const { data, error } = await Promise.race([
+                                    supabase.from('iot_devices').select('count', { count: 'exact', head: true }),
+                                    new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout: Server did not respond in 10s')), 10000))
+                                ]);
+                                const end = Date.now();
+
+                                if (error) {
+                                    alert(`❌ Error: ${error.message} (Code: ${error.code})`);
+                                } else {
+                                    alert(`✅ Connected! Ping: ${end - start}ms. Database is accessible.`);
+                                }
+                            } catch (err) {
+                                alert(`❌ Network Failure: ${err.message}. Check WiFi/Data.`);
+                            }
+                        }}
+                        className="text-xs text-slate-400 hover:text-emerald-500 underline font-mono"
+                    >
+                        [Run Network Diagnostic]
+                    </button>
+                    <p className="text-[10px] text-slate-300 mt-2">v1.1 Mobile Debugger</p>
+                </div>
             </div>
         </div>
     );

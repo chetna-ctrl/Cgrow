@@ -1,5 +1,5 @@
 /**
- * Agri OS Expert Agronomy Logic
+ * cGrow Expert Agronomy Logic
  * Core biological calculations for plant health.
  */
 

@@ -76,7 +76,7 @@ class NotificationService {
 
         const config = urgencyConfig[urgency] || urgencyConfig.medium;
 
-        return this.show(`${config.icon} Agri-OS Reminder`, {
+        return this.show(`${config.icon} cGrow Reminder`, {
             body: taskName,
             tag: `task-${taskName}`,
             vibrate: config.vibrate,

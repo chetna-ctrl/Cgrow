@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Sprout, Droplets, Wrench, Beaker, AlertTriangle, Shield, ChevronRight } from 'lucide-react';
+import { BookOpen, Sprout, Droplets, Wrench, Beaker, AlertTriangle, Shield, ChevronRight, Layers, Wind, Droplet } from 'lucide-react';
 
 const FarmingGuidePage = () => {
     return (
@@ -28,70 +28,85 @@ const FarmingGuidePage = () => {
                     <Beaker className="text-purple-600 mb-2" size={24} />
                     <p className="font-bold text-slate-900 text-sm">Nutrients</p>
                 </a>
+                <a href="#mushrooms" className="p-4 bg-indigo-50 border border-indigo-200 rounded-lg hover:bg-indigo-100 transition-colors col-span-2 md:col-span-1">
+                    <Layers className="text-indigo-600 mb-2" size={24} />
+                    <p className="font-bold text-slate-900 text-sm">Mycology Hub</p>
+                </a>
             </div>
 
-            {/* Hydroponics Setup */}
+            {/* Hydroponics Setup - Beginner's Choice */}
             <div id="hydroponics" className="bg-white p-6 rounded-xl border border-slate-200">
                 <div className="flex items-center gap-3 mb-4">
-                    <Droplets className="text-cyan-600" size={28} />
-                    <h2 className="text-xl font-bold text-slate-900">Hydroponics Setup</h2>
+                    <Droplets className="text-cyan-600 flex-shrink-0" size={28} />
+                    <h2 className="text-lg md:text-xl font-bold text-slate-900 leading-snug">Hydroponics Types: Which one is for you?</h2>
                 </div>
 
-                <div className="space-y-4">
-                    <div>
-                        <h3 className="font-bold text-slate-900 mb-2">📦 Equipment Needed</h3>
-                        <ul className="list-disc list-inside space-y-1 text-slate-700">
-                            <li>Grow tray / NFT pipes</li>
-                            <li>Water pump (18W recommended)</li>
-                            <li>Air pump + air stone</li>
-                            <li>Net pots (5cm diameter)</li>
-                            <li>Growing media: Cocopeat / LECA / Rockwool</li>
-                            <li>pH meter (digital, ₹500-2000)</li>
-                            <li>EC meter (₹800-3000)</li>
-                            <li>Reservoir tank (50-100L)</li>
-                        </ul>
-                    </div>
-
-                    <div className="bg-cyan-50 p-4 rounded-lg border border-cyan-200">
-                        <h3 className="font-bold text-cyan-900 mb-3">🔧 Step-by-Step Procedure</h3>
-                        <ol className="list-decimal list-inside space-y-2 text-slate-700">
-                            <li><strong>Fill reservoir</strong> with RO water (reverse osmosis) or clean tap water</li>
-                            <li><strong>Add nutrients</strong> (A + B solution) - Follow 1:1 ratio</li>
-                            <li><strong>Adjust EC</strong> to 1.2–2.4 mS (use EC meter)</li>
-                            <li><strong>Adjust pH</strong> to 5.8–6.2 (use pH Down/Up solution)</li>
-                            <li><strong>Place seedlings</strong> in net pots with growing media</li>
-                            <li><strong>Run pump</strong> 18–24 hours/day (continuous or 15min ON, 15min OFF)</li>
-                            <li><strong>Monitor daily</strong> - Check pH, EC, water level</li>
-                        </ol>
-                    </div>
-
-                    <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-                        <h3 className="font-bold text-purple-900 mb-3">📐 Key Formulas</h3>
-                        <div className="space-y-3 text-sm">
-                            <div className="bg-white p-3 rounded border border-purple-200">
-                                <p className="font-bold text-purple-900 mb-1">Plants per Area</p>
-                                <code className="text-xs bg-slate-100 px-2 py-1 rounded">Plants = (Area in sqft / 50) × 200</code>
-                                <p className="text-xs text-slate-600 mt-1">Example: 1000 sqft → (1000/50) × 200 = 4,000 plants</p>
+                <div className="space-y-8">
+                    {/* NFT Section */}
+                    <div className="border-l-4 border-blue-500 pl-4 space-y-3">
+                        <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            🌊 NFT (Nutrient Film Technique)
+                            <span className="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full uppercase">For leafy greens</span>
+                        </h3>
+                        <p className="text-sm text-slate-600 italic">"Like a shallow stream of water constantly running over the roots."</p>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                                <p className="font-bold text-slate-700 text-xs mb-2 uppercase">Beginner Setup</p>
+                                <ul className="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                    <li>PVC Pipes with holes</li>
+                                    <li>Water Pump (Must run 24/7)</li>
+                                    <li>Reservoir (Bucket/Tank)</li>
+                                </ul>
                             </div>
-                            <div className="bg-white p-3 rounded border border-purple-200">
-                                <p className="font-bold text-purple-900 mb-1">Nutrient Dosage</p>
-                                <code className="text-xs bg-slate-100 px-2 py-1 rounded">Nutrients (ml) = Water (L) × 1.5</code>
-                                <p className="text-xs text-slate-600 mt-1">Example: 100L water → 150ml each of Part A & B</p>
-                            </div>
-                            <div className="bg-white p-3 rounded border border-purple-200">
-                                <p className="font-bold text-purple-900 mb-1">Water Requirement</p>
-                                <code className="text-xs bg-slate-100 px-2 py-1 rounded">Water (L/day) = Plants × 4</code>
-                                <p className="text-xs text-slate-600 mt-1">Example: 1000 plants → 4,000L/day</p>
+                            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                                <p className="font-bold text-blue-800 text-xs mb-2 uppercase">Pro Tip</p>
+                                <p className="text-sm text-blue-700">Check your pump every morning! If the pump stops, roots dry out very fast because they are mostly in air.</p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
-                        <div className="flex items-start gap-2">
-                            <AlertTriangle className="text-amber-600 mt-0.5" size={18} />
-                            <div>
-                                <p className="font-bold text-amber-900 mb-1">⚠️ Beginner Tip</p>
-                                <p className="text-sm text-amber-700">Never add nutrients before water level is correct. Always add water first, then nutrients.</p>
+                    {/* DWC Section */}
+                    <div className="border-l-4 border-emerald-500 pl-4 space-y-3">
+                        <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            🛁 DWC (Deep Water Culture)
+                            <span className="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full uppercase">Simplest & Safest</span>
+                        </h3>
+                        <p className="text-sm text-slate-600 italic">"Like plants sitting in a cool bathtub with bubbles to help them breathe."</p>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                                <p className="font-bold text-slate-700 text-xs mb-2 uppercase">Beginner Setup</p>
+                                <ul className="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                    <li>Storage Box / Deep Tub</li>
+                                    <li>Floating Raft (Thermacole/HDP)</li>
+                                    <li>Air Pump + Air Stones (Essential!)</li>
+                                </ul>
+                            </div>
+                            <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+                                <p className="font-bold text-emerald-800 text-xs mb-2 uppercase">Pro Tip</p>
+                                <p className="text-sm text-emerald-700">Clean your air stones weekly. If they stop bubbling, the water loses oxygen and the roots will rot.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Ebb & Flow Section */}
+                    <div className="border-l-4 border-orange-500 pl-4 space-y-3">
+                        <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            ⏳ Ebb & Flow (Flood & Drain)
+                            <span className="text-[10px] bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full uppercase">For heavy plants</span>
+                        </h3>
+                        <p className="text-sm text-slate-600 italic">"Like a tide that comes in to feed the plants, then goes back out to let them breathe."</p>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                                <p className="font-bold text-slate-700 text-xs mb-2 uppercase">Beginner Setup</p>
+                                <ul className="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                    <li>Grow Tray + Stand</li>
+                                    <li>LECA (Clay balls) as media</li>
+                                    <li>Interval Timer (Mechanical)</li>
+                                </ul>
+                            </div>
+                            <div className="bg-orange-50 p-4 rounded-lg border border-orange-100">
+                                <p className="font-bold text-orange-800 text-xs mb-2 uppercase">Pro Tip</p>
+                                <p className="text-sm text-orange-700">Set your timer to flood for 15 mins every 4 hours. LECA holds water, so plants stay hydrated even if the power goes out.</p>
                             </div>
                         </div>
                     </div>
@@ -101,8 +116,8 @@ const FarmingGuidePage = () => {
             {/* Microgreens Setup */}
             <div id="microgreens" className="bg-white p-6 rounded-xl border border-slate-200">
                 <div className="flex items-center gap-3 mb-4">
-                    <Sprout className="text-emerald-600" size={28} />
-                    <h2 className="text-xl font-bold text-slate-900">Microgreens Setup</h2>
+                    <Sprout className="text-emerald-600 flex-shrink-0" size={28} />
+                    <h2 className="text-lg md:text-xl font-bold text-slate-900 leading-snug">Microgreens Setup</h2>
                 </div>
 
                 <div className="space-y-4">
@@ -157,45 +172,45 @@ const FarmingGuidePage = () => {
                         <thead className="bg-slate-50">
                             <tr>
                                 <th className="p-3 border-b font-bold text-slate-900">Item</th>
-                                <th className="p-3 border-b font-bold text-slate-900">Cost (₹)</th>
-                                <th className="p-3 border-b font-bold text-slate-900">Where to Buy</th>
+                                <th className="p-3 border-b font-bold text-slate-900">Approx Cost (₹)</th>
+                                <th className="p-3 border-b font-bold text-slate-900">Notes</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-200">
+                        <tbody className="divide-y divide-slate-200 text-sm">
                             <tr>
                                 <td className="p-3">Cocopeat (5kg block)</td>
                                 <td className="p-3">₹100-150</td>
-                                <td className="p-3">Amazon, Local nursery</td>
+                                <td className="p-3">Mainly for Microgreens & Seedlings</td>
                             </tr>
                             <tr>
-                                <td className="p-3">LECA (10L)</td>
-                                <td className="p-3">₹300-500</td>
-                                <td className="p-3">Amazon, Hydroponics stores</td>
+                                <td className="p-3 font-bold text-orange-600">LECA / Clay Pebbles (10L)</td>
+                                <td className="p-3">₹400-600</td>
+                                <td className="p-3">Essential for Ebb & Flow. Reusable!</td>
                             </tr>
                             <tr>
-                                <td className="p-3">pH Meter (Digital)</td>
-                                <td className="p-3">₹500-2000</td>
-                                <td className="p-3">Amazon, Flipkart</td>
+                                <td className="p-3 font-bold text-emerald-600">DWC Floating Raft (Single)</td>
+                                <td className="p-3">₹80-150</td>
+                                <td className="p-3">Used for DWC "Bathtub" systems</td>
                             </tr>
                             <tr>
-                                <td className="p-3">EC Meter</td>
-                                <td className="p-3">₹800-3000</td>
-                                <td className="p-3">Amazon, Agri stores</td>
+                                <td className="p-3">pH & EC Digital Meters</td>
+                                <td className="p-3">₹1500-4000</td>
+                                <td className="p-3">The "Eyes" of your farm. Don't skip!</td>
                             </tr>
                             <tr>
                                 <td className="p-3">Water Pump (18W)</td>
-                                <td className="p-3">₹400-800</td>
-                                <td className="p-3">Amazon, Aquarium shops</td>
+                                <td className="p-3">₹450-900</td>
+                                <td className="p-3">Used for both NFT and Ebb & Flow</td>
+                            </tr>
+                            <tr>
+                                <td className="p-3 font-bold text-blue-600">Mechanical Interval Timer</td>
+                                <td className="p-3">₹400-750</td>
+                                <td className="p-3">Critical for Ebb & Flow cycle automation</td>
                             </tr>
                             <tr>
                                 <td className="p-3">Grow Lights (20W LED)</td>
-                                <td className="p-3">₹600-1500</td>
-                                <td className="p-3">Amazon, Electronics stores</td>
-                            </tr>
-                            <tr>
-                                <td className="p-3">Nutrient Solution (A+B, 1L each)</td>
-                                <td className="p-3">₹400-800</td>
-                                <td className="p-3">Hydroponics stores, Online</td>
+                                <td className="p-3">₹600-1200</td>
+                                <td className="p-3">Use 2 tubes per 4ft rack layer</td>
                             </tr>
                         </tbody>
                     </table>
@@ -252,17 +267,17 @@ const FarmingGuidePage = () => {
             <div className="bg-white p-6 rounded-xl border border-slate-200">
                 <div className="flex items-center gap-3 mb-4">
                     <AlertTriangle className="text-amber-600" size={28} />
-                    <h2 className="text-xl font-bold text-slate-900">Common Mistakes to Avoid</h2>
+                    <h2 className="text-xl font-bold text-slate-900">Beginner Mistakes & Fixes</h2>
                 </div>
 
                 <div className="space-y-3">
                     {[
-                        { mistake: 'Overwatering microgreens', solution: 'Spray lightly, keep moist not soggy' },
-                        { mistake: 'Not checking pH daily', solution: 'Check pH every morning, adjust if needed' },
-                        { mistake: 'Using tap water directly', solution: 'Use RO water or let tap water sit 24hrs to dechlorinate' },
-                        { mistake: 'Too much light too early', solution: 'Keep in dark for 2-3 days during germination' },
-                        { mistake: 'Ignoring EC levels', solution: 'EC too high = nutrient burn, too low = slow growth' },
-                        { mistake: 'Poor air circulation', solution: 'Use fan for 2-4 hours/day to prevent mold' }
+                        { mistake: 'Overwatering Microgreens', solution: 'Spray lightly. If media is soggy, roots will die from "damping off".' },
+                        { mistake: 'NFT Pump Failure', solution: 'Check pump DAILY. In NFT, plants have no water reserve and will wilt in 2 hours.' },
+                        { mistake: 'DWC "Quiet" Water', solution: 'If bubbles stop, roots drown. Water must always be "fizzy" with air bubbles.' },
+                        { mistake: 'Ebb & Flow Dry Spots', solution: 'Ensure LECA is evenly wet. If media stays dry, increase flood duration.' },
+                        { mistake: 'Mixing A+B Directly', solution: 'Never mix Part A and B concentrated. They will form "white powder" and be useless.' },
+                        { mistake: 'Ignoring Water Temp', solution: 'If water feels "warm" (>26°C), it holds no oxygen. Add frozen water bottles to the tank!' }
                     ].map((item, idx) => (
                         <div key={idx} className="flex items-start gap-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
                             <div className="flex-shrink-0 w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center">
@@ -304,6 +319,96 @@ const FarmingGuidePage = () => {
                             <li>Don't harvest with dirty scissors</li>
                             <li>Don't ignore mold/fungus growth</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            {/* Mushroom Guide - Expert Manual */}
+            <div id="mushrooms" className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm overflow-hidden relative mb-6">
+                <div className="absolute top-0 right-0 p-8 opacity-5">
+                    <Layers size={120} />
+                </div>
+
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="p-3 bg-indigo-600 rounded-2xl text-white flex-shrink-0">
+                        <Layers size={24} />
+                    </div>
+                    <div>
+                        <h2 className="text-xl md:text-2xl font-black text-slate-900 leading-tight">The Mycology Manual</h2>
+                        <p className="text-xs md:text-sm font-bold text-indigo-600 uppercase tracking-widest leading-snug">Expert Guide: Growing without a Dashboard</p>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-8">
+                    {/* Fundamental Core */}
+                    <div className="space-y-6">
+                        <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                            <h3 className="font-black text-slate-800 mb-3 flex items-start gap-2">
+                                <Shield className="text-indigo-500 flex-shrink-0 mt-0.5" size={18} /> <span>The Sterility "Holy Grail"</span>
+                            </h3>
+                            <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                                Mushroom farming is 90% hygiene. While plants can survive in dirty soil, mushrooms will be overtaken by mold (Trichoderma) in hours.
+                            </p>
+                            <div className="bg-white p-4 rounded-xl border border-slate-200">
+                                <p className="text-[10px] font-black uppercase text-slate-400 mb-2">Build a Still Air Box (SAB)</p>
+                                <ul className="text-xs text-slate-700 space-y-2">
+                                    <li className="flex gap-2">🔹 Take a clear 60L plastic tub</li>
+                                    <li className="flex gap-2">🔹 Cut two 4-inch arm holes</li>
+                                    <li className="flex gap-2">🔹 Use this to inoculate bags; it stops air movement that carries invisible mold spores.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
+                            <h3 className="font-black text-indigo-900 mb-3 flex items-start gap-2">
+                                <Wind className="text-indigo-600 flex-shrink-0 mt-0.5" size={18} /> <span>Airflow & CO2 Secret</span>
+                            </h3>
+                            <p className="text-sm text-indigo-800 leading-relaxed">
+                                <strong>Spawn Run:</strong> Keep the bag sealed. High CO2 (~2000ppm) helps mycelium grow fast. <br />
+                                <strong>Fruiting:</strong> "Exchange the Air". Open a window or fan the room 4-5 times a day. If stems are long and caps are small, your CO2 is too high!
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Step-by-Step Offline */}
+                    <div className="space-y-6">
+                        <div className="bg-white p-6 rounded-2xl border-2 border-slate-100 shadow-sm">
+                            <h3 className="font-black text-slate-800 mb-4 flex items-start gap-2">
+                                <Droplet className="text-cyan-500 flex-shrink-0 mt-0.5" size={18} /> <span>Substrate Pasteurization</span>
+                            </h3>
+                            <div className="space-y-4">
+                                <div className="flex gap-4">
+                                    <div className="bg-cyan-100 text-cyan-700 w-8 h-8 rounded-full flex items-center justify-center font-black shrink-0 text-sm">H</div>
+                                    <div>
+                                        <p className="font-bold text-slate-800 text-sm">Hot Water Method</p>
+                                        <p className="text-xs text-slate-500">Soak dry straw in 80°C water for 2 hours. This kills the "Bad" bacteria but keeps "Good" ones.</p>
+                                    </div>
+                                </div>
+                                <div className="flex gap-4">
+                                    <div className="bg-emerald-100 text-emerald-700 w-8 h-8 rounded-full flex items-center justify-center font-black shrink-0 text-sm">L</div>
+                                    <div>
+                                        <p className="font-bold text-slate-800 text-sm">Lime Method (Offline Hack)</p>
+                                        <p className="text-xs text-slate-500">Soak straw in cold water mixed with 2% Hydrated Lime (Chuna) for 12 hours. It raises pH so high that mold cannot grow.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-rose-50 p-6 rounded-2xl border border-rose-100">
+                            <h3 className="font-black text-rose-900 mb-3 flex items-center gap-2 text-sm uppercase tracking-wider">
+                                <AlertTriangle size={18} /> Contamination ID
+                            </h3>
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="bg-white p-3 rounded-xl border border-rose-200">
+                                    <p className="text-[10px] font-black text-emerald-600 uppercase">White / Fuzzy</p>
+                                    <p className="text-xs font-bold text-slate-700">Healthy Mycelium. IT'S GOOD!</p>
+                                </div>
+                                <div className="bg-white p-3 rounded-xl border border-rose-200">
+                                    <p className="text-[10px] font-black text-rose-600 uppercase flex-shrink-0">Green Patch</p>
+                                    <p className="text-xs font-bold text-slate-700 underline">TRICHODERMA. Throw it out immediately!</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

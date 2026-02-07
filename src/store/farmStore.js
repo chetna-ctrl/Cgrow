@@ -1,6 +1,6 @@
 /**
  * farmStore.js
- * Central "Single Source of Truth" for Agri OS.
+ * Central "Single Source of Truth" for cGrow.
  * Handles reading/writing to localStorage and aggregating data.
  */
 

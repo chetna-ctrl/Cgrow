@@ -1,8 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+/* PERFORMANCE: Optimized font loading with display=swap */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap');
+
+/* PHASE 4: WCAG 2.1 AA Compliance */
+@import './styles/accessibility.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* PERFORMANCE: Loading animations */
+@keyframes progress {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+.animate-progress {
+  animation: progress 1.5s ease-in-out infinite;
+}
 
 :root {
   /* --- THEME: OFF-WHITE & BLACK (High Contrast) --- */

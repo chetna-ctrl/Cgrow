@@ -1,20 +1,16 @@
-import { isDemoMode } from './sampleData';
+// import { isDemoMode } from './sampleData';
 import { supabase } from '../lib/supabaseClient';
 
 // Get all harvest records (from localStorage in demo mode, or Supabase in real mode)
+// Get all harvest records (from Supabase)
 export async function getAllHarvests() {
-    if (isDemoMode()) {
-        const harvests = localStorage.getItem('demo_harvests');
-        return harvests ? JSON.parse(harvests) : [];
-    }
-
     // 🔒 PRODUCTION MODE: Fetch from Supabase
     try {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return [];
 
         const { data, error } = await supabase
-            .from('harvest_records')
+            .from('harvests') // <--- NEW TABLE
             .select('*')
             .eq('user_id', user.id)
             .order('harvest_date', { ascending: false });
@@ -24,7 +20,15 @@ export async function getAllHarvests() {
             return [];
         }
 
-        return data || [];
+        // MAP TO LEGACY FORMAT for compatibility
+        return (data || []).map(h => ({
+            ...h,
+            id: h.id,
+            total_revenue: h.revenue,
+            yield_kg: (h.quantity_weight || 0) / 1000,
+            source_type: 'microgreens', // Default for now as table links to batches
+            harvest_date: h.harvest_date
+        }));
     } catch (err) {
         console.error('[Harvest Data] Exception:', err);
         return [];

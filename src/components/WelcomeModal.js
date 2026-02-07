@@ -8,7 +8,7 @@ const WelcomeModal = ({ onClose }) => {
     const steps = [
         {
             icon: <Sprout size={48} />,
-            title: "Welcome to Agri OS! 🌱",
+            title: "Welcome to cGrow! 🌱",
             description: "Your smart farm management system is ready. Let's get you started with a quick tour.",
             action: "Start Tour"
         },

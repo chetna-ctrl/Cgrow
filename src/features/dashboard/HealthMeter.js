@@ -1,75 +1,127 @@
-import React from 'react';
-import { calculateFarmHealth } from '../../utils/agriUtils'; // Import logic
+import { useState } from 'react';
+import { calculateFarmHealth } from '../../utils/agriUtils';
+import { useBeginnerMode } from '../../context/BeginnerModeContext';
+import { AlertTriangle, CheckCircle, Activity, Wind, Droplets } from 'lucide-react';
+import RemediationModal from '../../components/RemediationModal';
 
-const HealthMeter = ({ latestLog }) => {
-    // Default to 100/Perfect if no logic yet
-    if (!latestLog) {
+const HealthMeter = ({ latestLog, healthIndex, riskItems = [], dataAge, isStale }) => {
+    const { t } = useBeginnerMode();
+    const [selectedAlert, setSelectedAlert] = useState(null);
+
+    // Determine Source of Truth
+    let score = 0;
+    let reasons = [];
+    let isAggregate = false;
+
+    if (healthIndex !== undefined && healthIndex !== null) {
+        score = healthIndex;
+        isAggregate = true;
+    } else if (latestLog) {
+        const result = calculateFarmHealth(latestLog);
+        score = result.score;
+        reasons = result.reasons;
+    } else {
+        // No Data
         return (
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center h-full justify-center opacity-50">
-                <p className="text-gray-400 font-bold">No Data Yet</p>
-                <p className="text-xs text-gray-400">Log daily metrics to see Health Score</p>
+            <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col items-center justify-center h-full opacity-60">
+                <Activity size={40} className="text-slate-300 mb-2" />
+                <p className="text-slate-400 font-bold">Farm is Resting</p>
+                <p className="text-xs text-slate-400">Ready for new sowing?</p>
             </div>
-        )
+        );
     }
 
-    // Calculate Score
-    const { score, reasons } = calculateFarmHealth(latestLog);
-
-    // Color Logic
-    let color = '#10B981'; // Green
-    let message = 'Perfect Condition 🌟';
-    if (score < 80) { color = '#F59E0B'; message = 'Needs Attention ⚠️'; } // Yellow
-    if (score < 50) { color = '#EF4444'; message = 'Critical Risk 🚨'; } // Red
-
-    // Circle CSS Logic
-    const radius = 40;
-    const circumference = 2 * Math.PI * radius;
-    const offset = circumference - (score / 100) * circumference;
+    // Color Logic (Muted if stale)
+    const getColor = (s) => isStale ? 'text-slate-400' : (s >= 80 ? 'text-emerald-500' : s >= 50 ? 'text-amber-500' : 'text-red-500');
+    const getBg = (s) => s >= 80 ? 'bg-emerald-50' : s >= 50 ? 'bg-amber-50' : 'bg-red-50';
+    const getBorder = (s) => isStale ? 'border-slate-200 border-dashed' : (s >= 80 ? 'border-emerald-100' : s >= 50 ? 'border-amber-100' : 'border-red-100');
 
     return (
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center h-full">
-            <h3 className="text-gray-500 font-bold mb-4 uppercase text-xs tracking-wider">
-                Overall Farm Health
-            </h3>
+        <div className={`h-full bg-white p-6 rounded-[2rem] border-2 ${getBorder(score)} relative overflow-hidden group hover:shadow-xl transition-all duration-500`}>
+            {/* Background Glow */}
+            <div className={`absolute -right-10 -top-10 w-40 h-40 rounded-full ${getBg(score)} blur-3xl opacity-50`}></div>
 
-            {/* Circular Progress Bar */}
-            <div className="relative w-32 h-32 mb-4">
-                <svg className="w-full h-full transform -rotate-90">
-                    {/* Background Circle */}
-                    <circle cx="64" cy="64" r={radius} stroke="#E5E7EB" strokeWidth="8" fill="transparent" />
-                    {/* Active Score Circle */}
-                    <circle
-                        cx="64" cy="64" r={radius}
-                        stroke={color}
-                        strokeWidth="8"
-                        fill="transparent"
-                        strokeDasharray={circumference}
-                        strokeDashoffset={offset}
-                        strokeLinecap="round"
-                        className="transition-all duration-1000 ease-out"
-                    />
-                </svg>
-                {/* Score Text in Middle */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-3xl font-black text-gray-800">{Math.round(score)}</span>
-                    <span className="text-xs text-gray-400">/100</span>
+            <div className="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                    <div className="flex justify-between items-start">
+                        <h3 className="text-slate-400 font-bold text-xs uppercase tracking-[0.2em] mb-1">
+                            {isAggregate ? t("Total Farm Health", "Integrated Health Index") : "System Health"}
+                        </h3>
+                        {isStale && (
+                            <div className="px-3 py-1 bg-slate-100 text-slate-500 text-[8px] font-black uppercase tracking-widest rounded-full border border-slate-200 animate-pulse">
+                                Ghost Mode (Estimating)
+                            </div>
+                        )}
+                    </div>
+                    <div className="flex items-baseline gap-2">
+                        <span className={`text-6xl font-black tracking-tighter ${getColor(score)}`}>
+                            {isNaN(score) ? '0' : score}
+                        </span>
+                        <span className="text-lg font-bold text-slate-300">/100</span>
+                        {/* DATA AGE BADGE */}
+                        {dataAge && (
+                            <div className={`ml-2 px-2 py-0.5 text-[10px] font-bold rounded-full flex items-center gap-1 border ${isStale ? 'bg-amber-50 text-amber-600 border-amber-100' : 'bg-slate-100 text-slate-500 border-slate-200'}`}>
+                                <span>{isStale ? '⚠️' : '🕒'} {dataAge}</span>
+                            </div>
+                        )}
+                        {/* MANUAL ESTIMATE BADGE */}
+                        {latestLog && (!latestLog.ph && !latestLog.ec && latestLog.observation_tags) && (
+                            <div className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-full flex items-center gap-1" title="Estimated based on visual observations">
+                                <span>👁️ Est.</span>
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
 
-            {/* Status Message */}
-            <div className="text-center w-full">
-                <p className="font-bold text-lg mb-1" style={{ color: color }}>{message}</p>
-
-                {/* Why did score drop? Show penalties */}
-                {reasons.length > 0 && (
-                    <div className="bg-red-50 p-2 rounded text-left mt-2 w-full">
-                        <p className="text-[10px] font-bold text-red-500 mb-1 border-b border-red-100 pb-1">ISSUES FOUND:</p>
-                        <ul className="list-disc list-inside text-xs text-red-600 space-y-1">
-                            {reasons.map((r, i) => <li key={i}>{r}</li>)}
-                        </ul>
+                {isAggregate ? (
+                    <div className="mt-4">
+                        {riskItems.length > 0 ? (
+                            <div className="space-y-2">
+                                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Attention Needed ({riskItems.length})</p>
+                                {riskItems.slice(0, 3).map((item, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => setSelectedAlert({ reason: item.issue, value: item.score, context: item.name })}
+                                        className="w-full text-left flex items-center gap-2 bg-slate-50 p-2 rounded-lg border border-slate-100 hover:bg-slate-100 transition-colors cursor-pointer"
+                                    >
+                                        <AlertTriangle size={12} className="text-amber-500 shrink-0" />
+                                        <span className="text-xs font-bold text-slate-700 truncate flex-1">{item.name}</span>
+                                        <span className="text-[10px] bg-white px-2 py-0.5 rounded text-slate-500 border border-slate-100 whitespace-nowrap">{item.issue}</span>
+                                    </button>
+                                ))}
+                                {riskItems.length > 3 && (
+                                    <p className="text-[10px] text-slate-400 text-center">+ {riskItems.length - 3} more issues</p>
+                                )}
+                            </div>
+                        ) : (
+                            <div className="bg-emerald-50 p-3 rounded-2xl border border-emerald-100 flex items-center gap-3">
+                                <div className="p-2 bg-white rounded-full text-emerald-500 shadow-sm"><CheckCircle size={16} /></div>
+                                <div>
+                                    <p className="text-xs font-bold text-emerald-800">All Systems Nominal</p>
+                                    <p className="text-[10px] text-emerald-600">Great job managing the farm!</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    // Single Log Advice (Legacy Fallback)
+                    <div className="mt-4 bg-slate-50 p-4 rounded-2xl">
+                        <p className="text-xs font-bold text-slate-600 mb-1">AI Diagnosis:</p>
+                        <p className="text-xs text-slate-500 leading-relaxed">
+                            {score >= 90 ? "Optimal conditions maintained." : reasons[0] || "Check vital signs."}
+                        </p>
                     </div>
                 )}
             </div>
+
+            {/* Remediation Modal */}
+            <RemediationModal
+                isOpen={!!selectedAlert}
+                onClose={() => setSelectedAlert(null)}
+                alertType={selectedAlert?.reason || ''}
+                value={selectedAlert?.value || 'Risk'}
+                context={selectedAlert?.context || ''}
+            />
         </div>
     );
 };

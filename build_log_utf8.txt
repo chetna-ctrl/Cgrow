@@ -1,0 +1,273 @@
+﻿
+> c-gro@1.0.0 build
+> vite build
+
+node.exe : [33mThe 
+CJS build of Vite's 
+Node API is 
+deprecated. See https:
+//vite.dev/guide/troub
+leshooting.html#vite-c
+js-node-api-deprecated
+ for more 
+details.[39m
+At C:\Program Files\no
+dejs\npm.ps1:29 char:3
++   & $NODE_EXE 
+$NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: ([33mThe C   
+ JS bu...e details    
+.[39m:String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+[1m[33m[plugin:vite:
+esbuild][39m[22m 
+[33m[plugin 
+vite:esbuild] src/feat
+ures/hydroponics/compo
+nents/SystemGuideModal
+.js: [33mThe 
+character ">" is not 
+valid inside a JSX 
+element[33m
+168|                  
+        <ol className=
+"list-decimal pl-5 
+space-y-2 text-sm 
+text-slate-600">
+169|                  
+            <li>Fill 
+tank with water 
+(measure liters).</li>
+170|                  
+            <li>Add 
+<strong>Nutrient 
+A</strong> (Calcium 
+Nitrate) -> Stir 
+well.</li>
+   |                  
+                      
+                      
+                      
+ ^
+171|                  
+            <li>Add 
+<strong>Nutrient 
+B</strong> (NPK) -> 
+Stir well.</li>
+172|                  
+            <li>Check 
+<strong>pH</strong> 
+(Target 6.0) and 
+<strong>EC</strong> 
+(Target 1.2 - 
+2.0).</li>
+[39m
+[1m[33m[plugin:vite:
+esbuild][39m[22m 
+[33m[plugin 
+vite:esbuild] src/feat
+ures/hydroponics/compo
+nents/SystemGuideModal
+.js: [33mThe 
+character ">" is not 
+valid inside a JSX 
+element[33m
+169|                  
+            <li>Fill 
+tank with water 
+(measure liters).</li>
+170|                  
+            <li>Add 
+<strong>Nutrient 
+A</strong> (Calcium 
+Nitrate) -> Stir 
+well.</li>
+171|                  
+            <li>Add 
+<strong>Nutrient 
+B</strong> (NPK) -> 
+Stir well.</li>
+   |                  
+                      
+                      
+           ^
+172|                  
+            <li>Check 
+<strong>pH</strong> 
+(Target 6.0) and 
+<strong>EC</strong> 
+(Target 1.2 - 
+2.0).</li>
+173|                  
+        </ol>
+[39m
+[1m[33m[plugin:vite:
+esbuild][39m[22m 
+[33m[plugin 
+vite:esbuild] src/feat
+ures/hydroponics/compo
+nents/SystemGuideModal
+.js: [33mThe 
+character ">" is not 
+valid inside a JSX 
+element[33m
+181|                  
+        <ol className=
+"list-decimal pl-5 
+space-y-2 text-sm 
+text-slate-600">
+182|                  
+            <li>Tank 
+ko paani se bharein 
+(Liters naap 
+lein).</li>
+183|                  
+            <li>Pehle 
+<strong>Nutrient 
+A</strong> dalein -> 
+Achhe se mix 
+karein.</li>
+   |                  
+                      
+                      
+              ^
+184|                  
+            <li>Fir 
+<strong>Nutrient 
+B</strong> dalein -> 
+Achhe se mix 
+karein.</li>
+185|                  
+            
+<li>Aakhri mein 
+<strong>pH</strong> 
+(Target 6.0) aur 
+<strong>EC</strong> 
+(Target 1.2 - 2.0) 
+check karein.</li>
+[39m
+[1m[33m[plugin:vite:
+esbuild][39m[22m 
+[33m[plugin 
+vite:esbuild] src/feat
+ures/hydroponics/compo
+nents/SystemGuideModal
+.js: [33mThe 
+character ">" is not 
+valid inside a JSX 
+element[33m
+182|                  
+            <li>Tank 
+ko paani se bharein 
+(Liters naap 
+lein).</li>
+183|                  
+            <li>Pehle 
+<strong>Nutrient 
+A</strong> dalein -> 
+Achhe se mix 
+karein.</li>
+184|                  
+            <li>Fir 
+<strong>Nutrient 
+B</strong> dalein -> 
+Achhe se mix 
+karein.</li>
+   |                  
+                      
+                      
+            ^
+185|                  
+            
+<li>Aakhri mein 
+<strong>pH</strong> 
+(Target 6.0) aur 
+<strong>EC</strong> 
+(Target 1.2 - 2.0) 
+check karein.</li>
+186|                  
+        </ol>
+[39m
+[32mΓ£ô[39m 1429 modules transformed.
+[31mx[39m Build 
+failed in 11.35s
+[31merror during 
+build:
+[31m[vite]: Rollup 
+failed to resolve 
+import 
+"react-to-print" from 
+"C:/Users/deepe/my-agr
+i-os/src/features/micr
+ogreens/components/Har
+vestLabelModal.js".
+This is most likely 
+unintended because it 
+can break your 
+application at 
+runtime.
+If you do want to 
+externalize this 
+module explicitly add 
+it to
+`build.rollupOptions.e
+xternal`[31m
+    at viteWarn (file:
+///C:/Users/deepe/my-a
+gri-os/node_modules/vi
+te/dist/node/chunks/de
+p-BK3b2jBa.js:65855:17
+)
+    at onwarn (C:\User
+s\deepe\my-agri-os\nod
+e_modules\@vitejs\plug
+in-react\dist\index.cj
+s:112:7)
+    at 
+onRollupWarning (file:
+///C:/Users/deepe/my-a
+gri-os/node_modules/vi
+te/dist/node/chunks/de
+p-BK3b2jBa.js:65885:5)
+    at onwarn (file://
+/C:/Users/deepe/my-agr
+i-os/node_modules/vite
+/dist/node/chunks/dep-
+BK3b2jBa.js:65550:7)
+    at file:///C:/User
+s/deepe/my-agri-os/nod
+e_modules/vite/node_mo
+dules/rollup/dist/es/s
+hared/node-entry.js:21
+095:13
+    at Object.logger 
+[as onLog] (file:///C:
+/Users/deepe/my-agri-o
+s/node_modules/vite/no
+de_modules/rollup/dist
+/es/shared/node-entry.
+js:22968:9)
+    at ModuleLoader.ha
+ndleInvalidResolvedId 
+(file:///C:/Users/deep
+e/my-agri-os/node_modu
+les/vite/node_modules/
+rollup/dist/es/shared/
+node-entry.js:21712:26
+)
+    at file:///C:/User
+s/deepe/my-agri-os/nod
+e_modules/vite/node_mo
+dules/rollup/dist/es/s
+hared/node-entry.js:21
+670:26[39m

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Clock,
     Bell,
@@ -22,13 +23,15 @@ import {
 import { notificationService } from '../services/notificationService';
 import BlackoutModeBadge from '../components/BlackoutModeBadge';
 import SmartHeader from '../components/SmartHeader';
-import { isDemoMode } from '../utils/sampleData';
-import { supabase } from '../lib/supabase';
+// import { isDemoMode } from '../utils/sampleData';
+import { supabase } from '../lib/supabaseClient';
 
+// COOLDOWN DURATION: 60 minutes (in milliseconds)
 // COOLDOWN DURATION: 60 minutes (in milliseconds)
 const COOLDOWN_MS = 60 * 60 * 1000;
 
 const SchedulerPage = () => {
+    const navigate = useNavigate();
     const [notificationsEnabled, setNotificationsEnabled] = useState(false);
     const [selectedSystemType, setSelectedSystemType] = useState('Hydroponics');
     const [selectedCropType, setSelectedCropType] = useState('Leafy Greens');
@@ -112,31 +115,24 @@ const SchedulerPage = () => {
     useEffect(() => {
         const fetchBatches = async () => {
             try {
-                if (isDemoMode()) {
-                    const demoBatches = JSON.parse(localStorage.getItem('demo_batches') || '[]');
-                    const activeBatches = demoBatches.filter(b => b.status && b.status.toLowerCase() !== 'harvested');
-                    console.log('[Blackout Tracker] Demo mode - Active batches:', activeBatches);
-                    setMicrogreensBatches(activeBatches);
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) {
+                    console.log('[Blackout Tracker] No user logged in');
+                    return;
+                }
+
+                const { data, error } = await supabase
+                    .from('batches')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .neq('status', 'Harvested') // Capital H
+                    .neq('status', 'harvested'); // Lowercase h
+
+                if (error) {
+                    console.error('[Blackout Tracker] Error fetching batches:', error);
                 } else {
-                    const { data: { user } } = await supabase.auth.getUser();
-                    if (!user) {
-                        console.log('[Blackout Tracker] No user logged in');
-                        return;
-                    }
-
-                    const { data, error } = await supabase
-                        .from('batches')
-                        .select('*')
-                        .eq('user_id', user.id)
-                        .neq('status', 'Harvested') // Capital H
-                        .neq('status', 'harvested'); // Lowercase h
-
-                    if (error) {
-                        console.error('[Blackout Tracker] Error fetching batches:', error);
-                    } else {
-                        console.log('[Blackout Tracker] Fetched batches from Supabase:', data);
-                        setMicrogreensBatches(data || []);
-                    }
+                    console.log('[Blackout Tracker] Fetched batches from Supabase:', data);
+                    setMicrogreensBatches(data || []);
                 }
             } catch (err) {
                 console.error('[Blackout Tracker] Exception:', err);
@@ -194,7 +190,7 @@ const SchedulerPage = () => {
             <SmartHeader />
 
             {/* Page Title */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-3">
                     <div className="p-3 bg-indigo-500/10 rounded-xl text-indigo-600">
                         <Clock size={32} />
@@ -416,8 +412,14 @@ const SchedulerPage = () => {
                                                 {remaining}
                                             </span>
                                         ) : (
-                                            <span className="text-xs text-emerald-600 font-bold">
-                                                ✓ Log
+                                            <span
+                                                className="text-xs text-emerald-600 font-bold cursor-pointer hover:underline"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    navigate('/tracker', { state: { autoSelect: true } });
+                                                }}
+                                            >
+                                                ✓ Log Now
                                             </span>
                                         )}
                                     </div>

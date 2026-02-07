@@ -42,6 +42,11 @@ export default defineConfig({
     // Environment variable prefix
     envPrefix: 'VITE_',
 
+    // CSS configuration
+    css: {
+        postcss: './postcss.config.js',
+    },
+
     // Ensure public folder is handled correctly
     publicDir: 'public',
 

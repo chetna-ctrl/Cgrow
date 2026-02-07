@@ -70,3 +70,28 @@ export const fetchAgriStats = async (lat = 28.61, lon = 77.20) => {
         return { soilMoisture: 0.25, soilTemp: 24, evapotranspiration: 0.4, vpd: 0.8 };
     }
 };
+
+// Historical Data (Open-Meteo Archive: No Key Needed)
+// Used for GDD backfilling when sowing date is in the past
+export const fetchHistoricalWeather = async (lat, lon, startDate, endDate) => {
+    try {
+        // Ensure ISO strings are just YYYY-MM-DD
+        const start = startDate.split('T')[0];
+        const end = endDate.split('T')[0];
+
+        const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}&start_date=${start}&end_date=${end}&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
+
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Historical API Failed');
+        const data = await res.json();
+
+        return data.daily.time.map((date, index) => ({
+            date: date,
+            max: data.daily.temperature_2m_max[index],
+            min: data.daily.temperature_2m_min[index]
+        }));
+    } catch (error) {
+        console.error("Historical Weather Error:", error);
+        return [];
+    }
+};

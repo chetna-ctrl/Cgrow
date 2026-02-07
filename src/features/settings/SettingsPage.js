@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { User, Shield, Save, Loader } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
+import { supabase } from '../../lib/supabaseClient';
 
 const SettingsPage = () => {
     const [loading, setLoading] = useState(true);

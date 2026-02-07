@@ -13,10 +13,12 @@ import {
     Clock,
     Bell, // Operations icon
     X,
-    BookOpen
+    BookOpen,
+    Zap, // IoT Devices icon
+    Layers // Mushroom Hub icon
 } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
-import { isDemoMode } from '../../utils/sampleData';
+import { supabase } from '../../lib/supabaseClient';
+// import { isDemoMode } from '../../utils/sampleData';
 
 const Sidebar = ({ onClose, onLogout }) => {
     const [userEmail, setUserEmail] = useState('Loading...');
@@ -24,10 +26,6 @@ const Sidebar = ({ onClose, onLogout }) => {
     // Fetch logged-in user's email
     useEffect(() => {
         const fetchUser = async () => {
-            if (isDemoMode()) {
-                setUserEmail('Demo User');
-                return;
-            }
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
                 setUserEmail(user.email || 'Farm Admin');
@@ -50,10 +48,15 @@ const Sidebar = ({ onClose, onLogout }) => {
         <div className="flex flex-col h-full w-full"> {/* Filled container */}
 
             {/* 1. HEADER */}
-            <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800 shrink-0">
-                <div className="flex items-center gap-2 text-emerald-500">
-                    <Sprout size={28} />
-                    <span className="text-xl font-bold text-white tracking-tight">Agri OS</span>
+            <div className="h-20 flex items-center px-6 border-b border-slate-800 shrink-0 bg-slate-900">
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-emerald-900/20 border border-emerald-500/20 bg-white p-1">
+                        <img src="/logo_cgro.png" alt="cGrow Logo" className="w-full h-full object-contain" />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-xl font-black text-white tracking-tighter leading-none">cGrow</span>
+                        <span className="text-[8px] font-bold text-emerald-500 uppercase tracking-widest mt-1">Research Ops</span>
+                    </div>
                 </div>
                 {/* Close Button (Mobile Only: Controlled by Parent, but good to have safety) */}
                 <button
@@ -78,7 +81,9 @@ const Sidebar = ({ onClose, onLogout }) => {
                 <div className="border-t border-slate-700 my-3"></div>
 
                 {/* PRODUCTION SECTION */}
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Farm Operations</p>
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 flex items-center justify-between">
+                    Farm Operations
+                </p>
                 <NavLink to="/microgreens" className={linkClasses}>
                     <Sprout size={18} /> <span className="text-sm font-medium">Microgreens</span>
                 </NavLink>
@@ -108,6 +113,9 @@ const Sidebar = ({ onClose, onLogout }) => {
                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Resources</p>
                 <NavLink to="/guide" className={linkClasses}>
                     <BookOpen size={18} /> <span className="text-sm font-medium">Farming Guide</span>
+                </NavLink>
+                <NavLink to="/iot-devices" className={linkClasses}>
+                    <Zap size={18} /> <span className="text-sm font-medium">IoT Devices</span>
                 </NavLink>
             </nav>
 

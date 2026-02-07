@@ -1,22 +1,46 @@
-// src/features/tracker/DailyTrackerPage.js
 import React, { useState, useEffect, useMemo } from 'react';
-import { Clock, Save, Sprout, Droplets, AlertTriangle, CheckCircle, BookOpen, Download, Sun, Info, Upload, WifiOff, Beaker } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
+import { Clock, Save, Sprout, Droplets, AlertTriangle, CheckCircle, BookOpen, Download, Sun, Info, Upload, WifiOff, Beaker, Search, HelpCircle, Wind } from 'lucide-react';
 import { supabase } from '../../lib/supabaseClient';
-import { isDemoMode } from '../../utils/sampleData';
 import { calculateStreak } from '../../utils/agronomyLogic';
+import { calculateDays } from '../../utils/predictions';
 import { useMicrogreens } from '../microgreens/hooks/useMicrogreens';
 import { useHydroponics } from '../hydroponics/hooks/useHydroponics';
 import {
-    calculateVPD,
-    analyzeNutrientHealth,
     calculateDailyGDD,
-    LIGHTING_OPTIONS,
-    WEATHER_CONDITIONS,
     estimatePPFD,
     getDailyTaskAdvice,
-    getCropParams
+    getCropParams,
+    MANUAL_PATTERNS,
+    calculateFarmHealth,
+    LIGHTING_OPTIONS,
+    WEATHER_CONDITIONS,
+    calculateVPD,
+    analyzeNutrientHealth
 } from '../../utils/agriUtils';
+import { detectThermalStress } from '../../utils/agronomyAlgorithms'; // Fixed Import Source
+import { CheckSquare, ClipboardList, Activity } from 'lucide-react'; // Added Icons
 import ScientificInfoModal from '../../components/ScientificInfoModal';
+import { useBeginnerMode } from '../../context/BeginnerModeContext';
+import CostCalculator from '../../components/CostCalculator';
+
+
+
+
+const INTERVENTION_OPTIONS = [
+    { value: 'NO_ACTION', label: 'No Action Needed (Routine Check)' },
+    { value: 'ADJUST_PH_DOWN', label: '🧪 Added pH Down (Acid)' },
+    { value: 'ADJUST_PH_UP', label: '🧪 Added pH Up (Base)' },
+    { value: 'ADDED_NUTRIENTS_AB', label: '🍼 Added Nutrients (Sol A+B)' },
+    { value: 'ADDED_WATER', label: '💧 Top-up Water' },
+    { value: 'FLUSH_SYSTEM', label: '🚿 Flushed System (Water Change)' },
+    { value: 'SPRAY_NEEM', label: '🛡️ Sprayed Neem Oil/Pesticide' },
+    { value: 'SPRAY_H2O2', label: '🚑 Root Treatment (H2O2)' },
+    { value: 'ADJUST_LIGHT_HEIGHT', label: '💡 Adjusted Light Height' },
+    { value: 'ADJUST_LIGHT_HOURS', label: '⏰ Changed Light Schedule' },
+    { value: 'HARVEST_PARTIAL', label: '✂️ Partial Harvest' }
+];
 
 
 
@@ -32,6 +56,16 @@ const ResearchTooltip = () => (
                 <li><strong className="text-white">Tetens Formula:</strong> Used for precise VPD (Air Drying Power) calculation.</li>
             </ul>
             <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-800 rotate-45 border-r border-b border-slate-600"></div>
+        </div>
+    </div>
+);
+
+const ScientificContextTooltip = ({ title, content }) => (
+    <div className="group relative inline-block ml-1 align-middle z-50">
+        <HelpCircle size={12} className="text-blue-400 cursor-help hover:text-blue-600 transition-colors" />
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 p-2 bg-slate-900 text-white text-[10px] rounded shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+            <p className="font-bold border-b border-white/20 pb-1 mb-1">{title}</p>
+            <p>{content}</p>
         </div>
     </div>
 );
@@ -61,7 +95,7 @@ const DLIMeter = ({ source, hours, weather, setDistance, distance }) => {
     return (
         <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col items-center relative overflow-visible h-full justify-between">
             <h4 className="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide flex items-center justify-center">
-                Daily Light Integral
+                Light Intensity (DLI)
                 <ResearchTooltip />
             </h4>
             <div className="relative w-32 h-16 mb-2">
@@ -100,10 +134,10 @@ const HydroGuide = () => (
         <ul className="space-y-2 text-blue-900">
             <li className="flex gap-2">
                 <span className="font-bold min-w-[60px]">pH:</span>
-                <span>5.5 - 6.5. <span className="text-xs text-blue-700 block">High (&gt;7) = Iron Lockout (Yellowing). Low (&lt;5) = Burnt roots.</span></span>
+                <span>5.5 - 6.5. <span className="text-xs text-blue-700 block">High (&gt;7) = Nutrient blockage (Yellowing). Low (&lt;5) = Root damage.</span></span>
             </li>
             <li className="flex gap-2">
-                <span className="font-bold min-w-[60px]">EC:</span>
+                <span className="font-bold min-w-[60px]">Food (EC):</span>
                 <span>1.2 - 2.5 (mS/cm). <span className="text-xs text-blue-700 block">Low = Hungry Plants. High = Tip Burn.</span></span>
             </li>
             <li className="flex gap-2">
@@ -114,60 +148,12 @@ const HydroGuide = () => (
     </div>
 );
 
-const NutrientCalculator = () => {
-    const [tankSize, setTankSize] = useState('');
-    const [stage, setStage] = useState('Veg');
-
-    const dosage = stage === 'Veg' ? 2 : 3;
-    const amount = tankSize ? (parseFloat(tankSize) * dosage).toFixed(0) : 0;
-
-    return (
-        <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
-            <h4 className="font-bold text-purple-800 mb-3 flex items-center gap-2">
-                <Beaker size={16} /> Nutrient Dose Calculator
-            </h4>
-            <div className="grid grid-cols-2 gap-3 mb-3">
-                <div>
-                    <label className="text-xs font-bold text-purple-900 block mb-1">Tank Size (Liters)</label>
-                    <input
-                        type="number"
-                        value={tankSize}
-                        onChange={(e) => setTankSize(e.target.value)}
-                        placeholder="e.g. 100"
-                        className="w-full p-2 text-sm border border-purple-200 rounded text-purple-900 focus:ring-purple-500"
-                    />
-                </div>
-                <div>
-                    <label className="text-xs font-bold text-purple-900 block mb-1">Growth Stage</label>
-                    <select
-                        value={stage}
-                        onChange={(e) => setStage(e.target.value)}
-                        className="w-full p-2 text-sm border border-purple-200 rounded text-purple-900 focus:ring-purple-500"
-                    >
-                        <option value="Veg">Vegetative (Leafy)</option>
-                        <option value="Bloom">Flowering (Fruiting)</option>
-                    </select>
-                </div>
-            </div>
-            {tankSize > 0 && (
-                <div className="bg-white p-2 rounded border border-purple-100 text-center">
-                    <p className="text-xs text-purple-600 mb-1">Recipe for {tankSize} Liters:</p>
-                    <p className="font-bold text-purple-800 text-lg">
-                        {amount}ml Sol A <span className="text-purple-400 mx-1">+</span> {amount}ml Sol B
-                    </p>
-                </div>
-            )}
-
-            {/* GOLDEN RULE BANNER */}
-            <div className="mt-3 bg-yellow-100 border-l-4 border-yellow-400 p-2 text-xs text-yellow-800">
-                <strong>⚠️ Golden Rule:</strong> Add Water ➔ Add A (Stir) ➔ Add B. <br />
-                NEVER mix Solution A & B directly together!
-            </div>
-        </div>
-    );
-};
+// NutrientCalculator removed to simplify Daily Tracker. Use Dashboard for Calculator.
 
 const DailyTrackerPage = () => {
+    const location = useLocation(); // <--- Added this
+    const { isBeginnerMode, t } = useBeginnerMode();
+    const queryClient = useQueryClient();
     const [loading, setLoading] = useState(false);
     const [showInfoModal, setShowInfoModal] = useState(false);
     const [lightDist, setLightDist] = useState('close'); // New DLI Distance Logic
@@ -182,20 +168,43 @@ const DailyTrackerPage = () => {
         lightingSource: 'LED_TUBES_WHITE',
         lightHours: '14',
         weatherCondition: 'Sunny',
-        notes: ''
+        notes: '',
+        intervention: 'NO_ACTION', // Default
+        visualSymptoms: [], // New: For manual observation
+        manualAir: '', // New: For manual air quality selection
+        nutrientStrength: '', // New: For manual nutrient strength selection
+        trayWeight: '', // New: For manual weight check (Heuristic)
+        fanStatus: 'ON' // New: For Burp Alert Logic
     });
+
+    const [trayType, setTrayType] = useState('SINGLE'); // 'SINGLE' or 'DOUBLE'
+
+    // BUSINESS SETTINGS (Local State for now)
+    const [elecRate, setElecRate] = useState(8); // ₹ per Unit
+    const [setupWatts, setSetupWatts] = useState(200); // Total Watts
 
     const [hydroponicsEntry, setHydroponicsEntry] = useState({
         targetId: '',
+        visualCheck: '',
         ph: '',
         ec: '',
         waterTemp: '',
         waterLevel: 'OK',
         temperature: '',
+        humidity: '',
         lightingSource: 'GROW_LIGHTS_FULL',
         lightHours: '16',
         weatherCondition: 'Sunny',
-        notes: ''
+        notes: '',
+        intervention: 'NO_ACTION', // Default
+        visualSymptoms: [], // New: For manual observation
+        manualAir: '', // New: For manual air quality selection
+        nutrientStrength: '', // New: For manual nutrient strength selection
+        pumpStatus: 'ON',
+        waterFlow: 'Normal',
+        airStones: 'Bubbling',
+        hydrationStress: false,
+        lastCycleTime: ''
     });
 
     const [streak, setStreak] = useState(0);
@@ -205,21 +214,97 @@ const DailyTrackerPage = () => {
     const { batches } = useMicrogreens();
     const { systems } = useHydroponics();
 
-    const activeBatches = batches.filter(b => b.status !== 'Harvested');
-    const activeSystems = systems.filter(s => s.status !== 'Harvested');
+    const activeBatches = batches.filter(b => b.status && !b.status.toLowerCase().includes('harvested'));
+    const activeSystems = systems.filter(s => s.status && !s.status.toLowerCase().includes('harvested'));
 
-    // Calculate Smart Advice when Batch Changes
+    // NEW: Handle Deep Linking from Dashboard
+    useEffect(() => {
+        if (location.state?.batchId) {
+            setMicrogreensEntry(prev => ({ ...prev, batchId: location.state.batchId }));
+            // Smooth scroll to Microgreens section
+            document.getElementById('microgreens-section')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        if (location.state?.targetId) {
+            setHydroponicsEntry(prev => ({ ...prev, targetId: location.state.targetId }));
+            document.getElementById('hydroponics-section')?.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [location.state]);
+
+    // NEW: IoT AUTO-FILL LOGIC
+    const [isAutoFilled, setIsAutoFilled] = useState(false);
+
+    const fetchLatestIoTData = async (type, targetId) => {
+        if (!targetId) return; // Removed isDemoMode() check
+
+        try {
+            const field = type === 'Microgreens' ? 'batch_id' : 'target_id';
+            const { data: logs, error } = await supabase
+                .from('daily_logs')
+                .select('*')
+                .eq(field, targetId)
+                .order('created_at', { ascending: false })
+                .limit(1);
+
+            if (logs && logs.length > 0) {
+                const log = logs[0];
+                const now = new Date();
+                const logTime = new Date(log.created_at);
+                const diffMin = (now - logTime) / (1000 * 60);
+
+                // Only auto-fill if log is fresh (< 60 mins old)
+                if (diffMin < 60) {
+                    if (type === 'Microgreens') {
+                        setMicrogreensEntry(prev => ({
+                            ...prev,
+                            humidity: log.humidity || prev.humidity,
+                            temperature: log.temp || prev.temperature
+                        }));
+                    } else {
+                        setHydroponicsEntry(prev => ({
+                            ...prev,
+                            ph: log.ph || prev.ph,
+                            ec: log.ec || prev.ec,
+                            waterTemp: log.water_temp || prev.water_temp,
+                            temperature: log.temp || prev.temperature,
+                            waterLevel: log.water_level || prev.waterLevel
+                        }));
+                    }
+                    setIsAutoFilled(true);
+                    setTimeout(() => setIsAutoFilled(false), 5000); // UI feedback duration
+                }
+            }
+        } catch (e) {
+            console.error("IoT Auto-fill failed", e);
+        }
+    };
+
+    // Trigger IoT fetch when target changes
+    useEffect(() => {
+        if (microgreensEntry.batchId) fetchLatestIoTData('Microgreens', microgreensEntry.batchId);
+    }, [microgreensEntry.batchId]);
+
+    useEffect(() => {
+        if (hydroponicsEntry.targetId) fetchLatestIoTData('Hydroponics', hydroponicsEntry.targetId);
+    }, [hydroponicsEntry.targetId]);
+
+    // Calculate Smart Advice when Batch Changes or Inputs Change
     useEffect(() => {
         if (microgreensEntry.batchId) {
             const batch = activeBatches.find(b => b.id == microgreensEntry.batchId);
             if (batch) {
-                const advice = getDailyTaskAdvice(batch);
+                // Pass all params to the new signature: (batch, lightHours, humidity, trayWeight)
+                const lightHours = parseFloat(microgreensEntry.lightHours) || 0;
+                const humidity = parseFloat(microgreensEntry.humidity) || null;
+                const trayWeight = microgreensEntry.trayWeight || 'NORMAL';
+                const fanStatus = microgreensEntry.fanStatus || 'ON';
+
+                const advice = getDailyTaskAdvice(batch, lightHours, humidity, trayWeight, fanStatus, trayType);
                 setSmartAdvice(advice);
             }
         } else {
             setSmartAdvice(null);
         }
-    }, [microgreensEntry.batchId, activeBatches]);
+    }, [microgreensEntry.batchId, microgreensEntry.humidity, microgreensEntry.trayWeight, microgreensEntry.lightHours, microgreensEntry.fanStatus, activeBatches, trayType]);
 
     // Calculate VPD
     const vpdData = useMemo(() => {
@@ -230,6 +315,14 @@ const DailyTrackerPage = () => {
         }
         return null;
     }, [microgreensEntry.temperature, microgreensEntry.humidity]);
+
+    // GAP 3: Conflict Warning Logic (Microgreens)
+    const microgreensConflict = useMemo(() => {
+        if (!vpdData || !microgreensEntry.visualCheck) return false;
+        const sensorAnomaly = vpdData.risk_factor === 'HIGH';
+        const userPerfect = microgreensEntry.visualCheck === 'Looking Perfect ✨';
+        return sensorAnomaly && userPerfect;
+    }, [vpdData, microgreensEntry.visualCheck]);
 
     // Calculate Nutrient Health
     const nutrientWarnings = useMemo(() => {
@@ -246,23 +339,40 @@ const DailyTrackerPage = () => {
         return [];
     }, [hydroponicsEntry.ph, hydroponicsEntry.ec, hydroponicsEntry.waterTemp, hydroponicsEntry.temperature]);
 
+    // GAP 3: Conflict Warning Logic (Hydroponics)
+    const hydroponicsConflict = useMemo(() => {
+        if (!nutrientWarnings || !hydroponicsEntry.visualCheck) return false;
+        const sensorAnomaly = nutrientWarnings.some(w => w.severity === 'CRITICAL' || w.severity === 'HIGH');
+        const userPerfect = hydroponicsEntry.visualCheck === 'Crystal Clear & Green ✨';
+        return sensorAnomaly && userPerfect;
+    }, [nutrientWarnings, hydroponicsEntry.visualCheck]);
+
+    // INTELLIGENCE: Thermal Stress (Invisible Check)
+    const thermalAlert = useMemo(() => {
+        const temp = parseFloat(hydroponicsEntry.temperature);
+        if (!temp || !hydroponicsEntry.targetId) return null;
+
+        const selectedSystem = activeSystems.find(s => s.id == hydroponicsEntry.targetId);
+        // Map generic crop names to library IDs if needed, or rely on loose matching in algorithm
+        const cropId = selectedSystem?.crop || 'Lettuce';
+
+        return detectThermalStress(cropId, temp);
+    }, [hydroponicsEntry.temperature, hydroponicsEntry.targetId, activeSystems]);
+
+
     // Load streak
     useEffect(() => {
         const loadStreak = async () => {
-            if (isDemoMode()) {
-                const logs = JSON.parse(localStorage.getItem('demo_logs') || '[]');
-                setStreak(calculateStreak(logs));
-            } else {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (!user) return;
-                const { data: logs } = await supabase
-                    .from('daily_logs')
-                    .select('created_at')
-                    .eq('user_id', user.id)
-                    .order('created_at', { ascending: false })
-                    .limit(60);
-                setStreak(calculateStreak(logs || []));
-            }
+            // Removed isDemoMode() check
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return;
+            const { data: logs } = await supabase
+                .from('daily_logs')
+                .select('created_at')
+                .eq('user_id', user.id)
+                .order('created_at', { ascending: false })
+                .limit(60);
+            setStreak(calculateStreak(logs || []));
         };
         loadStreak();
     }, []);
@@ -277,9 +387,20 @@ const DailyTrackerPage = () => {
                     const { data: { user } } = await supabase.auth.getUser();
                     if (!user) return;
 
-                    // Insert all queued logs
-                    const logsToInsert = queue.map(log => ({ ...log, user_id: user.id }));
-                    const { error } = await supabase.from('daily_logs').insert(logsToInsert);
+                    // FIXED: Use upsert with conflict resolution to prevent overwriting newer data
+                    const logsToInsert = queue.map(log => ({
+                        ...log,
+                        user_id: user.id,
+                        // Ensure we have a unique identifier for conflict resolution
+                        sync_id: log.sync_id || `${user.id}_${log.created_at}`
+                    }));
+
+                    const { error } = await supabase
+                        .from('daily_logs')
+                        .upsert(logsToInsert, {
+                            onConflict: 'sync_id',
+                            ignoreDuplicates: false
+                        });
 
                     if (!error) {
                         alert(`✅ Synced ${queue.length} offline logs to cloud!`);
@@ -307,7 +428,10 @@ const DailyTrackerPage = () => {
             const logData = {
                 system_type: type,
                 notes: type === 'Microgreens' ? microgreensEntry.notes : hydroponicsEntry.notes,
-                created_at: new Date().toISOString()
+                created_at: new Date().toISOString(),
+                intervention_actions: type === 'Microgreens'
+                    ? (microgreensEntry.intervention !== 'NO_ACTION' ? [microgreensEntry.intervention] : [])
+                    : (hydroponicsEntry.intervention !== 'NO_ACTION' ? [hydroponicsEntry.intervention] : [])
             };
 
             let derivedMetrics = {};
@@ -318,12 +442,14 @@ const DailyTrackerPage = () => {
                 logData.humidity = parseFloat(microgreensEntry.humidity) || null;
                 logData.temp = parseFloat(microgreensEntry.temperature) || null;
                 logData.watering_system = microgreensEntry.wateringSystem;
+                logData.observation_tags = microgreensEntry.visualSymptoms; // Ensure column exists or use details
 
                 // Save Lighting Data for ML
                 logData.lighting_source = microgreensEntry.lightingSource;
                 logData.light_hours_per_day = parseFloat(microgreensEntry.lightHours) || 0;
 
                 // VPD Calculation
+                const vpdData = (logData.temp && logData.humidity) ? calculateVPD(logData.temp, logData.humidity) : null;
                 if (vpdData) {
                     derivedMetrics.vpd_kpa = vpdData.vpd_kpa;
                     derivedMetrics.vpd_risk_factor = vpdData.risk_factor;
@@ -331,10 +457,8 @@ const DailyTrackerPage = () => {
 
                 // GDD Calculation
                 if (logData.temp) {
-                    // Identify Batch/Crop for Intelligence
                     const selectedBatch = activeBatches.find(b => b.id == microgreensEntry.batchId);
                     const cropName = selectedBatch ? selectedBatch.crop : 'Lettuce';
-
                     const gdd = calculateDailyGDD(logData.temp + 2, logData.temp - 2, cropName);
                     derivedMetrics.gdd_daily = gdd;
                 }
@@ -344,12 +468,23 @@ const DailyTrackerPage = () => {
                 const dli = (ppfd * (parseFloat(microgreensEntry.lightHours) || 0) * 0.0036).toFixed(2);
                 derivedMetrics.dli_mol_per_m2 = parseFloat(dli);
 
-                // Health Score
-                let healthScore = 100;
-                if (vpdData && vpdData.risk_factor === 'HIGH') healthScore -= 30;
-                if (vpdData && vpdData.risk_factor === 'MEDIUM') healthScore -= 15;
-                derivedMetrics.health_score = healthScore;
-                derivedMetrics.alert_severity = vpdData?.risk_factor === 'HIGH' ? 'HIGH' : vpdData?.risk_factor === 'MEDIUM' ? 'MEDIUM' : 'NONE';
+                // Prepare Details JSONB
+                logData.details = {
+                    light: 'OK', // Default, updated by calculateFarmHealth
+                    manual_air_quality: microgreensEntry.manualAir,
+                    isManualEstimate: !logData.humidity && !!microgreensEntry.manualAir
+                };
+
+                const logForHealth = {
+                    ...logData,
+                    observation_tags: microgreensEntry.visualSymptoms
+                };
+                const selectedBatchObject = activeBatches.find(b => b.id == microgreensEntry.batchId);
+                const batchAge = selectedBatchObject ? calculateDays(selectedBatchObject.sow_date, new Date()) : 99;
+                const healthRes = calculateFarmHealth(logForHealth, batchAge, 'microgreens', selectedBatchObject?.crop);
+
+                derivedMetrics.health_score = healthRes.score;
+                derivedMetrics.alert_severity = healthRes.details.air === 'DANGER' || healthRes.details.nutrient === 'DANGER' ? 'HIGH' : 'NONE';
 
             } else {
                 // Hydroponics Data
@@ -359,6 +494,28 @@ const DailyTrackerPage = () => {
                 logData.water_temp = parseFloat(hydroponicsEntry.waterTemp) || null;
                 logData.water_level = hydroponicsEntry.waterLevel;
                 logData.temp = parseFloat(hydroponicsEntry.temperature) || null;
+                // Add tag if thermal stress detected automatically
+                if (thermalAlert && thermalAlert.risk === 'High') {
+                    // Auto-tag thermal stress for record
+                    logData.details = { ...logData.details, thermal_stress: thermalAlert.status };
+                }
+
+                logData.humidity = parseFloat(hydroponicsEntry.humidity) || null;
+                logData.observation_tags = hydroponicsEntry.visualSymptoms;
+
+                // Prepare Details JSONB
+                logData.details = {
+                    manual_air_quality: hydroponicsEntry.manualAir,
+                    nutrient_strength: hydroponicsEntry.nutrientStrength,
+                    isManualEstimate: (!logData.ph && !logData.ec) && (!!hydroponicsEntry.visualSymptoms?.length || !!hydroponicsEntry.nutrientStrength)
+                };
+
+                // GDD Calculation (Hydroponics)
+                if (logData.temp) {
+                    const selectedSystem = activeSystems.find(s => s.id == hydroponicsEntry.targetId);
+                    const cropName = selectedSystem ? selectedSystem.crop : 'Lettuce';
+                    derivedMetrics.gdd_daily = calculateDailyGDD(logData.temp + 2, logData.temp - 2, cropName);
+                }
 
                 // Save Lighting Data
                 logData.lighting_source = hydroponicsEntry.lightingSource;
@@ -369,44 +526,59 @@ const DailyTrackerPage = () => {
                 const dli = (ppfd * (parseFloat(hydroponicsEntry.lightHours) || 0) * 0.0036).toFixed(2);
                 derivedMetrics.dli_mol_per_m2 = parseFloat(dli);
 
-                // Health Score based on Nutrients
-                let healthScore = 100;
-                const criticalWarnings = nutrientWarnings.filter(w => w.severity === 'CRITICAL').length;
-                const highWarnings = nutrientWarnings.filter(w => w.severity === 'HIGH').length;
+                // Unified Health Score via Engine
+                const selectedSystem = activeSystems.find(s => s.id == hydroponicsEntry.targetId);
+                const batchAge = selectedSystem ? calculateDays(selectedSystem.plant_date, new Date()) : 99;
 
-                healthScore -= criticalWarnings * 30;
-                healthScore -= highWarnings * 20;
-                derivedMetrics.health_score = Math.max(0, healthScore);
-                derivedMetrics.nutrient_warnings_count = nutrientWarnings.length;
+                // Add Sub-Type Telemetry to Log Data for Health Engine
+                logData.system_type = selectedSystem?.system_type || 'NFT';
+                logData.pump_status = hydroponicsEntry.pumpStatus;
+                logData.water_flow = hydroponicsEntry.waterFlow;
+                logData.air_stones = hydroponicsEntry.airStones;
+                logData.hydration_stress = hydroponicsEntry.hydrationStress;
+                logData.last_cycle_time = parseFloat(hydroponicsEntry.lastCycleTime) || 0;
 
-                if (criticalWarnings > 0) derivedMetrics.alert_severity = 'CRITICAL';
-                else if (highWarnings > 0) derivedMetrics.alert_severity = 'HIGH';
-                else derivedMetrics.alert_severity = 'NONE';
+                // Also store in details for record keeping
+                logData.details = {
+                    ...logData.details,
+                    pump_status: logData.pump_status,
+                    water_flow: logData.water_flow,
+                    air_stones: logData.air_stones,
+                    hydration_stress: logData.hydration_stress,
+                    last_cycle_time: logData.last_cycle_time
+                };
+
+                const healthRes = calculateFarmHealth(logData, batchAge, 'hydroponics', selectedSystem?.crop);
+
+                derivedMetrics.health_score = healthRes.score;
+                derivedMetrics.alert_severity = healthRes.details.air === 'DANGER' || healthRes.details.nutrient === 'DANGER' ? 'HIGH' : 'NONE';
             }
 
             const enhancedLogData = { ...logData, ...derivedMetrics };
 
-            if (isDemoMode()) {
-                const existing = JSON.parse(localStorage.getItem('demo_logs') || '[]');
-                existing.push({ ...enhancedLogData, id: Date.now() });
-                localStorage.setItem('demo_logs', JSON.stringify(existing));
-                setStreak(calculateStreak(existing));
-                alert("✅ Log saved (Demo Mode)!");
+            // OFFLINE CHECK
+            if (!navigator.onLine) {
+                const existingQueue = JSON.parse(localStorage.getItem('offline_logs_queue') || '[]');
+                existingQueue.push(enhancedLogData);
+                localStorage.setItem('offline_logs_queue', JSON.stringify(existingQueue));
+                alert("💾 Saved to Offline Queue! Will sync when internet returns.");
             } else {
-                // OFFLINE CHECK
-                if (!navigator.onLine) {
-                    const existingQueue = JSON.parse(localStorage.getItem('offline_logs_queue') || '[]');
-                    existingQueue.push(enhancedLogData);
-                    localStorage.setItem('offline_logs_queue', JSON.stringify(existingQueue));
-                    alert("💾 Saved to Offline Queue! Will sync when internet returns.");
-                } else {
-                    const { data: { user } } = await supabase.auth.getUser();
-                    if (!user) throw new Error('Not logged in');
-                    const { error } = await supabase.from('daily_logs').insert([{ ...enhancedLogData, user_id: user.id }]);
-                    if (error) throw error;
-                    setStreak(streak + 1);
-                    alert("✅ Log saved successfully!");
-                }
+                const { data: { user } } = await supabase.auth.getUser();
+                if (!user) throw new Error('Not logged in');
+                const { error } = await supabase.from('daily_logs').insert([{ ...enhancedLogData, user_id: user.id }]);
+                if (error) throw error;
+
+                // Invalidate all views that depend on daily logs
+                // We explicitely invalidate specific keys to force re-renders in Dashboard and System pages
+                await Promise.all([
+                    queryClient.invalidateQueries({ queryKey: ['daily_logs'] }),
+                    queryClient.invalidateQueries({ queryKey: ['microgreens'] }),
+                    queryClient.invalidateQueries({ queryKey: ['hydroponics'] }),
+                    queryClient.invalidateQueries({ queryKey: ['dashboard_stats'] })
+                ]);
+
+                setStreak(streak + 1);
+                alert("✅ Log saved successfully!");
             }
         } catch (err) {
             alert('❌ Error saving log: ' + err.message);
@@ -418,22 +590,33 @@ const DailyTrackerPage = () => {
     // SMART CSV EXPORT (Pro Version)
     const exportToCSV = async () => {
         try {
-            let logs = [];
-            if (isDemoMode()) {
-                logs = JSON.parse(localStorage.getItem('demo_logs') || '[]');
-            } else {
-                const { data: { user } } = await supabase.auth.getUser();
-                if (!user) { alert('Please log in'); return; }
-                const { data } = await supabase.from('daily_logs').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
-                logs = data || [];
-            }
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) { alert('Please log in'); return; }
+            const { data } = await supabase.from('daily_logs').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+            const logs = data || [];
             if (logs.length === 0) { alert('No data to export'); return; }
 
-            // SMART FILL LOGIC
-            const processedLogs = logs.map(log => {
-                const isMicro = log.system_type === 'Microgreens';
+            // 1. AGGREGATION: Latest Entry Wins per ID per Date
+            // Key format: SystemType_ID_Date
+            const uniqueEntries = {};
+            logs.forEach(log => {
+                const dateKey = new Date(log.created_at).toLocaleDateString();
+                const idKey = log.batch_id || log.target_id || log.system_id || 'Unknown';
+                const uniqueKey = `${log.system_type}_${idKey}_${dateKey}`;
 
-                // 1. Calculate Missing DLI (Legacy Repair)
+                // Since logs are ordered DESC by created_at, the first one we encounter is the latest.
+                if (!uniqueEntries[uniqueKey]) {
+                    uniqueEntries[uniqueKey] = log;
+                }
+            });
+            const aggregatedLogs = Object.values(uniqueEntries);
+
+            // 2. PROCESSING & CLEANING
+            const processedLogs = aggregatedLogs.map(log => {
+                const isMicro = log.system_type === 'Microgreens';
+                const dateObj = new Date(log.created_at);
+
+                // Calculate Missing DLI (Legacy Repair)
                 let finalDLI = log.dli_mol_per_m2;
                 if (!finalDLI && log.light_hours_per_day && log.lighting_source) {
                     const estimatedPPFD = estimatePPFD(log.lighting_source, 'Sunny'); // Default to sunny if unknown
@@ -441,31 +624,35 @@ const DailyTrackerPage = () => {
                 }
 
                 return {
-                    Date: new Date(log.created_at).toLocaleDateString(),
+                    Date: dateObj.toLocaleDateString(),
+                    Time: dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                     System: log.system_type,
                     ID: log.batch_id || log.target_id || log.system_id || 'N/A',
                     Status: log.visual_check || log.status || 'OK',
 
                     // ENVIRONMENT
-                    Temp: log.temp ? `${log.temp}°C` : 'N/A',
-                    Humidity: isMicro && log.humidity ? `${log.humidity}%` : 'N/A',
-                    VPD: isMicro && log.vpd_kpa ? `${log.vpd_kpa} kPa` : 'N/A',
+                    Temp: log.temp ? `${log.temp}°C` : '-',
+                    Humidity: isMicro && log.humidity ? `${log.humidity}%` : '-',
+                    VPD: isMicro && log.vpd_kpa ? `${log.vpd_kpa} kPa` : '-',
 
                     // WATER
-                    pH: !isMicro && log.ph ? log.ph : 'N/A',
-                    EC: !isMicro && log.ec ? log.ec : 'N/A',
-                    WaterTemp: !isMicro && log.water_temp ? `${log.water_temp}°C` : 'N/A',
+                    pH: !isMicro && log.ph ? log.ph : '-',
+                    EC: !isMicro && log.ec ? log.ec : '-',
+                    WaterTemp: !isMicro && log.water_temp ? `${log.water_temp}°C` : '-',
 
                     // LIGHTING & DLI
-                    LightSource: log.lighting_source || 'N/A',
+                    LightSource: log.lighting_source || '-',
                     Hours: log.light_hours_per_day || 0,
-                    DLI: finalDLI || 'N/A',
+                    DLI: finalDLI || '-',
 
                     // ALERTS
                     Warnings: log.nutrient_warnings_count || 0,
                     Notes: log.notes ? `"${log.notes}"` : ''
                 };
             });
+
+            // Sort by Date DESC, then System
+            processedLogs.sort((a, b) => new Date(b.Date) - new Date(a.Date));
 
             const headers = Object.keys(processedLogs[0]).join(',');
             const rows = processedLogs.map(row => Object.values(row).join(','));
@@ -474,7 +661,7 @@ const DailyTrackerPage = () => {
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url; a.download = `AgriOS_Smart_Log_${new Date().toISOString().split('T')[0]}.csv`;
+            a.href = url; a.download = `cGrow_Daily_Report_${new Date().toISOString().split('T')[0]}.csv`;
             a.click();
         } catch (error) { alert('Error exporting: ' + error.message); }
     };
@@ -497,23 +684,14 @@ const DailyTrackerPage = () => {
                     const log = {};
 
                     // Simple mapping based on known columns
-                    // This assumes the CSV format matches our Export exactly
-                    // Or at least checks for key matching
-
                     // Note: A robust importer would map headers to DB keys. 
                     // For now, assuming Export format re-import:
                     // Date,System,ID,Status,Temp,Humidity,VPD,pH,EC,WaterTemp,LightSource,Hours,DLI,Warnings,Notes
-
-                    // Simplification: Just alert functionality for now as requested
                     return values;
                 });
 
-                // NOTE: Full CSV Re-hydration is complex because derived fields (Humidity "65%") 
-                // contain strings. We need to parse "65%" -> 65.
-                // For this implementation, we will mock the functionality to demonstrate readiness.
+                alert(`📂 Read ${parsedLogs.length} rows! (Feature pending backend integration)`);
 
-                alert(`📂 Read ${parsedLogs.length} rows! (Feature ready for DB mapping)`);
-                // Implementation of full parsing requires dedicated schema mapping
             } catch (err) {
                 alert('Import Error: ' + err.message);
             }
@@ -530,11 +708,17 @@ const DailyTrackerPage = () => {
                         <Clock size={32} />
                     </div>
                     <div>
-                        <h1 className="page-title">Daily Farm Tracker</h1>
+                        <h1 className="page-title"><span className="text-emerald-600">cGrow</span> Daily Tracker</h1>
                         <p className="text-slate-500">Log metrics & Get Real-time Science Advice</p>
                     </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
+                    <button
+                        onClick={() => setShowInfoModal(true)}
+                        className="flex items-center gap-2 px-4 py-2 bg-white text-emerald-600 rounded-lg hover:bg-emerald-50 transition border border-emerald-200 shadow-sm font-bold"
+                    >
+                        <HelpCircle size={18} /> Farming Guide
+                    </button>
                     <label className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition cursor-pointer border border-slate-300">
                         <Upload size={18} /> Import
                         <input type="file" accept=".csv" className="hidden" onChange={handleImport} />
@@ -549,7 +733,7 @@ const DailyTrackerPage = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 {/* MICROGREENS COLUMN */}
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border-2 border-green-200">
+                <div id="microgreens-section" className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border-2 border-green-200">
                     <div className="flex items-center gap-2 mb-4">
                         <Sprout className="text-green-600" size={24} />
                         <h2 className="text-xl font-bold text-green-900">🌱 Microgreens Tracker</h2>
@@ -573,6 +757,88 @@ const DailyTrackerPage = () => {
                             </select>
                         </div>
 
+                        {/* TRAY SETTINGS UI (New Feature) */}
+                        <div className="mb-4 p-3 bg-white rounded-xl border border-dashed border-emerald-300 flex justify-between items-center">
+                            <span className="text-xs font-black text-emerald-800 uppercase tracking-widest">
+                                MY SETUP: {trayType} TRAY
+                            </span>
+                            <div className="flex bg-slate-100 p-1 rounded-lg">
+                                <button
+                                    type="button"
+                                    onClick={() => setTrayType('SINGLE')}
+                                    className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all ${trayType === 'SINGLE' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400'}`}
+                                >
+                                    SINGLE (Tub)
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setTrayType('DOUBLE')}
+                                    className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all ${trayType === 'DOUBLE' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400'}`}
+                                >
+                                    DOUBLE (Bot)
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                        {/* ONE-QUESTION START: Visual health check promoted to top */}
+                        <div className="bg-white p-4 rounded-lg border-2 border-emerald-200 shadow-sm">
+                            <label className="block text-sm font-bold text-green-900 mb-2">
+                                📸 How do the leaves look today?
+                            </label>
+                            <select
+                                required
+                                className="w-full p-3 border-2 border-green-300 rounded-lg text-lg font-medium"
+                                value={microgreensEntry.visualCheck}
+                                onChange={(e) => setMicrogreensEntry({ ...microgreensEntry, visualCheck: e.target.value })}
+                            >
+                                <option value="">Select status...</option>
+                                <option>Looking Perfect ✨</option>
+                                <option>Slightly Yellowing 🟡</option>
+                                <option>Mold/White Spots Detected 🍄</option>
+                                <option>Wilting/Droopy 🥀</option>
+                                <option>Ready for Harvest! ✂️</option>
+                            </select>
+                        </div>
+
+                        {/* WEIGHT CHECK (Heuristic Input) */}
+                        <div className="bg-white p-4 rounded-lg border-2 border-emerald-200 shadow-sm">
+                            <label className="block text-sm font-bold text-green-900 mb-2">
+                                ⚖️ Tray Weight (Lift to check)
+                            </label>
+                            <div className="grid grid-cols-3 gap-2">
+                                {[
+                                    { value: 'LIGHT', label: '🪶 Light (Dry)', color: 'bg-orange-50 border-orange-200' },
+                                    { value: 'NORMAL', label: '⚖️ Normal', color: 'bg-green-50 border-green-200' },
+                                    { value: 'HEAVY', label: '💧 Heavy (Wet)', color: 'bg-blue-50 border-blue-200' }
+                                ].map((option) => (
+                                    <button
+                                        key={option.value}
+                                        type="button"
+                                        onClick={() => setMicrogreensEntry({ ...microgreensEntry, trayWeight: option.value })}
+                                        className={`p-2 rounded-lg border-2 text-sm font-bold transition-all ${microgreensEntry.trayWeight === option.value
+                                            ? 'border-emerald-500 ring-2 ring-emerald-200 scale-105'
+                                            : `${option.color} text-gray-600 hover:bg-gray-50`
+                                            }`}
+                                    >
+                                        {option.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* IoT Auto-fill Notification */}
+                        {isAutoFilled && (
+                            <div className="bg-emerald-100 text-emerald-800 p-2 rounded-lg text-xs font-bold flex items-center gap-2 animate-bounce">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                </span>
+                                Auto-filled from recent Sensor data 📡
+                            </div>
+                        )}
+
                         {/* SMART ADVICE CARD */}
                         {smartAdvice && (
                             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 animate-fade-in">
@@ -594,25 +860,22 @@ const DailyTrackerPage = () => {
                                             <p className="text-xs text-orange-700 leading-tight">{smartAdvice.lighting.action}</p>
                                         </div>
                                     </div>
+
+                                    {/* Conflict Warning (GAP 3) */}
+                                    {microgreensConflict && (
+                                        <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-2xl flex items-center gap-3 animate-pulse">
+                                            <AlertTriangle className="text-amber-600" size={24} />
+                                            <p className="text-sm font-black text-amber-800">
+                                                ⚠️ {t("Sensor data doesn't fully match observation — please recheck leaves.", "Data anomaly detected: Sensors and visual observation are in conflict.")}
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         )}
 
 
-                        {/* Visual Check */}
-                        <div>
-                            <label className="block text-sm font-bold text-green-900 mb-1">Visual Health Check</label>
-                            <select
-                                className="w-full p-2 border border-green-300 rounded-lg"
-                                value={microgreensEntry.visualCheck}
-                                onChange={(e) => setMicrogreensEntry({ ...microgreensEntry, visualCheck: e.target.value })}
-                            >
-                                <option value="">Select...</option>
-                                <option>Looks Good ✅</option>
-                                <option>Mold Detected 🔴</option>
-                                <option>Wilting 🟡</option>
-                            </select>
-                        </div>
+                        {/* Remove redundant Visual Check (already moved to top) */}
 
                         {/* CROP DOCTOR (Remediation Protocol) */}
                         {microgreensEntry.visualCheck && microgreensEntry.visualCheck.includes('Mold') && (
@@ -627,6 +890,65 @@ const DailyTrackerPage = () => {
                                 </ul>
                             </div>
                         )}
+
+                        {/* MANUAL OBSERVATION SECTION */}
+                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                            <h3 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <Search size={20} className="text-purple-500" /> Manual Observation (No Sensors?)
+                            </h3>
+
+                            {/* VISUAL SYMPTOMS SELECTOR */}
+                            <div className="mb-4">
+                                <label className="block text-sm font-semibold text-slate-600 mb-2">Visual Inspection</label>
+                                <div className="flex flex-wrap gap-2">
+                                    {['Look Healthy', 'Leaf Yellowing', 'Wilting', 'Algae', 'Stunted Growth'].map(tag => (
+                                        <button
+                                            key={tag}
+                                            type="button"
+                                            onClick={() => {
+                                                const current = microgreensEntry.visualSymptoms || [];
+                                                const createNew = current.includes(tag)
+                                                    ? current.filter(t => t !== tag)
+                                                    : [...current, tag];
+                                                setMicrogreensEntry({ ...microgreensEntry, visualSymptoms: createNew });
+                                            }}
+                                            className={`px-3 py-1 rounded-full text-xs font-bold border ${(microgreensEntry.visualSymptoms || []).includes(tag)
+                                                ? 'bg-purple-100 border-purple-500 text-purple-700'
+                                                : 'bg-slate-50 border-slate-200 text-slate-500 hover:bg-slate-100'
+                                                }`}
+                                        >
+                                            {tag}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* MANUAL ESTIMATION BUTTONS */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-semibold text-slate-600 mb-2">Air Feel (Est. Humidity)</label>
+                                    <div className="flex gap-1">
+                                        {Object.entries(MANUAL_PATTERNS.AIR_QUALITY).map(([key, val]) => (
+                                            <button
+                                                key={key}
+                                                type="button"
+                                                onClick={() => setMicrogreensEntry({
+                                                    ...microgreensEntry,
+                                                    humidity: val.humidity, // Auto-fill numeric
+                                                    manualAir: key // Tag it
+                                                })}
+                                                className={`flex-1 py-2 text-xs font-bold rounded border ${microgreensEntry.manualAir === key
+                                                    ? 'bg-blue-100 border-blue-500 text-blue-700'
+                                                    : 'bg-slate-50 border-slate-200 text-slate-500'
+                                                    }`}
+                                            >
+                                                {key}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         {/* LIGHTING SYSTEM SECTION (New Professional Meter) */}
                         <div className="bg-white/50 p-4 rounded-lg border border-green-100">
@@ -669,6 +991,28 @@ const DailyTrackerPage = () => {
                                             </select>
                                         </div>
                                     )}
+
+
+                                    {/* Cost Calculator */}
+                                    <CostCalculator lightHours={microgreensEntry.lightHours} />
+
+                                    {/* FAN STATUS TOGGLE (For Air Check) */}
+                                    <div className="mt-3 bg-slate-100 p-2 rounded-lg flex items-center justify-between border border-slate-200">
+                                        <div className="flex items-center gap-2">
+                                            <Wind size={16} className={microgreensEntry.fanStatus === 'ON' ? 'text-blue-500' : 'text-slate-400'} />
+                                            <label className="text-xs font-bold text-slate-600">Fan / Ventilation</label>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => setMicrogreensEntry({ ...microgreensEntry, fanStatus: microgreensEntry.fanStatus === 'ON' ? 'OFF' : 'ON' })}
+                                            className={`px-3 py-1 rounded text-[10px] font-black tracking-widest transition-all ${microgreensEntry.fanStatus === 'ON'
+                                                ? 'bg-blue-500 text-white shadow-md'
+                                                : 'bg-white border border-slate-300 text-slate-400'
+                                                }`}
+                                        >
+                                            {microgreensEntry.fanStatus}
+                                        </button>
+                                    </div>
                                 </div>
 
                                 {/* Right: The New Meter */}
@@ -680,6 +1024,8 @@ const DailyTrackerPage = () => {
                                     setDistance={setLightDist}
                                 />
                             </div>
+
+
 
                             {/* GDD Badge (Preserved below the section) */}
                             {microgreensEntry.temperature && microgreensEntry.batchId && (
@@ -699,15 +1045,42 @@ const DailyTrackerPage = () => {
                             )}
                         </div>
 
+
+                        {/* MANUAL WEIGHT INPUT (Heuristic Engine) */}
+                        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-4">
+                            <label className="block text-sm font-bold text-slate-700 mb-2">⚖️ Tray Weight Check (Before Watering)</label>
+                            <div className="flex gap-2">
+                                {['LIGHT', 'NORMAL', 'HEAVY'].map(w => (
+                                    <button
+                                        key={w}
+                                        type="button"
+                                        onClick={() => setMicrogreensEntry({ ...microgreensEntry, trayWeight: w })}
+                                        className={`flex-1 py-3 text-xs font-black rounded-lg border transition-all ${microgreensEntry.trayWeight === w
+                                            ? (w === 'HEAVY' ? 'bg-red-100 border-red-400 text-red-700' : 'bg-blue-100 border-blue-400 text-blue-700')
+                                            : 'bg-white border-slate-300 text-slate-400 hover:bg-white'
+                                            }`}
+                                    >
+                                        {w === 'LIGHT' ? '🪶 LIGHT' : w === 'NORMAL' ? '⚖️ NORMAL' : '💧 HEAVY'}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
                         {/* Humidity & Temp */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-bold text-green-900 mb-1">Humidity (%)</label>
+                                <label className="block text-sm font-bold text-green-900 mb-1">
+                                    Humidity (%)
+                                    <ScientificContextTooltip title="VPD Influence" content="Humidity regulates the 'Air Drying Power'. High humidity prevents transpiration, causing calcium deficiency." />
+                                </label>
                                 <input type="number" step="0.1" placeholder="65" className="w-full p-2 border border-green-300 rounded-lg"
                                     value={microgreensEntry.humidity} onChange={(e) => setMicrogreensEntry({ ...microgreensEntry, humidity: e.target.value })} />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-green-900 mb-1">Temp (°C)</label>
+                                <label className="block text-sm font-bold text-green-900 mb-1">
+                                    Temp (°C)
+                                    <ScientificContextTooltip title="GDD Thermal Time" content="Temperature controls metabolic speed. Use this to track GDD (Growing Degree Days) for precise harvest timing." />
+                                </label>
                                 <input type="number" step="0.1" placeholder="22" className="w-full p-2 border border-green-300 rounded-lg"
                                     value={microgreensEntry.temperature} onChange={(e) => setMicrogreensEntry({ ...microgreensEntry, temperature: e.target.value })} />
                             </div>
@@ -730,13 +1103,41 @@ const DailyTrackerPage = () => {
                             <div className={`p-4 rounded-lg border-2 ${vpdData.risk_factor === 'HIGH' ? 'bg-red-50 border-red-300' : vpdData.risk_factor === 'MEDIUM' ? 'bg-yellow-50 border-yellow-300' : 'bg-green-50 border-green-300'}`}>
                                 <div className="flex items-center gap-2 mb-2">
                                     {vpdData.risk_factor === 'LOW' ? <CheckCircle size={20} className="text-green-600" /> : <AlertTriangle size={20} className={vpdData.risk_factor === 'HIGH' ? 'text-red-600' : 'text-yellow-600'} />}
-                                    <h4 className="font-bold text-sm">VPD Analysis</h4>
+                                    <h4 className="font-bold text-sm">Air Comfort Analysis</h4>
                                 </div>
                                 <p className="text-lg font-bold">{vpdData.vpd_kpa} kPa</p>
                                 <p className="text-xs font-semibold">{vpdData.status}</p>
                                 <p className="text-xs mt-1 text-slate-600">Action: {vpdData.recommendation}</p>
                             </div>
                         )}
+
+                        {/* INTERVENTION LOGGING (New Feature) */}
+                        <div className="bg-emerald-50/50 p-4 rounded-lg border border-emerald-100">
+                            <label className="block text-sm font-bold text-green-900 mb-2 flex items-center gap-2">
+                                <Activity size={16} className="text-emerald-600" /> Action Taken Today
+                            </label>
+                            <select
+                                className="w-full p-2 border border-green-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-emerald-500"
+                                value={microgreensEntry.intervention}
+                                onChange={(e) => setMicrogreensEntry({ ...microgreensEntry, intervention: e.target.value })}
+                            >
+                                {INTERVENTION_OPTIONS.map(opt => (
+                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Notes Field (Restored) */}
+                        <div>
+                            <label className="block text-sm font-bold text-green-900 mb-1">Notes / Observations</label>
+                            <textarea
+                                rows="2"
+                                placeholder="Any other details..."
+                                className="w-full p-2 border border-green-300 rounded-lg text-sm"
+                                value={microgreensEntry.notes}
+                                onChange={(e) => setMicrogreensEntry({ ...microgreensEntry, notes: e.target.value })}
+                            />
+                        </div>
 
                         <button type="submit" disabled={loading} className="w-full bg-green-600 text-white p-3 rounded-lg font-bold hover:bg-green-700 disabled:opacity-50 flex items-center justify-center gap-2">
                             {loading ? 'Saving...' : <><Save size={18} /> Save Microgreens Log</>}
@@ -745,7 +1146,7 @@ const DailyTrackerPage = () => {
                 </div>
 
                 {/* HYDROPONICS COLUMN */}
-                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl border-2 border-blue-200">
+                <div id="hydroponics-section" className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl border-2 border-blue-200">
                     <div className="flex items-center gap-2 mb-4">
                         <Droplets className="text-blue-600" size={24} />
                         <h2 className="text-xl font-bold text-blue-900">💧 Hydroponics Tracker</h2>
@@ -758,14 +1159,252 @@ const DailyTrackerPage = () => {
                                 value={hydroponicsEntry.targetId} onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, targetId: e.target.value })}>
                                 <option value="">Choose a system...</option>
                                 {activeSystems.map(system => (
-                                    <option key={system.id} value={system.system_id || system.id}>{system.system_id} - {system.crop}</option>
+                                    <option key={system.id} value={system.id}>{system.system_id || system.id} - {system.crop}</option>
                                 ))}
                             </select>
                         </div>
 
+                        {/* ONE-QUESTION START: Visual health check promoted to top for Hydroponics */}
+                        {/* Main Tracker Form */}
+                        <div id="daily-tracker-form" className="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 relative overflow-hidden">
+                            <label className="block text-sm font-bold text-blue-900 mb-2">
+                                📸 How do the plants look today?
+                            </label>
+                            <select
+                                required
+                                className="w-full p-3 border-2 border-blue-300 rounded-lg text-lg font-medium"
+                                value={hydroponicsEntry.visualCheck}
+                                onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, visualCheck: e.target.value })}
+                            >
+                                <option value="">Select status...</option>
+                                {(() => {
+                                    const selectedSystem = activeSystems.find(s => s.id == hydroponicsEntry.targetId);
+                                    const subType = selectedSystem?.system_type || 'DEFAULT';
+                                    const options = {
+                                        DEFAULT: [
+                                            'Crystal Clear & Green ✨',
+                                            'Yellowing Tips (Burn?) 🟡',
+                                            'Droopy/Limp Leaves 🥀',
+                                            'Algae/Green Water Found 🦠',
+                                            'Roots look Slimy/Brown 🟤'
+                                        ],
+                                        NFT: [
+                                            'Roots white & clean ✨',
+                                            'Water film visible in pipes ✅',
+                                            'Yellowing Tips (Burn?) 🟡',
+                                            'Dry zones in gullies ⚠️',
+                                            'Roots look Slimy/Brown 🟤'
+                                        ],
+                                        DWC: [
+                                            'Bubbles strong & active 🫧',
+                                            'Water smells fresh & clean 🌊',
+                                            'Leaf Yellowing 🟡',
+                                            'Stagnant water smell 🤢',
+                                            'Roots look Slimy/Brown 🟤'
+                                        ],
+                                        'Ebb & Flow': [
+                                            'Media is moist & healthy 🪴',
+                                            'Leaf Yellowing 🟡',
+                                            'Media is bone dry! 🌵',
+                                            'Standing water in tray ⚠️',
+                                            'Roots look Slimy/Brown 🟤'
+                                        ],
+                                        'Drip': [
+                                            'Media moist & draining well 💧',
+                                            'Plants wilting (Clog?) 🥀',
+                                            'Leaves Yellowing 🟡',
+                                            'Algae on Perlite surface 🟢',
+                                            'Run-off is too heavy 🌊'
+                                        ]
+                                    };
+                                    return (options[subType] || options.DEFAULT).map(opt => (
+                                        <option key={opt} value={opt}>{opt}</option>
+                                    ));
+                                })()}
+                            </select>
+
+                            {/* SYSTEM-SPECIFIC TELEMETRY (Sub-type Aware) */}
+                            {(() => {
+                                const system = activeSystems.find(s => s.id == hydroponicsEntry.targetId);
+                                if (!system) return null;
+
+                                if (system.system_type === 'NFT') {
+                                    return (
+                                        <div className="mt-4 p-4 bg-cyan-50 rounded-xl border border-cyan-200 grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-[10px] font-black text-cyan-700 uppercase mb-1">Pump Status</label>
+                                                <select className="w-full p-2 bg-white border border-cyan-300 rounded-lg text-sm" value={hydroponicsEntry.pumpStatus} onChange={e => setHydroponicsEntry({ ...hydroponicsEntry, pumpStatus: e.target.value })}>
+                                                    <option value="ON">ON ✅</option>
+                                                    <option value="OFF">OFF 🛑 (Critical)</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label className="block text-[10px] font-black text-cyan-700 uppercase mb-1">Water Flow</label>
+                                                <select className="w-full p-2 bg-white border border-cyan-300 rounded-lg text-sm" value={hydroponicsEntry.waterFlow} onChange={e => setHydroponicsEntry({ ...hydroponicsEntry, waterFlow: e.target.value })}>
+                                                    <option value="Normal">Normal ✅</option>
+                                                    <option value="Blocked">Blocked 🛑</option>
+                                                    <option value="Slow">Slow ⚠️</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    );
+                                }
+
+                                if (system.system_type === 'DWC') {
+                                    return (
+                                        <div className="mt-4 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                                            <label className="block text-[10px] font-black text-blue-700 uppercase mb-1">Air Stones Status</label>
+                                            <select className="w-full p-2 bg-white border border-blue-300 rounded-lg text-sm" value={hydroponicsEntry.airStones} onChange={e => setHydroponicsEntry({ ...hydroponicsEntry, airStones: e.target.value })}>
+                                                <option value="Bubbling">Strongly Bubbling 🫧</option>
+                                                <option value="Weak">Weak Bubbles ⚠️</option>
+                                                <option value="Not Bubbling">Not Bubbling 🛑</option>
+                                            </select>
+                                        </div>
+                                    );
+                                }
+
+                                if (system.system_type === 'Ebb & Flow') {
+                                    return (
+                                        <div className="mt-4 p-4 bg-emerald-50 rounded-xl border border-emerald-200 grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-[10px] font-black text-emerald-700 uppercase mb-1">Hydration Stress?</label>
+                                                <select className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-sm" value={hydroponicsEntry.hydrationStress} onChange={e => setHydroponicsEntry({ ...hydroponicsEntry, hydrationStress: e.target.value === 'true' })}>
+                                                    <option value="false">No (Media Moist) ✅</option>
+                                                    <option value="true">Yes (Media Dry) ⚠️</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label className="block text-[10px] font-black text-emerald-700 uppercase mb-1">Hours Since Last Cycle</label>
+                                                <input type="number" step="0.5" className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-sm" placeholder="e.g. 2" value={hydroponicsEntry.lastCycleTime} onChange={e => setHydroponicsEntry({ ...hydroponicsEntry, lastCycleTime: e.target.value })} />
+                                            </div>
+                                        </div>
+                                    );
+                                }
+
+                                if (system.system_type === 'Drip') {
+                                    return (
+                                        <div className="mt-4 p-4 bg-orange-50 rounded-xl border border-orange-200 grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-[10px] font-black text-orange-700 uppercase mb-1">Dripper Status</label>
+                                                <select className="w-full p-2 bg-white border border-orange-300 rounded-lg text-sm" value={hydroponicsEntry.waterFlow} onChange={e => setHydroponicsEntry({ ...hydroponicsEntry, waterFlow: e.target.value })}>
+                                                    <option value="Normal">Flowing Well 💧</option>
+                                                    <option value="Blocked">Clogged / Dry 🛑</option>
+                                                    <option value="Uneven">Uneven Rate ⚠️</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label className="block text-[10px] font-black text-orange-700 uppercase mb-1">Catch Cup (Run-off)</label>
+                                                <select className="w-full p-2 bg-white border border-orange-300 rounded-lg text-sm" value={hydroponicsEntry.lastCycleTime} onChange={e => setHydroponicsEntry({ ...hydroponicsEntry, lastCycleTime: e.target.value })}>
+                                                    <option value="10">10-20% (Perfect) ✅</option>
+                                                    <option value="0">No Run-off (Too Dry) 🌵</option>
+                                                    <option value="50">High (Wasting Water) 🌊</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    );
+                                }
+                                return null;
+                            })()}
+                        </div>
+
+                        {/* IoT Auto-fill Notification */}
+                        {isAutoFilled && (
+                            <div className="bg-blue-100 text-blue-800 p-2 rounded-lg text-xs font-bold flex items-center gap-2 animate-bounce">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                                </span>
+                                Sensors synced: pH, EC, Temp auto-filled 📡
+                            </div>
+                        )}
+
                         {/* SMART ASSISTANT BLOCK */}
                         <HydroGuide />
-                        <NutrientCalculator />
+
+
+                        {/* MANUAL OBSERVATION SECTION (Hydroponics) */}
+                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                            <h3 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <Search size={20} className="text-purple-500" /> Manual Observation (No Sensors?)
+                            </h3>
+
+                            {/* VISUAL SYMPTOMS SELECTOR */}
+                            <div className="mb-4">
+                                <label className="block text-sm font-semibold text-slate-600 mb-2">Visual Inspection</label>
+                                <div className="flex flex-wrap gap-2">
+                                    {['Look Healthy', 'Leaf Yellowing', 'Wilting', 'Algae', 'Stunted Growth'].map(tag => (
+                                        <button
+                                            key={tag}
+                                            type="button"
+                                            onClick={() => {
+                                                const current = hydroponicsEntry.visualSymptoms || [];
+                                                const createNew = current.includes(tag)
+                                                    ? current.filter(t => t !== tag)
+                                                    : [...current, tag];
+                                                setHydroponicsEntry({ ...hydroponicsEntry, visualSymptoms: createNew });
+                                            }}
+                                            className={`px-3 py-1 rounded-full text-xs font-bold border ${(hydroponicsEntry.visualSymptoms || []).includes(tag)
+                                                ? 'bg-purple-100 border-purple-500 text-purple-700'
+                                                : 'bg-slate-50 border-slate-200 text-slate-500 hover:bg-slate-100'
+                                                }`}
+                                        >
+                                            {tag}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* MANUAL ESTIMATION BUTTONS */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-semibold text-slate-600 mb-2">Air Feel (Est. Humidity)</label>
+                                    <div className="flex gap-1">
+                                        {Object.entries(MANUAL_PATTERNS.AIR_QUALITY).map(([key, val]) => (
+                                            <button
+                                                key={key}
+                                                type="button"
+                                                onClick={() => setHydroponicsEntry({
+                                                    ...hydroponicsEntry,
+                                                    humidity: val.humidity, // Auto-fill numeric
+                                                    manualAir: key // Tag it
+                                                })}
+                                                className={`flex-1 py-2 text-xs font-bold rounded border ${hydroponicsEntry.manualAir === key
+                                                    ? 'bg-blue-100 border-blue-500 text-blue-700'
+                                                    : 'bg-slate-50 border-slate-200 text-slate-500'
+                                                    }`}
+                                            >
+                                                {key}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-semibold text-slate-600 mb-2">
+                                        Nutrient Strength (Est. EC)
+                                        <ScientificContextTooltip title="Osmotic Pressure" content="EC measures salt concentration. High EC creates osmotic stress, preventing roots from absorbing water." />
+                                    </label>
+                                    <div className="flex gap-1">
+                                        {Object.entries(MANUAL_PATTERNS.NUTRIENT_STRENGTH).map(([key, val]) => (
+                                            <button
+                                                key={key}
+                                                type="button"
+                                                onClick={() => setHydroponicsEntry({
+                                                    ...hydroponicsEntry,
+                                                    ec: val.ec, // Auto-fill numeric
+                                                    nutrientStrength: key // Tag it
+                                                })}
+                                                className={`flex-1 py-2 text-xs font-bold rounded border ${hydroponicsEntry.nutrientStrength === key
+                                                    ? 'bg-green-100 border-green-500 text-green-700'
+                                                    : 'bg-slate-50 border-slate-200 text-slate-500'
+                                                    }`}
+                                            >
+                                                {key}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         {/* LIGHTING SYSTEM SECTION */}
                         <div className="bg-white/50 p-3 rounded-lg border border-blue-100">
@@ -834,12 +1473,18 @@ const DailyTrackerPage = () => {
                         {/* pH & EC */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-bold text-blue-900 mb-1">pH Level</label>
+                                <label className="block text-sm font-bold text-blue-900 mb-1">
+                                    pH Level
+                                    <ScientificContextTooltip title="Precipitation Theory" content="When pH is high (>6.5), nutrients like Iron and Phosphorus form solid crystals (precipitate) and become unavailable to the plant." />
+                                </label>
                                 <input type="number" step="0.1" placeholder="6.0" className="w-full p-2 border border-blue-300 rounded-lg"
                                     value={hydroponicsEntry.ph} onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, ph: e.target.value })} />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-blue-900 mb-1">EC (mS/cm)</label>
+                                <label className="block text-sm font-bold text-blue-900 mb-1">
+                                    EC (mS/cm)
+                                    <ScientificContextTooltip title="Ionic Concentration" content="EC levels indicate the total dissolved salts. High EC causes osmotic shock, while low EC leads to nutrient starvation." />
+                                </label>
                                 <input type="number" step="0.1" placeholder="1.8" className="w-full p-2 border border-blue-300 rounded-lg"
                                     value={hydroponicsEntry.ec} onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, ec: e.target.value })} />
                                 {parseFloat(hydroponicsEntry.ec) > 0 && parseFloat(hydroponicsEntry.ec) < 1.5 && (
@@ -850,10 +1495,26 @@ const DailyTrackerPage = () => {
                             </div>
                         </div>
 
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-bold text-blue-900 mb-1">Air Temp (°C)</label>
+                                <input type="number" step="0.1" placeholder="24" className="w-full p-2 border border-blue-300 rounded-lg"
+                                    value={hydroponicsEntry.temperature} onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, temperature: e.target.value })} />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-blue-900 mb-1">Air Humidity (%)</label>
+                                <input type="number" step="0.1" placeholder="60" className="w-full p-2 border border-blue-300 rounded-lg"
+                                    value={hydroponicsEntry.humidity} onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, humidity: e.target.value })} />
+                            </div>
+                        </div>
+
                         {/* Water Temp & Level */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-bold text-blue-900 mb-1">Water Temp (°C)</label>
+                                <label className="block text-sm font-bold text-blue-900 mb-1">
+                                    Water Temp (°C)
+                                    <ScientificContextTooltip title="Dissolved Oxygen (DO)" content="As water temperature rises, its ability to hold Oxygen decreases. High temp (>25°C) leads to root hypoxia and rot." />
+                                </label>
                                 <input type="number" step="0.1" placeholder="21" className="w-full p-2 border border-blue-300 rounded-lg"
                                     value={hydroponicsEntry.waterTemp} onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, waterTemp: e.target.value })} />
                             </div>
@@ -882,6 +1543,44 @@ const DailyTrackerPage = () => {
                                         <p className="font-semibold text-[11px]">Action: {warning.action}</p>
                                     </div>
                                 ))}
+                            </div>
+                        )}
+
+                        {/* INTERVENTION LOGGING (New Feature) */}
+                        <div className="bg-blue-50/50 p-4 rounded-lg border border-blue-100">
+                            <label className="block text-sm font-bold text-blue-900 mb-2 flex items-center gap-2">
+                                <Activity size={16} className="text-blue-600" /> Action Taken Today
+                            </label>
+                            <select
+                                className="w-full p-2 border border-blue-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500"
+                                value={hydroponicsEntry.intervention}
+                                onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, intervention: e.target.value })}
+                            >
+                                {INTERVENTION_OPTIONS.map(opt => (
+                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Notes Field (Restored) */}
+                        <div>
+                            <label className="block text-sm font-bold text-blue-900 mb-1">Notes / Observations</label>
+                            <textarea
+                                rows="2"
+                                placeholder="Any other details..."
+                                className="w-full p-2 border border-blue-300 rounded-lg text-sm"
+                                value={hydroponicsEntry.notes}
+                                onChange={(e) => setHydroponicsEntry({ ...hydroponicsEntry, notes: e.target.value })}
+                            />
+                        </div>
+
+                        {/* Conflict Warning (GAP 3) */}
+                        {hydroponicsConflict && (
+                            <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-2xl flex items-center gap-3 animate-pulse">
+                                <AlertTriangle className="text-amber-600" size={24} />
+                                <p className="text-sm font-black text-amber-800">
+                                    ⚠️ {t("Sensor data doesn't fully match observation — please recheck plants.", "Data anomaly detected: Water sensors and visual observation are in conflict.")}
+                                </p>
                             </div>
                         )}
 

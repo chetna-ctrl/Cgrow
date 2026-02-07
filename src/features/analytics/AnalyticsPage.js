@@ -1,152 +1,97 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { TrendingUp, TrendingDown, Minus, Activity, Droplets, Thermometer, AlertCircle, CheckCircle } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
-import { supabase } from '../../lib/supabase';
+import { supabase } from '../../lib/supabaseClient';
 import { predictCropHealth } from '../../utils/cropHealthPredictor';
-import { isDemoMode } from '../../utils/sampleData';
+import { useMicrogreens } from '../microgreens/hooks/useMicrogreens';
+import { useHydroponics } from '../hydroponics/hooks/useHydroponics';
+// import { isDemoMode } from '../../utils/sampleData';
 
 const AnalyticsPage = () => {
-    const [systems, setSystems] = useState([]);
+    // Systems & Logs handled by React Query now
     const [selectedSystem, setSelectedSystem] = useState('');
-    const [logs, setLogs] = useState([]);
-    const [healthData, setHealthData] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [period, setPeriod] = useState(7); // Days
 
-    // Fetch available systems
+    // 1. USE CENTRAL HOOKS instead of custom queries
+    const { batches } = useMicrogreens();
+    const { systems: hydroSystems } = useHydroponics();
+
+    const systems = useMemo(() => {
+        const activeBatches = (batches || [])
+            .filter(b => {
+                const s = (b.status || '').toLowerCase();
+                // Exclude if harvested, deleted, or missing status
+                return s && !s.includes('harvest') && s !== 'deleted' && s !== 'inactive';
+            })
+            .map(b => ({
+                id: `mg-${b.id}`,
+                realId: b.id,
+                name: `${b.crop || 'Active Batch'} - ${b.batch_id || b.id}`,
+                type: 'Microgreens'
+            }));
+
+        const activeHydro = (hydroSystems || [])
+            .filter(s => {
+                const st = (s.status || '').toLowerCase();
+                return st && !st.includes('harvest') && st !== 'deleted' && st !== 'inactive';
+            })
+            .map(s => ({
+                id: `hydro-${s.id}`,
+                realId: s.id,
+                name: `${s.crop || 'Active System'} - ${s.system_id || s.id}`,
+                type: 'Hydroponics'
+            }));
+
+        return [...activeBatches, ...activeHydro];
+    }, [batches, hydroSystems]);
+
+    const loadingSystems = false;
+
+    // Auto-select first system if loaded and none selected OR if current selection is now invalid (harvested/deleted)
     useEffect(() => {
-        const fetchSystems = async () => {
-            try {
-                // Check if user is logged in first
-                const { data: { user } } = await supabase.auth.getUser();
-
-                if (user) {
-                    // LOGGED IN: Fetch from Supabase (same as Microgreens/Hydroponics pages)
-                    const { data: batches, error: batchError } = await supabase
-                        .from('batches')
-                        .select('id, crop, batch_id, status')
-                        .eq('user_id', user.id)
-                        .neq('status', 'Harvested');
-
-                    if (batchError) console.error('Batches fetch error:', batchError);
-
-                    const { data: hydroSystems, error: sysError } = await supabase
-                        .from('systems')
-                        .select('id, system_id, crop, system_type, status')
-                        .eq('user_id', user.id)
-                        .not('status', 'ilike', '%harvested%');
-
-                    if (sysError) console.error('Systems fetch error:', sysError);
-
-                    const allSystems = [
-                        ...(batches || []).map(b => ({
-                            id: b.id,
-                            name: `${b.crop || 'Unknown'} - Batch ${b.batch_id || b.id}`,
-                            type: 'Microgreens'
-                        })),
-                        ...(hydroSystems || []).map(s => ({
-                            id: s.id,
-                            name: `${s.crop || 'Unknown'} - ${s.system_type || s.system_id || 'System'}`,
-                            type: 'Hydroponics'
-                        }))
-                    ];
-
-                    // DEBUG: Log what we're setting
-                    console.log('📊 Analytics: Batches from DB:', batches);
-                    console.log('📊 Analytics: Systems from DB:', hydroSystems);
-                    console.log('📊 Analytics: Combined systems for dropdown:', allSystems);
-
-                    setSystems(allSystems);
-                    if (allSystems.length > 0) setSelectedSystem(allSystems[0].id);
-                    setLoading(false);
-                    return;
-                }
-
-                // NOT LOGGED IN: Check demo mode localStorage
-                if (isDemoMode()) {
-                    const demoBatches = JSON.parse(localStorage.getItem('demo_batches') || '[]');
-                    const demoSystems = JSON.parse(localStorage.getItem('demo_systems') || '[]');
-
-                    const allSystems = [
-                        ...demoBatches
-                            .filter(b => b.status?.toLowerCase() !== 'harvested')
-                            .map(b => ({
-                                id: b.id,
-                                name: `${b.crop || 'Unknown'} - Batch ${b.batch_id || b.id}`,
-                                type: 'Microgreens'
-                            })),
-                        ...demoSystems
-                            .filter(s => s.status?.toLowerCase() !== 'harvested')
-                            .map(s => ({
-                                id: s.system_id || s.id,
-                                name: `${s.crop || 'Unknown'} - ${s.system_type || s.system_id || 'System'}`,
-                                type: 'Hydroponics'
-                            }))
-                    ];
-
-                    setSystems(allSystems);
-                    if (allSystems.length > 0) setSelectedSystem(allSystems[0].id);
-                }
-            } catch (err) {
-                console.error('Failed to fetch systems:', err);
-            } finally {
-                setLoading(false);
+        if (systems.length > 0) {
+            const currentIsValid = systems.some(sys => sys.id === selectedSystem);
+            if (!selectedSystem || !currentIsValid) {
+                setSelectedSystem(systems[0].id);
             }
-        };
+        } else if (systems.length === 0 && selectedSystem) {
+            setSelectedSystem('');
+        }
+    }, [systems, selectedSystem]);
 
-        fetchSystems();
-    }, []);
+    // 2. QUERY: Fetch Logs for Selected System
+    const { data: logs = [], isLoading: loadingLogs } = useQuery({
+        queryKey: ['daily_logs', selectedSystem, period],
+        queryFn: async () => {
+            if (!selectedSystem) return [];
+            const [typePrefix, realId] = selectedSystem.split('-');
+            if (!realId) return [];
 
-    // Fetch logs when system or period changes
-    useEffect(() => {
-        if (!selectedSystem) return;
+            const cutoffDate = new Date();
+            cutoffDate.setDate(cutoffDate.getDate() - period);
 
-        const fetchLogs = async () => {
-            setLoading(true);
-            try {
-                const cutoffDate = new Date();
-                cutoffDate.setDate(cutoffDate.getDate() - period);
-
-                // Check if user is logged in first
-                const { data: { user } } = await supabase.auth.getUser();
-
-                if (user) {
-                    // LOGGED IN: Fetch from Supabase
-                    const { data } = await supabase
-                        .from('daily_logs')
-                        .select('id, system_id, ph, ec, temp, humidity, created_at, notes')
-                        .eq('user_id', user.id)
-                        .eq('system_id', selectedSystem)
-                        .gte('created_at', cutoffDate.toISOString())
-                        .order('created_at', { ascending: true });
-
-                    setLogs(data || []);
-                    const health = predictCropHealth(data || []);
-                    setHealthData(health);
-                    setLoading(false);
-                    return;
-                }
-
-                // NOT LOGGED IN: Try demo_logs from localStorage
-                const demoLogs = JSON.parse(localStorage.getItem('demo_logs') || '[]');
-                const filteredLogs = demoLogs.filter(log => {
-                    const logDate = new Date(log.created_at);
-                    const systemMatch = String(log.system_id) === String(selectedSystem);
-                    return systemMatch && logDate >= cutoffDate;
-                }).sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-
-                setLogs(filteredLogs);
-                const health = predictCropHealth(filteredLogs);
-                setHealthData(health);
-            } catch (err) {
-                console.error('Failed to fetch logs:', err);
-            } finally {
-                setLoading(false);
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const column = typePrefix === 'mg' ? 'batch_id' : 'target_id';
+                const { data } = await supabase
+                    .from('daily_logs')
+                    .select('id, system_id, batch_id, target_id, ph, ec, temp, humidity, created_at, notes')
+                    .eq('user_id', user.id)
+                    .eq(column, realId)
+                    .gte('created_at', cutoffDate.toISOString())
+                    .order('created_at', { ascending: true });
+                return data || [];
             }
-        };
+            return [];
+        },
+        enabled: !!selectedSystem
+    });
 
-        fetchLogs();
-    }, [selectedSystem, period]);
+    // Calculate Health stats safely (Derived State)
+    const systemType = selectedSystem.startsWith('mg-') ? 'Microgreens' : 'Hydroponics';
+    const healthData = React.useMemo(() => predictCropHealth(logs || [], systemType), [logs, systemType]);
+    const loading = loadingSystems || loadingLogs;
 
     // Format data for charts
     const chartData = logs.map(log => ({
@@ -245,9 +190,9 @@ const AnalyticsPage = () => {
                                 <span className="text-xs font-bold text-slate-600">pH Level</span>
                             </div>
                             <p className="text-2xl font-bold text-slate-900">
-                                {healthData.breakdown?.ph?.avg?.toFixed(1) || 'N/A'}
+                                {systemType === 'Microgreens' ? 'Soil Based' : (healthData.breakdown?.ph?.avg?.toFixed(1) || 'N/A')}
                             </p>
-                            <p className="text-xs text-slate-500 mt-1">{healthData.breakdown?.ph?.status || 'No Data'}</p>
+                            <p className="text-xs text-slate-500 mt-1">{systemType === 'Microgreens' ? 'Not Required' : (healthData.breakdown?.ph?.status || 'No Data')}</p>
                         </div>
                         <div className="bg-white p-4 rounded-lg border border-slate-200">
                             <div className="flex items-center gap-2 mb-2">
@@ -255,9 +200,9 @@ const AnalyticsPage = () => {
                                 <span className="text-xs font-bold text-slate-600">EC Level</span>
                             </div>
                             <p className="text-2xl font-bold text-slate-900">
-                                {healthData.breakdown?.ec?.avg?.toFixed(1) || 'N/A'} {healthData.breakdown?.ec?.avg ? 'mS' : ''}
+                                {systemType === 'Microgreens' ? 'Soil Based' : (healthData.breakdown?.ec?.avg?.toFixed(1) || 'N/A')} {systemType !== 'Microgreens' && healthData.breakdown?.ec?.avg ? 'mS' : ''}
                             </p>
-                            <p className="text-xs text-slate-500 mt-1">{healthData.breakdown?.ec?.status || 'No Data'}</p>
+                            <p className="text-xs text-slate-500 mt-1">{systemType === 'Microgreens' ? 'Not Required' : (healthData.breakdown?.ec?.status || 'No Data')}</p>
                         </div>
                         <div className="bg-white p-4 rounded-lg border border-slate-200">
                             <div className="flex items-center gap-2 mb-2">
@@ -291,38 +236,54 @@ const AnalyticsPage = () => {
                     {chartData.length > 0 && (
                         <>
                             {/* pH Chart */}
-                            <div className="bg-white p-6 rounded-xl border border-slate-200">
-                                <h3 className="font-bold text-slate-900 mb-4">pH Trend</h3>
-                                <ResponsiveContainer width="100%" height={250}>
-                                    <LineChart data={chartData}>
-                                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                                        <XAxis dataKey="date" stroke="#64748b" style={{ fontSize: '12px' }} />
-                                        <YAxis domain={[4, 8]} stroke="#64748b" style={{ fontSize: '12px' }} />
-                                        <Tooltip />
-                                        <Legend />
-                                        <ReferenceLine y={5.5} stroke="#ef4444" strokeDasharray="3 3" label="Min" />
-                                        <ReferenceLine y={6.5} stroke="#ef4444" strokeDasharray="3 3" label="Max" />
-                                        <Line type="monotone" dataKey="ph" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4 }} />
-                                    </LineChart>
-                                </ResponsiveContainer>
-                            </div>
+                            {systemType === 'Microgreens' ? (
+                                <div className="bg-slate-50 p-6 rounded-xl border border-dotted border-slate-300 text-center flex flex-col justify-center items-center h-[312px]">
+                                    <Droplets size={32} className="text-slate-300 mb-2" />
+                                    <p className="text-slate-500 font-bold uppercase tracking-wider text-xs">pH Sensor Data Not Required</p>
+                                    <p className="text-[10px] text-slate-400 mt-1">Microgreens use soil/coco-peat. Health is linked to Humidity/Temp.</p>
+                                </div>
+                            ) : (
+                                <div className="bg-white p-6 rounded-xl border border-slate-200">
+                                    <h3 className="font-bold text-slate-900 mb-4">pH Trend</h3>
+                                    <ResponsiveContainer width="100%" height={250}>
+                                        <LineChart data={chartData}>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                                            <XAxis dataKey="date" stroke="#64748b" style={{ fontSize: '12px' }} />
+                                            <YAxis domain={[4, 8]} stroke="#64748b" style={{ fontSize: '12px' }} />
+                                            <Tooltip />
+                                            <Legend />
+                                            <ReferenceLine y={5.5} stroke="#ef4444" strokeDasharray="3 3" label="Min" />
+                                            <ReferenceLine y={6.5} stroke="#ef4444" strokeDasharray="3 3" label="Max" />
+                                            <Line type="monotone" dataKey="ph" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4 }} />
+                                        </LineChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            )}
 
                             {/* EC Chart */}
-                            <div className="bg-white p-6 rounded-xl border border-slate-200">
-                                <h3 className="font-bold text-slate-900 mb-4">EC Trend (mS)</h3>
-                                <ResponsiveContainer width="100%" height={250}>
-                                    <LineChart data={chartData}>
-                                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                                        <XAxis dataKey="date" stroke="#64748b" style={{ fontSize: '12px' }} />
-                                        <YAxis domain={[0, 4]} stroke="#64748b" style={{ fontSize: '12px' }} />
-                                        <Tooltip />
-                                        <Legend />
-                                        <ReferenceLine y={1.2} stroke="#10b981" strokeDasharray="3 3" label="Min" />
-                                        <ReferenceLine y={2.5} stroke="#10b981" strokeDasharray="3 3" label="Max" />
-                                        <Line type="monotone" dataKey="ec" stroke="#8b5cf6" strokeWidth={2} dot={{ r: 4 }} />
-                                    </LineChart>
-                                </ResponsiveContainer>
-                            </div>
+                            {systemType === 'Microgreens' ? (
+                                <div className="bg-slate-50 p-6 rounded-xl border border-dotted border-slate-300 text-center flex flex-col justify-center items-center h-[312px]">
+                                    <Activity size={32} className="text-slate-300 mb-2" />
+                                    <p className="text-slate-500 font-bold uppercase tracking-wider text-xs">EC Logic Not Required</p>
+                                    <p className="text-[10px] text-slate-400 mt-1">Nutrient strength is managed via pre-mixed media for Microgreens.</p>
+                                </div>
+                            ) : (
+                                <div className="bg-white p-6 rounded-xl border border-slate-200">
+                                    <h3 className="font-bold text-slate-900 mb-4">EC Trend (mS)</h3>
+                                    <ResponsiveContainer width="100%" height={250}>
+                                        <LineChart data={chartData}>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                                            <XAxis dataKey="date" stroke="#64748b" style={{ fontSize: '12px' }} />
+                                            <YAxis domain={[0, 4]} stroke="#64748b" style={{ fontSize: '12px' }} />
+                                            <Tooltip />
+                                            <Legend />
+                                            <ReferenceLine y={1.2} stroke="#10b981" strokeDasharray="3 3" label="Min" />
+                                            <ReferenceLine y={2.5} stroke="#10b981" strokeDasharray="3 3" label="Max" />
+                                            <Line type="monotone" dataKey="ec" stroke="#8b5cf6" strokeWidth={2} dot={{ r: 4 }} />
+                                        </LineChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            )}
 
                             {/* Temperature Chart */}
                             <div className="bg-white p-6 rounded-xl border border-slate-200">

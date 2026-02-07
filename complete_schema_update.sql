@@ -1,5 +1,5 @@
-9+
---- ============================================
+-- ============================================
+-- COMPREHENSIVE SCHEMA UPDATE FOR AGRI-OS
 -- COMPREHENSIVE SCHEMA UPDATE FOR AGRI-OS
 -- Based on complete codebase analysis
 -- Run this to ensure all tables/columns exist
