@@ -9,7 +9,7 @@ import { X, Printer, Leaf, Calendar, ShieldCheck, Droplets } from 'lucide-react'
 // Inner Component to handle printing logic safely
 const PrintButton = ({ contentRef, documentTitle }) => {
     const handlePrint = useReactToPrint({
-        content: () => contentRef.current,
+        contentRef: contentRef,
         documentTitle: documentTitle,
     });
 
