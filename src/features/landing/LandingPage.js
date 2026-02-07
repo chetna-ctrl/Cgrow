@@ -60,93 +60,91 @@ const LandingPage = () => {
                                 </span>
                             </div>
                         </div>
-
                     </div>
                 </div>
-            </div>
 
-            {/* Features Grid */}
-            <div className="max-w-7xl mx-auto px-6 pb-20">
-                <div className="grid md:grid-cols-3 gap-8">
-                    <FeatureCard
-                        icon={<Sprout size={32} />}
-                        title="Hybrid Tracking"
-                        description="Log data manually via our app, or connect IoT sensors for 24/7 automation."
-                    />
-                    <FeatureCard
-                        icon={<Droplets size={32} />}
-                        title="Crop Intelligence"
-                        description="Track pH, EC, and climate. Get AI-driven advice for Microgreens & Hydroponics."
-                    />
-                    <FeatureCard
-                        icon={<BarChart3 size={32} />}
-                        title="Business Growth"
-                        description="Revenue forecasting, yield prediction, and ROI calculators built-in."
-                    />
-                </div>
-            </div>
-
-            {/* Benefits Section */}
-            <div className="bg-white py-20 px-6">
-                <div className="max-w-7xl mx-auto">
-                    <h2 className="text-4xl font-black text-slate-900 text-center mb-12 tracking-tight">
-                        Why Researchers & Growers Choose cGrow
-                    </h2>
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <Benefit text="Zero setup cost (Manual Mode)" />
-                        <Benefit text="WiFi Manager for 1-click IoT setup" />
-                        <Benefit text="Real-time harvest readiness alerts" />
-                        <Benefit text="Market price intelligence" />
-                        <Benefit text="Commercial-grade security (RLS)" />
-                        <Benefit text="Works offline with USB Bridge" />
+                {/* Features Grid */}
+                <div className="max-w-7xl mx-auto px-6 pb-20">
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <FeatureCard
+                            icon={<Sprout size={32} />}
+                            title="Hybrid Tracking"
+                            description="Log data manually via our app, or connect IoT sensors for 24/7 automation."
+                        />
+                        <FeatureCard
+                            icon={<Droplets size={32} />}
+                            title="Crop Intelligence"
+                            description="Track pH, EC, and climate. Get AI-driven advice for Microgreens & Hydroponics."
+                        />
+                        <FeatureCard
+                            icon={<BarChart3 size={32} />}
+                            title="Business Growth"
+                            description="Revenue forecasting, yield prediction, and ROI calculators built-in."
+                        />
                     </div>
                 </div>
-            </div>
 
-            {/* CTA Section */}
-            <div className="bg-gradient-to-r from-emerald-600 to-cyan-600 py-20 px-6">
-                <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl font-black text-white mb-6 tracking-tight">
-                        Grow Smarter, Not Harder.
-                    </h2>
-                    <p className="text-xl text-emerald-100 mb-8 font-medium">
-                        Join the future of conscious agriculture. No credit card required.
-                    </p>
-                    <Link
-                        to="/login"
-                        className="inline-flex items-center gap-2 bg-white hover:bg-emerald-50 text-emerald-600 px-8 py-4 rounded-xl font-bold text-lg shadow-2xl transition-all"
-                    >
-                        Create Free Account
-                        <ArrowRight size={24} />
-                    </Link>
-                </div>
-            </div>
-
-            {/* Footer */}
-            <footer className="bg-slate-900 text-slate-400 py-12 px-6">
-                <div className="max-w-7xl mx-auto text-center">
-                    <div className="flex items-center justify-center gap-2 mb-4">
-                        <div className="w-8 h-8 bg-white rounded p-1">
-                            <img src="/logo_cgro.png" alt="Logo" className="w-full h-full object-contain" />
+                {/* Benefits Section */}
+                <div className="bg-white py-20 px-6">
+                    <div className="max-w-7xl mx-auto">
+                        <h2 className="text-4xl font-black text-slate-900 text-center mb-12 tracking-tight">
+                            Why Researchers & Growers Choose cGrow
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <Benefit text="Zero setup cost (Manual Mode)" />
+                            <Benefit text="WiFi Manager for 1-click IoT setup" />
+                            <Benefit text="Real-time harvest readiness alerts" />
+                            <Benefit text="Market price intelligence" />
+                            <Benefit text="Commercial-grade security (RLS)" />
+                            <Benefit text="Works offline with USB Bridge" />
                         </div>
-                        <span className="text-xl font-black text-white tracking-tighter">cGrow</span>
                     </div>
-                    <p className="text-xs uppercase font-bold tracking-widest text-slate-500">© 2026 cGrow Operations. Chetna's Conscious Growth & Research Operations.</p>
                 </div>
-            </footer>
 
-            {/* Logo Watermark - Only on Landing Page */}
-            <div className="fixed bottom-8 right-8 z-50 pointer-events-none">
-                <div className="relative">
-                    <img
-                        src="/logo_cgro.png"
-                        alt="cGrow Watermark"
-                        className="w-32 h-32 opacity-20 hover:opacity-30 transition-opacity duration-300"
-                    />
-                    <div className="absolute inset-0 bg-emerald-500/10 rounded-full blur-2xl"></div>
+                {/* CTA Section */}
+                <div className="bg-gradient-to-r from-emerald-600 to-cyan-600 py-20 px-6">
+                    <div className="max-w-4xl mx-auto text-center">
+                        <h2 className="text-4xl font-black text-white mb-6 tracking-tight">
+                            Grow Smarter, Not Harder.
+                        </h2>
+                        <p className="text-xl text-emerald-100 mb-8 font-medium">
+                            Join the future of conscious agriculture. No credit card required.
+                        </p>
+                        <Link
+                            to="/login"
+                            className="inline-flex items-center gap-2 bg-white hover:bg-emerald-50 text-emerald-600 px-8 py-4 rounded-xl font-bold text-lg shadow-2xl transition-all"
+                        >
+                            Create Free Account
+                            <ArrowRight size={24} />
+                        </Link>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <footer className="bg-slate-900 text-slate-400 py-12 px-6">
+                    <div className="max-w-7xl mx-auto text-center">
+                        <div className="flex items-center justify-center gap-2 mb-4">
+                            <div className="w-8 h-8 bg-white rounded p-1">
+                                <img src="/logo_cgro.png" alt="Logo" className="w-full h-full object-contain" />
+                            </div>
+                            <span className="text-xl font-black text-white tracking-tighter">cGrow</span>
+                        </div>
+                        <p className="text-xs uppercase font-bold tracking-widest text-slate-500">© 2026 cGrow Operations. Chetna's Conscious Growth & Research Operations.</p>
+                    </div>
+                </footer>
+
+                {/* Logo Watermark - Only on Landing Page */}
+                <div className="fixed bottom-8 right-8 z-50 pointer-events-none">
+                    <div className="relative">
+                        <img
+                            src="/logo_cgro.png"
+                            alt="cGrow Watermark"
+                            className="w-32 h-32 opacity-20 hover:opacity-30 transition-opacity duration-300"
+                        />
+                        <div className="absolute inset-0 bg-emerald-500/10 rounded-full blur-2xl"></div>
+                    </div>
                 </div>
             </div>
-        </div>
         </div >
     );
 };
