@@ -375,34 +375,46 @@ export function getDailyTaskAdvice(batch, dailyLogLightHours = 0, currentHumidit
 }
 
 /**
- * Estimate PPFD based on lighting type and weather
+ * Estimate PPFD based on lighting type, weather, and distance
  * @param {string} lightType - Type of light source
  * @param {string} weatherCondition - Weather condition (for natural light)
+ * @param {string} distance - 'CLOSE' (<1ft), 'STANDARD' (1-2ft), 'FAR' (>2ft)
  * @returns {number} PPFD value in μmol/m²/s
  */
-export function estimatePPFD(lightType, weatherCondition = 'Sunny') {
+export function estimatePPFD(lightType, weatherCondition = 'Sunny', distance = 'STANDARD') {
+    let basePPFD = 0;
+
     switch (lightType) {
         // MICROGREENS
-        case 'LED_TUBES_WHITE': return 120;
-        case 'CEILING_BULB': return 40;
+        case 'LED_TUBES_WHITE': basePPFD = 120; break;
+        case 'CEILING_BULB': basePPFD = 40; break;
 
         // HYDROPONICS
-        case 'GROW_LIGHTS_FULL': return 300;
-        case 'DIY_SHOP_LIGHTS': return 180;
+        case 'GROW_LIGHTS_FULL': basePPFD = 300; break;
+        case 'DIY_SHOP_LIGHTS': basePPFD = 180; break;
 
         // NATURAL SUNLIGHT (Dynamic)
         case 'SUNLIGHT':
         case 'WINDOW':
         case 'BALCONY':
         case 'GREENHOUSE':
-            if (weatherCondition === 'Sunny') return 900;
-            if (weatherCondition === 'PartlyCloudy') return 500;
-            if (weatherCondition === 'Cloudy') return 200;
-            if (weatherCondition === 'Rainy') return 80;
-            return 400; // Default average
+            if (weatherCondition === 'Sunny') basePPFD = 900;
+            else if (weatherCondition === 'PartlyCloudy') basePPFD = 500;
+            else if (weatherCondition === 'Cloudy') basePPFD = 200;
+            else if (weatherCondition === 'Rainy') basePPFD = 80;
+            else basePPFD = 400;
+            break;
 
-        default: return 0;
+        default: basePPFD = 0;
     }
+
+    // Apply Distance Factor (Inverse Square Law approximation)
+    const distanceFactor =
+        distance === 'CLOSE' ? 1.5 :
+            distance === 'FAR' ? 0.5 :
+                1.0;
+
+    return Math.round(basePPFD * distanceFactor);
 }
 
 /**
@@ -419,18 +431,20 @@ export function calculateDLI(ppfd, hours, sensorLux = null, lightType = 'LED_TUB
     let finalPPFD = ppfd;
 
     // 1. IOT SENSOR OVERRIDE (Precision Mode)
+    // Supports BH1750 (Digital Lux) and TSL2561
     if (sensorLux && sensorLux > 0) {
-        // Conversion Factors (Scientific)
+        // Scientific Conversion Factors (umol/m2/s per Lux)
         const conversionFactor =
-            (lightType === 'SUNLIGHT' || lightType === 'WINDOW') ? 0.0185 : // Sun
-                (lightType.includes('LED') || lightType.includes('GROW')) ? 0.022 : // LED
-                    0.0135; // Fluorescent/CFL
+            (lightType === 'SUNLIGHT' || lightType === 'WINDOW') ? 0.0185 : // Sunlight baseline
+                (lightType.includes('LED') || lightType.includes('GROW')) ? 0.022 : // LED-specific (More efficient photons)
+                    (lightType.includes('DIY') || lightType.includes('BULB')) ? 0.015 : // Generic Bulb
+                        0.0135; // Fluorescent/CFL
 
         finalPPFD = sensorLux * conversionFactor;
-        console.log(`📡 IoT DLI Mode: ${sensorLux} Lux -> ${finalPPFD.toFixed(1)} PPFD`);
+        // console.log(`📡 IoT DLI Mode: ${sensorLux} Lux -> ${finalPPFD.toFixed(1)} PPFD`);
     }
 
-    // Formula: PPFD * Hours * 3600 / 1,000,000
+    // Formula: (PPFD * Hours * 3600) / 1,000,000
     // Simplified: PPFD * Hours * 0.0036
     return parseFloat((finalPPFD * hours * 0.0036).toFixed(2));
 }
@@ -608,7 +622,7 @@ export const calculateDailyGDD = (tMax, tMin, cropName = 'Lettuce') => {
     let gdd = avgTemp - tBase;
 
     // Spy Logic: Check console to see if it worked
-    console.log(`🌱 GDD for ${cropName}: Used Base ${tBase}°C (${params.type})`);
+    // console.log(`🌱 GDD for ${cropName}: Used Base ${tBase}°C (${params.type})`);
 
     if (gdd < 0) gdd = 0;
     return parseFloat(gdd.toFixed(2));

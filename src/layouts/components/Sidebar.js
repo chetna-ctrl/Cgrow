@@ -15,7 +15,6 @@ import {
     X,
     BookOpen,
     Zap, // IoT Devices icon
-    Layers // Mushroom Hub icon
 } from 'lucide-react';
 import { supabase } from '../../lib/supabaseClient';
 // import { isDemoMode } from '../../utils/sampleData';

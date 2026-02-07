@@ -52,8 +52,8 @@ export const useCSVExport = () => {
                 // Calculate Missing DLI (Legacy Repair)
                 let finalDLI = log.dli_mol_per_m2;
                 if (!finalDLI && log.light_hours_per_day && log.lighting_source) {
-                    const estimatedPPFD = estimatePPFD(log.lighting_source, 'Sunny');
-                    finalDLI = (estimatedPPFD * log.light_hours_per_day * 0.0036).toFixed(2);
+                    const ppfd = estimatePPFD(log.lighting_source, 'Sunny');
+                    finalDLI = calculateDLI(ppfd, log.light_hours_per_day);
                 }
 
                 return {

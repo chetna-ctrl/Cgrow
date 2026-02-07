@@ -20,7 +20,7 @@ import YieldChart from './YieldChart';
 import HarvestTimeline from './HarvestTimeline';
 import VPDWidget from '../../components/VPDWidget';
 import StreakBadge from '../../components/StreakBadge';
-import { generateContextAwareAlerts, analyzeTrend, calculateFarmHealth } from '../../utils/agriUtils';
+import { generateContextAwareAlerts, analyzeTrend, calculateFarmHealth, calculateDLI } from '../../utils/agriUtils';
 import WeatherCard from './WeatherWidget';
 import HealthMeter from './HealthMeter';
 
@@ -73,6 +73,7 @@ const DashboardContent = () => {
     const [marketPrices, setMarketPrices] = useState({});
     const [loadingInsights, setLoadingInsights] = useState(true);
     const [showInfoModal, setShowInfoModal] = useState(false);
+    const [liveTelemetry, setLiveTelemetry] = useState(null);
 
     // PHASE 2 & 3: New State
     const [showCatchUpModal, setShowCatchUpModal] = useState(false);
@@ -151,6 +152,25 @@ const DashboardContent = () => {
 
         initNotifications();
     }, [recentLogs]);
+
+    // PHASE 6: IoT Real-time Listener (Additive)
+    useEffect(() => {
+        const channel = supabase
+            .channel('telemetry-pings')
+            .on('postgres_changes', {
+                event: 'INSERT',
+                schema: 'public',
+                table: 'telemetry'
+            }, (payload) => {
+                console.log('📡 IoT Alert: live sensor pulse received', payload.new);
+                setLiveTelemetry(payload.new);
+            })
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
+    }, []);
 
     // PHASE 2: Handle catch-up completion
     const handleCatchUpComplete = async ({ answers, estimatedHealthDrop, daysMissed }) => {
@@ -279,17 +299,28 @@ const DashboardContent = () => {
         loadMarketData();
     }, [batches, systems]);
 
-    // REAL-TIME INTELLIGENCE: Prefer Actual Log Data ONLY if < 24 hours old
+    // REAL-TIME INTELLIGENCE: Prefer IoT Telemetry > Local Log > Weather Fallback
     const currentConditions = useMemo(() => {
         const isLogFresh = latestLog && (new Date() - new Date(latestLog.created_at) < 24 * 60 * 60 * 1000);
+        const isTelemetryFresh = liveTelemetry && (new Date() - new Date(liveTelemetry.created_at) < 10 * 60 * 1000); // 10 min window
+
+        const temp = isTelemetryFresh ? liveTelemetry.temp : (isLogFresh ? latestLog.temp : weatherData.temp);
+        const humidity = isTelemetryFresh ? liveTelemetry.humidity : (isLogFresh ? latestLog.humidity : weatherData.humidity);
+        const lux = isTelemetryFresh ? liveTelemetry.lux : (isLogFresh ? latestLog.lux : null);
+
+        // Calculate a "Live DLI" estimate if we have lux and a standard 16h window
+        const liveDli = lux ? calculateDLI(0, 16, lux, 'GROW_LIGHTS_FULL') : null;
 
         return {
-            temp: isLogFresh ? latestLog.temp : weatherData.temp,
-            humidity: isLogFresh ? latestLog.humidity : weatherData.humidity,
+            temp,
+            humidity,
+            lux,
+            liveDli,
             rain: weatherData.rain, // Always use weather API for rain forecast
-            isRealData: !!isLogFresh
+            isRealData: !!(isLogFresh || isTelemetryFresh),
+            isIoT: !!isTelemetryFresh
         };
-    }, [latestLog, weatherData]);
+    }, [latestLog, weatherData, liveTelemetry]);
 
     // NEW: Advanced Disease Risk Prediction (Using Real Data)
     const diseaseRisks = predictDiseaseRisk(currentConditions.temp, currentConditions.humidity, currentConditions.rain);
@@ -552,6 +583,7 @@ const DashboardContent = () => {
                             riskItems={riskItems}
                             dataAge={getTimeAgo(latestLog?.created_at)}
                             isStale={!currentConditions.isRealData}
+                            isIoT={currentConditions.isIoT}
                         />
                     </div>
                 </div>
@@ -602,7 +634,7 @@ const DashboardContent = () => {
                 {/* 3. SUPPORTING METRICS (Small/Medium) - md:col-span-7 */}
                 <div className="md:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 min-h-[240px]">
                     <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-3xl shadow-xl shadow-blue-500/20 overflow-hidden text-white relative h-full">
-                        <WeatherCard weather={weatherData} />
+                        <WeatherCard weather={currentConditions} />
                         <div className="absolute top-4 right-4 group">
                             <HelpCircle size={16} className="text-white/50 hover:text-white cursor-help" />
                             <div className="absolute right-0 top-6 w-48 p-2 bg-slate-800 text-[10px] rounded shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
@@ -612,9 +644,9 @@ const DashboardContent = () => {
                     </div>
                     <div className="h-full">
                         <VPDWidget
-                            initialTemp={latestLog?.temp || weatherData?.temp}
-                            initialHumidity={latestLog?.humidity || weatherData?.humidity}
-                            isLive={currentConditions.isRealData}
+                            initialTemp={currentConditions.temp}
+                            initialHumidity={currentConditions.humidity}
+                            isLive={currentConditions.isIoT}
                         />
                     </div>
                 </div>

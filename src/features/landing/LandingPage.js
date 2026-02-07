@@ -13,17 +13,17 @@ const LandingPage = () => {
                 {/* Header with Login Link */}
                 <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md border-b border-slate-200 z-50">
                     <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-white rounded-xl p-1 shadow-md border border-emerald-500/20">
+                        <div className="flex items-center gap-5">
+                            <div className="w-20 h-20 bg-white rounded-2xl p-2 shadow-xl border-2 border-emerald-500/20">
                                 <img src="/logo_cgro.png" alt="cGrow Logo" className="w-full h-full object-contain" />
                             </div>
-                            <span className="text-2xl font-black text-slate-900 tracking-tighter">cGrow</span>
+                            <span className="text-5xl font-black text-slate-900 tracking-tighter">cGrow</span>
                         </div>
                         <Link
                             to="/login"
                             className="bg-slate-900 hover:bg-slate-800 text-white px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-slate-900/20"
                         >
-                            Access Operations
+                            Sign In
                             <ArrowRight size={18} />
                         </Link>
                     </div>
@@ -35,22 +35,22 @@ const LandingPage = () => {
                     <div className="max-w-7xl mx-auto relative z-10">
                         <div className="max-w-3xl">
                             <h1 className="text-7xl font-black text-slate-900 leading-[0.95] tracking-tighter mb-8">
-                                Conscious Growth.
+                                <span className="flex items-center gap-2"><Leaf size={48} className="text-emerald-500" /> Grow Your Future.</span>
                                 <span className="block text-emerald-600">Smartly Automated.</span>
                             </h1>
                             <p className="text-xl text-slate-500 font-medium leading-relaxed mb-10">
-                                The hybrid operating system for modern farming.
-                                <span className="block mt-2 text-slate-700 font-bold">Start with Manual Tracking today. Upgrade to IoT Sensors tomorrow.</span>
+                                The OS for Microgreens & Hydroponics.
+                                <span className="block mt-2 text-slate-700 font-black tracking-tight">Log manually today. <span className="text-emerald-600">Automate with IoT</span> tomorrow.</span>
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 items-start">
                                 <Link
                                     to="/login"
                                     className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-5 rounded-2xl font-black text-xl shadow-2xl shadow-emerald-500/30 transition-all hover:scale-105"
                                 >
-                                    Start Free Account
+                                    Launch Your Farm Free
                                     <ArrowRight size={24} />
                                 </Link>
-                                <span className="py-5 px-4 text-slate-400 font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+                                <span className="py-5 px-4 text-slate-500 font-black text-xs uppercase tracking-[0.2em] flex items-center gap-2">
                                     <CheckCircle size={16} className="text-emerald-500" /> No Hardware Needed
                                 </span>
                             </div>

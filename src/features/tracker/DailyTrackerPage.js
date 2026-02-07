@@ -17,7 +17,8 @@ import {
     LIGHTING_OPTIONS,
     WEATHER_CONDITIONS,
     calculateVPD,
-    analyzeNutrientHealth
+    analyzeNutrientHealth,
+    calculateDLI
 } from '../../utils/agriUtils';
 import { detectThermalStress } from '../../utils/agronomyAlgorithms'; // Fixed Import Source
 import { CheckSquare, ClipboardList, Activity, Search, HelpCircle, Wind, Zap, Thermometer } from 'lucide-react'; // Restored/Consolidated
@@ -72,22 +73,19 @@ const ScientificContextTooltip = ({ title, content }) => (
 
 // --- NEW COMPONENT: VISUAL DLI METER ---
 const DLIMeter = ({ source, hours, weather, setDistance, distance }) => {
-    const calculateAdvancedPPFD = () => {
-        let basePPFD = estimatePPFD(source, weather);
-        const distFactor = distance === 'far' ? 0.5 : 1.0;
-        return basePPFD * distFactor;
-    };
+    // Standardized scientific PPFD estimation using agriUtils
+    const ppfd = estimatePPFD(source, weather, distance ? distance.toUpperCase() : 'STANDARD');
 
-    const ppfd = calculateAdvancedPPFD();
-    const dli = (ppfd * (parseFloat(hours) || 0) * 0.0036).toFixed(1);
-    const rotation = Math.min((dli / 30) * 180, 180);
+    // Standardized DLI calculation using agriUtils
+    const dliValue = calculateDLI(ppfd, parseFloat(hours) || 0);
+    const rotation = Math.min((dliValue / 30) * 180, 180);
 
     let color = '#FBBF24'; // Yellow
     let status = 'Weak 🌑';
-    if (dli >= 10 && dli <= 18) {
+    if (dliValue >= 10 && dliValue <= 18) {
         color = '#10B981'; // Green
         status = 'Perfect 🌱';
-    } else if (dli > 18) {
+    } else if (dliValue > 18) {
         color = '#EF4444'; // Red
         status = 'Too Intense 🔥';
     }
@@ -112,13 +110,14 @@ const DLIMeter = ({ source, hours, weather, setDistance, distance }) => {
                 </div>
             </div>
             <div className="text-center z-10">
-                <span className="text-3xl font-black text-gray-800">{dli}</span>
+                <span className="text-3xl font-black text-gray-800">{dliValue}</span>
                 <span className="text-xs text-gray-500 block">mol / m² / day</span>
                 <span className="text-xs font-bold mt-1 px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: color }}>{status}</span>
             </div>
             <div className="mt-3 w-full flex bg-white rounded-lg border border-gray-300 p-1">
                 <button onClick={() => setDistance('close')} className={`flex-1 text-[10px] font-bold py-1 rounded ${distance === 'close' ? 'bg-blue-100 text-blue-700' : 'text-gray-400'}`}>Close (&lt;1ft)</button>
-                <button onClick={() => setDistance('far')} className={`flex-1 text-[10px] font-bold py-1 rounded ${distance === 'far' ? 'bg-blue-100 text-blue-700' : 'text-gray-400'}`}>Far (&gt;1ft)</button>
+                <button onClick={() => setDistance('standard')} className={`flex-1 text-[10px] font-bold py-1 rounded ${distance === 'standard' || !distance ? 'bg-blue-100 text-blue-700' : 'text-gray-400'}`}>Mid (1-2ft)</button>
+                <button onClick={() => setDistance('far')} className={`flex-1 text-[10px] font-bold py-1 rounded ${distance === 'far' ? 'bg-blue-100 text-blue-700' : 'text-gray-400'}`}>Far (&gt;2ft)</button>
             </div>
         </div>
     );
@@ -548,8 +547,8 @@ const DailyTrackerPage = () => {
                 // Calculate Missing DLI (Legacy Repair)
                 let finalDLI = log.dli_mol_per_m2;
                 if (!finalDLI && log.light_hours_per_day && log.lighting_source) {
-                    const estimatedPPFD = estimatePPFD(log.lighting_source, 'Sunny'); // Default to sunny if unknown
-                    finalDLI = (estimatedPPFD * log.light_hours_per_day * 0.0036).toFixed(2);
+                    const ppfd = estimatePPFD(log.lighting_source, 'Sunny'); // Default to sunny if unknown
+                    finalDLI = calculateDLI(ppfd, log.light_hours_per_day);
                 }
 
                 return {
@@ -1343,31 +1342,42 @@ const DailyTrackerPage = () => {
                                 </div>
                             )}
                             {/* DLI Badge */}
-                            {/* DLI Badge */}
                             <div className="flex gap-2 mt-2">
                                 <div className="flex-1 text-xs bg-green-100 text-green-800 p-2 rounded text-center font-bold">
-                                    Estimated DLI: {(estimatePPFD(hydroponicsEntry.lightingSource, hydroponicsEntry.weatherCondition) * (parseFloat(hydroponicsEntry.lightHours) || 0) * 0.0036).toFixed(2)} mol/m²/d
+                                    Estimated DLI: {calculateDLI(estimatePPFD(hydroponicsEntry.lightingSource, hydroponicsEntry.weatherCondition, hydroponicsEntry.lightDistance?.toUpperCase() || 'STANDARD'), parseFloat(hydroponicsEntry.lightHours) || 0)} mol/m²/d
                                 </div>
-                                {/* GDD Badge */}
-                                {hydroponicsEntry.waterTemp && hydroponicsEntry.targetId && (
-                                    (() => {
-                                        // Find crop from activeSystems
-                                        const sys = activeSystems.find(s => s.id === hydroponicsEntry.targetId || s.system_id === hydroponicsEntry.targetId);
-                                        const crop = sys ? sys.crop : 'Lettuce';
-                                        // Use Water Temp as proxy for Plant Temp in Hydro (simplified)
-                                        const temp = parseFloat(hydroponicsEntry.waterTemp);
-                                        const params = getCropParams(crop);
-                                        const gdd = calculateDailyGDD(temp, temp, crop);
-
-                                        return (
-                                            <div className={`flex-1 text-xs p-2 rounded text-center font-bold border ${params.type === 'WARM' ? 'bg-orange-50 text-orange-700 border-orange-200' : 'bg-cyan-50 text-cyan-700 border-cyan-200'}`}>
-                                                <span className="block text-[10px] uppercase opacity-70">{params.type} CROP (Base {params.base_temp}°C)</span>
-                                                GDD: {gdd}
-                                            </div>
-                                        )
-                                    })()
-                                )}
+                                <div className="flex bg-white rounded border border-blue-200 p-0.5 ml-auto">
+                                    <button
+                                        type="button"
+                                        onClick={() => setHydroponicsEntry({ ...hydroponicsEntry, lightDistance: 'close' })}
+                                        className={`px-2 py-1 text-[9px] font-bold rounded ${hydroponicsEntry.lightDistance === 'close' ? 'bg-blue-500 text-white' : 'text-slate-400'}`}
+                                    >CLOSE</button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setHydroponicsEntry({ ...hydroponicsEntry, lightDistance: 'far' })}
+                                        className={`px-2 py-1 text-[9px] font-bold rounded ${hydroponicsEntry.lightDistance === 'far' ? 'bg-blue-500 text-white' : 'text-slate-400'}`}
+                                    >FAR</button>
+                                </div>
                             </div>
+                            {/* GDD Badge */}
+                            {hydroponicsEntry.waterTemp && hydroponicsEntry.targetId && (
+                                (() => {
+                                    // Find crop from activeSystems
+                                    const sys = activeSystems.find(s => s.id === hydroponicsEntry.targetId || s.system_id === hydroponicsEntry.targetId);
+                                    const crop = sys ? sys.crop : 'Lettuce';
+                                    // Use Water Temp as proxy for Plant Temp in Hydro (simplified)
+                                    const temp = parseFloat(hydroponicsEntry.waterTemp);
+                                    const params = getCropParams(crop);
+                                    const gdd = calculateDailyGDD(temp, temp, crop);
+
+                                    return (
+                                        <div className={`flex-1 text-xs p-2 rounded text-center font-bold border ${params.type === 'WARM' ? 'bg-orange-50 text-orange-700 border-orange-200' : 'bg-cyan-50 text-cyan-700 border-cyan-200'}`}>
+                                            <span className="block text-[10px] uppercase opacity-70">{params.type} CROP (Base {params.base_temp}°C)</span>
+                                            GDD: {gdd}
+                                        </div>
+                                    )
+                                })()
+                            )}
                         </div>
 
                         {/* pH & EC */}
@@ -1484,14 +1494,17 @@ const DailyTrackerPage = () => {
                         </button>
                     </form>
                 </div>
-            </div >
+            </div>
 
             {/* Scientific Info Modal */}
-            < button onClick={() => setShowInfoModal(true)} className="fixed bottom-6 right-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 z-40" >
+            <button
+                onClick={() => setShowInfoModal(true)}
+                className="fixed bottom-6 right-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 z-40"
+            >
                 <BookOpen size={24} />
-            </button >
+            </button>
             <ScientificInfoModal isOpen={showInfoModal} onClose={() => setShowInfoModal(false)} />
-        </div >
+        </div>
     );
 };
 

@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import HealthMeter from './HealthMeter';
+import HealthMeter from '../HealthMeter';
 import WeatherCard from './WeatherWidget';
 import VPDWidget from '../../components/VPDWidget';
 import { HelpCircle } from 'lucide-react';
@@ -16,7 +16,8 @@ export const DashboardMetrics = ({
     riskItems,
     dataAge,
     weatherData,
-    currentConditions
+    currentConditions,
+    isIoT
 }) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-12 auto-rows-min gap-6">
@@ -29,6 +30,7 @@ export const DashboardMetrics = ({
                         healthIndex={healthIndex}
                         riskItems={riskItems}
                         dataAge={dataAge}
+                        isIoT={isIoT}
                     />
                 </div>
             </div>
@@ -48,7 +50,7 @@ export const DashboardMetrics = ({
                     <VPDWidget
                         initialTemp={latestLog?.temp || weatherData?.temp}
                         initialHumidity={latestLog?.humidity || weatherData?.humidity}
-                        isLive={currentConditions.isRealData}
+                        isLive={isIoT || currentConditions.isRealData}
                     />
                 </div>
             </div>

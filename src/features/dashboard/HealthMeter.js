@@ -5,7 +5,7 @@ import { AlertTriangle, CheckCircle, Activity, Wind, Droplets } from 'lucide-rea
 import RemediationModal from '../../components/RemediationModal';
 import { GrowthStages } from '../../components/AgriTechVisuals';
 
-const HealthMeter = ({ latestLog, healthIndex, riskItems = [], dataAge, isStale }) => {
+const HealthMeter = ({ latestLog, healthIndex, riskItems = [], dataAge, isStale, isIoT }) => {
     const { t } = useBeginnerMode();
     const [selectedAlert, setSelectedAlert] = useState(null);
 
@@ -45,8 +45,13 @@ const HealthMeter = ({ latestLog, healthIndex, riskItems = [], dataAge, isStale 
             <div className="relative z-10 h-full flex flex-col justify-between">
                 <div>
                     <div className="flex justify-between items-start">
-                        <h3 className="text-slate-400 font-bold text-xs uppercase tracking-[0.2em] mb-1">
+                        <h3 className="text-slate-400 font-bold text-xs uppercase tracking-[0.2em] mb-1 flex items-center gap-2">
                             {isAggregate ? t("Total Farm Health", "Integrated Health Index") : "System Health"}
+                            {isIoT && (
+                                <span className="flex items-center gap-1.5 px-2 py-0.5 bg-emerald-500 text-white text-[9px] font-black rounded-full animate-pulse shadow-sm shadow-emerald-200">
+                                    <Activity size={10} /> LIVE SENSOR
+                                </span>
+                            )}
                         </h3>
                         {isStale && (
                             <div className="px-3 py-1 bg-slate-100 text-slate-500 text-[8px] font-black uppercase tracking-widest rounded-full border border-slate-200 animate-pulse">
