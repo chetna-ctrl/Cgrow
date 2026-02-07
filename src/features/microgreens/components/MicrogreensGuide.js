@@ -68,7 +68,7 @@ const MicrogreensGuide = ({ isOpen, onClose }) => {
                     </div>
 
                     {/* Tab Navigation */}
-                    <div className="flex gap-2 mt-6 overflow-x-auto pb-2">
+                    <div className="flex gap-2 mt-6 overflow-x-auto pb-2 no-scrollbar">
                         {[
                             { id: 'master', label: language === 'en' ? 'Master Table' : 'Master Table', icon: Sprout },
                             { id: 'soak', label: language === 'en' ? 'Soaking Guide' : 'Soaking Guide', icon: Droplets },
@@ -78,7 +78,7 @@ const MicrogreensGuide = ({ isOpen, onClose }) => {
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap flex items-center gap-2 transition-all ${activeTab === tab.id
+                                className={`px-4 py-2 md:px-6 md:py-3 rounded-xl font-bold text-xs md:text-sm whitespace-nowrap flex items-center gap-2 transition-all flex-shrink-0 ${activeTab === tab.id
                                     ? 'bg-white text-emerald-600 shadow-lg'
                                     : 'bg-white/10 text-white hover:bg-white/20'
                                     }`}

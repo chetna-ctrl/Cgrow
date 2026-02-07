@@ -208,61 +208,61 @@ const SystemGuideModal = ({ onClose }) => {
     ];
 
     return (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-0 md:p-4">
+            <div className="bg-white w-full md:w-full md:max-w-4xl h-full md:h-auto md:rounded-3xl shadow-2xl overflow-hidden md:max-h-[90vh] flex flex-col">
 
                 {/* Header */}
-                <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <div className="p-4 md:p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50 shrink-0">
                     <div className="flex items-center gap-3">
-                        <div className="bg-cyan-100 p-2 rounded-xl text-cyan-600">
-                            <BookOpen size={24} />
+                        <div className="bg-cyan-100 p-2 rounded-xl text-cyan-600 shrink-0">
+                            <BookOpen size={20} />
                         </div>
-                        <div>
-                            <h2 className="text-lg md:text-xl font-black text-slate-800 leading-tight">{TEXT.title[language]}</h2>
-                            <p className="text-xs text-slate-500 font-bold">{TEXT.subtitle[language]}</p>
+                        <div className="min-w-0">
+                            <h2 className="text-base md:text-xl font-black text-slate-800 leading-tight truncate">{TEXT.title[language]}</h2>
+                            <p className="text-[10px] md:text-xs text-slate-500 font-bold truncate">{TEXT.subtitle[language]}</p>
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 md:gap-3 shrink-0">
                         {/* Language Toggle */}
                         <div className="bg-slate-200 rounded-xl p-1 flex gap-1">
                             <button
                                 onClick={() => setLanguage('hi')}
-                                className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all flex items-center gap-1 ${language === 'hi'
+                                className={`px-2 py-1.5 md:px-3 rounded-lg font-bold text-[10px] md:text-xs transition-all flex items-center gap-1 ${language === 'hi'
                                     ? 'bg-white text-slate-800 shadow-sm'
                                     : 'text-slate-500 hover:bg-slate-300/50'
                                     }`}
                             >
-                                <Languages size={14} />
-                                Hinglish
+                                <Languages size={12} />
+                                Hi
                             </button>
                             <button
                                 onClick={() => setLanguage('en')}
-                                className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all flex items-center gap-1 ${language === 'en'
+                                className={`px-2 py-1.5 md:px-3 rounded-lg font-bold text-[10px] md:text-xs transition-all flex items-center gap-1 ${language === 'en'
                                     ? 'bg-white text-slate-800 shadow-sm'
                                     : 'text-slate-500 hover:bg-slate-300/50'
                                     }`}
                             >
-                                <Languages size={14} />
-                                English
+                                <Languages size={12} />
+                                En
                             </button>
                         </div>
 
                         <button onClick={onClose} className="p-2 hover:bg-slate-200 rounded-full transition-colors">
-                            <X size={24} className="text-slate-400" />
+                            <X size={20} className="text-slate-400" />
                         </button>
                     </div>
                 </div>
 
                 {/* Tabs */}
-                <div className="px-6 pt-4 flex gap-4 border-b border-slate-100 overflow-x-auto">
+                <div className="px-4 md:px-6 pt-2 md:pt-4 flex gap-4 border-b border-slate-100 overflow-x-auto shrink-0 no-scrollbar">
                     <TabButton active={activeTab === 'systems'} onClick={() => setActiveTab('systems')} label={TEXT.tabs.sys[language]} icon={<Wind size={16} />} />
                     <TabButton active={activeTab === 'media'} onClick={() => setActiveTab('media')} label={TEXT.tabs.media[language]} icon={<Layers size={16} />} />
                     <TabButton active={activeTab === 'steps'} onClick={() => setActiveTab('steps')} label={TEXT.tabs.steps[language]} icon={<CheckCircle size={16} />} />
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 overflow-y-auto p-6 bg-slate-50/50">
+                <div className="flex-1 overflow-y-auto p-4 md:p-6 bg-slate-50/50">
 
                     {/* TAB 1: SYSTEM COMPARISON */}
                     {activeTab === 'systems' && (
@@ -274,7 +274,7 @@ const SystemGuideModal = ({ onClose }) => {
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-20 md:pb-0">
                                 {SYSTEMS.map((sys, idx) => (
                                     <SystemCard
                                         key={idx}
@@ -293,7 +293,7 @@ const SystemGuideModal = ({ onClose }) => {
 
                     {/* TAB 2: GROWING MEDIUM */}
                     {activeTab === 'media' && (
-                        <div className="space-y-6">
+                        <div className="space-y-6 pb-20 md:pb-0">
                             <h3 className="text-lg font-bold text-slate-800">{TEXT.mediaTitle[language]}</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {MEDIA.map((m, idx) => (
@@ -310,7 +310,7 @@ const SystemGuideModal = ({ onClose }) => {
 
                     {/* TAB 3: STEP-BY-STEP */}
                     {activeTab === 'steps' && (
-                        <div className="space-y-8">
+                        <div className="space-y-8 pb-20 md:pb-0">
                             {STEPS.map((step, idx) => (
                                 <StepSection key={idx} number={idx + 1} title={step.title[language]}>
                                     {step.content[language]}
@@ -321,8 +321,8 @@ const SystemGuideModal = ({ onClose }) => {
                 </div>
 
                 {/* Footer */}
-                <div className="p-4 border-t bg-white flex justify-end">
-                    <button onClick={onClose} className="px-6 py-2 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-700">
+                <div className="p-4 border-t bg-white flex justify-end shrink-0">
+                    <button onClick={onClose} className="w-full md:w-auto px-6 py-3 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-700 shadow-lg active:scale-95 transition-transform">
                         {language === 'en' ? "Got it, I'm Ready!" : "Samajh gaya, Chalo shuru karein!"}
                     </button>
                 </div>
@@ -335,7 +335,7 @@ const SystemGuideModal = ({ onClose }) => {
 const TabButton = ({ active, onClick, label, icon }) => (
     <button
         onClick={onClick}
-        className={`pb-3 px-4 text-sm font-bold flex items-center gap-2 border-b-2 transition-colors whitespace-nowrap ${active ? 'border-cyan-500 text-cyan-700' : 'border-transparent text-slate-400 hover:text-slate-600'}`}
+        className={`pb-3 px-4 text-sm font-bold flex items-center gap-2 border-b-2 transition-colors whitespace-nowrap flex-shrink-0 ${active ? 'border-cyan-500 text-cyan-700' : 'border-transparent text-slate-400 hover:text-slate-600'}`}
     >
         {icon} {label}
     </button>
