@@ -65,28 +65,40 @@ function App() {
     // 1. Get initial session with safety timeout
     const authTimeout = setTimeout(() => {
       if (loading) {
-        console.warn("Auth check timed out. Proceeding to app...");
+        console.warn("Auth check timed out. Force-clearing loading...");
         setLoading(false);
       }
     }, 5000);
 
-    supabase.auth.getSession()
-      .then(({ data: { session } }) => {
+    // Initial check
+    const checkSession = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        if (error) throw error;
+
+        console.log("Auth Initialized:", session ? `User: ${session.user.email}` : "No Session");
         setSession(session);
-      })
-      .catch(err => {
-        console.error("Auth error:", err);
-      })
-      .finally(() => {
+      } catch (err) {
+        console.error("Auth initialization error:", err);
+      } finally {
         clearTimeout(authTimeout);
         setLoading(false);
-      });
+      }
+    };
+
+    checkSession();
 
     // 2. Listen for changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log(`Auth Event: ${event}`, session ? `User: ${session.user.email}` : "No Session");
       setSession(session);
+
+      // Safety: if session is lost, clear any stale data
+      if (!session && event === 'SIGNED_OUT') {
+        queryClient.clear();
+      }
     });
 
     return () => {

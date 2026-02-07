@@ -9,4 +9,10 @@ if (!import.meta.env.VITE_SUPABASE_URL) {
     console.warn("cGrow: Using hardcoded Supabase credentials. For production, set VITE_SUPABASE_URL in your deployment settings.");
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true
+    }
+});
