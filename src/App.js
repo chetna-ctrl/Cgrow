@@ -39,7 +39,7 @@ const SchedulerPage = React.lazy(() => import('./pages/SchedulerPage')); // PHAS
 const FarmingGuidePage = React.lazy(() => import('./features/guide/FarmingGuidePage'));
 const IoTDevicesPage = React.lazy(() => import('./features/iot/IoTDevicesPage'));
 // BUILD VERSION (Diagnostic)
-window.CGROW_BUILD = "2026-02-07-v1.4-MOBILE-FIX";
+window.CGROW_BUILD = "2026-02-07-v1.5-MOBILE-STABLE";
 console.log(`%c[cGrow Ops] Initializing Build: ${window.CGROW_BUILD}`, "color: #10b981; font-weight: bold;");
 const LoadingFallback = () => (
   <div className="flex flex-col items-center justify-center h-full w-full min-h-[400px]">
@@ -63,22 +63,15 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. SMART TIMEOUT: Check if we expect a session (token in localStorage)
-    // If token exists, wait 10s (Mobile/Slow Net). If no token, wait 2s (Fast Fail).
-    let hasLocalSession = false;
-    try {
-      hasLocalSession = Object.keys(localStorage).some(k => k.startsWith('sb-') && k.endsWith('-auth-token'));
-    } catch (e) {
-      console.warn("LocalStorage access restricted:", e);
-    }
-    const timeoutDuration = hasLocalSession ? 10000 : 2000;
-
+    // 1. STABILITY FIRST: Generous 10s timeout for everyone.
+    // This ensures mobile/slow networks strictly have enough time to verify session.
+    // Fast networks will still load instantly (as checkSession clears this).
     const authTimeout = setTimeout(() => {
       if (loading) {
-        console.warn(`Auth check timed out (${timeoutDuration}ms). Force-clearing loading...`);
+        console.warn("Auth check timed out (10s safety). Force-clearing loading...");
         setLoading(false);
       }
-    }, timeoutDuration);
+    }, 10000);
 
     // Initial check
     const checkSession = async () => {
