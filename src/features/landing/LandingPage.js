@@ -31,6 +31,11 @@ const LandingPage = () => {
 
                 {/* Hero Section */}
                 <div className="pt-40 pb-20 px-6 bg-white relative overflow-hidden">
+                    {/* Background Logo Watermark */}
+                    <div className="absolute -top-10 -right-20 w-[600px] h-[600px] opacity-[0.03] pointer-events-none rotate-12 z-0">
+                        <img src="/logo_cgro.png" alt="" className="w-full h-full object-contain" />
+                    </div>
+
                     <div className="absolute top-0 right-0 w-1/2 h-full bg-emerald-50/50 -mr-32 -skew-x-12"></div>
                     <div className="max-w-7xl mx-auto relative z-10">
                         <div className="max-w-3xl">
