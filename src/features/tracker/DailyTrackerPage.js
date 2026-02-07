@@ -20,7 +20,7 @@ import {
     analyzeNutrientHealth
 } from '../../utils/agriUtils';
 import { detectThermalStress } from '../../utils/agronomyAlgorithms'; // Fixed Import Source
-import { CheckSquare, ClipboardList, Activity, Search, HelpCircle, Wind } from 'lucide-react'; // Restored/Consolidated
+import { CheckSquare, ClipboardList, Activity, Search, HelpCircle, Wind, Zap } from 'lucide-react'; // Restored/Consolidated
 import ScientificInfoModal from '../../components/ScientificInfoModal';
 import { useBeginnerMode } from '../../context/BeginnerModeContext';
 import CostCalculator from '../../components/CostCalculator';
