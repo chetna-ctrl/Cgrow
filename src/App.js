@@ -36,8 +36,9 @@ const DailyTrackerPage = React.lazy(() => import('./features/tracker/DailyTracke
 const AnalyticsPage = React.lazy(() => import('./pages/AnalyticsPage')); // PHASE 2
 const SchedulerPage = React.lazy(() => import('./pages/SchedulerPage')); // PHASE 3
 const FarmingGuidePage = React.lazy(() => import('./features/guide/FarmingGuidePage'));
+const IoTDevicesPage = React.lazy(() => import('./features/iot/IoTDevicesPage'));
 // BUILD VERSION (Diagnostic)
-window.CGROW_BUILD = "2026-02-07-v1.1-AUTH-FIX";
+window.CGROW_BUILD = "2026-02-07-v1.2-IOT-FIX";
 console.log(`%c[cGrow Ops] Initializing Build: ${window.CGROW_BUILD}`, "color: #10b981; font-weight: bold;");
 const LoadingFallback = () => (
   <div className="flex flex-col items-center justify-center h-full w-full min-h-[400px]">
