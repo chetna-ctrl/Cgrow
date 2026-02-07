@@ -37,6 +37,7 @@ const AnalyticsPage = React.lazy(() => import('./pages/AnalyticsPage')); // PHAS
 const SchedulerPage = React.lazy(() => import('./pages/SchedulerPage')); // PHASE 3
 const FarmingGuidePage = React.lazy(() => import('./features/guide/FarmingGuidePage'));
 const IoTDevicesPage = React.lazy(() => import('./features/iot/IoTDevicesPage')); // IoT Hybrid System
+const AgriSerialDashboard = React.lazy(() => import('./features/dashboard/AgriSerialDashboard')); // Isolated Testing
 
 
 // LOADING SPINNER
@@ -140,6 +141,7 @@ function App() {
                         <Route path="/iot-devices" element={<IoTDevicesPage />} />
                         <Route path="/weather" element={<WeatherPage />} />
                         <Route path="/settings" element={<SettingsPage />} />
+                        <Route path="/arduino-test" element={<AgriSerialDashboard />} />
                       </Routes>
                     </Suspense>
                   </DashboardLayout>
