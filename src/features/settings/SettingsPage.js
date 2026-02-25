@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { User, Shield, Save, Loader } from 'lucide-react';
+import { User, Shield, Save, Loader, MessageCircle, Smartphone, CheckCircle, XCircle } from 'lucide-react';
+import API_CONFIG from '../../config/apiConfig';
 import { supabase } from '../../lib/supabaseClient';
+
 
 const SettingsPage = () => {
     const [loading, setLoading] = useState(true);
@@ -13,9 +15,23 @@ const SettingsPage = () => {
         full_name: '',
         email: '',
         farm_name: '',
+        whatsapp_alert_number: '',   // Alert kisko milega
+        whatsapp_auto_reply: false,  // Auto-reply on/off
+        whatsapp_auto_reply_msg: 'Dhanyawad! Aapka message mil gaya. Hum jald hi reply karenge. 🌱 - cGrow Team',
+        whatsapp_ai_sales: true, // New: AI Sales Toggle
         push_notifications: true,
         data_sync: true
     });
+
+    // Bot status check
+    const [botStatus, setBotStatus] = useState('checking');
+    useEffect(() => {
+        fetch(`${API_CONFIG.BOT_URL}${API_CONFIG.ENDPOINTS.STATUS}`)
+            .then(r => r.json())
+            .then(d => setBotStatus(d.ready ? 'ready' : 'offline'))
+            .catch(() => setBotStatus('offline'));
+    }, []);
+
 
     // 1. Fetch Data on Load
     useEffect(() => {
@@ -55,14 +71,19 @@ const SettingsPage = () => {
         setSaving(true);
 
         const updates = {
-            user_id: userSession.id, // Critical: Links data to the user
+            user_id: userSession.id,
             full_name: profile.full_name,
             email: profile.email,
             farm_name: profile.farm_name,
+            whatsapp_alert_number: profile.whatsapp_alert_number,
+            whatsapp_auto_reply: profile.whatsapp_auto_reply,
+            whatsapp_auto_reply_msg: profile.whatsapp_auto_reply_msg,
+            whatsapp_ai_sales: profile.whatsapp_ai_sales,
             push_notifications: profile.push_notifications,
             data_sync: profile.data_sync,
             updated_at: new Date()
         };
+
 
         const { error } = await supabase
             .from('user_settings')
@@ -71,9 +92,21 @@ const SettingsPage = () => {
         if (error) {
             alert('Error saving settings: ' + error.message);
         } else {
+            // Bot ko bhi auto-reply settings bhejo (restart nahi chahiye)
+            fetch(`${API_CONFIG.BOT_URL}${API_CONFIG.ENDPOINTS.SET_AUTOREPLY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    enabled: profile.whatsapp_auto_reply,
+                    message: profile.whatsapp_auto_reply_msg,
+                    aiSales: profile.whatsapp_ai_sales
+                })
+            }).catch(() => { }); // Silently fail if bot offline
+
             setSaved(true);
             setTimeout(() => setSaved(false), 3000);
         }
+
         setSaving(false);
     };
 
@@ -129,7 +162,93 @@ const SettingsPage = () => {
                     </div>
                 </div>
 
-                {/* Preferences Section */}
+                {/* WhatsApp Bot Section */}
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <div className="border-b border-slate-100 pb-4 mb-6 flex items-center justify-between">
+                        <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2">
+                            <MessageCircle size={20} className="text-green-500" /> WhatsApp Bot
+                        </h3>
+                        <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold ${botStatus === 'ready' ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-500'
+                            }`}>
+                            {botStatus === 'ready'
+                                ? <><CheckCircle size={12} /> Bot Connected</>
+                                : <><XCircle size={12} /> Bot Offline</>}
+                        </div>
+                    </div>
+
+                    <div className="space-y-6">
+                        {/* Alert Number */}
+                        <div>
+                            <label className="block text-slate-600 text-sm font-medium mb-1">
+                                🔔 Alert Numbers (Multiple numbers allow karein)
+                            </label>
+                            <p className="text-slate-400 text-xs mb-2">Aapka number ya team ka number. Multiple numbers ke liye comma (,) use karein.</p>
+                            <input
+                                type="text"
+                                value={profile.whatsapp_alert_number || ''}
+                                onChange={(e) => setProfile({ ...profile, whatsapp_alert_number: e.target.value })}
+                                className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 rounded-lg p-3 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all"
+                                placeholder="919876543210, 919876543211"
+                            />
+                        </div>
+
+                        {/* Auto-Reply Toggle */}
+                        <div className="flex justify-between items-center">
+                            <div>
+                                <h4 className="text-slate-900 font-medium">🤖 Auto-Reply</h4>
+                                <p className="text-slate-500 text-sm mt-1">Jab customer WhatsApp pe message kare, automatic reply bhejo</p>
+                            </div>
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={profile.whatsapp_auto_reply || false}
+                                    onChange={(e) => setProfile({ ...profile, whatsapp_auto_reply: e.target.checked })}
+                                    className="sr-only peer"
+                                />
+                                <div className="w-11 h-6 bg-slate-200 peer-focus:ring-2 peer-focus:ring-green-500 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+                            </label>
+                        </div>
+
+                        {/* AI Sales Advisor Toggle */}
+                        <div className="flex justify-between items-center bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100">
+                            <div>
+                                <h4 className="text-indigo-900 font-black text-sm uppercase tracking-wider">🧠 AI Sales Advisor Mode</h4>
+                                <p className="text-slate-500 text-[10px] font-bold mt-1 uppercase">Proactive engagement using sales psychology & live data</p>
+                            </div>
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={profile.whatsapp_ai_sales || false}
+                                    onChange={(e) => setProfile({ ...profile, whatsapp_ai_sales: e.target.checked })}
+                                    className="sr-only peer"
+                                />
+                                <div className="w-11 h-6 bg-slate-200 peer-focus:ring-2 peer-focus:ring-indigo-500 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                            </label>
+                        </div>
+
+                        {/* Auto-Reply Message */}
+                        {profile.whatsapp_auto_reply && (
+                            <div>
+                                <label className="block text-slate-600 text-sm font-medium mb-2">Auto-Reply Message</label>
+                                <textarea
+                                    value={profile.whatsapp_auto_reply_msg || ''}
+                                    onChange={(e) => setProfile({ ...profile, whatsapp_auto_reply_msg: e.target.value })}
+                                    rows={3}
+                                    className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 rounded-lg p-3 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all resize-none text-sm"
+                                />
+                                <p className="text-slate-400 text-xs mt-1">Yeh message customers ko automatic milega jab woh bot ko message karenge</p>
+                            </div>
+                        )}
+
+                        {botStatus === 'offline' && (
+                            <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                                <p className="text-amber-700 text-xs font-medium">⚠️ Bot offline hai — terminal mein <code className="bg-amber-100 px-1 rounded">cd whatsapp-bot && node index.js</code> run karein</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+
                 <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
                     <div className="border-b border-slate-100 pb-4 mb-6">
                         <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2">

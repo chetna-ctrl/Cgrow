@@ -5,12 +5,12 @@ import { getHarvestStats } from '../../utils/harvestData';
 import {
     Activity, Droplets, Thermometer, Plus, Wind, Zap, X, Sun,
     Loader, Download, Edit, Trash2, CheckCircle, Calculator,
-    Calendar, TrendingUp, DollarSign, Package, Sprout, Beaker, HelpCircle, AlertTriangle, Cpu
+    Calendar, TrendingUp, DollarSign, Package, Sprout, Beaker, HelpCircle, AlertTriangle, Cpu, Map as MapIcon
 } from 'lucide-react';
 import { useBeginnerMode } from '../../context/BeginnerModeContext';
 import { useHydroponics } from './hooks/useHydroponics';
 import ActiveCropHealth from '../../components/ActiveCropHealth';
-import { supabase } from '../../lib/supabaseClient';
+import { Link } from 'react-router-dom';
 import StatCard from '../../components/ui/StatCard';
 import ScientificInfoModal from '../../components/ScientificInfoModal';
 import { determineQualityGrade } from '../../utils/predictions';
@@ -145,11 +145,19 @@ const HydroponicsPage = () => {
         e.preventDefault();
         const harvestDate = new Date().toISOString().split('T')[0];
 
+        const yieldKg = parseFloat(harvestData.yield_kg);
+        const pricePerKg = parseFloat(harvestData.price_per_kg);
+
+        if (isNaN(yieldKg) || isNaN(pricePerKg)) {
+            alert("Please enter valid yield and price!");
+            return;
+        }
+
         await harvestSystem(harvestSys.id || harvestSys.system_id, {
             harvest_date: harvestDate,
-            yield_kg: parseFloat(harvestData.yield_kg),
+            yield_kg: yieldKg,
             quality_grade: harvestData.quality_grade,
-            price_per_kg: parseFloat(harvestData.price_per_kg)
+            price_per_kg: pricePerKg
         });
 
         setShowHarvestModal(false);
@@ -179,6 +187,13 @@ const HydroponicsPage = () => {
                         <Cpu size={16} className="text-cyan-500" />
                         Sensor Kit
                     </button>
+                    <Link
+                        to="/planner"
+                        className="bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-indigo-700 flex items-center gap-2 shadow-lg shadow-indigo-100"
+                    >
+                        <MapIcon size={16} />
+                        Commercial Blueprint
+                    </Link>
                     <button
                         onClick={() => setShowExpertScience(!showExpertScience)}
                         className={`flex items-center gap-2 px-6 py-2 rounded-xl border transition-all font-bold ${showExpertScience ? 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-100' : 'bg-white text-slate-500 border-slate-200 hover:border-indigo-300'}`}

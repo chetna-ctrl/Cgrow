@@ -19,7 +19,8 @@ export const BatchSchema = z.object({
         .refine((date) => !isNaN(Date.parse(date)), "Invalid date format")
         .refine((date) => new Date(date) <= new Date(), "Sow date cannot be in the future"),
 
-    seedWeight: z.coerce.number().optional() // New field for Density Auditor
+    seedWeight: z.coerce.number().optional(),
+    id: z.union([z.string(), z.number()]).optional() // Support both types
 });
 
 /**
@@ -27,10 +28,7 @@ export const BatchSchema = z.object({
  * Ensures all system parameters are within safe, realistic ranges
  */
 export const HydroSystemSchema = z.object({
-    id: z.string()
-        .min(1, "System ID is required")
-        .max(20, "System ID is too long")
-        .regex(/^[a-zA-Z0-9\-]+$/, "Only letters, numbers, and hyphens allowed in System ID"),
+    id: z.union([z.string(), z.number()]),
 
     type: z.enum(['NFT', 'DWC', 'Ebb & Flow', 'Drip', 'Wick', 'Aeroponic'], {
         errorMap: () => ({ message: "Invalid system type" })
@@ -58,7 +56,7 @@ export const HydroSystemSchema = z.object({
  * Validation schema for Daily Log entries
  */
 export const DailyLogSchema = z.object({
-    systemId: z.string().min(1, "System ID is required"),
+    systemId: z.union([z.string(), z.number()]),
     systemType: z.enum(['microgreens', 'hydroponics']).optional(),
     ph: z.coerce.number().min(0).max(14).optional(),
     ec: z.coerce.number().min(0).max(10).optional(),

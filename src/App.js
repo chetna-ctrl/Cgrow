@@ -21,32 +21,27 @@ const queryClient = new QueryClient({
   },
 });
 
-// LAZY LOADING
+// LAZY LOADING - CORE
 const LandingPage = React.lazy(() => import('./features/landing/LandingPage'));
-const DashboardHome = React.lazy(() => import('./features/dashboard/DashboardHome'));
-const FieldsPage = React.lazy(() => import('./features/fields/FieldsPage'));
-const WeatherPage = React.lazy(() => import('./features/weather/WeatherPage'));
-const SettingsPage = React.lazy(() => import('./features/settings/SettingsPage'));
 const LoginPage = React.lazy(() => import('./features/auth/LoginPage'));
-const FinancePage = React.lazy(() => import('./features/finance/FinancePage'));
-const MarketPage = React.lazy(() => import('./features/market/MarketPage'));
-const MicrogreensPage = React.lazy(() => import('./features/microgreens/MicrogreensPage'));
-const HydroponicsPage = React.lazy(() => import('./features/hydroponics/HydroponicsPage'));
-const AgronomyPage = React.lazy(() => import('./features/agronomy/AgronomyPage'));
-const DailyTrackerPage = React.lazy(() => import('./features/tracker/DailyTrackerPage'));
-const AnalyticsPage = React.lazy(() => import('./pages/AnalyticsPage')); // PHASE 2
-const SchedulerPage = React.lazy(() => import('./pages/SchedulerPage')); // PHASE 3
-const FarmingGuidePage = React.lazy(() => import('./features/guide/FarmingGuidePage'));
-const IoTDevicesPage = React.lazy(() => import('./features/iot/IoTDevicesPage'));
+const DashboardHome = React.lazy(() => import('./features/dashboard/DashboardHome'));
+const SettingsPage = React.lazy(() => import('./features/settings/SettingsPage'));
+
+// CONSOLIDATED HUBS
+const OperationsHub = React.lazy(() => import('./features/operations/OperationsHub'));
+const BusinessHub = React.lazy(() => import('./features/business/BusinessHub'));
+const TechHub = React.lazy(() => import('./features/tech/TechHub'));
+
 // BUILD VERSION (Diagnostic)
-window.CGROW_BUILD = "2026-02-07-v1.5-MOBILE-STABLE";
+window.CGROW_BUILD = "2026-02-25-infra-resilience";
 console.log(`%c[cGrow Ops] Initializing Build: ${window.CGROW_BUILD}`, "color: #10b981; font-weight: bold;");
+
 const LoadingFallback = () => (
   <div className="flex flex-col items-center justify-center h-full w-full min-h-[400px]">
     <div className="animate-spin text-emerald-500 mb-4">
       <Sprout size={48} />
     </div>
-    <p className="text-slate-400 text-sm font-medium animate-pulse">Loading cGrow...</p>
+    <p className="text-slate-400 text-sm font-medium animate-pulse">Initializing Agri-OS...</p>
   </div>
 );
 
@@ -66,12 +61,13 @@ function App() {
     // 1. STABILITY FIRST: Generous 10s timeout for everyone.
     // This ensures mobile/slow networks strictly have enough time to verify session.
     // Fast networks will still load instantly (as checkSession clears this).
+    // Fast networks will still load instantly (as checkSession clears this).
     const authTimeout = setTimeout(() => {
       if (loading) {
-        console.warn("Auth check timed out (10s safety). Force-clearing loading...");
+        console.warn("Auth check slow (5s safety). Continuing with public view...");
         setLoading(false);
       }
-    }, 10000);
+    }, 5000);
 
     // Initial check
     const checkSession = async () => {
@@ -143,18 +139,13 @@ function App() {
                         <Routes>
                           <Route path="/" element={<Navigate to="/dashboard" replace />} />
                           <Route path="/dashboard" element={<DashboardHome />} />
-                          <Route path="/tracker" element={<DailyTrackerPage />} />
-                          <Route path="/fields" element={<FieldsPage />} />
-                          <Route path="/finance" element={<FinancePage />} />
-                          <Route path="/market" element={<MarketPage />} />
-                          <Route path="/microgreens" element={<MicrogreensPage />} />
-                          <Route path="/hydroponics" element={<HydroponicsPage />} />
-                          <Route path="/agronomy" element={<AgronomyPage />} />
-                          <Route path="/analytics" element={<AnalyticsPage />} />
-                          <Route path="/scheduler" element={<SchedulerPage />} />
-                          <Route path="/guide" element={<FarmingGuidePage />} />
-                          <Route path="/iot-devices" element={<IoTDevicesPage />} />
-                          <Route path="/weather" element={<WeatherPage />} />
+
+                          {/* CONSOLIDATED HUBS */}
+                          <Route path="/ops/*" element={<OperationsHub />} />
+                          <Route path="/business/*" element={<BusinessHub />} />
+                          <Route path="/tech/*" element={<TechHub />} />
+
+                          {/* GLOBAL SETTINGS */}
                           <Route path="/settings" element={<SettingsPage />} />
                         </Routes>
                       </Suspense>

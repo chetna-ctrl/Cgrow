@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import {
     Sprout, Droplets, Thermometer, TrendingUp, ArrowRight, Activity, CloudRain, AlertTriangle, Shield, Wallet, Brain, BookOpen,
-    Moon, Sun, ShoppingCart,
+    Moon, Sun, ShoppingCart, Edit,
     Calendar, CheckCircle, Clock, Layout, Wind, Zap, Sparkles, Settings, Info, HelpCircle
 } from 'lucide-react';
 import { useBeginnerMode } from '../../context/BeginnerModeContext';
@@ -20,7 +20,7 @@ import YieldChart from './YieldChart';
 import HarvestTimeline from './HarvestTimeline';
 import VPDWidget from '../../components/VPDWidget';
 import StreakBadge from '../../components/StreakBadge';
-import { generateContextAwareAlerts, analyzeTrend, calculateFarmHealth, calculateDLI } from '../../utils/agriUtils';
+import { generateContextAwareAlerts, calculateFarmHealth, calculateDLI } from '../../utils/agriUtils';
 import WeatherCard from './WeatherWidget';
 import HealthMeter from './HealthMeter';
 
@@ -58,6 +58,9 @@ const getTimeAgo = (date) => {
 
 import ErrorBoundary from '../../components/ErrorBoundary';
 import { NFTSchematic, SensorNetworkDiagram } from '../../components/AgriTechVisuals';
+import { analyzeTrend, getTrendIcon } from '../../modules/hydroIntelligence/TrendAnalysisEngine';
+import { calculateCoolingEfficiency } from '../../modules/hydroIntelligence/coolingLogic';
+import DFTIntelligencePanel from '../../components/hydroponics/DFTIntelligencePanel';
 
 const DashboardHome = () => {
     return (
@@ -116,11 +119,14 @@ const DashboardContent = () => {
         refetchOnWindowFocus: false // Don't refetch on tab switch
     });
 
+    // FIXED: Defines latestLog here to prevent Temporal Dead Zone ReferenceError
+    const latestLog = recentLogs.length > 0 ? recentLogs[0] : null;
+
     // PHASE 2: Catch-up flow trigger
     useEffect(() => {
         if (!recentLogs || recentLogs.length === 0) return;
 
-        const latestLog = recentLogs[0];
+        // latestLog is already defined above
         const daysSinceLastLog = Math.floor(
             (Date.now() - new Date(latestLog.created_at)) / (1000 * 60 * 60 * 24)
         );
@@ -155,23 +161,45 @@ const DashboardContent = () => {
     }, [recentLogs]);
 
     // PHASE 6: IoT Real-time Listener (Additive)
+    // Now includes HEARTBEAT monitoring
+    const [heartbeat, setHeartbeat] = useState({ status: 'OFFLINE', lastPing: null });
+
     useEffect(() => {
-        const channel = supabase
+        // 1. Subscribe to Telemetry Data (Readings)
+        const telemetryChannel = supabase
             .channel('telemetry-pings')
-            .on('postgres_changes', {
-                event: 'INSERT',
-                schema: 'public',
-                table: 'telemetry'
-            }, (payload) => {
-                console.log('📡 IoT Alert: live sensor pulse received', payload.new);
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'telemetry' }, (payload) => {
+                // console.log('📡 IoT Alert: live sensor pulse', payload.new);
                 setLiveTelemetry(payload.new);
             })
             .subscribe();
 
+        // 2. Subscribe to Heartbeats (Status)
+        const heartbeatChannel = supabase
+            .channel('heartbeat-pings')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'system_heartbeats' }, (payload) => {
+                const newData = payload.new || payload.old; // Handle Insert/Update
+                if (newData) {
+                    setHeartbeat({
+                        status: newData.status,
+                        lastPing: newData.last_ping
+                    });
+                }
+            })
+            .subscribe();
+
         return () => {
-            supabase.removeChannel(channel);
+            supabase.removeChannel(telemetryChannel);
+            supabase.removeChannel(heartbeatChannel);
         };
     }, []);
+
+    // Cooling Intelligence Calculation
+    const coolingStatus = useMemo(() => {
+        const air = weatherData?.temp || 30;
+        const water = liveTelemetry?.waterTemp || latestLog?.waterTemp || 24;
+        return calculateCoolingEfficiency(air, water);
+    }, [weatherData, liveTelemetry, latestLog]);
 
     // PHASE 2: Handle catch-up completion
     const handleCatchUpComplete = async ({ answers, estimatedHealthDrop, daysMissed }) => {
@@ -209,7 +237,7 @@ const DashboardContent = () => {
         }
     };
 
-    const latestLog = recentLogs.length > 0 ? recentLogs[0] : null;
+    // Removed duplicate latestLog definition that was here
 
     // 3. WEATHER (Cached & Protected)
     useEffect(() => {
@@ -603,7 +631,7 @@ const DashboardContent = () => {
 
                             <div className="mt-4">
                                 {upcomingHarvests.length > 0 ? (
-                                    <Link to={upcomingHarvests[0].itemType === 'hydroponics' ? '/hydroponics' : '/microgreens'} className="group block">
+                                    <Link to="/ops" className="group block">
                                         <h2 className="text-3xl font-black text-white mb-2 group-hover:text-emerald-400 transition-colors tracking-tight">
                                             {t("Harvest Ready!", `Harvest ${upcomingHarvests[0].crop}`)}
                                         </h2>
@@ -622,9 +650,9 @@ const DashboardContent = () => {
                             </div>
 
                             <div className="flex flex-col gap-3 mt-4">
-                                <Link to="/tracker" className="w-max">
+                                <Link to="/ops" className="w-max">
                                     <button className="bg-white text-slate-900 px-6 py-3 rounded-2xl font-black text-sm flex items-center justify-center gap-2 hover:bg-emerald-400 transition-all shadow-lg w-full md:w-auto">
-                                        {t("Update Daily Log", "Daily Operations")} <ArrowRight size={18} />
+                                        {t("Update Daily Log", "Daily Operations Hub")} <ArrowRight size={18} />
                                     </button>
                                 </Link>
                             </div>
@@ -734,10 +762,10 @@ const DashboardContent = () => {
                                     ))}
                                 </div>
                                 <Link
-                                    to="/analytics"
+                                    to="/ops"
                                     className="text-xs text-red-700 font-bold mt-2 inline-block hover:underline"
                                 >
-                                    View Full Analysis →
+                                    Check Live Trends →
                                 </Link>
                             </div>
                         </div>
@@ -745,7 +773,7 @@ const DashboardContent = () => {
                 )}
             </div>
 
-            {/* PREDICTIVE ALERTS (Phase 2 Upgrade) */}
+            {/* PREDICTIVE ANALYTICS (Phase 2 Upgrade) */}
             {predictiveAlerts.length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {predictiveAlerts.map((trend, idx) => (
@@ -765,7 +793,7 @@ const DashboardContent = () => {
 
             {/* STATS GRID */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <Link to="/microgreens" className="block hover:scale-[1.02] transition-transform">
+                <Link to="/ops" className="block hover:scale-[1.02] transition-transform">
                     <StatBox
                         label="Active Batches"
                         value={batches.filter(b => b.status !== 'Harvested').length}

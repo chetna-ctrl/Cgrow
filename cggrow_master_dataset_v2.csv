@@ -1,0 +1,2001 @@
+month,crop_category,crop_name,system_type,avg_temp_c,humidity_pct,water_temp_c,vpd_kpa,ph_level,ec_level,dissolved_oxygen,dli_mol_m2_day,is_recommended,risk_factor
+Sep,Microgreen,Beetroot,Tray,32.4,78.2,27.4,1.06,6.0,1.0,4.4,8.8,0,Root Rot Risk
+Apr,Microgreen,Radish,Tray,45.9,20.0,40.9,8.03,5.6,1.3,2.0,20.2,0,Root Rot Risk
+Jun,Microgreen,Pea Shoots,Tray,41.1,26.1,36.1,5.78,7.1,2.0,2.0,23.9,0,Root Rot Risk
+Jul,Microgreen,Mustard,Tray,32.5,70.8,27.5,1.42,7.3,1.8,4.4,11.3,0,Root Rot Risk
+Jul,Hydroponic,Basil (Hydro),NFT,34.1,78.8,29.1,1.14,6.0,2.2,3.8,12.6,0,Root Rot Risk
+Dec,Microgreen,Pea Shoots,Tray,13.6,47.0,16.6,0.82,7.4,2.4,8.2,11.1,0,Nutrient Lockout
+Dec,Microgreen,Arugula,Tray,12.3,54.1,15.3,0.66,6.1,1.2,8.6,6.4,1,Optimal
+Aug,Microgreen,Mustard,Tray,32.1,80.4,27.1,0.94,6.7,1.6,4.5,11.8,0,Root Rot Risk
+Apr,Microgreen,Broccoli,Tray,38.7,17.7,33.7,5.66,6.3,0.8,2.2,24.3,0,Root Rot Risk
+May,Hydroponic,Cherry Tomato,DWC,36.9,29.6,31.9,4.41,5.4,2.2,2.8,19.4,0,Root Rot Risk
+Dec,Microgreen,Radish,Tray,12.5,50.8,15.5,0.71,5.2,0.8,8.6,5.2,0,Nutrient Lockout
+Jan,Microgreen,Mustard,Tray,19.3,46.3,22.3,1.2,7.7,0.6,6.2,9.7,0,Nutrient Lockout
+Mar,Hydroponic,Strawberry,NFT,23.8,31.0,26.8,2.04,7.5,0.9,4.6,16.9,0,Root Rot Risk
+May,Hydroponic,Strawberry,DWC,36.0,17.5,31.0,4.91,6.7,2.4,3.1,18.8,0,Root Rot Risk
+Aug,Hydroponic,Cherry Tomato,DWC,29.9,74.8,32.9,1.06,6.6,1.4,2.5,13.7,0,Root Rot Risk
+Dec,Hydroponic,Cherry Tomato,NFT,19.8,51.0,22.8,1.13,7.7,2.0,6.0,6.1,0,Nutrient Lockout
+Jan,Hydroponic,Spinach,NFT,14.9,57.1,17.9,0.73,5.5,1.3,7.7,11.1,1,Optimal
+Jan,Microgreen,Mustard,Tray,12.7,54.6,15.7,0.67,5.5,0.5,8.5,7.2,1,Optimal
+Dec,Hydroponic,Cherry Tomato,DWC,15.3,48.1,18.3,0.9,5.9,1.9,7.6,7.7,1,Optimal
+Jan,Hydroponic,Cucumber,DWC,12.6,50.9,15.6,0.71,7.2,1.1,8.6,11.8,0,Nutrient Lockout
+Jun,Hydroponic,Pak Choi,NFT,37.6,26.3,32.6,4.77,5.6,1.2,2.6,24.3,0,Root Rot Risk
+Feb,Hydroponic,Strawberry,NFT,22.0,31.6,25.0,1.81,7.7,2.2,5.2,19.6,0,Nutrient Lockout
+Sep,Microgreen,Radish,Tray,30.9,86.1,25.9,0.62,6.4,1.2,4.9,11.4,0,Mold/Fungal Risk
+Aug,Hydroponic,Basil (Hydro),DWC,33.4,93.5,28.4,0.34,7.4,1.4,4.1,14.1,0,Root Rot Risk
+Oct,Hydroponic,Celery,DWC,31.8,37.8,26.8,2.92,5.8,1.5,4.6,19.6,0,Root Rot Risk
+Oct,Hydroponic,Bell Pepper,DWC,25.2,44.0,28.2,1.79,7.5,1.4,4.1,17.3,0,Root Rot Risk
+May,Microgreen,Sunflower,Tray,43.7,25.2,38.7,6.7,6.1,1.1,2.0,20.1,0,Root Rot Risk
+Apr,Hydroponic,Kale,DWC,43.4,16.6,38.4,7.34,7.0,1.4,2.0,23.8,0,Root Rot Risk
+Nov,Microgreen,Radish,Tray,14.6,56.2,17.6,0.73,6.0,1.2,7.8,10.8,1,Optimal
+Nov,Hydroponic,Basil (Hydro),DWC,17.3,49.0,20.3,1.01,6.7,2.2,6.9,6.5,1,Optimal
+Jan,Microgreen,Mustard,Tray,14.1,42.1,17.1,0.93,6.1,1.8,8.0,10.3,1,Optimal
+Jul,Hydroponic,Lettuce,NFT,29.0,88.3,32.0,0.47,6.4,0.7,2.8,12.8,0,Root Rot Risk
+May,Hydroponic,Kale,NFT,44.8,16.1,39.8,7.95,5.4,2.3,2.0,19.4,0,Root Rot Risk
+Dec,Hydroponic,Strawberry,DWC,11.2,43.5,14.2,0.75,6.5,1.1,9.0,7.7,1,Optimal
+Jun,Microgreen,Beetroot,Tray,47.6,29.4,42.6,7.74,6.4,0.5,2.0,20.2,0,Root Rot Risk
+Dec,Hydroponic,Cherry Tomato,DWC,13.5,47.4,16.5,0.81,6.8,1.6,8.2,11.1,1,Optimal
+Jun,Hydroponic,Strawberry,DWC,36.1,15.1,31.1,5.06,7.7,1.2,3.1,20.4,0,Root Rot Risk
+Jul,Hydroponic,Basil (Hydro),DWC,30.3,82.2,25.3,0.77,6.5,1.9,5.2,10.7,1,Optimal
+Aug,Hydroponic,Cherry Tomato,NFT,35.0,75.6,30.0,1.37,5.8,1.9,3.5,10.4,0,Root Rot Risk
+Apr,Microgreen,Arugula,Tray,42.0,23.8,37.0,6.24,7.2,1.7,2.0,22.4,0,Root Rot Risk
+Oct,Hydroponic,Spinach,DWC,27.6,33.2,30.6,2.47,5.3,0.6,3.3,19.7,0,Root Rot Risk
+Nov,Microgreen,Beetroot,Tray,8.8,47.4,11.8,0.6,7.6,1.9,9.9,6.1,0,Nutrient Lockout
+Aug,Microgreen,Kohlrabi,Tray,32.3,91.9,27.3,0.39,6.0,1.1,4.5,12.6,0,Root Rot Risk
+Sep,Hydroponic,Lettuce,NFT,30.6,91.8,25.6,0.36,7.6,1.2,5.0,13.8,0,VPD Stress
+Sep,Microgreen,Mustard,Tray,31.0,88.2,26.0,0.53,7.2,0.5,4.9,8.7,0,Mold/Fungal Risk
+Dec,Microgreen,Kohlrabi,Tray,9.2,41.5,12.2,0.68,7.4,0.8,9.7,8.1,0,Nutrient Lockout
+May,Hydroponic,Cucumber,DWC,47.0,21.9,42.0,8.31,5.5,0.6,2.0,21.2,0,Root Rot Risk
+Dec,Hydroponic,Pak Choi,NFT,12.0,49.8,15.0,0.71,7.3,0.9,8.7,8.2,0,Nutrient Lockout
+Feb,Microgreen,Amaranth,Tray,24.0,33.4,27.0,1.98,6.5,0.8,4.6,17.8,0,Root Rot Risk
+Sep,Microgreen,Mustard,Tray,30.5,92.9,25.5,0.31,7.7,2.1,5.1,11.1,0,Mold/Fungal Risk
+Jul,Hydroponic,Celery,NFT,28.3,81.4,31.3,0.72,7.7,1.7,3.0,11.1,0,Root Rot Risk
+Jul,Microgreen,Amaranth,Tray,31.8,82.5,26.8,0.83,5.5,2.5,4.6,14.2,0,Root Rot Risk
+Feb,Hydroponic,Mint,NFT,27.3,48.5,30.3,1.87,6.4,1.4,3.4,15.9,0,Root Rot Risk
+May,Hydroponic,Celery,DWC,38.2,15.6,33.2,5.67,5.4,2.5,2.4,19.7,0,Root Rot Risk
+Jan,Microgreen,Arugula,Tray,10.7,46.5,13.7,0.69,7.2,1.9,9.2,10.8,0,Nutrient Lockout
+Jan,Microgreen,Radish,Tray,12.3,58.7,15.3,0.59,7.0,2.5,8.6,6.0,1,Optimal
+Jan,Microgreen,Amaranth,Tray,9.8,57.6,12.8,0.51,6.1,2.2,9.5,8.4,1,Optimal
+Feb,Hydroponic,Celery,NFT,26.6,44.0,29.6,1.95,6.3,1.9,3.6,17.9,0,Root Rot Risk
+Oct,Hydroponic,Basil (Hydro),DWC,28.5,30.5,31.5,2.71,6.2,0.5,3.0,15.8,0,Root Rot Risk
+Jun,Hydroponic,Celery,NFT,45.4,15.8,40.4,8.23,5.4,1.6,2.0,19.3,0,Root Rot Risk
+Mar,Hydroponic,Cherry Tomato,NFT,29.2,49.9,32.2,2.03,6.5,1.2,2.7,17.0,0,Root Rot Risk
+Jun,Hydroponic,Mint,DWC,43.4,22.4,38.4,6.85,6.9,2.1,2.0,23.8,0,Root Rot Risk
+Feb,Microgreen,Radish,Tray,27.4,45.6,30.4,1.99,5.9,2.0,3.3,18.2,0,Root Rot Risk
+Nov,Microgreen,Broccoli,Tray,15.9,53.6,18.9,0.84,7.6,1.4,7.4,6.3,0,Nutrient Lockout
+Oct,Microgreen,Amaranth,Tray,25.7,46.5,28.7,1.77,7.7,2.3,3.9,17.0,0,Root Rot Risk
+Aug,Microgreen,Sunflower,Tray,34.0,83.6,29.0,0.87,6.8,1.1,3.9,14.1,0,Root Rot Risk
+Dec,Hydroponic,Cucumber,DWC,10.9,42.4,13.9,0.75,7.6,1.2,9.1,7.5,0,Nutrient Lockout
+Mar,Hydroponic,Celery,DWC,27.0,43.6,30.0,2.01,7.4,2.2,3.5,17.5,0,Root Rot Risk
+Aug,Microgreen,Mustard,Tray,33.5,82.3,28.5,0.92,7.4,2.0,4.0,9.8,0,Root Rot Risk
+Mar,Hydroponic,Celery,DWC,29.1,47.6,32.1,2.11,7.7,0.7,2.8,16.6,0,Root Rot Risk
+Apr,Microgreen,Kohlrabi,Tray,44.2,18.1,39.2,7.53,7.4,2.2,2.0,21.5,0,Root Rot Risk
+Feb,Microgreen,Basil (MG),Tray,22.7,40.0,25.7,1.66,7.8,2.5,5.0,14.9,0,Nutrient Lockout
+Mar,Microgreen,Amaranth,Tray,29.9,48.7,32.9,2.17,6.3,1.5,2.5,18.2,0,Root Rot Risk
+Jul,Microgreen,Cilantro,Tray,28.5,73.2,31.5,1.04,5.9,2.5,3.0,9.9,0,Root Rot Risk
+Apr,Microgreen,Sunflower,Tray,38.7,19.3,33.7,5.55,7.5,1.0,2.2,18.8,0,Root Rot Risk
+Jul,Microgreen,Beetroot,Tray,32.2,92.4,27.2,0.36,5.3,1.4,4.5,8.7,0,Root Rot Risk
+Jan,Hydroponic,Cucumber,DWC,17.6,43.0,20.6,1.15,6.1,0.6,6.8,10.6,1,Optimal
+Apr,Hydroponic,Mint,NFT,42.5,27.5,37.5,6.11,7.5,0.9,2.0,20.9,0,Root Rot Risk
+Jul,Microgreen,Beetroot,Tray,31.6,80.4,26.6,0.91,6.3,0.9,4.7,12.2,0,Root Rot Risk
+Feb,Microgreen,Pea Shoots,Tray,22.2,40.4,25.2,1.59,6.4,2.1,5.2,19.4,1,Optimal
+Apr,Microgreen,Kohlrabi,Tray,36.4,19.2,31.4,4.91,6.0,2.5,3.0,22.7,0,Root Rot Risk
+Nov,Hydroponic,Cherry Tomato,DWC,8.1,52.1,11.1,0.52,6.2,1.5,10.1,5.5,1,Optimal
+Nov,Hydroponic,Kale,NFT,14.5,48.0,17.5,0.86,7.5,2.4,7.9,11.1,0,Nutrient Lockout
+Jan,Microgreen,Pea Shoots,Tray,19.1,42.0,22.1,1.28,5.5,1.5,6.3,8.9,1,Optimal
+Dec,Hydroponic,Kale,NFT,16.7,50.0,19.7,0.95,7.3,0.6,7.1,9.4,0,Nutrient Lockout
+Dec,Hydroponic,Cherry Tomato,NFT,14.6,50.5,17.6,0.82,6.0,1.0,7.8,8.5,1,Optimal
+Sep,Hydroponic,Bell Pepper,NFT,29.8,72.3,32.8,1.16,6.6,0.7,2.5,12.1,0,Root Rot Risk
+Sep,Hydroponic,Bell Pepper,NFT,32.2,87.5,27.2,0.6,7.7,0.8,4.5,10.5,0,Root Rot Risk
+May,Microgreen,Arugula,Tray,40.4,16.7,35.4,6.26,6.6,1.3,2.0,22.5,0,Root Rot Risk
+Sep,Hydroponic,Cucumber,DWC,32.5,87.7,27.5,0.6,6.9,1.9,4.4,14.4,0,Root Rot Risk
+Oct,Microgreen,Pea Shoots,Tray,24.5,41.0,27.5,1.81,5.3,2.4,4.4,15.4,0,Root Rot Risk
+Dec,Hydroponic,Mint,DWC,19.0,40.1,22.0,1.32,6.2,1.3,6.3,10.3,1,Optimal
+Jan,Microgreen,Broccoli,Tray,11.1,42.9,14.1,0.75,6.9,1.1,9.1,5.5,1,Optimal
+May,Hydroponic,Mint,NFT,38.5,26.9,33.5,4.97,7.8,1.3,2.3,18.4,0,Root Rot Risk
+Jan,Microgreen,Mustard,Tray,15.5,51.1,18.5,0.86,5.6,0.6,7.5,6.8,1,Optimal
+Aug,Hydroponic,Celery,NFT,28.6,71.7,31.6,1.11,6.7,1.4,2.9,12.9,0,Root Rot Risk
+Jun,Hydroponic,Cucumber,NFT,42.3,21.7,37.3,6.53,7.4,2.2,2.0,23.5,0,Root Rot Risk
+May,Microgreen,Basil (MG),Tray,45.2,22.7,40.2,7.47,7.4,0.6,2.0,23.9,0,Root Rot Risk
+Aug,Microgreen,Sunflower,Tray,34.0,93.6,29.0,0.34,6.8,2.2,3.8,12.6,0,Root Rot Risk
+Sep,Microgreen,Arugula,Tray,32.2,71.6,27.2,1.36,5.5,2.4,4.5,11.6,0,Root Rot Risk
+Sep,Microgreen,Basil (MG),Tray,30.8,85.9,25.8,0.63,5.9,1.5,5.0,11.0,0,Mold/Fungal Risk
+Jul,Hydroponic,Kale,DWC,34.2,80.4,29.2,1.05,6.9,0.5,3.8,10.3,0,Root Rot Risk
+Oct,Microgreen,Arugula,Tray,25.4,41.9,28.4,1.89,7.0,0.5,4.1,19.8,0,Root Rot Risk
+Aug,Microgreen,Radish,Tray,32.4,92.9,27.4,0.35,7.5,0.8,4.4,12.8,0,Root Rot Risk
+Jan,Hydroponic,Bell Pepper,DWC,11.8,45.0,14.8,0.76,7.1,1.0,8.8,8.4,0,Nutrient Lockout
+Jun,Hydroponic,Lettuce,NFT,39.6,23.8,34.6,5.49,7.5,1.0,2.0,21.3,0,Root Rot Risk
+Nov,Hydroponic,Mint,DWC,8.9,45.3,11.9,0.62,6.8,1.8,9.8,8.7,1,Optimal
+Feb,Hydroponic,Celery,DWC,29.8,45.4,32.8,2.3,6.0,0.9,2.5,14.8,0,Root Rot Risk
+Mar,Hydroponic,Celery,DWC,23.8,35.3,26.8,1.91,6.0,0.9,4.6,19.6,0,Root Rot Risk
+Mar,Hydroponic,Strawberry,DWC,22.4,40.9,25.4,1.6,5.2,1.1,5.1,18.0,0,Nutrient Lockout
+Jun,Microgreen,Kohlrabi,Tray,46.5,17.0,41.5,8.6,6.1,1.5,2.0,21.4,0,Root Rot Risk
+Aug,Hydroponic,Bell Pepper,DWC,31.7,87.7,26.7,0.58,6.2,2.4,4.6,9.3,0,Root Rot Risk
+May,Hydroponic,Cherry Tomato,DWC,43.6,18.4,38.6,7.27,6.5,1.9,2.0,18.1,0,Root Rot Risk
+Oct,Hydroponic,Strawberry,DWC,24.2,35.4,27.2,1.96,5.6,1.1,4.5,16.5,0,Root Rot Risk
+Jul,Microgreen,Pea Shoots,Tray,29.6,71.4,32.6,1.19,5.8,1.4,2.6,12.0,0,Root Rot Risk
+Oct,Hydroponic,Cherry Tomato,NFT,29.5,48.9,32.5,2.11,7.2,1.0,2.6,19.7,0,Root Rot Risk
+Apr,Microgreen,Cilantro,Tray,36.8,29.3,31.8,4.39,7.5,1.0,2.9,23.4,0,Root Rot Risk
+Jul,Microgreen,Broccoli,Tray,29.5,83.7,32.5,0.67,7.7,0.5,2.6,13.4,0,Root Rot Risk
+Apr,Hydroponic,Lettuce,NFT,45.8,26.8,40.8,7.3,5.4,1.9,2.0,23.0,0,Root Rot Risk
+Nov,Microgreen,Arugula,Tray,13.3,53.2,16.3,0.72,6.0,2.1,8.3,7.8,1,Optimal
+Jul,Hydroponic,Pak Choi,DWC,31.2,74.8,26.2,1.15,5.9,1.6,4.8,12.1,0,Root Rot Risk
+Nov,Hydroponic,Cherry Tomato,DWC,8.5,53.5,11.5,0.52,6.6,2.3,10.0,11.8,1,Optimal
+Jan,Microgreen,Beetroot,Tray,17.0,40.8,20.0,1.15,7.0,2.2,7.0,9.3,1,Optimal
+Jan,Hydroponic,Celery,NFT,12.0,51.4,15.0,0.68,7.1,1.1,8.8,11.2,0,Nutrient Lockout
+Feb,Hydroponic,Spinach,NFT,23.3,36.8,26.3,1.8,5.7,2.5,4.8,17.4,0,Root Rot Risk
+Aug,Hydroponic,Lettuce,DWC,34.1,73.8,29.1,1.4,6.7,2.5,3.8,13.6,0,Root Rot Risk
+Feb,Hydroponic,Cucumber,NFT,24.2,44.0,27.2,1.69,5.4,2.2,4.5,16.5,0,Root Rot Risk
+Jun,Microgreen,Cilantro,Tray,42.1,28.0,37.1,5.94,6.9,1.5,2.0,24.1,0,Root Rot Risk
+Aug,Hydroponic,Strawberry,NFT,33.0,92.1,28.0,0.4,7.5,0.6,4.2,9.2,0,Root Rot Risk
+Aug,Microgreen,Amaranth,Tray,30.4,75.3,25.4,1.07,7.5,2.0,5.1,11.5,0,Nutrient Lockout
+Feb,Hydroponic,Pak Choi,NFT,22.5,38.5,25.5,1.68,7.3,1.3,5.1,16.6,0,Nutrient Lockout
+Nov,Hydroponic,Celery,DWC,13.3,52.7,16.3,0.72,5.2,1.0,8.3,7.6,0,Nutrient Lockout
+Nov,Hydroponic,Cherry Tomato,DWC,14.6,41.1,17.6,0.98,5.5,1.5,7.8,7.9,1,Optimal
+Jul,Microgreen,Kohlrabi,Tray,32.3,78.7,27.3,1.03,5.9,1.0,4.4,9.6,0,Root Rot Risk
+Jun,Microgreen,Basil (MG),Tray,43.2,21.7,38.2,6.82,6.5,1.1,2.0,24.8,0,Root Rot Risk
+Feb,Microgreen,Pea Shoots,Tray,27.9,34.1,30.9,2.47,6.5,1.6,3.2,17.4,0,Root Rot Risk
+Oct,Microgreen,Arugula,Tray,24.2,34.4,27.2,1.98,7.4,1.9,4.5,15.9,0,Root Rot Risk
+May,Hydroponic,Cherry Tomato,NFT,38.2,21.8,33.2,5.23,7.7,1.8,2.4,20.9,0,Root Rot Risk
+Sep,Hydroponic,Celery,NFT,28.4,86.3,31.4,0.53,7.0,1.2,3.0,12.3,0,Root Rot Risk
+Oct,Hydroponic,Lettuce,NFT,23.7,47.1,26.7,1.55,6.0,1.1,4.7,15.1,0,Root Rot Risk
+Dec,Hydroponic,Spinach,NFT,8.0,45.2,11.0,0.59,7.3,1.9,10.1,6.5,0,Nutrient Lockout
+Dec,Microgreen,Kohlrabi,Tray,9.2,57.1,12.2,0.5,7.6,1.7,9.7,11.3,0,Nutrient Lockout
+Apr,Hydroponic,Cherry Tomato,DWC,41.2,17.9,36.2,6.47,7.2,0.6,2.0,21.0,0,Root Rot Risk
+Nov,Microgreen,Cilantro,Tray,9.0,48.3,12.0,0.59,7.8,1.5,9.8,10.9,0,Nutrient Lockout
+Jul,Microgreen,Mustard,Tray,33.8,87.9,28.8,0.63,7.7,1.4,3.9,8.5,0,Root Rot Risk
+Feb,Microgreen,Amaranth,Tray,24.0,33.2,27.0,1.99,7.6,0.7,4.6,19.7,0,Root Rot Risk
+Oct,Microgreen,Beetroot,Tray,26.3,39.3,29.3,2.07,6.9,1.0,3.8,18.3,0,Root Rot Risk
+Oct,Hydroponic,Basil (Hydro),DWC,30.9,47.3,25.9,2.36,5.8,0.8,4.9,19.2,1,Optimal
+Dec,Microgreen,Sunflower,Tray,12.9,59.5,15.9,0.6,6.2,0.5,8.5,10.6,1,Optimal
+Jul,Hydroponic,Celery,DWC,30.5,71.6,25.5,1.24,6.4,0.9,5.1,15.0,1,Optimal
+Nov,Microgreen,Mustard,Tray,10.8,48.7,13.8,0.67,7.6,1.8,9.2,7.9,0,Nutrient Lockout
+Dec,Hydroponic,Pak Choi,NFT,17.0,46.9,20.0,1.03,7.0,1.7,7.0,10.8,1,Optimal
+Oct,Hydroponic,Cucumber,DWC,31.8,33.9,26.8,3.1,5.5,0.7,4.6,16.6,0,Root Rot Risk
+May,Microgreen,Amaranth,Tray,37.4,17.6,32.4,5.27,7.7,1.3,2.7,21.7,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,8.2,46.8,11.2,0.58,7.5,1.1,10.1,9.5,0,Nutrient Lockout
+Dec,Hydroponic,Spinach,NFT,18.7,54.4,21.7,0.98,5.8,1.6,6.4,8.5,1,Optimal
+Jul,Hydroponic,Kale,DWC,29.7,73.8,32.7,1.09,6.3,2.2,2.6,9.9,0,Root Rot Risk
+Feb,Microgreen,Mustard,Tray,23.6,36.6,26.6,1.85,5.7,0.5,4.7,19.5,0,Root Rot Risk
+Oct,Hydroponic,Cherry Tomato,DWC,28.9,40.2,31.9,2.39,7.2,0.5,2.8,17.3,0,Root Rot Risk
+Jan,Hydroponic,Mint,DWC,9.1,46.2,12.1,0.62,7.2,0.7,9.8,10.6,0,Nutrient Lockout
+Apr,Hydroponic,Basil (Hydro),NFT,43.3,26.7,38.3,6.44,6.3,1.2,2.0,24.1,0,Root Rot Risk
+Dec,Hydroponic,Pak Choi,DWC,10.1,56.3,13.1,0.54,6.7,2.4,9.4,5.9,1,Optimal
+Mar,Hydroponic,Cherry Tomato,DWC,30.1,35.2,25.1,2.77,7.2,1.9,5.2,16.1,0,VPD Stress
+Aug,Hydroponic,Basil (Hydro),NFT,32.0,88.6,27.0,0.54,7.5,0.6,4.5,8.3,0,Root Rot Risk
+Oct,Microgreen,Basil (MG),Tray,31.5,41.3,26.5,2.72,7.2,0.6,4.7,15.4,0,Root Rot Risk
+Feb,Microgreen,Radish,Tray,28.0,45.8,31.0,2.05,6.0,0.7,3.1,17.7,0,Root Rot Risk
+Feb,Microgreen,Amaranth,Tray,25.5,43.2,28.5,1.86,6.1,1.2,4.0,18.5,0,Root Rot Risk
+Jul,Hydroponic,Mint,DWC,33.9,85.4,28.9,0.77,6.5,2.3,3.9,8.2,0,Root Rot Risk
+Dec,Hydroponic,Lettuce,NFT,17.5,55.8,20.5,0.88,5.8,1.7,6.8,9.9,1,Optimal
+Feb,Hydroponic,Kale,DWC,24.5,43.7,27.5,1.73,7.5,1.9,4.4,14.1,0,Root Rot Risk
+Jan,Microgreen,Amaranth,Tray,17.9,51.4,20.9,1.0,7.0,2.1,6.7,10.0,1,Optimal
+Nov,Microgreen,Cilantro,Tray,15.4,44.7,18.4,0.97,6.8,0.5,7.6,6.6,1,Optimal
+Jul,Microgreen,Kohlrabi,Tray,34.5,88.7,29.5,0.62,6.4,1.8,3.7,9.9,0,Root Rot Risk
+Feb,Microgreen,Amaranth,Tray,29.6,45.6,32.6,2.26,7.0,1.5,2.6,14.9,0,Root Rot Risk
+Apr,Hydroponic,Spinach,DWC,36.2,16.8,31.2,5.0,5.7,1.6,3.1,22.3,0,Root Rot Risk
+Nov,Hydroponic,Cherry Tomato,NFT,10.1,41.2,13.1,0.73,5.7,1.0,9.4,7.3,1,Optimal
+Jan,Hydroponic,Basil (Hydro),NFT,19.8,44.3,22.8,1.29,6.3,1.2,6.0,5.6,1,Optimal
+Aug,Microgreen,Amaranth,Tray,30.5,94.1,25.5,0.26,5.8,0.7,5.1,9.0,0,Mold/Fungal Risk
+Mar,Microgreen,Amaranth,Tray,24.2,47.8,27.2,1.58,7.5,1.4,4.5,16.4,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,10.6,56.2,13.6,0.56,7.1,1.6,9.3,11.6,0,Nutrient Lockout
+Jan,Microgreen,Cilantro,Tray,17.6,40.8,20.6,1.19,6.1,2.3,6.8,6.7,1,Optimal
+Sep,Hydroponic,Basil (Hydro),DWC,33.5,87.7,28.5,0.63,6.9,0.6,4.0,9.9,0,Root Rot Risk
+Aug,Hydroponic,Lettuce,DWC,34.0,74.2,29.0,1.37,5.5,1.8,3.9,13.2,0,Root Rot Risk
+Oct,Microgreen,Cilantro,Tray,29.5,39.8,32.5,2.48,6.1,1.5,2.6,16.8,0,Root Rot Risk
+Jan,Hydroponic,Basil (Hydro),DWC,17.4,40.5,20.4,1.18,6.4,2.0,6.9,11.8,1,Optimal
+May,Hydroponic,Bell Pepper,DWC,47.2,26.2,42.2,7.93,5.4,1.3,2.0,19.3,0,Root Rot Risk
+Oct,Microgreen,Radish,Tray,27.2,34.8,30.2,2.35,6.5,0.6,3.4,18.0,0,Root Rot Risk
+Sep,Microgreen,Broccoli,Tray,29.8,87.6,32.8,0.52,5.3,1.4,2.5,13.9,0,Root Rot Risk
+Aug,Microgreen,Mustard,Tray,28.5,72.8,31.5,1.06,5.5,1.3,3.0,11.8,0,Root Rot Risk
+Apr,Hydroponic,Cucumber,DWC,41.2,18.3,36.2,6.41,6.4,2.1,2.0,24.1,0,Root Rot Risk
+Nov,Microgreen,Cilantro,Tray,10.4,40.5,13.4,0.75,5.6,0.8,9.3,6.8,1,Optimal
+Nov,Hydroponic,Kale,DWC,9.8,42.8,12.8,0.69,5.7,0.8,9.5,10.6,1,Optimal
+Feb,Hydroponic,Bell Pepper,NFT,24.3,30.4,27.3,2.11,6.8,2.3,4.4,16.0,0,Root Rot Risk
+Apr,Microgreen,Broccoli,Tray,40.2,29.9,35.2,5.22,6.7,1.4,2.0,21.8,0,Root Rot Risk
+Feb,Microgreen,Mustard,Tray,31.7,45.6,26.7,2.54,6.9,0.6,4.7,19.3,0,Root Rot Risk
+Jul,Hydroponic,Kale,NFT,32.2,81.4,27.2,0.9,7.6,0.6,4.5,13.3,0,Root Rot Risk
+Jul,Microgreen,Beetroot,Tray,28.7,82.1,31.7,0.7,5.8,2.2,2.9,12.1,0,Root Rot Risk
+Aug,Hydroponic,Celery,DWC,32.6,80.8,27.6,0.95,6.2,0.8,4.3,9.9,0,Root Rot Risk
+Jun,Hydroponic,Cucumber,DWC,39.1,27.9,34.1,5.08,5.5,2.3,2.1,20.2,0,Root Rot Risk
+Apr,Microgreen,Beetroot,Tray,40.4,25.6,35.4,5.62,7.5,1.7,2.0,18.1,0,Root Rot Risk
+Nov,Microgreen,Broccoli,Tray,12.5,46.1,15.5,0.78,6.6,1.6,8.6,10.1,1,Optimal
+Aug,Hydroponic,Kale,DWC,31.3,91.7,26.3,0.38,7.0,0.8,4.8,12.1,0,Root Rot Risk
+Nov,Microgreen,Cilantro,Tray,8.7,41.7,11.7,0.65,7.2,1.4,9.9,8.6,0,Nutrient Lockout
+Jan,Microgreen,Cilantro,Tray,9.0,51.2,12.0,0.56,7.0,2.1,9.8,11.6,1,Optimal
+Sep,Hydroponic,Bell Pepper,DWC,34.9,86.5,29.9,0.75,6.4,0.7,3.5,9.9,0,Root Rot Risk
+Aug,Hydroponic,Kale,NFT,29.1,79.4,32.1,0.83,7.0,0.7,2.8,9.1,0,Root Rot Risk
+Nov,Hydroponic,Kale,DWC,19.3,51.1,22.3,1.1,7.2,0.5,6.2,7.3,0,Nutrient Lockout
+Sep,Hydroponic,Pak Choi,DWC,29.8,89.1,32.8,0.46,5.5,1.2,2.5,14.0,0,Root Rot Risk
+Oct,Microgreen,Arugula,Tray,29.3,34.0,32.3,2.69,7.8,1.4,2.7,17.8,0,Root Rot Risk
+Jun,Microgreen,Cilantro,Tray,43.1,16.9,38.1,7.23,7.2,1.9,2.0,19.8,0,Root Rot Risk
+Jun,Hydroponic,Basil (Hydro),DWC,37.3,21.0,32.3,5.03,5.4,1.8,2.7,20.5,0,Root Rot Risk
+May,Microgreen,Beetroot,Tray,39.0,16.4,34.0,5.86,6.4,0.7,2.1,19.7,0,Root Rot Risk
+Dec,Hydroponic,Celery,DWC,18.8,59.0,21.8,0.89,7.5,2.0,6.4,6.0,0,Nutrient Lockout
+Jul,Microgreen,Pea Shoots,Tray,30.8,77.0,25.8,1.02,6.0,2.0,5.0,13.6,1,Optimal
+Feb,Microgreen,Pea Shoots,Tray,29.4,39.3,32.4,2.49,7.0,2.3,2.7,17.1,0,Root Rot Risk
+Oct,Hydroponic,Cucumber,NFT,23.8,36.2,26.8,1.88,7.1,2.0,4.6,18.4,0,Root Rot Risk
+Apr,Hydroponic,Cherry Tomato,NFT,39.6,27.9,34.6,5.2,5.4,1.7,2.0,22.6,0,Root Rot Risk
+Mar,Hydroponic,Strawberry,DWC,23.9,47.0,26.9,1.57,5.9,1.4,4.6,18.5,0,Root Rot Risk
+Feb,Hydroponic,Kale,NFT,28.6,48.1,31.6,2.04,7.1,2.1,2.9,17.1,0,Root Rot Risk
+Aug,Microgreen,Amaranth,Tray,34.4,90.7,29.4,0.51,5.8,1.7,3.7,13.2,0,Root Rot Risk
+Aug,Hydroponic,Bell Pepper,NFT,33.2,86.9,28.2,0.66,5.7,2.4,4.1,10.4,0,Root Rot Risk
+Mar,Microgreen,Cilantro,Tray,22.4,50.0,25.4,1.35,7.1,1.3,5.1,16.6,0,Nutrient Lockout
+Jun,Microgreen,Kohlrabi,Tray,40.3,23.6,35.3,5.73,7.6,2.1,2.0,18.9,0,Root Rot Risk
+Dec,Hydroponic,Spinach,NFT,15.6,40.1,18.6,1.06,6.6,2.4,7.5,9.1,1,Optimal
+Mar,Microgreen,Basil (MG),Tray,28.5,39.3,31.5,2.37,6.2,1.1,3.0,15.3,0,Root Rot Risk
+Aug,Hydroponic,Cucumber,DWC,28.5,73.2,31.5,1.05,5.4,0.8,3.0,12.7,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,38.5,17.6,33.5,5.62,7.3,2.0,2.3,22.2,0,Root Rot Risk
+Jun,Hydroponic,Kale,DWC,40.5,17.1,35.5,6.29,6.6,1.7,2.0,19.4,0,Root Rot Risk
+Dec,Hydroponic,Strawberry,DWC,8.9,47.6,11.9,0.6,5.6,0.5,9.8,9.9,1,Optimal
+Oct,Hydroponic,Mint,NFT,28.4,30.2,31.4,2.69,5.3,0.7,3.0,14.7,0,Root Rot Risk
+Dec,Microgreen,Beetroot,Tray,14.7,41.1,17.7,0.99,5.4,1.3,7.8,10.3,0,Nutrient Lockout
+Sep,Microgreen,Pea Shoots,Tray,34.0,81.8,29.0,0.97,6.4,1.1,3.9,12.2,0,Root Rot Risk
+Jan,Microgreen,Beetroot,Tray,9.8,58.1,12.8,0.51,7.0,1.9,9.5,11.1,1,Optimal
+Apr,Hydroponic,Basil (Hydro),DWC,37.9,29.8,32.9,4.64,5.3,0.6,2.5,21.5,0,Root Rot Risk
+Apr,Microgreen,Radish,Tray,47.8,21.0,42.8,8.74,5.4,2.0,2.0,22.0,0,Root Rot Risk
+Aug,Microgreen,Mustard,Tray,28.6,91.0,31.6,0.35,5.9,2.0,2.9,11.7,0,Root Rot Risk
+Apr,Microgreen,Amaranth,Tray,44.2,15.4,39.2,7.78,6.7,2.0,2.0,22.2,0,Root Rot Risk
+Jul,Microgreen,Mustard,Tray,31.1,77.9,26.1,1.0,5.6,2.1,4.8,8.6,0,Root Rot Risk
+May,Microgreen,Arugula,Tray,45.6,26.1,40.6,7.3,5.3,2.1,2.0,20.0,0,Root Rot Risk
+Mar,Microgreen,Broccoli,Tray,22.2,47.4,25.2,1.41,5.9,2.4,5.2,16.6,1,Optimal
+Oct,Hydroponic,Lettuce,DWC,23.4,32.3,26.4,1.95,5.9,0.8,4.8,19.1,0,Root Rot Risk
+Apr,Microgreen,Broccoli,Tray,38.3,25.7,33.3,5.01,7.8,1.8,2.3,20.2,0,Root Rot Risk
+Mar,Hydroponic,Lettuce,NFT,28.8,46.3,31.8,2.13,7.6,1.5,2.9,15.4,0,Root Rot Risk
+Sep,Hydroponic,Strawberry,DWC,33.7,81.8,28.7,0.95,5.8,1.9,4.0,12.4,0,Root Rot Risk
+Aug,Hydroponic,Celery,DWC,32.6,85.4,27.6,0.72,7.7,2.2,4.4,10.2,0,Root Rot Risk
+Sep,Microgreen,Beetroot,Tray,30.5,85.3,25.5,0.64,7.1,0.9,5.1,8.3,0,Mold/Fungal Risk
+Apr,Microgreen,Beetroot,Tray,45.5,21.3,40.5,7.75,6.2,1.1,2.0,23.9,0,Root Rot Risk
+Nov,Hydroponic,Mint,NFT,15.9,51.2,18.9,0.88,6.9,1.1,7.4,6.9,1,Optimal
+Aug,Microgreen,Kohlrabi,Tray,34.4,74.4,29.4,1.39,7.0,1.4,3.7,10.0,0,Root Rot Risk
+May,Hydroponic,Bell Pepper,DWC,39.0,16.1,34.0,5.86,5.3,0.8,2.1,23.7,0,Root Rot Risk
+Sep,Microgreen,Sunflower,Tray,34.5,73.6,29.5,1.44,5.8,2.0,3.7,9.6,0,Root Rot Risk
+Jul,Hydroponic,Strawberry,DWC,29.3,80.1,32.3,0.81,5.7,0.6,2.7,13.6,0,Root Rot Risk
+Jan,Microgreen,Arugula,Tray,17.7,49.6,20.7,1.02,6.4,1.9,6.8,8.5,1,Optimal
+Feb,Hydroponic,Lettuce,NFT,27.6,30.5,30.6,2.56,7.7,0.7,3.3,18.1,0,Root Rot Risk
+Jul,Hydroponic,Basil (Hydro),NFT,32.0,74.4,27.0,1.22,6.5,0.9,4.5,10.4,0,Root Rot Risk
+Jul,Microgreen,Cilantro,Tray,34.8,89.2,29.8,0.6,5.7,1.7,3.6,13.5,0,Root Rot Risk
+Sep,Hydroponic,Bell Pepper,DWC,28.9,74.7,31.9,1.01,7.5,2.4,2.8,13.4,0,Root Rot Risk
+Mar,Microgreen,Sunflower,Tray,27.8,41.4,30.8,2.19,7.0,2.5,3.2,14.4,0,Root Rot Risk
+Feb,Microgreen,Amaranth,Tray,26.5,33.3,29.5,2.31,7.2,2.1,3.7,16.9,0,Root Rot Risk
+Apr,Hydroponic,Bell Pepper,NFT,36.4,15.8,31.4,5.12,6.7,1.6,3.0,22.5,0,Root Rot Risk
+Nov,Microgreen,Beetroot,Tray,13.5,59.3,16.5,0.63,5.3,1.9,8.2,11.7,0,Nutrient Lockout
+Nov,Microgreen,Amaranth,Tray,11.3,40.2,14.3,0.8,5.4,1.3,9.0,7.7,0,Nutrient Lockout
+Jul,Hydroponic,Bell Pepper,NFT,30.2,78.8,25.2,0.91,5.8,2.3,5.2,8.3,1,Optimal
+Aug,Hydroponic,Basil (Hydro),NFT,34.0,92.8,29.0,0.38,7.4,0.7,3.9,8.6,0,Root Rot Risk
+May,Hydroponic,Cherry Tomato,DWC,44.5,28.1,39.5,6.72,7.6,1.3,2.0,18.5,0,Root Rot Risk
+Dec,Microgreen,Beetroot,Tray,14.0,42.7,17.0,0.92,6.4,2.1,8.0,6.0,1,Optimal
+Dec,Microgreen,Arugula,Tray,14.9,42.8,17.9,0.97,5.9,1.4,7.7,8.8,1,Optimal
+Feb,Microgreen,Sunflower,Tray,27.5,30.1,30.5,2.57,5.6,0.5,3.3,19.5,0,Root Rot Risk
+Jan,Hydroponic,Lettuce,DWC,15.8,50.0,18.8,0.89,7.1,1.3,7.4,10.9,0,Nutrient Lockout
+Apr,Hydroponic,Kale,NFT,46.2,28.6,41.2,7.27,6.7,0.7,2.0,22.6,0,Root Rot Risk
+Jul,Hydroponic,Lettuce,NFT,33.2,92.7,28.2,0.37,7.4,1.8,4.1,10.3,0,Root Rot Risk
+Sep,Microgreen,Broccoli,Tray,32.8,83.8,27.8,0.8,5.3,1.9,4.3,13.0,0,Root Rot Risk
+Sep,Microgreen,Beetroot,Tray,29.1,70.5,32.1,1.19,7.6,0.5,2.8,9.6,0,Root Rot Risk
+Sep,Microgreen,Basil (MG),Tray,28.4,89.2,31.4,0.42,6.1,1.2,3.0,8.2,0,Root Rot Risk
+Sep,Hydroponic,Celery,NFT,31.6,72.6,26.6,1.27,7.1,2.4,4.7,13.6,0,Root Rot Risk
+Mar,Microgreen,Beetroot,Tray,29.0,48.3,32.0,2.07,7.7,1.1,2.8,16.6,0,Root Rot Risk
+Aug,Microgreen,Beetroot,Tray,29.7,85.8,32.7,0.59,7.5,2.1,2.6,14.9,0,Root Rot Risk
+Aug,Microgreen,Broccoli,Tray,32.4,77.5,27.4,1.1,7.0,0.9,4.4,10.8,0,Root Rot Risk
+Aug,Microgreen,Cilantro,Tray,33.7,81.8,28.7,0.95,5.4,1.7,4.0,13.2,0,Root Rot Risk
+Feb,Hydroponic,Mint,NFT,31.8,30.4,26.8,3.27,7.8,2.2,4.6,18.9,0,Root Rot Risk
+May,Microgreen,Mustard,Tray,36.5,29.0,31.5,4.33,5.7,1.3,3.0,19.7,0,Root Rot Risk
+Oct,Hydroponic,Basil (Hydro),NFT,31.4,43.4,26.4,2.6,7.5,1.6,4.8,16.5,0,Root Rot Risk
+Mar,Microgreen,Pea Shoots,Tray,29.9,35.1,32.9,2.74,5.6,2.0,2.5,15.8,0,Root Rot Risk
+Oct,Hydroponic,Celery,NFT,27.1,43.9,30.1,2.01,6.9,1.8,3.5,15.5,0,Root Rot Risk
+Dec,Hydroponic,Mint,NFT,12.3,50.3,15.3,0.71,5.7,0.8,8.6,6.7,1,Optimal
+Feb,Hydroponic,Cucumber,DWC,26.1,36.5,29.1,2.14,6.5,1.8,3.8,14.4,0,Root Rot Risk
+Aug,Microgreen,Broccoli,Tray,28.1,89.0,31.1,0.42,6.4,1.6,3.1,9.8,0,Root Rot Risk
+Jul,Hydroponic,Kale,DWC,34.6,89.6,29.6,0.57,5.4,1.2,3.6,14.5,0,Root Rot Risk
+Mar,Microgreen,Pea Shoots,Tray,22.3,30.1,25.3,1.89,7.7,1.2,5.1,17.3,0,Nutrient Lockout
+Jan,Hydroponic,Spinach,NFT,11.7,53.5,14.7,0.64,6.8,1.5,8.9,8.0,1,Optimal
+Dec,Microgreen,Pea Shoots,Tray,9.0,45.7,12.0,0.62,5.5,2.1,9.8,5.6,1,Optimal
+Sep,Hydroponic,Pak Choi,DWC,29.3,77.7,32.3,0.91,7.4,2.1,2.7,9.6,0,Root Rot Risk
+Aug,Hydroponic,Cherry Tomato,DWC,29.5,84.6,32.5,0.63,6.2,1.5,2.6,13.0,0,Root Rot Risk
+Jul,Hydroponic,Strawberry,DWC,31.7,85.8,26.7,0.66,6.8,2.0,4.6,12.0,0,Root Rot Risk
+Jul,Hydroponic,Spinach,DWC,33.1,72.0,28.1,1.42,6.4,1.0,4.2,12.7,0,Root Rot Risk
+Oct,Hydroponic,Strawberry,DWC,30.6,48.2,25.6,2.27,6.1,2.2,5.1,14.6,1,Optimal
+Jan,Hydroponic,Cherry Tomato,NFT,17.3,50.1,20.3,0.99,5.8,1.8,6.9,11.3,1,Optimal
+Aug,Hydroponic,Strawberry,NFT,32.4,85.7,27.4,0.69,7.1,0.9,4.4,13.7,0,Root Rot Risk
+Dec,Microgreen,Sunflower,Tray,16.4,55.3,19.4,0.84,5.2,0.9,7.2,5.7,0,Nutrient Lockout
+Dec,Hydroponic,Cucumber,NFT,13.0,52.6,16.0,0.71,6.0,0.9,8.4,9.5,1,Optimal
+Jun,Microgreen,Mustard,Tray,40.3,28.6,35.3,5.35,5.3,1.4,2.0,19.2,0,Root Rot Risk
+Sep,Hydroponic,Pak Choi,DWC,28.4,90.6,31.4,0.36,7.4,1.9,3.0,8.8,0,Root Rot Risk
+Jul,Microgreen,Mustard,Tray,32.9,86.8,27.9,0.66,5.5,2.0,4.2,13.5,0,Root Rot Risk
+Dec,Hydroponic,Basil (Hydro),NFT,17.7,51.7,20.7,0.98,5.4,0.6,6.7,5.2,0,Nutrient Lockout
+Feb,Hydroponic,Cherry Tomato,DWC,24.1,37.2,27.1,1.88,6.9,2.1,4.5,19.1,0,Root Rot Risk
+Mar,Hydroponic,Basil (Hydro),NFT,23.5,43.7,26.5,1.63,6.7,1.0,4.7,15.7,0,Root Rot Risk
+Apr,Hydroponic,Mint,NFT,36.1,18.7,31.1,4.85,7.6,2.2,3.1,24.0,0,Root Rot Risk
+Dec,Microgreen,Beetroot,Tray,12.1,53.5,15.1,0.66,5.4,2.4,8.7,8.1,0,Nutrient Lockout
+Jan,Microgreen,Cilantro,Tray,17.9,40.6,20.9,1.22,6.7,1.1,6.7,6.2,1,Optimal
+Jun,Hydroponic,Pak Choi,DWC,46.0,17.3,41.0,8.35,7.4,1.3,2.0,22.9,0,Root Rot Risk
+Jan,Hydroponic,Pak Choi,DWC,18.8,54.2,21.8,1.0,6.6,0.8,6.4,5.1,1,Optimal
+Dec,Hydroponic,Lettuce,DWC,15.8,43.5,18.8,1.02,7.4,2.2,7.4,6.6,0,Nutrient Lockout
+Nov,Hydroponic,Basil (Hydro),NFT,8.4,44.3,11.4,0.61,7.8,0.9,10.0,7.4,0,Nutrient Lockout
+Mar,Hydroponic,Spinach,NFT,28.0,41.5,31.0,2.21,7.7,1.5,3.2,18.6,0,Root Rot Risk
+Dec,Hydroponic,Strawberry,DWC,15.3,42.9,18.3,0.99,7.6,1.1,7.6,7.1,0,Nutrient Lockout
+Jul,Microgreen,Cilantro,Tray,31.0,88.3,26.0,0.53,6.3,2.4,4.9,8.1,0,Mold/Fungal Risk
+Dec,Hydroponic,Basil (Hydro),DWC,18.1,43.9,21.1,1.17,7.4,1.8,6.6,10.3,0,Nutrient Lockout
+Apr,Microgreen,Pea Shoots,Tray,44.5,25.8,39.5,6.94,7.3,2.4,2.0,21.4,0,Root Rot Risk
+Aug,Hydroponic,Bell Pepper,DWC,32.9,75.5,27.9,1.22,5.4,0.7,4.3,13.6,0,Root Rot Risk
+Aug,Hydroponic,Spinach,NFT,30.9,92.0,25.9,0.36,5.5,1.7,5.0,10.2,0,VPD Stress
+Aug,Microgreen,Broccoli,Tray,30.0,71.6,33.0,1.2,6.6,0.9,2.5,11.8,0,Root Rot Risk
+Feb,Microgreen,Radish,Tray,24.2,37.5,27.2,1.88,6.0,1.2,4.5,19.4,0,Root Rot Risk
+Mar,Hydroponic,Basil (Hydro),DWC,26.1,39.1,29.1,2.06,5.6,1.3,3.8,18.3,0,Root Rot Risk
+Jun,Microgreen,Broccoli,Tray,46.2,26.6,41.2,7.47,5.3,1.8,2.0,21.8,0,Root Rot Risk
+Mar,Microgreen,Basil (MG),Tray,23.9,49.5,26.9,1.5,6.1,0.7,4.6,14.2,0,Root Rot Risk
+Dec,Hydroponic,Bell Pepper,DWC,9.0,56.8,12.0,0.5,6.7,0.7,9.8,11.9,1,Optimal
+Jul,Hydroponic,Mint,DWC,29.8,74.3,32.8,1.08,6.6,1.2,2.5,14.8,0,Root Rot Risk
+Nov,Microgreen,Amaranth,Tray,8.2,46.4,11.2,0.58,5.6,2.4,10.1,7.5,1,Optimal
+Dec,Microgreen,Radish,Tray,8.5,40.4,11.5,0.66,6.4,2.0,10.0,5.2,1,Optimal
+Nov,Hydroponic,Basil (Hydro),DWC,10.9,50.2,13.9,0.65,6.7,0.9,9.1,9.6,1,Optimal
+Jan,Microgreen,Kohlrabi,Tray,13.6,42.0,16.6,0.9,7.2,1.4,8.2,7.6,0,Nutrient Lockout
+Jun,Microgreen,Kohlrabi,Tray,42.1,17.8,37.1,6.79,6.6,1.6,2.0,21.4,0,Root Rot Risk
+Aug,Hydroponic,Cucumber,NFT,32.6,92.5,27.6,0.37,5.3,0.5,4.3,12.9,0,Root Rot Risk
+Dec,Microgreen,Broccoli,Tray,13.5,42.7,16.5,0.88,5.2,1.8,8.2,7.7,0,Nutrient Lockout
+May,Microgreen,Kohlrabi,Tray,44.0,19.2,39.0,7.36,6.0,0.5,2.0,19.9,0,Root Rot Risk
+Aug,Hydroponic,Strawberry,NFT,32.8,90.4,27.8,0.48,6.6,1.0,4.3,14.0,0,Root Rot Risk
+Oct,Hydroponic,Cherry Tomato,DWC,23.9,43.1,26.9,1.69,6.9,0.6,4.6,16.7,0,Root Rot Risk
+Sep,Microgreen,Cilantro,Tray,30.5,90.5,25.5,0.41,6.1,2.4,5.1,13.5,0,Mold/Fungal Risk
+Nov,Microgreen,Arugula,Tray,18.4,56.9,21.4,0.91,6.1,1.4,6.5,6.4,1,Optimal
+Jan,Microgreen,Amaranth,Tray,16.9,44.9,19.9,1.06,6.9,2.4,7.0,10.0,1,Optimal
+Apr,Microgreen,Amaranth,Tray,41.1,22.3,36.1,6.07,5.6,2.3,2.0,22.7,0,Root Rot Risk
+Nov,Microgreen,Amaranth,Tray,12.0,41.6,15.0,0.82,5.2,1.2,8.8,6.7,0,Nutrient Lockout
+Aug,Microgreen,Pea Shoots,Tray,32.8,78.2,27.8,1.08,7.5,1.6,4.3,13.4,0,Root Rot Risk
+Feb,Microgreen,Cilantro,Tray,25.8,30.8,28.8,2.29,6.0,1.5,3.9,14.9,0,Root Rot Risk
+Jan,Hydroponic,Bell Pepper,NFT,17.8,49.1,20.8,1.03,6.5,1.5,6.7,11.0,1,Optimal
+Sep,Microgreen,Pea Shoots,Tray,34.1,83.9,29.1,0.86,5.6,0.9,3.8,9.7,0,Root Rot Risk
+Jan,Hydroponic,Cherry Tomato,DWC,16.7,57.0,19.7,0.82,5.5,0.5,7.1,7.4,1,Optimal
+Apr,Microgreen,Pea Shoots,Tray,42.4,17.3,37.4,6.93,5.5,1.6,2.0,24.2,0,Root Rot Risk
+Nov,Hydroponic,Kale,DWC,9.2,57.6,12.2,0.49,5.4,2.4,9.7,5.0,0,Nutrient Lockout
+Jun,Hydroponic,Strawberry,DWC,37.9,24.9,32.9,4.94,7.5,1.6,2.5,24.8,0,Root Rot Risk
+Apr,Microgreen,Sunflower,Tray,36.9,29.4,31.9,4.41,7.0,0.7,2.8,24.8,0,Root Rot Risk
+Aug,Hydroponic,Cherry Tomato,NFT,31.8,87.2,26.8,0.6,5.3,1.9,4.6,13.2,0,Root Rot Risk
+Aug,Microgreen,Basil (MG),Tray,28.6,84.3,31.6,0.62,5.7,1.3,2.9,13.7,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,41.8,20.2,36.8,6.46,6.6,1.1,2.0,20.9,0,Root Rot Risk
+Feb,Hydroponic,Bell Pepper,DWC,27.7,30.8,30.7,2.57,6.4,0.8,3.3,19.7,0,Root Rot Risk
+Aug,Microgreen,Sunflower,Tray,31.3,91.2,26.3,0.4,6.5,0.6,4.8,10.7,0,Root Rot Risk
+Sep,Hydroponic,Cucumber,NFT,32.0,85.5,27.0,0.69,6.2,1.5,4.5,13.2,0,Root Rot Risk
+Jun,Hydroponic,Lettuce,DWC,37.9,23.0,32.9,5.08,5.3,2.4,2.5,24.4,0,Root Rot Risk
+Sep,Hydroponic,Lettuce,DWC,32.5,87.0,27.5,0.64,7.7,1.2,4.4,8.5,0,Root Rot Risk
+Oct,Hydroponic,Basil (Hydro),NFT,29.5,30.4,32.5,2.86,5.4,1.5,2.6,16.1,0,Root Rot Risk
+Nov,Hydroponic,Strawberry,NFT,16.5,42.1,19.5,1.09,5.2,0.7,7.2,11.8,0,Nutrient Lockout
+Feb,Microgreen,Broccoli,Tray,31.7,35.3,26.7,3.02,7.3,0.6,4.7,16.3,0,Root Rot Risk
+Feb,Hydroponic,Cucumber,DWC,25.8,39.7,28.8,2.0,7.3,2.0,3.9,16.4,0,Root Rot Risk
+Jan,Hydroponic,Strawberry,NFT,15.3,48.9,18.3,0.89,6.7,1.5,7.6,8.1,1,Optimal
+Dec,Microgreen,Basil (MG),Tray,9.2,58.2,12.2,0.49,6.3,1.3,9.7,8.6,1,Optimal
+Jul,Hydroponic,Lettuce,NFT,32.1,94.5,27.1,0.26,6.3,1.9,4.5,11.4,0,Root Rot Risk
+Sep,Microgreen,Mustard,Tray,29.9,81.3,32.9,0.79,7.2,1.3,2.5,10.6,0,Root Rot Risk
+Oct,Microgreen,Sunflower,Tray,25.8,49.8,28.8,1.67,7.3,1.5,3.9,18.2,0,Root Rot Risk
+Nov,Hydroponic,Cucumber,NFT,16.9,44.2,19.9,1.08,7.1,2.0,7.0,6.7,0,Nutrient Lockout
+Oct,Microgreen,Arugula,Tray,27.2,47.0,30.2,1.92,7.3,1.1,3.4,15.9,0,Root Rot Risk
+Sep,Microgreen,Radish,Tray,34.3,84.1,29.3,0.86,5.7,1.4,3.8,11.7,0,Root Rot Risk
+Sep,Microgreen,Radish,Tray,33.8,70.3,28.8,1.56,5.9,1.4,3.9,9.3,0,Root Rot Risk
+Dec,Hydroponic,Cucumber,DWC,10.7,40.5,13.7,0.76,6.4,1.1,9.2,5.6,1,Optimal
+Jul,Hydroponic,Cucumber,NFT,28.3,88.0,31.3,0.46,7.7,1.4,3.1,13.4,0,Root Rot Risk
+Feb,Hydroponic,Spinach,DWC,23.3,42.0,26.3,1.66,6.1,2.4,4.8,16.7,0,Root Rot Risk
+Sep,Microgreen,Broccoli,Tray,30.8,80.7,25.8,0.86,7.5,1.4,5.0,14.5,0,Nutrient Lockout
+Aug,Microgreen,Sunflower,Tray,31.7,91.2,26.7,0.41,7.8,2.2,4.6,12.9,0,Root Rot Risk
+May,Microgreen,Broccoli,Tray,36.4,18.0,31.4,4.99,7.6,1.0,3.0,23.8,0,Root Rot Risk
+Mar,Hydroponic,Pak Choi,NFT,30.4,35.0,25.4,2.83,7.0,1.5,5.1,17.1,0,VPD Stress
+Mar,Hydroponic,Lettuce,NFT,22.7,46.9,25.7,1.46,6.4,0.6,5.0,18.2,1,Optimal
+Jun,Hydroponic,Basil (Hydro),DWC,46.4,17.2,41.4,8.5,6.2,1.8,2.0,19.1,0,Root Rot Risk
+Sep,Hydroponic,Spinach,NFT,32.5,90.2,27.5,0.48,7.5,2.3,4.4,8.8,0,Root Rot Risk
+Aug,Hydroponic,Basil (Hydro),NFT,31.9,74.7,26.9,1.2,7.5,1.0,4.6,14.5,0,Root Rot Risk
+Nov,Hydroponic,Celery,NFT,12.1,51.5,15.1,0.68,5.7,2.0,8.7,9.5,1,Optimal
+Jan,Microgreen,Radish,Tray,11.7,53.7,14.7,0.64,7.7,0.9,8.8,11.2,0,Nutrient Lockout
+Dec,Hydroponic,Mint,DWC,11.5,46.6,14.5,0.73,5.5,1.0,8.9,10.4,1,Optimal
+Jun,Hydroponic,Basil (Hydro),DWC,46.6,27.9,41.6,7.5,7.3,1.3,2.0,23.2,0,Root Rot Risk
+Dec,Hydroponic,Spinach,NFT,15.9,53.3,18.9,0.84,7.2,1.0,7.4,8.2,0,Nutrient Lockout
+Nov,Microgreen,Kohlrabi,Tray,18.7,48.4,21.7,1.11,5.8,2.0,6.4,5.7,1,Optimal
+Dec,Hydroponic,Cherry Tomato,NFT,19.9,46.8,22.9,1.23,6.2,0.8,6.0,6.6,1,Optimal
+Apr,Microgreen,Beetroot,Tray,41.4,29.5,36.4,5.59,6.6,0.5,2.0,19.4,0,Root Rot Risk
+Dec,Hydroponic,Cherry Tomato,NFT,16.6,41.9,19.6,1.1,7.7,0.7,7.1,11.5,0,Nutrient Lockout
+Feb,Hydroponic,Cherry Tomato,DWC,24.1,31.9,27.1,2.05,5.8,2.3,4.5,14.9,0,Root Rot Risk
+Jun,Microgreen,Broccoli,Tray,41.4,20.6,36.4,6.29,6.3,0.6,2.0,23.8,0,Root Rot Risk
+Dec,Hydroponic,Basil (Hydro),NFT,16.7,45.1,19.7,1.04,7.2,0.6,7.1,11.8,0,Nutrient Lockout
+Mar,Hydroponic,Lettuce,DWC,29.4,35.3,32.4,2.65,7.5,2.2,2.7,16.7,0,Root Rot Risk
+Apr,Hydroponic,Spinach,DWC,44.3,28.8,39.3,6.57,7.0,2.1,2.0,22.1,0,Root Rot Risk
+Mar,Microgreen,Radish,Tray,25.8,47.1,28.8,1.76,7.2,0.7,3.9,14.6,0,Root Rot Risk
+Jul,Hydroponic,Lettuce,DWC,34.1,94.8,29.1,0.28,6.9,0.9,3.8,8.2,0,Root Rot Risk
+Jan,Microgreen,Pea Shoots,Tray,11.6,54.5,14.6,0.62,6.4,2.4,8.9,8.7,1,Optimal
+Nov,Hydroponic,Bell Pepper,DWC,13.0,41.1,16.0,0.88,5.6,0.6,8.4,10.5,1,Optimal
+Nov,Microgreen,Mustard,Tray,15.1,41.8,18.1,1.0,7.3,2.3,7.7,6.9,0,Nutrient Lockout
+Mar,Microgreen,Radish,Tray,22.1,34.2,25.1,1.75,6.5,0.9,5.2,17.2,1,Optimal
+Jun,Hydroponic,Kale,NFT,41.0,15.9,36.0,6.54,5.2,2.2,2.0,19.0,0,Root Rot Risk
+Jan,Hydroponic,Pak Choi,NFT,18.5,55.0,21.5,0.96,6.6,2.1,6.5,7.1,1,Optimal
+Mar,Microgreen,Broccoli,Tray,30.2,39.9,25.2,2.58,7.7,1.1,5.2,19.1,0,VPD Stress
+Nov,Hydroponic,Cucumber,DWC,10.4,52.3,13.4,0.6,7.7,0.8,9.3,8.3,0,Nutrient Lockout
+May,Microgreen,Sunflower,Tray,45.1,21.3,40.1,7.59,7.4,0.6,2.0,24.7,0,Root Rot Risk
+Nov,Microgreen,Sunflower,Tray,8.5,40.0,11.5,0.66,6.6,2.1,10.0,7.7,1,Optimal
+Nov,Microgreen,Cilantro,Tray,13.9,57.6,16.9,0.67,7.7,2.0,8.1,5.9,0,Nutrient Lockout
+May,Microgreen,Beetroot,Tray,37.6,27.6,32.6,4.7,6.4,1.8,2.6,21.3,0,Root Rot Risk
+May,Hydroponic,Cucumber,DWC,47.7,25.4,42.7,8.21,6.9,2.3,2.0,22.0,0,Root Rot Risk
+Jun,Hydroponic,Lettuce,DWC,37.6,19.7,32.6,5.22,6.8,2.0,2.6,24.8,0,Root Rot Risk
+Nov,Microgreen,Beetroot,Tray,11.2,48.7,14.2,0.68,5.6,2.0,9.0,5.7,1,Optimal
+Jan,Microgreen,Basil (MG),Tray,10.9,57.1,13.9,0.56,7.2,2.1,9.1,6.4,0,Nutrient Lockout
+Mar,Microgreen,Arugula,Tray,29.2,43.5,32.2,2.29,6.5,0.8,2.7,15.2,0,Root Rot Risk
+Sep,Microgreen,Amaranth,Tray,30.0,85.6,33.0,0.61,5.3,0.8,2.5,12.9,0,Root Rot Risk
+Feb,Microgreen,Kohlrabi,Tray,23.6,41.9,26.6,1.69,7.3,0.9,4.7,18.9,0,Root Rot Risk
+Dec,Hydroponic,Bell Pepper,DWC,9.0,41.0,12.0,0.68,6.7,2.5,9.8,11.2,1,Optimal
+Feb,Hydroponic,Pak Choi,NFT,22.2,41.5,25.2,1.56,5.8,0.9,5.2,19.6,1,Optimal
+Feb,Hydroponic,Pak Choi,DWC,27.2,34.4,30.2,2.36,5.8,1.8,3.4,15.7,0,Root Rot Risk
+Mar,Hydroponic,Mint,DWC,31.8,47.0,26.8,2.49,5.5,1.1,4.6,19.2,0,Root Rot Risk
+Sep,Hydroponic,Lettuce,DWC,33.8,83.1,28.8,0.89,7.0,1.6,3.9,8.9,0,Root Rot Risk
+May,Hydroponic,Spinach,NFT,37.9,22.2,32.9,5.13,6.9,1.3,2.5,18.9,0,Root Rot Risk
+Mar,Hydroponic,Strawberry,DWC,27.7,43.7,30.7,2.09,7.2,0.5,3.2,15.9,0,Root Rot Risk
+Sep,Hydroponic,Basil (Hydro),DWC,31.6,82.0,26.6,0.83,7.6,2.5,4.7,11.3,0,Root Rot Risk
+Jan,Microgreen,Amaranth,Tray,11.7,52.1,14.7,0.66,6.1,2.3,8.9,6.4,1,Optimal
+May,Microgreen,Basil (MG),Tray,36.4,22.6,31.4,4.69,6.8,1.2,3.0,21.9,0,Root Rot Risk
+Apr,Hydroponic,Lettuce,NFT,45.8,19.7,40.8,8.02,7.1,2.0,2.0,23.0,0,Root Rot Risk
+Jun,Hydroponic,Bell Pepper,DWC,39.4,20.4,34.4,5.67,7.7,1.7,2.0,18.9,0,Root Rot Risk
+Dec,Microgreen,Amaranth,Tray,18.3,52.7,21.3,0.99,5.6,2.5,6.6,7.8,1,Optimal
+Dec,Microgreen,Amaranth,Tray,17.5,41.1,20.5,1.18,7.3,2.0,6.8,8.8,0,Nutrient Lockout
+Aug,Hydroponic,Basil (Hydro),DWC,30.3,78.7,25.3,0.92,6.4,1.7,5.1,15.0,1,Optimal
+May,Hydroponic,Mint,DWC,45.6,28.2,40.6,7.09,7.4,1.3,2.0,20.4,0,Root Rot Risk
+Jun,Hydroponic,Bell Pepper,NFT,43.8,29.6,38.8,6.34,5.9,1.7,2.0,21.7,0,Root Rot Risk
+Feb,Microgreen,Basil (MG),Tray,31.6,42.5,26.6,2.67,7.4,2.4,4.7,16.2,0,Root Rot Risk
+Aug,Microgreen,Mustard,Tray,28.9,71.2,31.9,1.15,5.4,1.7,2.8,8.4,0,Root Rot Risk
+Aug,Microgreen,Arugula,Tray,34.6,84.1,29.6,0.88,6.9,1.7,3.6,12.3,0,Root Rot Risk
+Jan,Microgreen,Pea Shoots,Tray,14.0,59.0,17.0,0.65,7.1,2.0,8.1,8.1,0,Nutrient Lockout
+Sep,Microgreen,Kohlrabi,Tray,31.7,73.4,26.7,1.25,6.6,1.5,4.6,12.2,0,Root Rot Risk
+May,Microgreen,Cilantro,Tray,38.6,26.0,33.6,5.06,6.8,1.6,2.2,23.7,0,Root Rot Risk
+Jun,Microgreen,Sunflower,Tray,37.2,22.3,32.2,4.94,6.0,1.7,2.7,18.4,0,Root Rot Risk
+Jul,Hydroponic,Basil (Hydro),NFT,29.2,75.3,32.2,1.0,7.1,2.1,2.7,13.0,0,Root Rot Risk
+Mar,Microgreen,Radish,Tray,31.7,43.5,26.7,2.65,6.2,1.7,4.6,15.1,0,Root Rot Risk
+Dec,Hydroponic,Spinach,DWC,8.5,50.2,11.5,0.55,6.3,1.7,10.0,6.2,1,Optimal
+Aug,Hydroponic,Basil (Hydro),DWC,33.0,74.1,28.0,1.3,6.7,1.8,4.2,11.9,0,Root Rot Risk
+Dec,Microgreen,Pea Shoots,Tray,10.9,58.8,13.9,0.54,6.4,1.5,9.1,8.1,1,Optimal
+Sep,Microgreen,Broccoli,Tray,31.6,74.3,26.6,1.19,5.2,2.1,4.7,11.9,0,Root Rot Risk
+Mar,Microgreen,Basil (MG),Tray,24.7,46.3,27.7,1.67,6.5,0.8,4.3,19.8,0,Root Rot Risk
+Aug,Hydroponic,Cherry Tomato,DWC,33.6,92.8,28.6,0.37,5.4,0.5,4.0,12.5,0,Root Rot Risk
+Sep,Microgreen,Mustard,Tray,34.3,90.7,29.3,0.51,6.4,1.0,3.7,11.3,0,Root Rot Risk
+Mar,Hydroponic,Mint,DWC,26.4,36.6,29.4,2.18,6.1,0.7,3.7,16.1,0,Root Rot Risk
+Apr,Hydroponic,Celery,NFT,42.4,25.1,37.4,6.28,5.5,1.1,2.0,20.6,0,Root Rot Risk
+Nov,Hydroponic,Pak Choi,DWC,11.8,56.7,14.8,0.6,6.7,1.9,8.8,8.0,1,Optimal
+Aug,Microgreen,Beetroot,Tray,29.0,83.6,32.0,0.66,7.0,0.9,2.8,8.3,0,Root Rot Risk
+Aug,Microgreen,Mustard,Tray,34.0,86.5,29.0,0.72,5.6,1.0,3.8,9.4,0,Root Rot Risk
+May,Hydroponic,Kale,DWC,38.1,21.3,33.1,5.23,7.7,1.3,2.4,22.8,0,Root Rot Risk
+Mar,Microgreen,Cilantro,Tray,31.8,34.9,26.8,3.06,6.1,0.8,4.6,18.7,0,Root Rot Risk
+Sep,Microgreen,Radish,Tray,28.1,70.6,31.1,1.12,6.4,1.8,3.1,9.7,0,Root Rot Risk
+Dec,Hydroponic,Celery,DWC,13.9,44.4,16.9,0.88,7.7,2.3,8.1,9.8,0,Nutrient Lockout
+Apr,Hydroponic,Celery,DWC,47.4,17.1,42.4,8.96,5.8,1.7,2.0,20.2,0,Root Rot Risk
+Feb,Hydroponic,Lettuce,DWC,25.3,35.4,28.3,2.09,5.6,0.7,4.1,19.8,0,Root Rot Risk
+Feb,Hydroponic,Pak Choi,DWC,26.2,38.9,29.2,2.07,7.5,1.6,3.8,15.0,0,Root Rot Risk
+Nov,Microgreen,Basil (MG),Tray,17.9,47.5,20.9,1.08,7.0,2.3,6.7,11.7,1,Optimal
+Apr,Microgreen,Broccoli,Tray,40.8,24.1,35.8,5.84,5.7,2.4,2.0,22.4,0,Root Rot Risk
+Aug,Hydroponic,Basil (Hydro),DWC,28.5,78.8,31.5,0.83,6.4,0.6,3.0,12.9,0,Root Rot Risk
+Jul,Hydroponic,Celery,NFT,31.3,70.9,26.3,1.33,6.6,1.1,4.8,11.9,0,Root Rot Risk
+Jun,Hydroponic,Spinach,DWC,41.9,24.1,36.9,6.21,6.2,1.1,2.0,18.9,0,Root Rot Risk
+Jul,Hydroponic,Bell Pepper,DWC,34.3,87.3,29.3,0.69,5.8,1.9,3.7,9.7,0,Root Rot Risk
+Apr,Hydroponic,Strawberry,NFT,36.3,28.8,31.3,4.29,6.4,0.5,3.1,21.3,0,Root Rot Risk
+Aug,Hydroponic,Kale,DWC,34.1,86.5,29.1,0.73,7.2,2.0,3.8,9.8,0,Root Rot Risk
+Aug,Hydroponic,Cucumber,NFT,34.1,73.5,29.1,1.42,6.1,0.7,3.8,11.1,0,Root Rot Risk
+Mar,Microgreen,Kohlrabi,Tray,22.6,33.3,25.6,1.83,6.5,2.0,5.0,14.9,1,Optimal
+Feb,Hydroponic,Strawberry,DWC,25.8,36.5,28.8,2.11,6.0,1.6,3.9,14.7,0,Root Rot Risk
+Oct,Hydroponic,Kale,DWC,26.9,38.7,29.9,2.17,6.1,2.1,3.5,15.0,0,Root Rot Risk
+Aug,Microgreen,Arugula,Tray,32.0,89.0,27.0,0.52,7.3,0.6,4.5,10.9,0,Root Rot Risk
+Aug,Hydroponic,Bell Pepper,DWC,29.7,78.8,32.7,0.88,7.8,1.6,2.5,10.6,0,Root Rot Risk
+Dec,Hydroponic,Celery,NFT,17.2,59.3,20.2,0.8,7.3,1.4,6.9,10.8,0,Nutrient Lockout
+Mar,Hydroponic,Spinach,NFT,30.7,48.4,25.7,2.28,6.2,2.1,5.0,14.6,1,Optimal
+Jul,Microgreen,Amaranth,Tray,31.4,86.0,26.4,0.65,7.1,0.8,4.8,11.1,0,Root Rot Risk
+Oct,Microgreen,Beetroot,Tray,23.4,36.1,26.4,1.84,7.6,1.6,4.8,15.0,0,Root Rot Risk
+Jan,Hydroponic,Bell Pepper,NFT,18.7,41.7,21.7,1.26,6.9,0.6,6.4,9.4,1,Optimal
+Mar,Microgreen,Sunflower,Tray,31.6,40.3,26.6,2.78,5.9,2.2,4.7,19.2,0,Root Rot Risk
+Aug,Microgreen,Beetroot,Tray,33.2,94.0,28.2,0.3,5.7,1.2,4.1,10.7,0,Root Rot Risk
+Jul,Microgreen,Beetroot,Tray,32.9,73.0,27.9,1.35,5.5,1.4,4.2,10.6,0,Root Rot Risk
+Feb,Microgreen,Amaranth,Tray,23.8,39.8,26.8,1.77,6.2,1.8,4.6,19.3,0,Root Rot Risk
+Mar,Hydroponic,Mint,NFT,27.2,34.3,30.2,2.38,5.5,0.7,3.4,15.6,0,Root Rot Risk
+Aug,Hydroponic,Kale,NFT,33.7,94.6,28.7,0.28,7.4,1.1,3.9,9.5,0,Root Rot Risk
+Mar,Hydroponic,Lettuce,NFT,30.0,32.5,25.0,2.87,6.2,1.7,5.2,17.1,0,VPD Stress
+May,Hydroponic,Mint,DWC,42.3,15.5,37.3,7.03,6.5,1.4,2.0,24.6,0,Root Rot Risk
+Jul,Hydroponic,Kale,NFT,30.1,72.0,25.1,1.2,5.5,1.3,5.2,9.9,1,Optimal
+Dec,Microgreen,Pea Shoots,Tray,11.1,51.0,14.1,0.65,7.0,0.5,9.1,10.0,1,Optimal
+Sep,Hydroponic,Celery,DWC,28.7,94.5,31.7,0.21,7.7,0.6,2.9,12.4,0,Root Rot Risk
+Sep,Hydroponic,Basil (Hydro),NFT,32.0,86.2,27.0,0.66,5.4,1.6,4.6,11.1,0,Root Rot Risk
+Feb,Microgreen,Kohlrabi,Tray,31.0,43.4,26.0,2.55,6.9,1.1,4.9,18.3,0,Root Rot Risk
+Jul,Microgreen,Arugula,Tray,33.7,73.9,28.7,1.36,5.4,1.9,4.0,9.8,0,Root Rot Risk
+Jun,Hydroponic,Basil (Hydro),DWC,42.3,20.7,37.3,6.61,7.5,1.5,2.0,24.1,0,Root Rot Risk
+Jan,Hydroponic,Cucumber,NFT,10.6,47.6,13.6,0.67,5.7,1.5,9.2,9.9,1,Optimal
+Feb,Microgreen,Pea Shoots,Tray,27.3,45.8,30.3,1.97,5.9,1.3,3.4,19.3,0,Root Rot Risk
+Feb,Hydroponic,Strawberry,DWC,25.2,30.7,28.2,2.22,6.7,1.4,4.1,16.8,0,Root Rot Risk
+May,Microgreen,Amaranth,Tray,46.9,26.0,41.9,7.82,7.1,1.7,2.0,20.7,0,Root Rot Risk
+Apr,Microgreen,Cilantro,Tray,38.0,20.9,33.0,5.25,5.7,2.1,2.4,20.9,0,Root Rot Risk
+May,Hydroponic,Kale,NFT,44.5,28.6,39.5,6.66,7.2,2.2,2.0,22.4,0,Root Rot Risk
+Oct,Microgreen,Cilantro,Tray,31.0,41.6,26.0,2.62,7.0,1.3,4.9,19.8,0,Root Rot Risk
+Oct,Hydroponic,Bell Pepper,DWC,29.6,35.1,32.6,2.69,6.4,1.8,2.6,18.5,0,Root Rot Risk
+Aug,Microgreen,Amaranth,Tray,31.6,72.0,26.6,1.3,6.5,0.7,4.7,12.7,0,Root Rot Risk
+Apr,Hydroponic,Pak Choi,DWC,43.8,22.9,38.8,6.95,5.5,1.1,2.0,21.8,0,Root Rot Risk
+Jan,Hydroponic,Celery,NFT,9.5,58.3,12.5,0.49,7.0,1.3,9.6,6.1,1,Optimal
+Jul,Microgreen,Basil (MG),Tray,32.1,73.0,27.1,1.29,5.6,2.4,4.5,10.9,0,Root Rot Risk
+Jul,Hydroponic,Pak Choi,DWC,28.1,73.6,31.1,1.0,7.7,0.8,3.1,9.2,0,Root Rot Risk
+Jun,Microgreen,Radish,Tray,42.7,19.8,37.7,6.81,5.3,1.1,2.0,20.0,0,Root Rot Risk
+Oct,Microgreen,Cilantro,Tray,29.6,49.3,32.6,2.1,7.6,2.3,2.6,17.4,0,Root Rot Risk
+Dec,Hydroponic,Kale,NFT,11.5,53.6,14.5,0.63,6.5,2.1,8.9,10.6,1,Optimal
+Nov,Hydroponic,Spinach,NFT,19.9,50.5,22.9,1.15,6.4,1.6,6.0,7.2,1,Optimal
+Aug,Hydroponic,Cherry Tomato,NFT,31.3,83.1,26.3,0.77,6.7,1.7,4.8,13.9,0,Root Rot Risk
+Sep,Microgreen,Mustard,Tray,33.9,86.9,28.9,0.69,5.3,2.0,3.9,12.2,0,Root Rot Risk
+Jul,Microgreen,Amaranth,Tray,33.4,88.4,28.4,0.6,5.3,0.6,4.1,9.3,0,Root Rot Risk
+Oct,Hydroponic,Cucumber,DWC,27.5,32.0,30.5,2.49,7.7,1.3,3.3,17.8,0,Root Rot Risk
+Oct,Microgreen,Basil (MG),Tray,25.3,47.7,28.3,1.68,6.4,0.9,4.1,18.5,0,Root Rot Risk
+Sep,Microgreen,Mustard,Tray,30.3,78.7,25.3,0.92,5.9,1.8,5.1,9.4,1,Optimal
+Dec,Microgreen,Broccoli,Tray,13.2,51.2,16.2,0.74,7.4,1.3,8.3,5.2,0,Nutrient Lockout
+Dec,Microgreen,Broccoli,Tray,11.2,59.0,14.2,0.55,6.7,1.5,9.0,6.8,1,Optimal
+Jul,Hydroponic,Lettuce,DWC,32.1,73.3,27.1,1.28,6.7,1.3,4.5,13.5,0,Root Rot Risk
+Mar,Hydroponic,Basil (Hydro),NFT,27.6,37.5,30.6,2.31,7.6,1.3,3.3,19.2,0,Root Rot Risk
+Oct,Hydroponic,Mint,NFT,23.2,43.5,26.2,1.6,7.1,1.1,4.8,17.4,0,Root Rot Risk
+Oct,Microgreen,Mustard,Tray,25.2,41.0,28.2,1.9,5.7,1.0,4.1,18.9,0,Root Rot Risk
+May,Hydroponic,Lettuce,NFT,43.5,15.1,38.5,7.53,7.3,1.3,2.0,20.6,0,Root Rot Risk
+May,Microgreen,Radish,Tray,43.8,25.3,38.8,6.72,7.6,2.1,2.0,23.9,0,Root Rot Risk
+Jun,Microgreen,Basil (MG),Tray,43.7,25.7,38.7,6.66,7.3,1.4,2.0,23.4,0,Root Rot Risk
+Jul,Microgreen,Beetroot,Tray,33.3,94.8,28.3,0.26,6.0,1.9,4.1,14.3,0,Root Rot Risk
+Apr,Hydroponic,Strawberry,NFT,44.2,15.5,39.2,7.78,5.6,0.7,2.0,24.5,0,Root Rot Risk
+May,Hydroponic,Cucumber,DWC,45.7,25.9,40.7,7.34,6.7,0.6,2.0,20.5,0,Root Rot Risk
+Jan,Microgreen,Beetroot,Tray,16.8,40.8,19.8,1.13,7.8,1.7,7.1,5.6,0,Nutrient Lockout
+May,Hydroponic,Kale,DWC,45.1,22.4,40.1,7.48,5.7,1.1,2.0,19.5,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,19.4,48.5,22.4,1.16,6.6,1.0,6.2,7.8,1,Optimal
+Sep,Microgreen,Sunflower,Tray,28.4,84.4,31.4,0.6,6.5,1.2,3.0,12.7,0,Root Rot Risk
+Jun,Microgreen,Radish,Tray,37.1,28.1,32.1,4.54,5.6,1.5,2.8,25.0,0,Root Rot Risk
+Jan,Microgreen,Basil (MG),Tray,9.0,53.7,12.0,0.53,7.4,0.8,9.8,10.1,0,Nutrient Lockout
+Dec,Hydroponic,Spinach,NFT,18.3,52.4,21.3,1.0,5.3,2.2,6.5,7.6,0,Nutrient Lockout
+Feb,Hydroponic,Strawberry,DWC,29.6,38.2,32.6,2.56,7.6,1.0,2.6,17.9,0,Root Rot Risk
+Feb,Microgreen,Sunflower,Tray,28.2,41.2,31.2,2.24,5.9,1.4,3.1,15.6,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,18.7,52.5,21.7,1.03,7.4,0.9,6.4,10.4,0,Nutrient Lockout
+Apr,Hydroponic,Strawberry,DWC,45.6,24.7,40.6,7.43,6.2,1.1,2.0,22.1,0,Root Rot Risk
+Feb,Hydroponic,Pak Choi,NFT,28.3,34.8,31.3,2.5,6.2,0.6,3.1,19.1,0,Root Rot Risk
+Jun,Hydroponic,Cucumber,DWC,40.7,15.9,35.7,6.43,7.7,0.8,2.0,22.7,0,Root Rot Risk
+Oct,Microgreen,Kohlrabi,Tray,23.3,49.9,26.3,1.43,5.8,2.1,4.8,19.8,0,Root Rot Risk
+Jul,Hydroponic,Lettuce,DWC,33.6,87.8,28.6,0.63,5.7,2.1,4.0,9.7,0,Root Rot Risk
+Mar,Microgreen,Arugula,Tray,30.8,45.8,25.8,2.41,7.4,0.7,5.0,18.8,0,Nutrient Lockout
+Jan,Microgreen,Sunflower,Tray,13.6,57.4,16.6,0.67,6.6,0.7,8.2,9.8,1,Optimal
+Aug,Microgreen,Pea Shoots,Tray,33.6,83.5,28.6,0.86,5.8,1.0,4.0,8.6,0,Root Rot Risk
+Apr,Microgreen,Cilantro,Tray,47.7,27.4,42.7,7.99,7.4,1.7,2.0,21.7,0,Root Rot Risk
+Nov,Hydroponic,Celery,NFT,15.0,56.4,18.0,0.75,7.2,2.4,7.7,5.1,0,Nutrient Lockout
+Feb,Microgreen,Arugula,Tray,24.5,38.8,27.5,1.88,5.6,1.8,4.4,15.1,0,Root Rot Risk
+Aug,Microgreen,Basil (MG),Tray,33.2,71.3,28.2,1.46,5.8,1.1,4.1,8.7,0,Root Rot Risk
+Apr,Hydroponic,Kale,DWC,46.4,24.9,41.4,7.74,6.4,1.2,2.0,18.6,0,Root Rot Risk
+Nov,Microgreen,Broccoli,Tray,18.8,47.7,21.8,1.14,5.9,2.4,6.4,11.2,1,Optimal
+Jul,Hydroponic,Basil (Hydro),NFT,29.7,76.9,32.7,0.96,7.3,1.4,2.6,10.3,0,Root Rot Risk
+May,Microgreen,Broccoli,Tray,43.2,23.5,38.2,6.66,5.6,0.6,2.0,19.0,0,Root Rot Risk
+Aug,Microgreen,Basil (MG),Tray,31.5,91.6,26.5,0.39,7.3,2.4,4.7,9.8,0,Root Rot Risk
+Jun,Microgreen,Sunflower,Tray,40.6,18.6,35.6,6.21,7.4,2.3,2.0,24.0,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,41.3,26.3,36.3,5.82,5.7,2.0,2.0,20.3,0,Root Rot Risk
+Dec,Microgreen,Radish,Tray,13.8,56.8,16.8,0.68,6.1,0.8,8.1,10.6,1,Optimal
+Sep,Hydroponic,Spinach,NFT,30.2,74.1,25.2,1.11,7.6,1.4,5.2,8.2,0,Nutrient Lockout
+Jul,Hydroponic,Spinach,DWC,29.8,82.2,32.8,0.75,7.6,2.1,2.5,12.7,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,42.8,15.6,37.8,7.2,6.2,2.2,2.0,20.7,0,Root Rot Risk
+Dec,Microgreen,Cilantro,Tray,16.0,55.6,19.0,0.81,7.5,0.6,7.3,5.7,0,Nutrient Lockout
+Feb,Hydroponic,Cherry Tomato,DWC,26.7,42.4,29.7,2.02,7.1,0.7,3.6,16.9,0,Root Rot Risk
+Nov,Hydroponic,Strawberry,DWC,12.5,58.7,15.5,0.6,6.8,1.8,8.6,5.5,1,Optimal
+Oct,Hydroponic,Kale,NFT,30.8,41.5,25.8,2.59,6.0,1.2,5.0,18.6,0,VPD Stress
+Aug,Hydroponic,Lettuce,DWC,35.0,77.0,30.0,1.29,6.0,0.6,3.5,11.3,0,Root Rot Risk
+May,Microgreen,Sunflower,Tray,43.7,22.0,38.7,7.0,5.8,1.4,2.0,22.1,0,Root Rot Risk
+Jul,Hydroponic,Cherry Tomato,NFT,33.7,74.6,28.7,1.33,7.7,0.6,3.9,11.6,0,Root Rot Risk
+Jul,Hydroponic,Strawberry,DWC,30.3,94.6,25.3,0.23,5.4,1.8,5.2,10.9,0,VPD Stress
+Sep,Hydroponic,Cherry Tomato,DWC,29.2,77.9,32.2,0.9,7.3,1.7,2.7,12.6,0,Root Rot Risk
+May,Hydroponic,Spinach,DWC,42.2,21.4,37.2,6.53,6.3,1.6,2.0,22.2,0,Root Rot Risk
+Jan,Microgreen,Radish,Tray,11.8,50.0,14.8,0.69,6.6,2.3,8.8,5.1,1,Optimal
+Nov,Hydroponic,Lettuce,DWC,14.0,52.7,17.0,0.76,7.6,1.0,8.0,11.7,0,Nutrient Lockout
+Jan,Hydroponic,Spinach,NFT,11.4,56.3,14.4,0.59,6.4,2.2,9.0,7.9,1,Optimal
+May,Hydroponic,Mint,DWC,36.2,24.9,31.2,4.5,6.0,0.9,3.1,24.5,0,Root Rot Risk
+Feb,Microgreen,Sunflower,Tray,30.6,33.0,25.6,2.95,5.5,0.8,5.0,15.6,0,VPD Stress
+Sep,Hydroponic,Celery,DWC,32.6,81.9,27.6,0.89,5.7,1.2,4.3,13.5,0,Root Rot Risk
+Jun,Hydroponic,Strawberry,NFT,36.8,20.3,31.8,4.95,7.1,1.5,2.9,18.8,0,Root Rot Risk
+Sep,Hydroponic,Cherry Tomato,NFT,31.2,92.6,26.2,0.34,6.7,1.9,4.8,13.0,0,Root Rot Risk
+Jun,Microgreen,Pea Shoots,Tray,41.8,28.5,36.8,5.8,7.6,1.8,2.0,19.4,0,Root Rot Risk
+Jul,Microgreen,Sunflower,Tray,30.4,74.0,25.4,1.13,5.6,0.6,5.1,14.7,1,Optimal
+Mar,Microgreen,Arugula,Tray,26.4,38.0,29.4,2.13,5.8,1.8,3.7,14.6,0,Root Rot Risk
+Jul,Hydroponic,Cucumber,NFT,31.0,87.3,26.0,0.57,5.8,1.5,4.9,14.4,0,Root Rot Risk
+Aug,Microgreen,Sunflower,Tray,30.7,84.7,25.7,0.67,5.9,2.3,5.0,14.2,1,Optimal
+Nov,Hydroponic,Cherry Tomato,DWC,15.0,40.4,18.0,1.02,6.3,1.9,7.7,9.4,1,Optimal
+Sep,Hydroponic,Strawberry,NFT,28.7,91.7,31.7,0.32,5.9,2.2,2.9,9.4,0,Root Rot Risk
+Nov,Microgreen,Sunflower,Tray,19.7,53.6,22.7,1.06,5.6,0.9,6.1,7.3,1,Optimal
+Jan,Microgreen,Pea Shoots,Tray,13.2,52.2,16.2,0.72,7.3,2.1,8.3,9.7,0,Nutrient Lockout
+Jan,Hydroponic,Kale,DWC,19.8,57.3,22.8,0.99,5.6,1.9,6.0,10.9,1,Optimal
+Oct,Microgreen,Beetroot,Tray,22.2,34.4,25.2,1.76,6.9,0.7,5.2,17.2,1,Optimal
+Apr,Hydroponic,Celery,NFT,43.8,27.8,38.8,6.51,6.8,1.3,2.0,23.5,0,Root Rot Risk
+Sep,Microgreen,Basil (MG),Tray,28.6,71.7,31.6,1.1,6.5,2.2,2.9,13.8,0,Root Rot Risk
+Sep,Microgreen,Sunflower,Tray,33.3,73.8,28.3,1.34,7.4,1.2,4.1,9.1,0,Root Rot Risk
+Jul,Hydroponic,Basil (Hydro),NFT,33.5,93.5,28.5,0.34,6.8,1.9,4.0,9.6,0,Root Rot Risk
+Jan,Hydroponic,Basil (Hydro),DWC,12.5,46.6,15.5,0.77,5.4,0.7,8.6,9.6,0,Nutrient Lockout
+Aug,Microgreen,Broccoli,Tray,33.5,82.4,28.5,0.91,5.4,1.6,4.0,13.4,0,Root Rot Risk
+Aug,Hydroponic,Kale,NFT,29.5,74.9,32.5,1.03,5.3,1.5,2.6,10.7,0,Root Rot Risk
+Apr,Hydroponic,Lettuce,DWC,36.4,17.1,31.4,5.03,5.4,1.8,3.0,21.9,0,Root Rot Risk
+May,Microgreen,Cilantro,Tray,43.2,18.3,38.2,7.11,5.2,1.4,2.0,23.6,0,Root Rot Risk
+Aug,Hydroponic,Bell Pepper,NFT,31.6,85.2,26.6,0.69,5.9,1.5,4.7,8.3,0,Root Rot Risk
+Jun,Hydroponic,Strawberry,DWC,40.5,27.6,35.5,5.49,6.7,1.2,2.0,24.7,0,Root Rot Risk
+Jan,Microgreen,Sunflower,Tray,8.8,57.7,11.8,0.48,6.3,0.6,9.9,8.5,1,Optimal
+Apr,Hydroponic,Pak Choi,NFT,41.4,22.7,36.4,6.13,6.7,2.4,2.0,19.5,0,Root Rot Risk
+Nov,Microgreen,Radish,Tray,14.1,50.9,17.1,0.79,5.3,1.4,8.0,6.1,0,Nutrient Lockout
+Nov,Microgreen,Cilantro,Tray,19.4,44.1,22.4,1.26,5.6,2.2,6.2,11.0,1,Optimal
+Feb,Hydroponic,Spinach,NFT,25.1,35.3,28.1,2.06,5.2,0.7,4.2,14.8,0,Root Rot Risk
+Oct,Microgreen,Broccoli,Tray,22.8,46.7,25.8,1.48,7.3,1.0,5.0,16.1,0,Nutrient Lockout
+Apr,Microgreen,Broccoli,Tray,39.6,27.7,34.6,5.22,7.4,1.6,2.0,24.2,0,Root Rot Risk
+Jun,Microgreen,Pea Shoots,Tray,45.2,26.0,40.2,7.18,6.1,0.7,2.0,18.7,0,Root Rot Risk
+Apr,Microgreen,Amaranth,Tray,43.2,24.5,38.2,6.58,7.1,1.8,2.0,20.3,0,Root Rot Risk
+Dec,Microgreen,Arugula,Tray,8.8,44.2,11.8,0.63,5.3,0.9,9.9,10.7,0,Nutrient Lockout
+Sep,Hydroponic,Kale,DWC,29.0,94.8,32.0,0.21,6.1,1.0,2.8,12.3,0,Root Rot Risk
+Jun,Hydroponic,Strawberry,NFT,39.4,23.4,34.4,5.49,7.4,2.3,2.0,21.5,0,Root Rot Risk
+Mar,Microgreen,Sunflower,Tray,26.0,46.3,29.0,1.81,6.9,1.3,3.8,18.6,0,Root Rot Risk
+Dec,Microgreen,Kohlrabi,Tray,19.1,55.1,22.1,0.99,7.2,0.7,6.3,9.6,0,Nutrient Lockout
+Aug,Microgreen,Basil (MG),Tray,29.6,75.2,32.6,1.03,7.2,1.5,2.6,9.5,0,Root Rot Risk
+Mar,Microgreen,Amaranth,Tray,23.3,45.1,26.3,1.57,7.3,2.1,4.8,17.3,0,Root Rot Risk
+Dec,Microgreen,Arugula,Tray,8.3,53.7,11.3,0.51,6.2,0.6,10.0,6.0,1,Optimal
+Apr,Hydroponic,Lettuce,NFT,45.1,29.0,40.1,6.82,5.2,1.8,2.0,19.4,0,Root Rot Risk
+Dec,Hydroponic,Bell Pepper,NFT,13.3,52.5,16.3,0.73,6.9,1.8,8.3,5.5,1,Optimal
+Jun,Hydroponic,Lettuce,NFT,37.2,23.3,32.2,4.86,7.2,0.6,2.7,21.8,0,Root Rot Risk
+Sep,Microgreen,Pea Shoots,Tray,30.0,92.4,25.0,0.32,5.3,2.3,5.2,9.9,0,Mold/Fungal Risk
+Jul,Microgreen,Broccoli,Tray,31.0,76.4,26.0,1.06,6.6,1.4,4.9,10.4,0,Root Rot Risk
+Dec,Hydroponic,Mint,DWC,14.2,43.6,17.2,0.91,7.1,1.8,8.0,7.4,0,Nutrient Lockout
+Aug,Microgreen,Arugula,Tray,34.0,84.6,29.0,0.82,6.9,2.0,3.8,13.8,0,Root Rot Risk
+Jan,Microgreen,Arugula,Tray,9.2,51.0,12.2,0.57,7.0,1.5,9.7,9.2,1,Optimal
+Apr,Hydroponic,Cherry Tomato,NFT,41.8,23.9,36.8,6.17,7.0,1.6,2.0,20.4,0,Root Rot Risk
+Jan,Microgreen,Pea Shoots,Tray,14.6,47.0,17.6,0.88,7.5,1.1,7.8,7.9,0,Nutrient Lockout
+Jan,Microgreen,Kohlrabi,Tray,11.6,57.9,14.6,0.57,6.3,0.8,8.9,11.4,1,Optimal
+Aug,Microgreen,Amaranth,Tray,29.7,91.6,32.7,0.35,5.4,1.6,2.6,11.2,0,Root Rot Risk
+Dec,Hydroponic,Kale,DWC,14.0,50.7,17.0,0.79,6.8,1.8,8.1,6.0,1,Optimal
+Apr,Microgreen,Broccoli,Tray,36.7,19.0,31.7,4.99,7.4,1.5,2.9,21.3,0,Root Rot Risk
+Nov,Microgreen,Broccoli,Tray,10.1,42.5,13.1,0.71,7.5,1.3,9.4,10.1,0,Nutrient Lockout
+Oct,Hydroponic,Bell Pepper,NFT,25.7,31.4,28.7,2.26,7.2,2.0,4.0,17.9,0,Root Rot Risk
+Feb,Microgreen,Sunflower,Tray,28.5,36.9,31.5,2.45,7.2,1.8,3.0,17.2,0,Root Rot Risk
+Aug,Hydroponic,Spinach,NFT,28.0,92.1,31.0,0.3,6.7,2.2,3.1,14.5,0,Root Rot Risk
+Feb,Microgreen,Mustard,Tray,26.0,45.6,29.0,1.83,5.2,1.7,3.8,18.9,0,Root Rot Risk
+May,Hydroponic,Bell Pepper,DWC,47.0,27.8,42.0,7.67,5.3,2.2,2.0,18.4,0,Root Rot Risk
+May,Hydroponic,Strawberry,NFT,39.8,25.5,34.8,5.45,5.3,0.6,2.0,23.8,0,Root Rot Risk
+Nov,Hydroponic,Bell Pepper,DWC,18.5,57.0,21.5,0.92,5.6,1.5,6.5,6.7,1,Optimal
+Apr,Hydroponic,Kale,NFT,47.8,21.4,42.8,8.69,5.6,0.6,2.0,24.4,0,Root Rot Risk
+Oct,Microgreen,Sunflower,Tray,26.3,49.1,29.3,1.75,6.6,1.5,3.7,16.0,0,Root Rot Risk
+Dec,Hydroponic,Bell Pepper,NFT,14.7,43.6,17.7,0.94,5.9,1.3,7.8,7.8,1,Optimal
+Jan,Hydroponic,Pak Choi,NFT,17.5,58.2,20.5,0.83,6.6,0.7,6.8,6.3,1,Optimal
+Mar,Hydroponic,Pak Choi,NFT,26.6,40.6,29.6,2.07,6.0,2.2,3.6,15.2,0,Root Rot Risk
+Sep,Hydroponic,Celery,NFT,29.9,83.2,32.9,0.71,6.5,1.1,2.5,9.6,0,Root Rot Risk
+Jun,Microgreen,Radish,Tray,46.7,24.6,41.7,7.87,5.8,1.3,2.0,19.3,0,Root Rot Risk
+May,Hydroponic,Celery,DWC,39.2,24.2,34.2,5.35,5.4,1.0,2.0,21.4,0,Root Rot Risk
+Apr,Hydroponic,Cucumber,DWC,45.9,17.7,40.9,8.27,7.6,1.4,2.0,19.7,0,Root Rot Risk
+Sep,Hydroponic,Strawberry,NFT,34.5,70.7,29.5,1.6,6.5,1.0,3.7,13.5,0,Root Rot Risk
+Feb,Hydroponic,Pak Choi,DWC,25.9,47.0,28.9,1.78,7.0,2.3,3.9,17.1,0,Root Rot Risk
+Jan,Microgreen,Cilantro,Tray,12.7,56.1,15.7,0.65,6.3,2.2,8.5,10.6,1,Optimal
+Apr,Hydroponic,Cherry Tomato,NFT,45.4,19.1,40.4,7.9,7.4,1.1,2.0,21.1,0,Root Rot Risk
+Aug,Hydroponic,Spinach,DWC,30.1,79.7,25.1,0.87,6.6,1.0,5.2,8.3,1,Optimal
+Jun,Hydroponic,Lettuce,DWC,47.3,17.3,42.3,8.93,7.6,1.9,2.0,18.1,0,Root Rot Risk
+Jun,Hydroponic,Lettuce,NFT,47.4,26.6,42.4,7.97,7.2,1.3,2.0,19.5,0,Root Rot Risk
+Aug,Microgreen,Beetroot,Tray,31.6,80.6,26.6,0.9,5.3,1.2,4.7,14.4,0,Root Rot Risk
+Mar,Hydroponic,Lettuce,NFT,23.4,46.6,26.4,1.54,5.8,0.7,4.8,18.0,0,Root Rot Risk
+Jan,Microgreen,Broccoli,Tray,19.3,48.6,22.3,1.15,7.4,1.2,6.2,6.2,0,Nutrient Lockout
+Feb,Microgreen,Arugula,Tray,23.1,43.9,26.1,1.58,6.2,1.0,4.9,17.7,0,Root Rot Risk
+Oct,Microgreen,Mustard,Tray,23.0,40.8,26.0,1.66,7.4,2.4,4.9,16.1,0,Nutrient Lockout
+Nov,Hydroponic,Pak Choi,DWC,20.0,48.4,23.0,1.21,6.5,0.8,6.0,9.1,1,Optimal
+Oct,Microgreen,Radish,Tray,27.7,44.0,30.7,2.08,7.5,2.0,3.3,15.5,0,Root Rot Risk
+Aug,Microgreen,Amaranth,Tray,31.5,93.5,26.5,0.3,6.2,1.9,4.7,13.2,0,Root Rot Risk
+Feb,Hydroponic,Cucumber,DWC,22.8,32.8,25.8,1.86,6.2,1.9,5.0,16.4,1,Optimal
+Feb,Microgreen,Amaranth,Tray,29.9,37.5,32.9,2.64,6.0,2.5,2.5,17.3,0,Root Rot Risk
+Jun,Microgreen,Amaranth,Tray,36.7,17.2,31.7,5.13,6.9,2.5,2.9,19.3,0,Root Rot Risk
+May,Microgreen,Radish,Tray,37.7,16.3,32.7,5.45,6.0,1.5,2.6,19.8,0,Root Rot Risk
+Jan,Microgreen,Cilantro,Tray,8.7,51.4,11.7,0.55,6.7,1.5,9.9,9.0,1,Optimal
+Aug,Hydroponic,Basil (Hydro),DWC,32.0,94.2,27.0,0.28,7.0,0.7,4.6,10.1,0,Root Rot Risk
+Nov,Microgreen,Amaranth,Tray,8.4,59.7,11.4,0.44,6.7,0.8,10.0,7.6,1,Optimal
+May,Microgreen,Broccoli,Tray,40.4,15.1,35.4,6.4,7.7,0.9,2.0,23.1,0,Root Rot Risk
+Sep,Microgreen,Pea Shoots,Tray,34.4,79.0,29.4,1.14,6.0,1.7,3.7,12.6,0,Root Rot Risk
+Nov,Hydroponic,Celery,DWC,18.7,50.0,21.7,1.08,7.0,0.9,6.4,7.0,1,Optimal
+Jun,Hydroponic,Kale,NFT,36.3,29.5,31.3,4.27,7.4,1.2,3.0,21.6,0,Root Rot Risk
+Jan,Microgreen,Arugula,Tray,16.8,55.5,19.8,0.85,6.5,0.6,7.1,8.9,1,Optimal
+Feb,Microgreen,Beetroot,Tray,30.7,38.5,25.7,2.72,6.8,1.2,5.0,16.8,0,VPD Stress
+Jun,Microgreen,Arugula,Tray,39.0,24.6,34.0,5.26,6.4,2.4,2.1,21.8,0,Root Rot Risk
+Jan,Microgreen,Broccoli,Tray,18.2,43.0,21.2,1.19,7.4,1.8,6.6,6.0,0,Nutrient Lockout
+Feb,Hydroponic,Lettuce,DWC,27.3,41.0,30.3,2.15,6.3,1.7,3.4,14.0,0,Root Rot Risk
+Apr,Hydroponic,Mint,NFT,46.0,17.1,41.0,8.36,6.5,1.2,2.0,20.5,0,Root Rot Risk
+Apr,Microgreen,Arugula,Tray,43.4,24.3,38.4,6.67,5.8,2.5,2.0,23.5,0,Root Rot Risk
+Oct,Hydroponic,Kale,NFT,25.4,34.9,28.4,2.11,6.3,1.0,4.1,14.2,0,Root Rot Risk
+Aug,Microgreen,Beetroot,Tray,34.1,76.7,29.1,1.25,5.6,1.2,3.8,8.4,0,Root Rot Risk
+Jul,Microgreen,Pea Shoots,Tray,28.8,74.6,31.8,1.0,6.1,1.9,2.9,13.9,0,Root Rot Risk
+Aug,Hydroponic,Kale,NFT,30.3,78.8,25.3,0.92,7.8,1.9,5.2,10.0,0,Nutrient Lockout
+Jan,Hydroponic,Celery,NFT,16.6,44.9,19.6,1.04,5.8,1.4,7.2,11.8,1,Optimal
+Oct,Hydroponic,Basil (Hydro),DWC,26.5,38.6,29.5,2.13,6.7,2.1,3.7,19.0,0,Root Rot Risk
+Sep,Microgreen,Cilantro,Tray,32.4,94.6,27.4,0.26,7.4,2.2,4.4,14.1,0,Root Rot Risk
+Aug,Microgreen,Basil (MG),Tray,30.6,92.4,25.6,0.34,6.8,0.7,5.0,9.7,0,Mold/Fungal Risk
+Sep,Microgreen,Cilantro,Tray,30.2,75.5,25.2,1.05,6.3,0.7,5.2,8.4,1,Optimal
+Nov,Microgreen,Sunflower,Tray,17.4,53.7,20.4,0.92,7.1,0.8,6.9,7.6,0,Nutrient Lockout
+May,Hydroponic,Bell Pepper,NFT,38.3,27.2,33.3,4.89,5.2,1.2,2.4,23.5,0,Root Rot Risk
+Jun,Hydroponic,Lettuce,DWC,36.1,26.7,31.1,4.38,5.6,2.2,3.1,23.0,0,Root Rot Risk
+Sep,Hydroponic,Pak Choi,DWC,33.9,73.9,28.9,1.38,6.0,1.6,3.9,9.3,0,Root Rot Risk
+Feb,Hydroponic,Spinach,DWC,31.1,42.1,26.1,2.62,5.4,1.5,4.9,14.2,0,Root Rot Risk
+Jan,Microgreen,Broccoli,Tray,10.6,49.6,13.6,0.64,5.5,1.8,9.3,5.8,1,Optimal
+Apr,Hydroponic,Cherry Tomato,DWC,43.1,16.3,38.1,7.28,5.6,2.3,2.0,24.4,0,Root Rot Risk
+Jun,Microgreen,Broccoli,Tray,44.6,15.9,39.6,7.88,6.2,2.3,2.0,23.3,0,Root Rot Risk
+Nov,Microgreen,Amaranth,Tray,16.6,57.3,19.6,0.81,6.9,1.3,7.1,11.0,1,Optimal
+Jul,Hydroponic,Mint,DWC,30.1,93.5,25.1,0.28,5.4,1.7,5.2,12.7,0,VPD Stress
+Jun,Hydroponic,Cherry Tomato,NFT,42.0,21.1,37.0,6.47,5.3,1.5,2.0,21.1,0,Root Rot Risk
+Aug,Microgreen,Beetroot,Tray,32.4,73.0,27.4,1.32,6.5,2.3,4.4,8.2,0,Root Rot Risk
+Dec,Hydroponic,Cucumber,DWC,15.7,55.9,18.7,0.79,5.6,1.0,7.4,8.7,1,Optimal
+Mar,Hydroponic,Spinach,DWC,31.1,42.8,26.1,2.59,7.3,1.0,4.9,18.8,0,Root Rot Risk
+Jul,Hydroponic,Bell Pepper,NFT,32.7,77.7,27.7,1.1,5.4,2.3,4.3,9.5,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,38.5,22.9,33.5,5.25,6.1,1.7,2.3,22.3,0,Root Rot Risk
+Jan,Hydroponic,Cherry Tomato,NFT,8.4,43.2,11.4,0.62,5.2,1.4,10.0,7.1,0,Nutrient Lockout
+Jun,Hydroponic,Lettuce,NFT,43.8,18.7,38.8,7.34,5.7,2.1,2.0,20.7,0,Root Rot Risk
+Nov,Hydroponic,Celery,DWC,12.1,49.2,15.1,0.72,5.8,1.2,8.7,10.7,1,Optimal
+Jan,Hydroponic,Cucumber,DWC,12.7,50.7,15.7,0.72,7.1,1.3,8.5,6.0,0,Nutrient Lockout
+Sep,Hydroponic,Pak Choi,NFT,33.8,84.7,28.8,0.8,6.7,2.0,3.9,10.6,0,Root Rot Risk
+May,Hydroponic,Celery,DWC,41.4,20.3,36.4,6.33,5.7,0.6,2.0,24.2,0,Root Rot Risk
+Nov,Hydroponic,Bell Pepper,DWC,18.1,45.5,21.1,1.13,5.5,1.9,6.6,10.1,1,Optimal
+Nov,Microgreen,Mustard,Tray,9.2,45.1,12.2,0.64,6.8,1.4,9.7,10.4,1,Optimal
+Oct,Microgreen,Basil (MG),Tray,23.8,40.5,26.8,1.76,7.4,0.9,4.6,17.8,0,Root Rot Risk
+May,Hydroponic,Cucumber,NFT,37.4,29.1,32.4,4.54,5.7,1.1,2.7,22.3,0,Root Rot Risk
+May,Hydroponic,Cucumber,NFT,45.1,21.4,40.1,7.59,7.1,0.9,2.0,18.5,0,Root Rot Risk
+Oct,Microgreen,Arugula,Tray,26.2,36.9,29.2,2.15,7.7,0.9,3.8,17.8,0,Root Rot Risk
+Aug,Microgreen,Radish,Tray,33.0,74.2,28.0,1.3,7.0,2.0,4.2,13.4,0,Root Rot Risk
+Jun,Hydroponic,Kale,NFT,37.8,18.6,32.8,5.33,7.0,2.3,2.5,24.6,0,Root Rot Risk
+Dec,Microgreen,Pea Shoots,Tray,10.6,46.0,13.6,0.69,6.1,0.6,9.2,8.4,1,Optimal
+Oct,Hydroponic,Mint,DWC,24.6,43.8,27.6,1.74,7.7,1.1,4.3,17.6,0,Root Rot Risk
+Feb,Hydroponic,Basil (Hydro),NFT,29.5,37.8,32.5,2.56,7.3,2.3,2.6,18.1,0,Root Rot Risk
+Mar,Hydroponic,Lettuce,DWC,23.6,46.1,26.6,1.57,6.9,0.7,4.7,18.4,0,Root Rot Risk
+Aug,Microgreen,Sunflower,Tray,34.7,71.3,29.7,1.59,7.4,2.4,3.6,11.5,0,Root Rot Risk
+Nov,Hydroponic,Spinach,DWC,17.8,52.7,20.8,0.96,7.1,0.9,6.7,9.9,0,Nutrient Lockout
+Mar,Microgreen,Pea Shoots,Tray,27.6,48.0,30.6,1.92,7.4,1.9,3.3,15.1,0,Root Rot Risk
+Jun,Microgreen,Sunflower,Tray,42.4,20.8,37.4,6.62,7.2,1.3,2.0,20.1,0,Root Rot Risk
+Sep,Hydroponic,Cucumber,NFT,29.5,78.4,32.5,0.89,6.7,0.8,2.6,13.7,0,Root Rot Risk
+Nov,Hydroponic,Pak Choi,NFT,17.7,53.7,20.7,0.94,6.7,2.0,6.8,9.7,1,Optimal
+Apr,Microgreen,Arugula,Tray,44.2,20.8,39.2,7.27,6.7,1.9,2.0,22.6,0,Root Rot Risk
+Oct,Microgreen,Broccoli,Tray,25.7,44.3,28.7,1.84,6.3,1.0,4.0,15.1,0,Root Rot Risk
+Aug,Hydroponic,Basil (Hydro),DWC,34.9,87.6,29.9,0.69,7.1,2.3,3.5,8.5,0,Root Rot Risk
+Aug,Microgreen,Cilantro,Tray,30.5,71.9,25.5,1.23,6.7,2.0,5.1,9.1,1,Optimal
+Feb,Microgreen,Basil (MG),Tray,24.0,36.2,27.0,1.9,7.3,1.2,4.6,15.4,0,Root Rot Risk
+Dec,Microgreen,Mustard,Tray,17.6,54.3,20.6,0.92,7.3,0.9,6.8,5.4,0,Nutrient Lockout
+Jun,Microgreen,Amaranth,Tray,43.6,22.8,38.6,6.89,5.5,1.6,2.0,18.4,0,Root Rot Risk
+Jan,Microgreen,Radish,Tray,9.4,56.2,12.4,0.52,7.6,2.0,9.6,5.6,0,Nutrient Lockout
+May,Microgreen,Cilantro,Tray,36.1,19.4,31.1,4.83,5.6,1.2,3.1,21.1,0,Root Rot Risk
+Jan,Microgreen,Mustard,Tray,14.2,42.5,17.2,0.93,7.4,1.3,8.0,11.8,0,Nutrient Lockout
+Mar,Hydroponic,Bell Pepper,DWC,24.2,43.5,27.2,1.71,6.7,1.6,4.5,18.0,0,Root Rot Risk
+Sep,Hydroponic,Kale,DWC,32.8,91.6,27.8,0.42,7.6,0.8,4.3,13.9,0,Root Rot Risk
+Feb,Microgreen,Broccoli,Tray,29.0,31.4,32.0,2.75,7.2,1.1,2.8,19.5,0,Root Rot Risk
+Mar,Hydroponic,Basil (Hydro),NFT,25.2,39.1,28.2,1.95,6.6,1.6,4.1,19.1,0,Root Rot Risk
+Oct,Hydroponic,Mint,NFT,31.2,39.8,26.2,2.74,7.1,0.6,4.8,14.9,0,Root Rot Risk
+Aug,Microgreen,Arugula,Tray,31.2,83.2,26.2,0.77,7.7,1.6,4.8,10.9,0,Root Rot Risk
+Jun,Hydroponic,Basil (Hydro),DWC,40.2,22.9,35.2,5.75,7.5,1.5,2.0,19.3,0,Root Rot Risk
+Sep,Microgreen,Radish,Tray,28.4,76.3,31.4,0.91,7.0,2.3,3.0,10.2,0,Root Rot Risk
+Apr,Microgreen,Arugula,Tray,36.9,16.4,31.9,5.23,7.4,1.7,2.8,20.3,0,Root Rot Risk
+Sep,Microgreen,Broccoli,Tray,34.3,93.7,29.3,0.34,5.2,1.2,3.8,14.3,0,Root Rot Risk
+Jun,Microgreen,Arugula,Tray,42.8,29.9,37.8,6.0,6.4,1.8,2.0,19.3,0,Root Rot Risk
+Sep,Microgreen,Beetroot,Tray,34.7,86.2,29.7,0.76,7.4,2.0,3.6,14.7,0,Root Rot Risk
+Aug,Hydroponic,Celery,DWC,31.6,74.6,26.6,1.18,6.8,1.0,4.7,9.1,0,Root Rot Risk
+Aug,Hydroponic,Cucumber,NFT,28.7,88.0,31.7,0.47,5.3,2.3,2.9,13.0,0,Root Rot Risk
+Oct,Microgreen,Broccoli,Tray,28.8,45.2,31.8,2.17,5.4,1.6,2.9,16.1,0,Root Rot Risk
+Feb,Hydroponic,Lettuce,DWC,28.4,30.9,31.4,2.68,6.8,2.1,3.0,17.0,0,Root Rot Risk
+Jun,Hydroponic,Cherry Tomato,NFT,41.2,24.5,36.2,5.92,6.8,1.5,2.0,21.6,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,44.7,26.4,39.7,6.93,7.4,1.8,2.0,23.4,0,Root Rot Risk
+Jan,Hydroponic,Lettuce,NFT,11.0,50.9,14.0,0.64,5.3,1.7,9.1,8.4,0,Nutrient Lockout
+Sep,Hydroponic,Basil (Hydro),DWC,30.6,80.4,25.6,0.86,7.3,1.1,5.0,12.9,0,Nutrient Lockout
+Jan,Hydroponic,Lettuce,DWC,16.7,44.0,19.7,1.06,6.2,2.0,7.1,5.7,1,Optimal
+Aug,Hydroponic,Mint,NFT,30.8,84.8,25.8,0.68,7.0,1.6,5.0,9.4,1,Optimal
+Jun,Hydroponic,Basil (Hydro),NFT,41.1,29.3,36.1,5.53,7.0,1.4,2.0,23.3,0,Root Rot Risk
+May,Hydroponic,Kale,NFT,44.2,28.0,39.2,6.61,7.0,2.0,2.0,18.1,0,Root Rot Risk
+Jun,Microgreen,Sunflower,Tray,41.5,17.2,36.5,6.63,5.8,1.9,2.0,21.4,0,Root Rot Risk
+Sep,Hydroponic,Kale,DWC,31.1,76.9,26.1,1.04,5.2,1.4,4.9,14.3,0,Root Rot Risk
+Jan,Microgreen,Cilantro,Tray,17.3,49.4,20.3,1.0,5.2,0.9,6.9,6.0,0,Nutrient Lockout
+Jul,Microgreen,Basil (MG),Tray,28.7,73.7,31.7,1.04,5.3,0.7,2.9,10.8,0,Root Rot Risk
+Nov,Hydroponic,Cherry Tomato,DWC,17.8,41.4,20.8,1.19,6.9,1.0,6.7,5.9,1,Optimal
+Mar,Microgreen,Broccoli,Tray,27.0,31.1,30.0,2.45,6.3,0.9,3.5,18.3,0,Root Rot Risk
+Sep,Microgreen,Amaranth,Tray,29.3,88.4,32.3,0.47,5.6,1.8,2.7,8.3,0,Root Rot Risk
+Sep,Hydroponic,Bell Pepper,DWC,30.0,89.4,33.0,0.45,5.6,1.3,2.5,10.0,0,Root Rot Risk
+Nov,Microgreen,Beetroot,Tray,16.7,49.9,19.7,0.95,7.1,1.9,7.1,6.3,0,Nutrient Lockout
+Dec,Hydroponic,Basil (Hydro),NFT,13.0,56.1,16.0,0.66,6.6,1.3,8.4,5.2,1,Optimal
+Apr,Microgreen,Beetroot,Tray,38.8,28.7,33.8,4.94,6.7,1.2,2.2,20.9,0,Root Rot Risk
+Dec,Microgreen,Kohlrabi,Tray,17.5,48.7,20.5,1.03,6.4,1.0,6.8,9.9,1,Optimal
+Nov,Hydroponic,Celery,DWC,14.7,41.4,17.7,0.98,6.9,1.1,7.8,9.5,1,Optimal
+Aug,Hydroponic,Strawberry,DWC,33.5,92.6,28.5,0.38,5.9,1.8,4.0,12.0,0,Root Rot Risk
+Nov,Hydroponic,Cucumber,NFT,17.5,56.0,20.5,0.88,5.9,2.4,6.8,8.7,1,Optimal
+Dec,Microgreen,Mustard,Tray,8.3,47.2,11.3,0.58,5.5,1.3,10.0,11.6,1,Optimal
+Oct,Microgreen,Sunflower,Tray,27.5,45.4,30.5,2.0,5.5,1.3,3.3,19.4,0,Root Rot Risk
+Mar,Hydroponic,Bell Pepper,DWC,29.9,34.8,32.9,2.76,7.3,2.3,2.5,14.4,0,Root Rot Risk
+Sep,Hydroponic,Spinach,DWC,29.2,82.9,32.2,0.69,7.7,0.8,2.7,11.1,0,Root Rot Risk
+Sep,Hydroponic,Cucumber,NFT,34.4,84.7,29.4,0.83,6.7,2.3,3.7,11.5,0,Root Rot Risk
+Feb,Hydroponic,Basil (Hydro),DWC,30.6,33.6,25.6,2.91,5.8,1.7,5.1,18.7,0,VPD Stress
+Jun,Microgreen,Basil (MG),Tray,43.5,29.1,38.5,6.28,6.2,1.5,2.0,24.5,0,Root Rot Risk
+Sep,Microgreen,Basil (MG),Tray,29.6,90.7,32.6,0.39,6.1,1.0,2.6,11.9,0,Root Rot Risk
+Jun,Hydroponic,Lettuce,DWC,43.7,29.5,38.7,6.32,7.7,1.9,2.0,21.4,0,Root Rot Risk
+Mar,Microgreen,Sunflower,Tray,28.6,33.5,31.6,2.6,7.2,1.2,3.0,15.5,0,Root Rot Risk
+Aug,Hydroponic,Cucumber,DWC,32.2,83.7,27.2,0.78,5.5,1.7,4.5,14.2,0,Root Rot Risk
+Sep,Microgreen,Radish,Tray,33.7,92.1,28.7,0.41,6.5,1.2,4.0,10.5,0,Root Rot Risk
+Dec,Hydroponic,Cherry Tomato,DWC,14.0,56.6,17.0,0.7,7.2,0.7,8.0,6.8,0,Nutrient Lockout
+Aug,Hydroponic,Basil (Hydro),DWC,29.3,76.7,32.3,0.95,7.3,0.8,2.7,12.2,0,Root Rot Risk
+Jan,Hydroponic,Spinach,DWC,9.2,47.5,12.2,0.61,7.4,1.0,9.7,11.2,0,Nutrient Lockout
+Jun,Microgreen,Broccoli,Tray,38.8,15.4,33.8,5.85,6.8,2.0,2.2,24.4,0,Root Rot Risk
+Nov,Hydroponic,Basil (Hydro),NFT,18.0,52.0,21.0,0.99,5.6,1.4,6.6,7.6,1,Optimal
+Jun,Microgreen,Kohlrabi,Tray,44.5,26.0,39.5,6.91,6.4,2.2,2.0,23.7,0,Root Rot Risk
+Jul,Hydroponic,Bell Pepper,NFT,30.9,88.7,25.9,0.5,7.0,2.2,4.9,12.5,1,Optimal
+Feb,Hydroponic,Bell Pepper,NFT,30.4,38.4,25.4,2.68,7.5,1.6,5.1,15.0,0,VPD Stress
+Sep,Microgreen,Mustard,Tray,30.0,81.6,33.0,0.78,5.3,1.3,2.5,8.5,0,Root Rot Risk
+Sep,Microgreen,Kohlrabi,Tray,34.4,85.3,29.4,0.8,5.2,1.9,3.7,9.0,0,Root Rot Risk
+May,Microgreen,Radish,Tray,37.4,25.2,32.4,4.81,6.6,1.0,2.6,21.7,0,Root Rot Risk
+May,Hydroponic,Cherry Tomato,NFT,45.0,20.3,40.0,7.63,7.7,0.8,2.0,19.2,0,Root Rot Risk
+Jul,Hydroponic,Mint,DWC,34.0,82.1,29.0,0.95,5.4,2.1,3.8,10.8,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,44.5,16.6,39.5,7.8,7.4,2.2,2.0,20.3,0,Root Rot Risk
+May,Microgreen,Radish,Tray,41.9,22.0,36.9,6.36,5.7,1.1,2.0,21.1,0,Root Rot Risk
+Jan,Hydroponic,Strawberry,DWC,15.1,41.4,18.1,1.01,5.4,2.0,7.7,10.7,0,Nutrient Lockout
+Sep,Hydroponic,Strawberry,NFT,29.7,76.8,32.7,0.97,7.3,0.6,2.5,11.8,0,Root Rot Risk
+Apr,Hydroponic,Strawberry,NFT,43.1,22.0,38.1,6.78,6.0,2.3,2.0,18.8,0,Root Rot Risk
+Sep,Hydroponic,Pak Choi,NFT,32.4,76.3,27.4,1.15,5.6,1.1,4.4,10.4,0,Root Rot Risk
+Apr,Microgreen,Cilantro,Tray,45.5,26.5,40.5,7.21,7.4,0.5,2.0,24.1,0,Root Rot Risk
+Jul,Microgreen,Kohlrabi,Tray,34.5,81.7,29.5,1.0,7.0,2.2,3.7,14.2,0,Root Rot Risk
+Oct,Hydroponic,Kale,DWC,30.1,38.8,25.1,2.61,6.1,2.3,5.2,15.9,0,VPD Stress
+Sep,Microgreen,Beetroot,Tray,28.9,73.1,31.9,1.07,7.8,0.5,2.8,11.3,0,Root Rot Risk
+Apr,Hydroponic,Bell Pepper,NFT,36.4,18.1,31.4,4.98,7.4,2.1,3.0,20.1,0,Root Rot Risk
+May,Microgreen,Cilantro,Tray,43.4,16.1,38.4,7.42,6.8,1.5,2.0,24.5,0,Root Rot Risk
+Apr,Hydroponic,Strawberry,NFT,45.7,29.6,40.7,7.01,5.4,1.7,2.0,24.0,0,Root Rot Risk
+Dec,Microgreen,Beetroot,Tray,11.1,44.8,14.1,0.73,5.7,0.7,9.1,10.0,1,Optimal
+Jun,Microgreen,Mustard,Tray,47.0,21.6,42.0,8.32,6.1,1.8,2.0,23.5,0,Root Rot Risk
+Aug,Hydroponic,Pak Choi,DWC,32.1,87.1,27.1,0.62,6.1,0.9,4.5,13.0,0,Root Rot Risk
+Jan,Hydroponic,Pak Choi,DWC,13.9,43.1,16.9,0.9,5.5,1.1,8.1,9.6,1,Optimal
+Jun,Hydroponic,Cucumber,DWC,36.7,28.8,31.7,4.39,5.6,0.9,2.9,18.9,0,Root Rot Risk
+Mar,Microgreen,Kohlrabi,Tray,29.4,40.6,32.4,2.44,5.6,0.7,2.6,18.0,0,Root Rot Risk
+Sep,Microgreen,Radish,Tray,32.4,87.2,27.4,0.62,6.0,2.2,4.4,11.9,0,Root Rot Risk
+Sep,Microgreen,Arugula,Tray,31.8,78.4,26.8,1.01,5.5,2.5,4.6,9.0,0,Root Rot Risk
+Jan,Hydroponic,Cherry Tomato,DWC,16.5,42.2,19.5,1.08,5.4,1.2,7.2,7.8,0,Nutrient Lockout
+Apr,Hydroponic,Mint,DWC,42.9,21.3,37.9,6.76,5.7,1.4,2.0,20.6,0,Root Rot Risk
+Feb,Hydroponic,Basil (Hydro),NFT,29.4,48.7,32.4,2.1,7.6,0.9,2.7,14.7,0,Root Rot Risk
+Feb,Microgreen,Amaranth,Tray,25.4,44.7,28.4,1.79,6.5,1.5,4.1,15.3,0,Root Rot Risk
+Jul,Microgreen,Basil (MG),Tray,30.3,84.1,25.3,0.68,5.3,0.5,5.2,9.7,0,Nutrient Lockout
+Mar,Microgreen,Mustard,Tray,26.2,45.7,29.2,1.85,5.7,2.2,3.8,14.9,0,Root Rot Risk
+May,Hydroponic,Mint,DWC,38.0,16.5,33.0,5.52,5.7,2.2,2.5,20.8,0,Root Rot Risk
+Mar,Hydroponic,Cucumber,DWC,26.0,44.6,29.0,1.86,7.8,1.6,3.9,19.9,0,Root Rot Risk
+May,Microgreen,Kohlrabi,Tray,39.5,26.6,34.5,5.27,7.3,0.6,2.0,22.4,0,Root Rot Risk
+May,Hydroponic,Mint,DWC,39.1,24.2,34.1,5.32,7.1,1.4,2.1,24.6,0,Root Rot Risk
+Feb,Microgreen,Basil (MG),Tray,26.4,31.5,29.4,2.36,6.1,1.0,3.7,14.6,0,Root Rot Risk
+May,Hydroponic,Celery,NFT,47.8,21.6,42.8,8.66,7.4,2.1,2.0,21.0,0,Root Rot Risk
+Oct,Hydroponic,Cucumber,DWC,25.7,44.4,28.7,1.83,5.9,1.5,4.0,18.9,0,Root Rot Risk
+Feb,Microgreen,Amaranth,Tray,28.8,38.5,31.8,2.43,7.2,1.0,2.9,16.6,0,Root Rot Risk
+Sep,Hydroponic,Cherry Tomato,NFT,32.6,79.6,27.6,1.0,6.1,0.8,4.3,9.1,0,Root Rot Risk
+Oct,Microgreen,Pea Shoots,Tray,28.5,43.1,31.5,2.22,5.7,1.1,3.0,15.0,0,Root Rot Risk
+Feb,Hydroponic,Basil (Hydro),DWC,26.0,37.0,29.0,2.12,7.7,2.2,3.8,17.6,0,Root Rot Risk
+Apr,Microgreen,Radish,Tray,42.1,25.5,37.1,6.13,5.6,0.7,2.0,18.3,0,Root Rot Risk
+Dec,Hydroponic,Kale,DWC,19.1,43.4,22.1,1.25,6.7,0.6,6.3,11.8,1,Optimal
+Sep,Hydroponic,Cherry Tomato,NFT,31.2,88.0,26.2,0.54,5.4,1.7,4.8,13.3,0,Root Rot Risk
+Oct,Hydroponic,Celery,NFT,30.8,46.7,25.8,2.37,7.3,0.6,5.0,14.6,0,Nutrient Lockout
+Aug,Hydroponic,Bell Pepper,NFT,31.7,70.2,26.7,1.4,6.0,2.5,4.6,14.2,0,Root Rot Risk
+Apr,Microgreen,Mustard,Tray,43.1,22.7,38.1,6.7,6.6,1.6,2.0,19.6,0,Root Rot Risk
+Dec,Microgreen,Radish,Tray,19.6,56.2,22.6,1.0,6.6,0.6,6.1,5.1,1,Optimal
+Jul,Hydroponic,Cherry Tomato,DWC,31.4,91.8,26.4,0.38,7.8,2.1,4.8,12.9,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,12.4,52.9,15.4,0.68,6.3,1.7,8.6,11.1,1,Optimal
+Oct,Microgreen,Kohlrabi,Tray,27.1,34.3,30.1,2.36,7.2,2.3,3.5,19.6,0,Root Rot Risk
+Apr,Microgreen,Mustard,Tray,43.7,19.9,38.7,7.19,5.8,0.8,2.0,20.3,0,Root Rot Risk
+May,Microgreen,Cilantro,Tray,44.5,18.1,39.5,7.63,6.0,1.5,2.0,23.8,0,Root Rot Risk
+Jun,Hydroponic,Mint,DWC,40.0,20.4,35.0,5.87,7.7,2.1,2.0,23.1,0,Root Rot Risk
+Mar,Microgreen,Beetroot,Tray,25.5,40.2,28.5,1.95,5.4,0.8,4.0,16.9,0,Root Rot Risk
+May,Microgreen,Kohlrabi,Tray,39.4,20.8,34.4,5.65,6.7,1.6,2.0,24.6,0,Root Rot Risk
+Sep,Microgreen,Broccoli,Tray,33.0,92.0,28.0,0.4,6.2,1.6,4.2,9.8,0,Root Rot Risk
+Jun,Microgreen,Mustard,Tray,46.7,17.5,41.7,8.6,7.1,0.6,2.0,21.4,0,Root Rot Risk
+Aug,Microgreen,Basil (MG),Tray,29.1,80.1,32.1,0.8,5.4,2.0,2.8,12.9,0,Root Rot Risk
+Apr,Hydroponic,Strawberry,DWC,38.9,22.0,33.9,5.43,5.6,1.3,2.1,22.4,0,Root Rot Risk
+Aug,Microgreen,Pea Shoots,Tray,29.5,84.7,32.5,0.63,6.4,1.9,2.6,12.1,0,Root Rot Risk
+Mar,Hydroponic,Celery,NFT,31.6,39.9,26.6,2.79,6.2,1.2,4.7,15.1,0,Root Rot Risk
+Oct,Hydroponic,Lettuce,DWC,31.0,48.9,26.0,2.29,5.7,1.6,4.9,17.5,0,Root Rot Risk
+Sep,Microgreen,Mustard,Tray,29.0,90.6,32.0,0.38,7.7,1.5,2.8,14.1,0,Root Rot Risk
+Feb,Microgreen,Basil (MG),Tray,29.4,32.4,32.4,2.77,5.3,0.8,2.7,16.4,0,Root Rot Risk
+May,Microgreen,Broccoli,Tray,36.4,19.9,31.4,4.86,6.3,1.6,3.0,23.3,0,Root Rot Risk
+Nov,Hydroponic,Lettuce,NFT,13.7,55.4,16.7,0.7,6.2,0.6,8.1,7.4,1,Optimal
+Jul,Hydroponic,Spinach,NFT,30.9,83.3,25.9,0.75,7.5,1.9,4.9,10.1,0,Nutrient Lockout
+Aug,Microgreen,Amaranth,Tray,29.6,90.0,32.6,0.41,6.1,2.4,2.6,10.8,0,Root Rot Risk
+Sep,Microgreen,Kohlrabi,Tray,32.3,81.7,27.3,0.89,6.4,0.8,4.4,8.5,0,Root Rot Risk
+Jul,Hydroponic,Cucumber,DWC,32.2,79.3,27.2,0.99,7.1,2.0,4.5,13.0,0,Root Rot Risk
+Jul,Hydroponic,Cucumber,NFT,30.0,76.9,25.0,0.98,5.5,1.4,5.2,13.7,1,Optimal
+Jul,Hydroponic,Lettuce,NFT,30.0,90.1,33.0,0.42,6.6,2.5,2.5,9.9,0,Root Rot Risk
+Dec,Hydroponic,Bell Pepper,NFT,9.0,52.8,12.0,0.54,6.9,1.1,9.8,7.5,1,Optimal
+Sep,Microgreen,Pea Shoots,Tray,32.5,79.0,27.5,1.03,6.9,1.4,4.4,9.5,0,Root Rot Risk
+Oct,Microgreen,Broccoli,Tray,29.4,40.8,32.4,2.43,7.4,1.9,2.7,16.2,0,Root Rot Risk
+Aug,Microgreen,Cilantro,Tray,29.2,73.2,32.2,1.08,5.9,1.0,2.7,12.4,0,Root Rot Risk
+Mar,Hydroponic,Celery,NFT,25.4,38.5,28.4,2.0,5.8,1.5,4.1,18.4,0,Root Rot Risk
+Sep,Microgreen,Sunflower,Tray,34.9,80.5,29.9,1.09,6.5,1.3,3.6,8.1,0,Root Rot Risk
+Mar,Microgreen,Broccoli,Tray,22.7,40.5,25.7,1.64,7.4,2.3,5.0,17.7,0,Nutrient Lockout
+Feb,Hydroponic,Cucumber,DWC,28.5,33.2,31.5,2.6,5.9,0.7,3.0,14.6,0,Root Rot Risk
+Oct,Hydroponic,Celery,DWC,31.1,32.7,26.1,3.04,5.9,0.6,4.9,19.0,0,Root Rot Risk
+Apr,Microgreen,Broccoli,Tray,45.8,28.9,40.8,7.08,7.8,1.2,2.0,19.5,0,Root Rot Risk
+Nov,Hydroponic,Bell Pepper,NFT,13.9,56.1,16.9,0.7,5.6,0.6,8.1,8.7,1,Optimal
+Apr,Microgreen,Pea Shoots,Tray,47.4,20.7,42.4,8.58,6.4,1.8,2.0,20.5,0,Root Rot Risk
+May,Microgreen,Mustard,Tray,41.2,16.2,36.2,6.58,7.1,1.9,2.0,19.0,0,Root Rot Risk
+Aug,Hydroponic,Mint,DWC,34.6,75.1,29.6,1.37,5.7,1.1,3.6,9.3,0,Root Rot Risk
+Jan,Hydroponic,Kale,DWC,14.8,51.9,17.8,0.81,6.1,0.7,7.8,7.0,1,Optimal
+Nov,Hydroponic,Cherry Tomato,NFT,19.9,40.4,22.9,1.38,7.7,2.4,6.0,6.5,0,Nutrient Lockout
+Feb,Hydroponic,Bell Pepper,NFT,29.5,48.6,32.5,2.12,7.6,1.8,2.6,14.9,0,Root Rot Risk
+Oct,Microgreen,Amaranth,Tray,30.6,38.9,25.6,2.68,6.5,1.4,5.1,14.3,0,VPD Stress
+Mar,Microgreen,Sunflower,Tray,26.5,46.4,29.5,1.86,7.0,2.0,3.7,18.2,0,Root Rot Risk
+May,Hydroponic,Pak Choi,NFT,39.4,18.2,34.4,5.83,6.6,1.7,2.0,22.6,0,Root Rot Risk
+Dec,Hydroponic,Celery,DWC,9.5,53.3,12.5,0.55,7.5,1.3,9.6,7.8,0,Nutrient Lockout
+Aug,Microgreen,Pea Shoots,Tray,34.1,94.1,29.1,0.32,7.1,1.7,3.8,10.6,0,Root Rot Risk
+Jul,Microgreen,Pea Shoots,Tray,28.6,72.7,31.6,1.07,7.4,0.6,3.0,14.3,0,Root Rot Risk
+May,Microgreen,Arugula,Tray,45.6,18.6,40.6,8.03,5.5,1.2,2.0,23.5,0,Root Rot Risk
+Oct,Hydroponic,Cucumber,NFT,30.8,39.7,25.8,2.68,6.1,1.5,5.0,16.3,0,VPD Stress
+Jul,Microgreen,Arugula,Tray,34.6,73.2,29.6,1.47,5.7,2.0,3.7,9.7,0,Root Rot Risk
+Jan,Hydroponic,Pak Choi,DWC,14.2,45.2,17.2,0.89,7.1,1.1,8.0,5.1,0,Nutrient Lockout
+May,Microgreen,Radish,Tray,39.6,20.6,34.6,5.75,6.7,1.0,2.0,19.5,0,Root Rot Risk
+Apr,Hydroponic,Celery,DWC,37.9,27.9,32.9,4.76,6.6,0.9,2.5,23.6,0,Root Rot Risk
+Oct,Hydroponic,Celery,NFT,25.7,41.5,28.7,1.93,5.3,1.3,3.9,14.7,0,Root Rot Risk
+Aug,Microgreen,Cilantro,Tray,28.2,73.0,31.2,1.03,7.4,1.7,3.1,14.7,0,Root Rot Risk
+Mar,Microgreen,Mustard,Tray,22.9,30.7,25.9,1.93,5.3,1.1,4.9,15.7,0,Nutrient Lockout
+Jun,Microgreen,Mustard,Tray,45.6,26.1,40.6,7.3,7.7,1.4,2.0,24.6,0,Root Rot Risk
+Oct,Microgreen,Kohlrabi,Tray,22.6,31.0,25.6,1.89,5.3,2.3,5.0,16.1,0,Nutrient Lockout
+Jul,Hydroponic,Pak Choi,DWC,33.5,73.6,28.5,1.37,6.9,0.8,4.0,8.3,0,Root Rot Risk
+Nov,Microgreen,Broccoli,Tray,18.3,51.9,21.3,1.01,7.3,1.2,6.5,10.1,0,Nutrient Lockout
+Jan,Microgreen,Basil (MG),Tray,18.6,52.5,21.6,1.02,7.1,1.6,6.4,9.3,0,Nutrient Lockout
+Nov,Hydroponic,Spinach,NFT,18.6,59.7,21.6,0.86,7.3,2.5,6.4,7.1,0,Nutrient Lockout
+Sep,Microgreen,Pea Shoots,Tray,29.7,90.8,32.7,0.38,5.5,1.3,2.6,10.6,0,Root Rot Risk
+Mar,Microgreen,Radish,Tray,23.2,38.0,26.2,1.76,6.1,1.6,4.8,16.4,0,Root Rot Risk
+Jun,Hydroponic,Mint,DWC,38.1,16.7,33.1,5.54,7.0,1.8,2.4,20.4,0,Root Rot Risk
+May,Hydroponic,Pak Choi,NFT,37.5,25.5,32.5,4.82,5.9,2.2,2.6,18.8,0,Root Rot Risk
+Apr,Hydroponic,Basil (Hydro),NFT,40.6,25.6,35.6,5.67,5.7,1.2,2.0,22.0,0,Root Rot Risk
+Apr,Microgreen,Basil (MG),Tray,37.2,28.6,32.2,4.52,5.4,1.1,2.7,24.3,0,Root Rot Risk
+Feb,Hydroponic,Kale,NFT,31.5,39.8,26.5,2.79,7.0,1.6,4.7,15.5,0,Root Rot Risk
+Jan,Hydroponic,Basil (Hydro),DWC,18.2,44.5,21.2,1.16,7.6,1.5,6.6,6.9,0,Nutrient Lockout
+Jan,Hydroponic,Pak Choi,NFT,12.2,59.4,15.2,0.58,7.3,2.2,8.7,11.2,0,Nutrient Lockout
+Feb,Microgreen,Beetroot,Tray,29.4,45.6,32.4,2.23,5.7,0.7,2.7,14.6,0,Root Rot Risk
+Mar,Microgreen,Mustard,Tray,29.4,44.6,32.4,2.28,5.3,2.2,2.6,17.9,0,Root Rot Risk
+Jul,Microgreen,Arugula,Tray,32.3,71.9,27.3,1.36,6.7,1.3,4.4,10.5,0,Root Rot Risk
+Apr,Microgreen,Beetroot,Tray,48.0,20.6,43.0,8.85,7.6,1.1,2.0,18.2,0,Root Rot Risk
+Oct,Microgreen,Beetroot,Tray,29.6,48.5,32.6,2.14,6.3,0.5,2.6,16.8,0,Root Rot Risk
+Jun,Hydroponic,Cucumber,DWC,44.7,16.2,39.7,7.92,6.2,2.3,2.0,21.0,0,Root Rot Risk
+Nov,Hydroponic,Bell Pepper,DWC,11.7,57.9,14.7,0.58,6.7,0.6,8.8,10.8,1,Optimal
+Aug,Microgreen,Sunflower,Tray,31.7,90.9,26.7,0.43,7.0,0.6,4.7,12.1,0,Root Rot Risk
+Apr,Microgreen,Sunflower,Tray,37.3,27.8,32.3,4.6,6.3,1.9,2.7,19.2,0,Root Rot Risk
+Feb,Hydroponic,Spinach,NFT,31.9,42.3,26.9,2.73,7.5,2.2,4.6,14.8,0,Root Rot Risk
+Sep,Hydroponic,Strawberry,NFT,31.3,88.6,26.3,0.52,6.4,1.0,4.8,12.4,0,Root Rot Risk
+Oct,Microgreen,Pea Shoots,Tray,31.7,33.4,26.7,3.11,6.2,1.2,4.7,17.3,0,Root Rot Risk
+Feb,Hydroponic,Basil (Hydro),NFT,30.9,39.4,25.9,2.71,7.0,1.6,4.9,15.6,0,VPD Stress
+Jul,Microgreen,Amaranth,Tray,31.6,71.8,26.6,1.31,6.5,2.4,4.7,10.6,0,Root Rot Risk
+Apr,Microgreen,Arugula,Tray,43.8,27.7,38.8,6.51,7.7,1.2,2.0,21.7,0,Root Rot Risk
+Jul,Microgreen,Kohlrabi,Tray,31.7,83.0,26.7,0.79,5.9,2.4,4.7,13.5,0,Root Rot Risk
+Dec,Microgreen,Kohlrabi,Tray,16.8,54.3,19.8,0.87,5.7,0.5,7.1,10.6,1,Optimal
+Jan,Microgreen,Cilantro,Tray,17.1,58.4,20.1,0.81,6.0,1.6,7.0,10.8,1,Optimal
+Aug,Microgreen,Cilantro,Tray,30.2,94.0,25.2,0.26,5.9,2.1,5.2,14.8,0,Mold/Fungal Risk
+Jan,Hydroponic,Pak Choi,DWC,11.6,59.3,14.6,0.55,6.0,1.5,8.9,6.4,1,Optimal
+Feb,Microgreen,Mustard,Tray,22.9,46.5,25.9,1.49,7.1,1.4,4.9,17.0,0,Nutrient Lockout
+Mar,Hydroponic,Strawberry,NFT,27.4,33.0,30.4,2.44,7.4,2.4,3.4,16.1,0,Root Rot Risk
+Sep,Microgreen,Basil (MG),Tray,31.5,90.5,26.5,0.44,6.8,1.8,4.7,9.4,0,Root Rot Risk
+Sep,Microgreen,Mustard,Tray,30.6,74.7,25.6,1.11,5.6,1.3,5.0,10.9,1,Optimal
+Aug,Hydroponic,Basil (Hydro),NFT,33.7,82.3,28.7,0.92,6.3,2.4,4.0,14.8,0,Root Rot Risk
+Aug,Microgreen,Basil (MG),Tray,28.3,82.2,31.3,0.68,6.9,2.4,3.1,14.0,0,Root Rot Risk
+Dec,Hydroponic,Basil (Hydro),NFT,12.4,44.0,15.4,0.8,7.7,2.1,8.6,11.5,0,Nutrient Lockout
+Jan,Hydroponic,Cherry Tomato,DWC,13.8,59.7,16.8,0.64,5.9,1.5,8.1,9.6,1,Optimal
+Dec,Microgreen,Arugula,Tray,19.5,49.4,22.5,1.15,6.5,0.6,6.1,7.1,1,Optimal
+Feb,Hydroponic,Bell Pepper,NFT,25.9,44.7,28.9,1.84,6.3,1.4,3.9,16.5,0,Root Rot Risk
+Sep,Hydroponic,Cherry Tomato,NFT,28.4,86.2,31.4,0.53,5.7,1.5,3.0,9.4,0,Root Rot Risk
+Oct,Hydroponic,Spinach,NFT,29.0,36.9,32.0,2.52,7.7,0.6,2.8,18.0,0,Root Rot Risk
+May,Microgreen,Amaranth,Tray,39.9,19.0,34.9,5.94,5.3,1.4,2.0,21.7,0,Root Rot Risk
+May,Microgreen,Beetroot,Tray,41.9,17.1,36.9,6.75,5.7,2.0,2.0,23.7,0,Root Rot Risk
+May,Microgreen,Radish,Tray,38.6,18.4,33.6,5.59,7.6,1.3,2.2,20.8,0,Root Rot Risk
+Aug,Hydroponic,Bell Pepper,NFT,31.6,81.2,26.6,0.87,5.6,2.4,4.7,10.2,0,Root Rot Risk
+Jul,Hydroponic,Pak Choi,NFT,28.9,94.9,31.9,0.2,6.4,0.7,2.8,14.5,0,Root Rot Risk
+Sep,Microgreen,Arugula,Tray,32.3,91.8,27.3,0.39,6.6,2.2,4.4,13.6,0,Root Rot Risk
+Aug,Microgreen,Pea Shoots,Tray,28.2,90.3,31.2,0.37,5.4,1.4,3.1,13.4,0,Root Rot Risk
+Sep,Hydroponic,Basil (Hydro),DWC,34.3,85.4,29.3,0.79,7.2,0.7,3.8,12.1,0,Root Rot Risk
+Jun,Hydroponic,Cherry Tomato,DWC,42.4,23.2,37.4,6.45,6.6,2.4,2.0,21.8,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,19.8,47.3,22.8,1.22,6.7,1.7,6.0,5.4,1,Optimal
+Oct,Hydroponic,Lettuce,NFT,29.4,30.2,32.4,2.86,6.7,1.3,2.7,14.8,0,Root Rot Risk
+Nov,Hydroponic,Pak Choi,DWC,18.8,53.1,21.8,1.02,7.6,0.7,6.4,9.0,0,Nutrient Lockout
+May,Hydroponic,Kale,NFT,47.6,16.6,42.6,9.11,5.9,0.7,2.0,18.9,0,Root Rot Risk
+May,Microgreen,Radish,Tray,39.6,22.7,34.6,5.58,6.5,2.3,2.0,24.4,0,Root Rot Risk
+Mar,Hydroponic,Cucumber,NFT,26.9,37.1,29.9,2.23,7.1,1.9,3.5,15.3,0,Root Rot Risk
+Jan,Hydroponic,Basil (Hydro),NFT,16.7,55.9,19.7,0.84,6.2,1.1,7.1,7.5,1,Optimal
+Jun,Hydroponic,Pak Choi,DWC,42.4,27.5,37.4,6.08,6.2,1.6,2.0,20.6,0,Root Rot Risk
+Jan,Hydroponic,Cherry Tomato,NFT,19.7,42.6,22.7,1.31,5.5,1.0,6.1,8.1,1,Optimal
+Dec,Microgreen,Radish,Tray,17.7,43.7,20.7,1.14,6.4,2.2,6.8,8.9,1,Optimal
+Dec,Microgreen,Mustard,Tray,9.4,50.5,12.4,0.58,7.3,1.7,9.6,7.5,0,Nutrient Lockout
+Dec,Hydroponic,Basil (Hydro),NFT,17.9,51.0,20.9,1.0,5.5,0.8,6.7,7.1,1,Optimal
+Jun,Hydroponic,Strawberry,DWC,40.4,26.2,35.4,5.56,5.2,1.9,2.0,24.6,0,Root Rot Risk
+Sep,Microgreen,Pea Shoots,Tray,32.8,70.4,27.8,1.48,6.3,1.4,4.3,13.8,0,Root Rot Risk
+Jun,Hydroponic,Pak Choi,DWC,42.3,19.2,37.3,6.73,6.6,2.4,2.0,19.9,0,Root Rot Risk
+Aug,Hydroponic,Basil (Hydro),NFT,34.3,70.0,29.3,1.62,7.2,1.8,3.8,11.5,0,Root Rot Risk
+Jan,Microgreen,Amaranth,Tray,10.4,41.1,13.4,0.74,6.1,1.1,9.3,10.4,1,Optimal
+Aug,Hydroponic,Kale,DWC,31.0,86.8,26.0,0.59,7.1,2.5,4.9,12.0,0,Nutrient Lockout
+Oct,Hydroponic,Spinach,NFT,22.1,42.1,25.1,1.54,7.1,1.7,5.2,19.5,0,Nutrient Lockout
+Oct,Microgreen,Sunflower,Tray,26.1,33.3,29.1,2.26,6.8,1.2,3.8,15.3,0,Root Rot Risk
+Apr,Hydroponic,Spinach,DWC,45.7,24.6,40.7,7.48,6.8,1.1,2.0,18.1,0,Root Rot Risk
+Feb,Hydroponic,Pak Choi,NFT,23.6,43.6,26.6,1.64,7.4,1.7,4.7,19.5,0,Root Rot Risk
+Oct,Hydroponic,Lettuce,DWC,30.0,40.8,25.0,2.52,6.8,1.1,5.2,18.9,0,VPD Stress
+Sep,Microgreen,Arugula,Tray,34.5,79.0,29.5,1.15,5.4,1.0,3.7,8.4,0,Root Rot Risk
+Apr,Hydroponic,Bell Pepper,DWC,37.9,24.6,32.9,4.96,7.4,1.1,2.5,24.7,0,Root Rot Risk
+Oct,Microgreen,Sunflower,Tray,29.3,33.8,32.3,2.69,7.6,1.0,2.7,14.8,0,Root Rot Risk
+May,Microgreen,Mustard,Tray,40.6,18.2,35.6,6.22,7.5,1.0,2.0,21.5,0,Root Rot Risk
+Mar,Microgreen,Amaranth,Tray,26.4,49.7,29.4,1.73,5.5,2.3,3.7,14.0,0,Root Rot Risk
+Jul,Hydroponic,Cherry Tomato,NFT,31.3,83.8,26.3,0.74,5.6,1.6,4.8,14.9,0,Root Rot Risk
+Nov,Hydroponic,Pak Choi,NFT,17.1,45.4,20.1,1.06,7.7,2.4,7.0,8.3,0,Nutrient Lockout
+Sep,Hydroponic,Celery,NFT,30.7,85.7,25.7,0.63,7.3,0.8,5.0,12.2,0,Nutrient Lockout
+Nov,Microgreen,Radish,Tray,9.0,46.4,12.0,0.62,6.5,0.7,9.8,9.1,1,Optimal
+Apr,Hydroponic,Lettuce,DWC,41.5,22.5,36.5,6.18,5.3,2.1,2.0,21.3,0,Root Rot Risk
+Nov,Hydroponic,Cherry Tomato,NFT,17.3,47.2,20.3,1.04,6.5,1.5,6.9,9.8,1,Optimal
+Dec,Microgreen,Kohlrabi,Tray,19.3,51.9,22.3,1.07,6.8,2.5,6.2,5.3,1,Optimal
+Dec,Hydroponic,Celery,NFT,14.6,47.0,17.6,0.88,5.9,0.9,7.8,7.8,1,Optimal
+Dec,Microgreen,Radish,Tray,16.4,46.6,19.4,1.0,7.4,2.4,7.2,7.4,0,Nutrient Lockout
+Apr,Hydroponic,Lettuce,NFT,42.9,18.3,37.9,7.01,7.4,1.7,2.0,22.8,0,Root Rot Risk
+Apr,Microgreen,Kohlrabi,Tray,45.4,27.1,40.4,7.14,7.3,1.9,2.0,19.9,0,Root Rot Risk
+Jan,Microgreen,Arugula,Tray,17.0,51.6,20.0,0.94,7.2,2.2,7.0,9.3,0,Nutrient Lockout
+Jul,Hydroponic,Cherry Tomato,DWC,34.0,79.0,29.0,1.11,6.8,0.8,3.8,11.9,0,Root Rot Risk
+Apr,Microgreen,Kohlrabi,Tray,37.9,16.2,32.9,5.52,7.8,2.0,2.5,19.3,0,Root Rot Risk
+Jan,Microgreen,Broccoli,Tray,8.7,48.2,11.7,0.58,6.4,1.7,9.9,6.6,1,Optimal
+Apr,Microgreen,Arugula,Tray,47.1,24.4,42.1,8.05,6.9,1.4,2.0,20.5,0,Root Rot Risk
+May,Hydroponic,Lettuce,NFT,47.8,26.1,42.8,8.16,7.5,2.0,2.0,23.2,0,Root Rot Risk
+Mar,Hydroponic,Basil (Hydro),NFT,29.8,33.5,32.8,2.79,7.2,2.4,2.5,18.8,0,Root Rot Risk
+Jul,Hydroponic,Basil (Hydro),NFT,32.7,94.0,27.7,0.3,6.0,1.6,4.3,9.4,0,Root Rot Risk
+Sep,Microgreen,Beetroot,Tray,31.7,78.2,26.7,1.02,5.6,1.4,4.6,12.7,0,Root Rot Risk
+Nov,Hydroponic,Pak Choi,NFT,8.3,49.8,11.3,0.55,6.5,0.8,10.1,6.0,1,Optimal
+May,Hydroponic,Strawberry,DWC,45.7,17.2,40.7,8.24,7.0,1.7,2.0,21.1,0,Root Rot Risk
+Sep,Hydroponic,Spinach,NFT,30.7,88.2,25.7,0.52,7.5,2.5,5.0,12.3,0,Nutrient Lockout
+Jan,Microgreen,Sunflower,Tray,10.0,51.9,13.0,0.59,6.7,2.1,9.5,7.6,1,Optimal
+Dec,Hydroponic,Mint,NFT,18.2,53.9,21.2,0.96,5.9,1.5,6.6,5.9,1,Optimal
+Dec,Hydroponic,Kale,DWC,19.9,56.9,22.9,1.0,6.9,1.2,6.0,8.3,1,Optimal
+Jul,Hydroponic,Cucumber,DWC,32.1,72.0,27.1,1.34,7.8,2.1,4.5,10.8,0,Root Rot Risk
+Dec,Hydroponic,Spinach,DWC,8.0,50.0,11.0,0.54,5.8,1.8,10.1,11.9,1,Optimal
+Feb,Microgreen,Amaranth,Tray,23.5,49.2,26.5,1.47,7.4,2.2,4.7,17.2,0,Root Rot Risk
+Sep,Microgreen,Mustard,Tray,30.7,84.6,25.7,0.68,7.0,2.4,5.0,13.2,1,Optimal
+Oct,Hydroponic,Mint,NFT,23.0,47.8,26.0,1.46,6.1,1.9,4.9,16.7,1,Optimal
+Oct,Microgreen,Basil (MG),Tray,31.8,42.6,26.8,2.7,6.0,1.2,4.6,19.5,0,Root Rot Risk
+Oct,Microgreen,Arugula,Tray,24.9,36.6,27.9,1.99,7.7,2.4,4.2,19.8,0,Root Rot Risk
+Oct,Microgreen,Arugula,Tray,30.0,44.3,25.0,2.37,7.1,0.5,5.2,17.9,0,Nutrient Lockout
+Aug,Microgreen,Mustard,Tray,30.1,89.2,25.1,0.46,5.9,1.5,5.2,9.8,0,Mold/Fungal Risk
+Sep,Microgreen,Pea Shoots,Tray,31.1,76.0,26.1,1.09,7.4,2.3,4.9,11.2,0,Root Rot Risk
+Apr,Microgreen,Sunflower,Tray,43.0,24.2,38.0,6.57,6.8,0.9,2.0,23.0,0,Root Rot Risk
+Apr,Microgreen,Radish,Tray,45.4,21.4,40.4,7.68,5.6,2.4,2.0,20.2,0,Root Rot Risk
+Dec,Hydroponic,Lettuce,NFT,12.7,40.1,15.7,0.88,7.1,0.7,8.5,5.7,0,Nutrient Lockout
+Jun,Microgreen,Broccoli,Tray,38.8,19.8,33.8,5.54,5.6,0.6,2.2,22.9,0,Root Rot Risk
+Nov,Microgreen,Sunflower,Tray,8.0,52.2,11.0,0.51,7.4,2.2,10.1,6.7,0,Nutrient Lockout
+Jun,Microgreen,Kohlrabi,Tray,39.5,25.5,34.5,5.34,7.3,0.9,2.0,18.6,0,Root Rot Risk
+Apr,Microgreen,Mustard,Tray,43.6,28.5,38.6,6.38,7.4,0.9,2.0,18.6,0,Root Rot Risk
+Jul,Hydroponic,Basil (Hydro),NFT,31.0,93.5,26.0,0.29,6.5,2.4,4.9,8.0,0,Root Rot Risk
+Dec,Hydroponic,Cherry Tomato,DWC,13.2,58.2,16.2,0.63,5.7,0.7,8.3,10.9,1,Optimal
+Aug,Microgreen,Mustard,Tray,34.6,81.7,29.6,1.01,5.5,2.1,3.6,11.2,0,Root Rot Risk
+Feb,Microgreen,Radish,Tray,23.5,39.3,26.5,1.76,7.2,1.3,4.7,18.6,0,Root Rot Risk
+Aug,Hydroponic,Celery,NFT,31.2,74.8,26.2,1.14,5.2,0.6,4.8,9.6,0,Root Rot Risk
+Apr,Microgreen,Radish,Tray,41.0,25.2,36.0,5.83,7.4,2.1,2.0,24.3,0,Root Rot Risk
+May,Hydroponic,Spinach,DWC,42.6,17.2,37.6,7.01,5.5,0.7,2.0,18.6,0,Root Rot Risk
+Sep,Microgreen,Broccoli,Tray,28.3,73.2,31.3,1.03,7.8,1.2,3.0,12.6,0,Root Rot Risk
+Feb,Hydroponic,Pak Choi,DWC,31.5,41.1,26.5,2.72,6.1,1.7,4.7,18.6,0,Root Rot Risk
+Oct,Microgreen,Sunflower,Tray,30.8,33.4,25.8,2.95,6.2,0.9,5.0,18.6,0,VPD Stress
+Oct,Microgreen,Pea Shoots,Tray,31.0,37.8,26.0,2.79,5.9,0.8,4.9,19.1,0,VPD Stress
+Jul,Hydroponic,Lettuce,NFT,30.0,88.7,33.0,0.48,7.0,1.1,2.5,11.5,0,Root Rot Risk
+Dec,Hydroponic,Basil (Hydro),NFT,15.7,46.9,18.7,0.95,7.1,1.1,7.5,10.6,0,Nutrient Lockout
+Feb,Hydroponic,Basil (Hydro),NFT,23.4,43.3,26.4,1.63,7.2,1.2,4.7,14.5,0,Root Rot Risk
+Oct,Hydroponic,Kale,NFT,26.1,48.0,29.1,1.76,6.2,2.3,3.8,16.9,0,Root Rot Risk
+Jan,Hydroponic,Basil (Hydro),DWC,15.1,54.6,18.1,0.78,6.0,1.5,7.7,5.1,1,Optimal
+Oct,Microgreen,Pea Shoots,Tray,23.0,44.7,26.0,1.56,6.8,1.0,4.9,16.4,0,Root Rot Risk
+Aug,Microgreen,Radish,Tray,32.1,92.6,27.1,0.36,5.8,1.6,4.5,9.0,0,Root Rot Risk
+Apr,Hydroponic,Cherry Tomato,DWC,46.2,18.5,41.2,8.32,6.9,0.5,2.0,22.9,0,Root Rot Risk
+Mar,Hydroponic,Bell Pepper,DWC,23.3,33.0,26.3,1.92,5.4,0.8,4.8,19.9,0,Root Rot Risk
+Apr,Hydroponic,Celery,DWC,45.9,17.9,40.9,8.26,5.5,1.5,2.0,19.7,0,Root Rot Risk
+Jun,Hydroponic,Lettuce,NFT,41.5,26.6,36.5,5.85,5.3,2.0,2.0,23.3,0,Root Rot Risk
+Oct,Microgreen,Cilantro,Tray,22.3,42.7,25.3,1.55,5.5,2.2,5.1,17.2,1,Optimal
+Jun,Hydroponic,Lettuce,DWC,41.0,17.6,36.0,6.41,6.9,0.6,2.0,19.7,0,Root Rot Risk
+Nov,Microgreen,Mustard,Tray,17.7,55.6,20.7,0.9,6.9,2.4,6.8,11.2,1,Optimal
+Aug,Hydroponic,Cucumber,NFT,32.8,81.3,27.8,0.93,5.6,2.4,4.3,13.0,0,Root Rot Risk
+Feb,Microgreen,Cilantro,Tray,22.0,41.9,25.0,1.54,5.3,0.8,5.2,18.0,0,Nutrient Lockout
+Nov,Hydroponic,Basil (Hydro),DWC,16.9,45.7,19.9,1.04,6.9,2.0,7.0,8.4,1,Optimal
+Oct,Hydroponic,Mint,NFT,30.1,36.5,25.1,2.71,7.4,0.8,5.2,19.0,0,VPD Stress
+Jul,Hydroponic,Strawberry,NFT,31.9,74.8,26.9,1.19,5.4,1.6,4.6,10.9,0,Root Rot Risk
+Jan,Microgreen,Kohlrabi,Tray,14.8,40.7,17.8,1.0,6.8,0.6,7.8,9.1,1,Optimal
+Sep,Microgreen,Amaranth,Tray,30.6,94.3,25.6,0.25,6.1,2.1,5.1,9.1,0,Mold/Fungal Risk
+Jun,Microgreen,Broccoli,Tray,37.2,18.5,32.2,5.17,5.7,2.5,2.7,23.2,0,Root Rot Risk
+May,Microgreen,Amaranth,Tray,43.9,28.0,38.9,6.51,6.4,2.3,2.0,24.0,0,Root Rot Risk
+Oct,Microgreen,Pea Shoots,Tray,25.4,35.7,28.4,2.08,7.0,1.5,4.1,18.9,0,Root Rot Risk
+May,Hydroponic,Celery,NFT,46.0,23.9,41.0,7.66,6.7,1.6,2.0,18.9,0,Root Rot Risk
+Oct,Hydroponic,Basil (Hydro),NFT,22.1,39.6,25.1,1.61,5.4,0.8,5.2,14.9,0,Nutrient Lockout
+Apr,Microgreen,Broccoli,Tray,44.6,25.5,39.6,6.99,6.5,2.0,2.0,23.2,0,Root Rot Risk
+Mar,Hydroponic,Spinach,NFT,26.2,42.1,29.2,1.97,5.9,1.8,3.8,18.2,0,Root Rot Risk
+Aug,Microgreen,Amaranth,Tray,29.2,81.7,32.2,0.74,6.2,2.2,2.7,8.7,0,Root Rot Risk
+Aug,Microgreen,Beetroot,Tray,30.5,70.3,25.5,1.29,7.2,1.6,5.1,14.5,0,Nutrient Lockout
+Feb,Microgreen,Kohlrabi,Tray,29.5,33.3,32.5,2.75,6.3,2.1,2.6,17.5,0,Root Rot Risk
+Dec,Microgreen,Amaranth,Tray,14.6,59.9,17.6,0.67,6.9,1.1,7.8,5.3,1,Optimal
+Jul,Microgreen,Pea Shoots,Tray,32.4,90.5,27.4,0.46,6.0,1.4,4.4,10.1,0,Root Rot Risk
+Jun,Microgreen,Broccoli,Tray,47.6,16.5,42.6,9.14,5.5,0.8,2.0,24.3,0,Root Rot Risk
+Jun,Microgreen,Mustard,Tray,37.8,22.5,32.8,5.08,6.7,1.7,2.5,24.9,0,Root Rot Risk
+May,Microgreen,Kohlrabi,Tray,44.1,15.7,39.1,7.72,7.0,2.3,2.0,20.0,0,Root Rot Risk
+Dec,Hydroponic,Lettuce,NFT,11.9,54.6,14.9,0.63,5.7,2.1,8.8,6.4,1,Optimal
+Jul,Microgreen,Mustard,Tray,34.8,83.7,29.8,0.91,6.1,1.8,3.6,14.7,0,Root Rot Risk
+Jul,Microgreen,Amaranth,Tray,34.4,85.8,29.4,0.77,5.9,1.3,3.7,11.1,0,Root Rot Risk
+Apr,Hydroponic,Basil (Hydro),DWC,47.5,27.9,42.5,7.84,7.8,2.1,2.0,21.3,0,Root Rot Risk
+Oct,Microgreen,Cilantro,Tray,24.2,30.2,27.2,2.11,7.1,1.9,4.5,17.3,0,Root Rot Risk
+Sep,Microgreen,Beetroot,Tray,33.3,85.0,28.3,0.77,7.2,2.2,4.1,11.3,0,Root Rot Risk
+May,Hydroponic,Kale,NFT,40.4,21.4,35.4,5.93,6.6,1.1,2.0,20.8,0,Root Rot Risk
+Feb,Hydroponic,Spinach,DWC,23.6,47.6,26.6,1.52,6.2,0.7,4.7,15.3,0,Root Rot Risk
+Jul,Hydroponic,Kale,NFT,32.3,86.3,27.3,0.66,6.6,1.0,4.5,11.5,0,Root Rot Risk
+Mar,Microgreen,Cilantro,Tray,22.0,39.8,25.0,1.59,6.2,1.0,5.2,14.3,1,Optimal
+Dec,Microgreen,Basil (MG),Tray,16.2,51.8,19.2,0.89,5.9,1.6,7.3,8.2,1,Optimal
+Jan,Microgreen,Beetroot,Tray,12.8,53.4,15.8,0.69,6.1,0.8,8.5,5.6,1,Optimal
+Nov,Hydroponic,Bell Pepper,DWC,14.6,41.7,17.6,0.97,7.3,0.6,7.8,9.0,0,Nutrient Lockout
+Aug,Hydroponic,Bell Pepper,DWC,33.0,77.5,28.0,1.13,6.7,0.8,4.2,13.3,0,Root Rot Risk
+Dec,Microgreen,Basil (MG),Tray,15.4,56.2,18.4,0.77,6.7,0.6,7.6,8.4,1,Optimal
+Mar,Hydroponic,Celery,NFT,26.7,49.3,29.7,1.78,7.6,2.4,3.6,14.4,0,Root Rot Risk
+Feb,Hydroponic,Kale,DWC,23.6,33.0,26.6,1.95,7.5,0.9,4.7,16.4,0,Root Rot Risk
+Jan,Microgreen,Sunflower,Tray,9.2,45.3,12.2,0.64,5.5,1.7,9.7,11.1,1,Optimal
+Jan,Microgreen,Amaranth,Tray,13.0,45.9,16.0,0.81,6.5,1.8,8.4,6.8,1,Optimal
+Mar,Microgreen,Cilantro,Tray,23.4,36.6,26.4,1.83,6.7,2.1,4.8,16.7,0,Root Rot Risk
+Jun,Microgreen,Mustard,Tray,36.4,25.9,31.4,4.51,5.4,1.7,3.0,21.9,0,Root Rot Risk
+Feb,Microgreen,Arugula,Tray,27.1,47.5,30.1,1.88,7.8,0.8,3.5,14.7,0,Root Rot Risk
+Oct,Hydroponic,Mint,DWC,31.2,47.1,26.2,2.4,6.3,1.1,4.8,18.4,0,Root Rot Risk
+Jan,Microgreen,Broccoli,Tray,8.4,40.7,11.4,0.65,5.3,0.6,10.0,10.3,0,Nutrient Lockout
+Jun,Microgreen,Kohlrabi,Tray,44.7,28.6,39.7,6.73,6.3,2.2,2.0,18.2,0,Root Rot Risk
+Jan,Microgreen,Radish,Tray,16.1,42.4,19.1,1.05,5.5,1.9,7.3,10.9,1,Optimal
+Dec,Hydroponic,Celery,DWC,16.9,54.7,19.9,0.87,5.8,1.7,7.0,9.7,1,Optimal
+Jul,Hydroponic,Strawberry,NFT,31.0,83.8,26.0,0.73,6.3,0.5,4.9,10.4,0,Root Rot Risk
+Feb,Microgreen,Basil (MG),Tray,26.3,38.1,29.3,2.11,5.4,1.6,3.8,19.2,0,Root Rot Risk
+Dec,Hydroponic,Celery,NFT,13.1,60.0,16.1,0.6,6.8,2.3,8.4,8.3,1,Optimal
+Mar,Microgreen,Kohlrabi,Tray,24.3,38.6,27.3,1.86,7.7,1.1,4.4,16.1,0,Root Rot Risk
+Jun,Microgreen,Mustard,Tray,41.2,16.7,36.2,6.55,5.9,1.4,2.0,22.3,0,Root Rot Risk
+Oct,Hydroponic,Basil (Hydro),NFT,22.8,38.1,25.8,1.72,5.8,1.9,5.0,18.8,1,Optimal
+Nov,Microgreen,Sunflower,Tray,14.2,56.6,17.2,0.71,5.8,0.9,8.0,10.3,1,Optimal
+Nov,Microgreen,Amaranth,Tray,19.6,49.6,22.6,1.15,5.6,0.6,6.1,10.7,1,Optimal
+Jan,Hydroponic,Strawberry,DWC,15.1,42.7,18.1,0.98,5.4,2.1,7.7,9.8,0,Nutrient Lockout
+Sep,Hydroponic,Cherry Tomato,NFT,32.9,83.0,27.9,0.85,6.0,1.4,4.2,10.1,0,Root Rot Risk
+Dec,Microgreen,Basil (MG),Tray,12.2,47.5,15.2,0.75,5.7,1.8,8.7,7.0,1,Optimal
+Sep,Hydroponic,Bell Pepper,NFT,31.8,92.5,26.8,0.35,5.2,2.4,4.6,13.4,0,Root Rot Risk
+Feb,Microgreen,Mustard,Tray,25.6,35.2,28.6,2.12,7.6,2.2,4.0,18.5,0,Root Rot Risk
+Sep,Microgreen,Mustard,Tray,33.6,87.4,28.6,0.66,5.8,0.9,4.0,13.5,0,Root Rot Risk
+Dec,Hydroponic,Pak Choi,NFT,14.8,40.5,17.8,1.0,5.7,2.4,7.8,7.6,1,Optimal
+Aug,Microgreen,Broccoli,Tray,28.6,78.3,31.6,0.85,7.5,0.6,2.9,10.8,0,Root Rot Risk
+Apr,Microgreen,Cilantro,Tray,45.5,22.3,40.5,7.66,5.4,0.6,2.0,24.7,0,Root Rot Risk
+Mar,Microgreen,Arugula,Tray,30.6,44.3,25.6,2.45,7.4,2.1,5.0,18.5,0,Nutrient Lockout
+Apr,Microgreen,Beetroot,Tray,37.8,28.6,32.8,4.67,5.7,0.6,2.5,19.5,0,Root Rot Risk
+Aug,Hydroponic,Spinach,NFT,30.0,85.4,33.0,0.62,5.6,2.0,2.5,10.5,0,Root Rot Risk
+Feb,Microgreen,Broccoli,Tray,24.9,46.6,27.9,1.68,6.7,1.7,4.2,14.5,0,Root Rot Risk
+Jun,Microgreen,Basil (MG),Tray,39.3,19.1,34.3,5.75,7.4,2.1,2.0,21.7,0,Root Rot Risk
+Jan,Hydroponic,Lettuce,DWC,17.0,40.9,20.0,1.14,6.8,0.6,7.0,5.4,1,Optimal
+Feb,Microgreen,Sunflower,Tray,23.0,46.1,26.0,1.52,5.7,1.6,4.9,17.1,0,Root Rot Risk
+Oct,Hydroponic,Cucumber,DWC,25.1,40.2,28.1,1.91,5.6,2.0,4.2,19.2,0,Root Rot Risk
+Sep,Hydroponic,Bell Pepper,DWC,28.2,74.2,31.2,0.99,5.4,1.0,3.1,11.5,0,Root Rot Risk
+Aug,Microgreen,Kohlrabi,Tray,32.4,73.4,27.4,1.29,7.0,2.4,4.4,14.6,0,Root Rot Risk
+Dec,Microgreen,Broccoli,Tray,15.6,49.2,18.6,0.9,7.3,1.4,7.5,5.1,0,Nutrient Lockout
+Jul,Hydroponic,Celery,DWC,34.5,76.4,29.5,1.29,5.8,1.7,3.7,12.2,0,Root Rot Risk
+May,Hydroponic,Lettuce,NFT,45.2,20.4,40.2,7.72,6.0,1.4,2.0,24.1,0,Root Rot Risk
+May,Hydroponic,Kale,DWC,36.3,23.3,31.3,4.64,6.2,2.2,3.0,20.8,0,Root Rot Risk
+Dec,Microgreen,Arugula,Tray,11.7,40.5,14.7,0.82,5.5,0.8,8.9,8.1,1,Optimal
+Aug,Hydroponic,Lettuce,NFT,28.9,84.5,31.9,0.62,7.6,1.1,2.8,12.2,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,42.5,20.7,37.5,6.67,6.6,2.0,2.0,23.7,0,Root Rot Risk
+Oct,Hydroponic,Kale,NFT,25.8,38.4,28.8,2.04,5.5,1.9,3.9,14.9,0,Root Rot Risk
+Jul,Hydroponic,Pak Choi,NFT,32.4,83.4,27.4,0.8,7.7,0.6,4.4,13.7,0,Root Rot Risk
+Sep,Hydroponic,Celery,DWC,34.8,85.1,29.8,0.83,7.3,1.0,3.6,14.9,0,Root Rot Risk
+Jun,Microgreen,Broccoli,Tray,41.7,17.9,36.7,6.62,7.1,1.0,2.0,24.6,0,Root Rot Risk
+Sep,Hydroponic,Pak Choi,DWC,33.2,82.2,28.2,0.9,7.0,2.2,4.1,11.9,0,Root Rot Risk
+Jan,Microgreen,Cilantro,Tray,14.3,42.7,17.3,0.93,5.9,2.2,7.9,6.4,1,Optimal
+Apr,Hydroponic,Spinach,NFT,44.7,24.8,39.7,7.1,5.6,1.6,2.0,23.3,0,Root Rot Risk
+Feb,Microgreen,Cilantro,Tray,26.8,39.3,29.8,2.14,7.2,0.7,3.6,18.2,0,Root Rot Risk
+Apr,Hydroponic,Bell Pepper,NFT,46.5,25.6,41.5,7.72,6.4,2.3,2.0,19.1,0,Root Rot Risk
+Jan,Microgreen,Broccoli,Tray,18.9,43.2,21.9,1.24,7.0,1.5,6.3,5.4,1,Optimal
+Sep,Microgreen,Amaranth,Tray,34.1,79.8,29.1,1.08,5.4,0.8,3.8,11.0,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,45.8,17.7,40.8,8.24,6.5,1.1,2.0,19.3,0,Root Rot Risk
+Oct,Hydroponic,Celery,DWC,23.2,40.5,26.2,1.69,7.6,0.8,4.8,19.9,0,Root Rot Risk
+Aug,Microgreen,Broccoli,Tray,34.0,93.9,29.0,0.33,6.5,1.0,3.9,9.2,0,Root Rot Risk
+Sep,Hydroponic,Lettuce,DWC,32.0,91.9,27.0,0.38,5.8,0.7,4.6,9.4,0,Root Rot Risk
+Dec,Hydroponic,Cherry Tomato,NFT,14.2,43.7,17.2,0.91,5.6,1.3,8.0,8.6,1,Optimal
+Mar,Hydroponic,Spinach,NFT,24.1,36.0,27.1,1.92,7.8,2.0,4.5,19.7,0,Root Rot Risk
+Jan,Microgreen,Cilantro,Tray,17.4,51.1,20.4,0.97,6.6,2.3,6.9,10.7,1,Optimal
+Nov,Microgreen,Sunflower,Tray,16.9,42.4,19.9,1.11,5.3,1.8,7.0,11.5,0,Nutrient Lockout
+Nov,Microgreen,Basil (MG),Tray,17.1,50.0,20.1,0.98,5.3,2.5,7.0,10.4,0,Nutrient Lockout
+Dec,Microgreen,Pea Shoots,Tray,12.2,59.0,15.2,0.58,5.8,1.5,8.7,6.2,1,Optimal
+May,Microgreen,Arugula,Tray,43.1,25.8,38.1,6.45,6.7,1.5,2.0,23.2,0,Root Rot Risk
+Nov,Hydroponic,Pak Choi,DWC,20.0,56.2,23.0,1.02,5.3,2.4,6.0,7.5,0,Nutrient Lockout
+Nov,Microgreen,Amaranth,Tray,15.2,50.5,18.2,0.85,6.9,1.3,7.6,8.7,1,Optimal
+Apr,Microgreen,Mustard,Tray,38.5,23.8,33.5,5.2,5.7,0.9,2.3,22.0,0,Root Rot Risk
+Feb,Microgreen,Mustard,Tray,24.1,48.9,27.1,1.54,7.1,1.3,4.5,16.8,0,Root Rot Risk
+Apr,Microgreen,Radish,Tray,46.2,26.8,41.2,7.47,6.1,0.8,2.0,21.8,0,Root Rot Risk
+Feb,Hydroponic,Cucumber,NFT,27.1,45.0,30.1,1.97,5.7,2.1,3.5,16.9,0,Root Rot Risk
+Mar,Hydroponic,Strawberry,NFT,31.5,44.1,26.5,2.59,7.3,0.5,4.7,14.1,0,Root Rot Risk
+Mar,Microgreen,Basil (MG),Tray,24.7,45.3,27.7,1.71,7.6,1.7,4.3,16.6,0,Root Rot Risk
+Sep,Hydroponic,Spinach,NFT,29.9,92.8,32.9,0.3,5.8,2.4,2.5,8.7,0,Root Rot Risk
+Nov,Hydroponic,Spinach,NFT,11.5,57.3,14.5,0.58,7.5,2.4,8.9,9.1,0,Nutrient Lockout
+Apr,Microgreen,Kohlrabi,Tray,38.0,18.2,33.0,5.41,6.5,1.1,2.5,18.4,0,Root Rot Risk
+Apr,Hydroponic,Strawberry,DWC,47.7,19.7,42.7,8.82,6.3,0.6,2.0,18.5,0,Root Rot Risk
+Aug,Hydroponic,Celery,DWC,34.0,93.5,29.0,0.34,7.2,1.4,3.9,12.8,0,Root Rot Risk
+Dec,Microgreen,Sunflower,Tray,12.6,57.3,15.6,0.63,7.4,1.0,8.5,11.2,0,Nutrient Lockout
+Jun,Microgreen,Kohlrabi,Tray,41.6,25.4,36.6,6.0,6.5,0.9,2.0,23.2,0,Root Rot Risk
+Apr,Microgreen,Pea Shoots,Tray,47.4,18.7,42.4,8.82,6.9,2.4,2.0,18.2,0,Root Rot Risk
+Feb,Hydroponic,Spinach,NFT,31.6,42.6,26.6,2.67,5.3,0.6,4.7,18.6,0,Root Rot Risk
+Oct,Microgreen,Radish,Tray,26.4,46.8,29.4,1.83,6.2,0.5,3.7,19.0,0,Root Rot Risk
+Dec,Microgreen,Arugula,Tray,11.7,57.7,14.7,0.58,6.9,1.7,8.9,10.4,1,Optimal
+Jan,Microgreen,Arugula,Tray,10.9,49.2,13.9,0.66,7.6,1.4,9.1,6.9,0,Nutrient Lockout
+Mar,Microgreen,Beetroot,Tray,25.2,38.5,28.2,1.97,7.3,2.0,4.1,16.3,0,Root Rot Risk
+Nov,Hydroponic,Lettuce,NFT,13.7,55.5,16.7,0.7,6.1,0.9,8.2,11.4,1,Optimal
+Jun,Hydroponic,Kale,NFT,46.9,22.3,41.9,8.22,6.6,0.7,2.0,23.1,0,Root Rot Risk
+Mar,Hydroponic,Pak Choi,DWC,22.6,33.1,25.6,1.83,5.7,1.7,5.1,17.2,1,Optimal
+May,Microgreen,Amaranth,Tray,39.5,19.5,34.5,5.77,7.5,1.7,2.0,24.8,0,Root Rot Risk
+Sep,Microgreen,Mustard,Tray,34.3,89.8,29.3,0.55,6.0,0.7,3.7,9.6,0,Root Rot Risk
+Oct,Hydroponic,Cucumber,DWC,28.6,46.3,31.6,2.11,6.6,1.7,2.9,17.9,0,Root Rot Risk
+Jan,Hydroponic,Bell Pepper,NFT,8.7,48.7,11.7,0.58,5.3,1.1,9.9,10.6,0,Nutrient Lockout
+Dec,Hydroponic,Celery,NFT,18.8,47.0,21.8,1.15,6.8,2.1,6.4,9.5,1,Optimal
+Jul,Microgreen,Kohlrabi,Tray,29.6,71.5,32.6,1.18,5.9,1.5,2.6,12.4,0,Root Rot Risk
+Nov,Hydroponic,Cherry Tomato,NFT,16.4,52.6,19.4,0.89,5.7,0.8,7.2,8.0,1,Optimal
+Feb,Microgreen,Cilantro,Tray,26.3,47.5,29.3,1.8,5.3,2.4,3.7,16.8,0,Root Rot Risk
+Jul,Hydroponic,Pak Choi,NFT,33.9,89.7,28.9,0.55,7.2,0.8,3.9,12.1,0,Root Rot Risk
+Apr,Microgreen,Beetroot,Tray,43.6,23.4,38.6,6.81,5.6,1.3,2.0,22.5,0,Root Rot Risk
+Apr,Hydroponic,Strawberry,DWC,37.1,21.7,32.1,4.93,6.6,2.4,2.8,23.6,0,Root Rot Risk
+Apr,Hydroponic,Cherry Tomato,NFT,46.8,19.0,41.8,8.51,5.9,1.7,2.0,23.9,0,Root Rot Risk
+Oct,Hydroponic,Lettuce,NFT,24.8,30.5,27.8,2.17,7.7,1.3,4.3,14.5,0,Root Rot Risk
+Jul,Hydroponic,Bell Pepper,NFT,31.0,72.8,26.0,1.22,5.6,1.9,4.9,12.6,1,Optimal
+Dec,Microgreen,Arugula,Tray,13.2,55.7,16.2,0.67,7.5,2.0,8.3,9.3,0,Nutrient Lockout
+Nov,Microgreen,Pea Shoots,Tray,8.4,46.5,11.4,0.59,5.7,1.1,10.0,10.5,1,Optimal
+May,Microgreen,Arugula,Tray,43.6,26.9,38.6,6.52,7.1,1.1,2.0,21.5,0,Root Rot Risk
+Nov,Microgreen,Basil (MG),Tray,12.4,50.7,15.4,0.71,7.0,0.7,8.6,6.4,1,Optimal
+May,Hydroponic,Bell Pepper,NFT,36.4,15.9,31.4,5.1,7.0,1.0,3.0,22.0,0,Root Rot Risk
+Aug,Hydroponic,Celery,NFT,31.8,84.8,26.8,0.71,6.0,2.1,4.6,12.8,0,Root Rot Risk
+Nov,Hydroponic,Spinach,DWC,11.9,57.5,14.9,0.59,6.3,1.7,8.8,10.0,1,Optimal
+Jun,Microgreen,Basil (MG),Tray,46.7,23.4,41.7,8.01,7.5,0.6,2.0,18.5,0,Root Rot Risk
+May,Hydroponic,Celery,NFT,39.0,23.9,34.0,5.32,6.3,1.6,2.1,19.1,0,Root Rot Risk
+Apr,Hydroponic,Spinach,DWC,46.1,16.5,41.1,8.47,7.5,1.6,2.0,21.1,0,Root Rot Risk
+Jun,Microgreen,Arugula,Tray,47.9,17.8,42.9,9.13,5.6,2.2,2.0,20.1,0,Root Rot Risk
+Mar,Microgreen,Basil (MG),Tray,25.7,32.9,28.7,2.21,7.5,2.4,4.0,17.6,0,Root Rot Risk
+Apr,Microgreen,Broccoli,Tray,46.9,26.0,41.9,7.82,6.7,2.1,2.0,21.6,0,Root Rot Risk
+Oct,Hydroponic,Mint,NFT,25.9,33.1,28.9,2.24,6.3,2.1,3.9,17.6,0,Root Rot Risk
+Apr,Microgreen,Pea Shoots,Tray,36.9,16.1,31.9,5.23,5.3,1.5,2.8,21.6,0,Root Rot Risk
+Aug,Microgreen,Cilantro,Tray,34.7,79.0,29.7,1.17,6.3,1.6,3.6,8.6,0,Root Rot Risk
+Dec,Hydroponic,Bell Pepper,NFT,12.1,56.2,15.1,0.62,5.6,1.0,8.7,7.3,1,Optimal
+Jan,Microgreen,Broccoli,Tray,19.8,40.3,22.8,1.38,5.9,0.7,6.0,6.6,1,Optimal
+Jun,Hydroponic,Basil (Hydro),NFT,37.5,16.2,32.5,5.4,7.3,1.6,2.6,23.2,0,Root Rot Risk
+Dec,Hydroponic,Pak Choi,DWC,16.4,58.9,19.4,0.77,7.6,1.8,7.2,11.9,0,Nutrient Lockout
+Dec,Microgreen,Radish,Tray,12.4,53.1,15.4,0.68,6.3,1.8,8.6,6.9,1,Optimal
+May,Microgreen,Kohlrabi,Tray,47.9,21.6,42.9,8.71,6.5,0.8,2.0,19.1,0,Root Rot Risk
+May,Microgreen,Broccoli,Tray,46.5,16.6,41.5,8.61,7.1,1.8,2.0,21.5,0,Root Rot Risk
+May,Microgreen,Sunflower,Tray,42.5,22.4,37.5,6.53,5.8,1.4,2.0,18.3,0,Root Rot Risk
+Mar,Microgreen,Pea Shoots,Tray,22.9,33.9,25.9,1.84,6.7,1.7,4.9,14.3,1,Optimal
+Jul,Hydroponic,Cherry Tomato,NFT,33.8,89.3,28.8,0.56,7.8,1.0,3.9,12.3,0,Root Rot Risk
+Apr,Microgreen,Amaranth,Tray,42.2,29.4,37.2,5.86,5.7,1.8,2.0,21.3,0,Root Rot Risk
+Feb,Microgreen,Basil (MG),Tray,26.4,42.0,29.4,1.99,6.6,1.4,3.7,16.8,0,Root Rot Risk
+Jul,Microgreen,Basil (MG),Tray,29.6,73.1,32.6,1.12,6.5,1.9,2.6,9.3,0,Root Rot Risk
+Dec,Hydroponic,Cherry Tomato,DWC,14.9,55.7,17.9,0.75,7.2,0.6,7.7,7.4,0,Nutrient Lockout
+Nov,Microgreen,Pea Shoots,Tray,16.7,54.7,19.7,0.86,6.7,0.7,7.1,7.5,1,Optimal
+Apr,Microgreen,Kohlrabi,Tray,44.6,24.1,39.6,7.11,7.3,1.1,2.0,21.1,0,Root Rot Risk
+May,Microgreen,Radish,Tray,43.6,24.0,38.6,6.78,7.1,0.9,2.0,24.6,0,Root Rot Risk
+Feb,Microgreen,Broccoli,Tray,29.8,41.3,32.8,2.46,5.9,1.2,2.5,15.5,0,Root Rot Risk
+Feb,Microgreen,Radish,Tray,29.2,31.8,32.2,2.76,6.2,1.1,2.7,18.3,0,Root Rot Risk
+Mar,Hydroponic,Lettuce,NFT,31.1,42.8,26.1,2.58,7.6,1.3,4.9,18.1,0,Root Rot Risk
+Apr,Microgreen,Radish,Tray,38.3,15.4,33.3,5.7,6.5,1.2,2.3,21.4,0,Root Rot Risk
+Jul,Hydroponic,Kale,NFT,29.7,85.3,32.7,0.61,7.1,0.7,2.6,13.2,0,Root Rot Risk
+Jan,Microgreen,Broccoli,Tray,10.1,46.3,13.1,0.66,6.0,1.3,9.4,9.8,1,Optimal
+Dec,Hydroponic,Celery,DWC,19.9,43.6,22.9,1.31,7.2,1.9,6.0,6.9,0,Nutrient Lockout
+Oct,Hydroponic,Strawberry,NFT,23.0,37.5,26.0,1.76,7.0,2.4,4.9,14.5,0,Root Rot Risk
+May,Microgreen,Radish,Tray,40.6,29.0,35.6,5.4,5.3,1.1,2.0,23.8,0,Root Rot Risk
+Dec,Microgreen,Broccoli,Tray,18.3,60.0,21.3,0.84,6.1,1.7,6.5,8.5,1,Optimal
+Aug,Hydroponic,Basil (Hydro),NFT,34.4,81.6,29.4,1.0,7.5,2.4,3.7,12.9,0,Root Rot Risk
+Jan,Hydroponic,Cherry Tomato,NFT,12.9,41.6,15.9,0.87,5.8,2.3,8.4,11.8,1,Optimal
+Feb,Hydroponic,Mint,NFT,28.3,45.2,31.3,2.11,7.2,1.1,3.0,19.5,0,Root Rot Risk
+Jul,Microgreen,Beetroot,Tray,34.4,73.4,29.4,1.45,7.6,2.4,3.7,12.7,0,Root Rot Risk
+Aug,Microgreen,Mustard,Tray,33.9,70.2,28.9,1.58,5.9,0.8,3.9,8.8,0,Root Rot Risk
+May,Microgreen,Radish,Tray,45.8,22.2,40.8,7.79,5.3,1.0,2.0,20.4,0,Root Rot Risk
+Aug,Hydroponic,Mint,DWC,29.3,88.3,32.3,0.48,7.6,1.0,2.7,8.2,0,Root Rot Risk
+Dec,Microgreen,Mustard,Tray,14.1,52.3,17.1,0.77,6.2,0.9,8.0,9.2,1,Optimal
+Jun,Hydroponic,Celery,DWC,43.0,19.0,38.0,6.99,5.5,1.8,2.0,21.3,0,Root Rot Risk
+Nov,Microgreen,Radish,Tray,17.5,50.8,20.5,0.98,7.2,2.1,6.8,10.4,0,Nutrient Lockout
+Jun,Hydroponic,Bell Pepper,DWC,43.3,17.1,38.3,7.27,5.4,1.3,2.0,21.5,0,Root Rot Risk
+Aug,Hydroponic,Kale,DWC,33.4,94.9,28.4,0.26,6.2,0.7,4.0,8.5,0,Root Rot Risk
+Jan,Hydroponic,Kale,DWC,17.7,50.1,20.7,1.01,7.7,1.5,6.8,8.7,0,Nutrient Lockout
+Feb,Microgreen,Beetroot,Tray,31.6,46.0,26.6,2.52,6.8,2.4,4.7,18.7,0,Root Rot Risk
+Jun,Microgreen,Cilantro,Tray,42.8,23.7,37.8,6.52,6.6,2.4,2.0,18.5,0,Root Rot Risk
+Jan,Hydroponic,Spinach,NFT,16.2,58.2,19.2,0.77,5.3,1.9,7.3,8.1,0,Nutrient Lockout
+Dec,Hydroponic,Celery,DWC,10.4,49.6,13.4,0.64,5.2,1.6,9.3,10.8,0,Nutrient Lockout
+Oct,Microgreen,Mustard,Tray,31.8,40.2,26.8,2.82,6.4,0.5,4.6,18.0,0,Root Rot Risk
+Oct,Microgreen,Broccoli,Tray,26.5,30.9,29.5,2.39,7.5,2.2,3.7,18.5,0,Root Rot Risk
+Jul,Hydroponic,Lettuce,NFT,30.9,76.4,25.9,1.06,7.1,1.8,4.9,13.1,0,Nutrient Lockout
+Feb,Hydroponic,Cucumber,DWC,25.8,46.0,28.8,1.8,6.5,2.4,3.9,18.1,0,Root Rot Risk
+May,Microgreen,Mustard,Tray,46.9,29.5,41.9,7.45,5.8,1.7,2.0,22.4,0,Root Rot Risk
+Feb,Hydroponic,Cucumber,DWC,24.2,32.1,27.2,2.05,5.3,1.1,4.5,18.1,0,Root Rot Risk
+Mar,Microgreen,Pea Shoots,Tray,23.6,34.6,26.6,1.9,6.9,2.4,4.7,18.4,0,Root Rot Risk
+Sep,Microgreen,Sunflower,Tray,32.6,70.6,27.6,1.45,7.5,1.1,4.3,8.4,0,Root Rot Risk
+May,Hydroponic,Cherry Tomato,DWC,41.2,26.7,36.2,5.78,6.8,0.6,2.0,24.8,0,Root Rot Risk
+May,Hydroponic,Pak Choi,DWC,47.1,15.5,42.1,9.01,7.2,2.3,2.0,19.1,0,Root Rot Risk
+Dec,Hydroponic,Cucumber,DWC,15.5,49.5,18.5,0.89,7.1,1.0,7.5,9.0,0,Nutrient Lockout
+Jan,Microgreen,Cilantro,Tray,16.3,50.4,19.3,0.92,6.0,1.0,7.3,8.8,1,Optimal
+Jun,Hydroponic,Basil (Hydro),NFT,46.2,20.3,41.2,8.13,7.5,0.8,2.0,24.6,0,Root Rot Risk
+Jan,Microgreen,Basil (MG),Tray,19.8,56.1,22.8,1.01,6.1,2.0,6.0,5.5,1,Optimal
+Mar,Hydroponic,Mint,NFT,22.7,37.2,25.7,1.73,7.1,2.1,5.0,17.0,0,Nutrient Lockout
+Jul,Microgreen,Basil (MG),Tray,29.1,79.1,32.1,0.84,5.2,1.7,2.8,8.8,0,Root Rot Risk
+May,Microgreen,Radish,Tray,47.7,24.2,42.7,8.35,6.6,1.4,2.0,23.1,0,Root Rot Risk
+Apr,Microgreen,Arugula,Tray,41.2,24.6,36.2,5.94,5.6,1.8,2.0,18.9,0,Root Rot Risk
+Apr,Microgreen,Radish,Tray,38.2,21.0,33.2,5.3,7.0,2.0,2.4,23.5,0,Root Rot Risk
+Feb,Hydroponic,Celery,DWC,28.5,31.4,31.5,2.68,5.7,1.4,3.0,18.5,0,Root Rot Risk
+Apr,Hydroponic,Bell Pepper,NFT,47.0,26.7,42.0,7.77,5.2,1.2,2.0,19.3,0,Root Rot Risk
+May,Hydroponic,Strawberry,DWC,39.8,23.4,34.8,5.6,5.8,1.1,2.0,20.5,0,Root Rot Risk
+Mar,Microgreen,Amaranth,Tray,23.3,43.7,26.3,1.61,5.4,0.8,4.8,14.2,0,Root Rot Risk
+Nov,Microgreen,Basil (MG),Tray,15.1,48.4,18.1,0.89,7.4,1.3,7.7,11.5,0,Nutrient Lockout
+Jun,Microgreen,Kohlrabi,Tray,47.3,28.1,42.3,7.73,6.6,1.3,2.0,23.9,0,Root Rot Risk
+Sep,Hydroponic,Mint,NFT,28.1,74.0,31.1,0.99,7.1,1.3,3.1,14.5,0,Root Rot Risk
+May,Microgreen,Cilantro,Tray,43.5,29.0,38.5,6.3,6.5,0.6,2.0,23.9,0,Root Rot Risk
+Aug,Microgreen,Beetroot,Tray,31.0,78.0,26.0,0.99,7.7,1.6,4.9,8.3,0,Nutrient Lockout
+May,Hydroponic,Lettuce,DWC,37.4,15.2,32.4,5.44,5.7,0.9,2.7,22.3,0,Root Rot Risk
+Aug,Hydroponic,Celery,NFT,28.9,88.4,31.9,0.46,5.4,2.4,2.9,10.7,0,Root Rot Risk
+Oct,Hydroponic,Bell Pepper,NFT,27.5,30.2,30.5,2.55,5.9,1.2,3.3,18.1,0,Root Rot Risk
+Apr,Microgreen,Amaranth,Tray,44.7,29.2,39.7,6.69,5.6,0.5,2.0,22.4,0,Root Rot Risk
+Jul,Hydroponic,Kale,NFT,31.0,86.2,26.0,0.62,7.7,1.9,4.9,14.8,0,Root Rot Risk
+Feb,Microgreen,Basil (MG),Tray,30.6,30.8,25.6,3.04,7.4,1.1,5.0,16.4,0,VPD Stress
+Mar,Microgreen,Cilantro,Tray,26.0,30.4,29.0,2.34,7.6,1.8,3.9,18.1,0,Root Rot Risk
+Jul,Hydroponic,Mint,NFT,29.4,76.8,32.4,0.95,6.8,1.8,2.7,14.1,0,Root Rot Risk
+May,Microgreen,Cilantro,Tray,36.8,27.1,31.8,4.53,6.5,1.1,2.9,19.5,0,Root Rot Risk
+Jan,Hydroponic,Pak Choi,NFT,15.8,50.0,18.8,0.9,6.7,2.1,7.4,9.3,1,Optimal
+Nov,Hydroponic,Strawberry,DWC,17.4,42.3,20.4,1.15,6.9,1.2,6.9,7.1,1,Optimal
+Apr,Hydroponic,Cherry Tomato,NFT,46.4,15.7,41.4,8.68,5.8,2.2,2.0,24.9,0,Root Rot Risk
+Aug,Hydroponic,Celery,NFT,29.6,87.3,32.6,0.53,6.6,1.1,2.6,12.0,0,Root Rot Risk
+Oct,Microgreen,Radish,Tray,23.8,34.3,26.8,1.94,7.5,1.6,4.6,19.4,0,Root Rot Risk
+Dec,Microgreen,Pea Shoots,Tray,13.8,41.2,16.8,0.93,7.5,2.4,8.1,11.3,0,Nutrient Lockout
+Jul,Hydroponic,Cherry Tomato,DWC,29.8,78.1,32.8,0.92,6.5,2.4,2.5,8.3,0,Root Rot Risk
+Jan,Microgreen,Kohlrabi,Tray,11.7,55.0,14.7,0.62,6.5,0.5,8.9,6.4,1,Optimal
+Aug,Microgreen,Basil (MG),Tray,30.8,82.8,25.8,0.76,5.6,1.2,5.0,14.1,1,Optimal
+Aug,Microgreen,Sunflower,Tray,32.0,76.3,27.0,1.12,7.5,0.8,4.6,9.1,0,Root Rot Risk
+Apr,Hydroponic,Spinach,DWC,41.9,22.0,36.9,6.37,6.4,0.9,2.0,18.6,0,Root Rot Risk
+Sep,Hydroponic,Strawberry,NFT,29.2,82.8,32.2,0.7,7.7,1.5,2.7,12.9,0,Root Rot Risk
+Oct,Microgreen,Mustard,Tray,22.4,42.3,25.4,1.56,6.6,1.3,5.1,19.8,1,Optimal
+Oct,Microgreen,Sunflower,Tray,29.7,36.4,32.7,2.65,7.3,1.4,2.6,14.2,0,Root Rot Risk
+Sep,Microgreen,Arugula,Tray,32.3,71.6,27.3,1.37,7.4,0.6,4.4,12.4,0,Root Rot Risk
+Sep,Hydroponic,Spinach,NFT,29.5,78.5,32.5,0.89,6.9,2.2,2.6,10.5,0,Root Rot Risk
+Sep,Hydroponic,Cherry Tomato,NFT,33.1,70.5,28.1,1.49,5.3,2.2,4.2,14.2,0,Root Rot Risk
+Jun,Microgreen,Radish,Tray,42.9,26.1,37.9,6.35,6.2,1.6,2.0,20.0,0,Root Rot Risk
+Nov,Microgreen,Beetroot,Tray,12.4,59.1,15.4,0.59,6.7,2.3,8.6,8.6,1,Optimal
+Aug,Hydroponic,Pak Choi,DWC,29.7,81.1,32.7,0.79,5.6,1.3,2.6,12.1,0,Root Rot Risk
+Apr,Microgreen,Basil (MG),Tray,44.7,22.5,39.7,7.33,7.1,0.8,2.0,19.9,0,Root Rot Risk
+Feb,Microgreen,Pea Shoots,Tray,22.1,43.2,25.1,1.51,5.9,1.9,5.2,18.8,1,Optimal
+May,Hydroponic,Bell Pepper,NFT,42.1,29.1,37.1,5.84,6.0,1.1,2.0,23.9,0,Root Rot Risk
+Apr,Microgreen,Cilantro,Tray,45.7,25.4,40.7,7.42,6.3,0.9,2.0,19.2,0,Root Rot Risk
+Mar,Microgreen,Mustard,Tray,29.1,47.0,32.1,2.13,5.9,0.6,2.8,17.6,0,Root Rot Risk
+Nov,Hydroponic,Pak Choi,DWC,17.6,40.2,20.6,1.21,5.8,2.5,6.8,8.0,1,Optimal
+Oct,Microgreen,Basil (MG),Tray,25.4,34.0,28.4,2.14,6.4,1.6,4.1,15.6,0,Root Rot Risk
+Jul,Hydroponic,Spinach,DWC,34.5,75.1,29.5,1.36,7.2,2.2,3.7,11.3,0,Root Rot Risk
+Oct,Hydroponic,Bell Pepper,NFT,28.5,46.1,31.5,2.1,5.5,2.1,3.0,14.5,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,16.9,49.1,19.9,0.98,6.0,2.3,7.0,7.1,1,Optimal
+Dec,Microgreen,Cilantro,Tray,11.7,54.1,14.7,0.63,5.4,0.6,8.9,11.6,0,Nutrient Lockout
+Feb,Microgreen,Mustard,Tray,30.7,46.7,25.7,2.36,6.1,2.2,5.0,19.4,1,Optimal
+Apr,Hydroponic,Pak Choi,DWC,41.7,25.2,36.7,6.05,5.3,2.1,2.0,20.8,0,Root Rot Risk
+Apr,Microgreen,Arugula,Tray,38.8,27.8,33.8,4.99,7.0,0.8,2.2,21.5,0,Root Rot Risk
+Jul,Hydroponic,Bell Pepper,NFT,32.2,72.7,27.2,1.31,6.1,1.9,4.5,9.7,0,Root Rot Risk
+Apr,Microgreen,Mustard,Tray,37.8,15.2,32.8,5.56,5.9,2.0,2.5,19.5,0,Root Rot Risk
+May,Microgreen,Pea Shoots,Tray,43.6,18.2,38.6,7.28,6.7,0.7,2.0,24.4,0,Root Rot Risk
+Feb,Microgreen,Cilantro,Tray,27.7,43.8,30.7,2.09,7.5,1.2,3.2,17.7,0,Root Rot Risk
+Oct,Microgreen,Amaranth,Tray,30.1,39.1,25.1,2.6,7.6,0.7,5.2,17.2,0,VPD Stress
+Sep,Hydroponic,Celery,NFT,32.7,91.2,27.7,0.43,5.3,1.9,4.3,11.5,0,Root Rot Risk
+Jan,Hydroponic,Cucumber,NFT,14.1,46.1,17.1,0.87,5.4,1.2,8.0,5.8,0,Nutrient Lockout
+Sep,Hydroponic,Cucumber,DWC,28.3,81.9,31.3,0.69,7.0,2.0,3.1,11.7,0,Root Rot Risk
+Feb,Hydroponic,Basil (Hydro),NFT,25.0,34.5,28.0,2.07,6.7,1.6,4.2,15.0,0,Root Rot Risk
+Jul,Microgreen,Arugula,Tray,30.1,78.6,25.1,0.91,6.5,1.3,5.2,13.6,1,Optimal
+Aug,Microgreen,Broccoli,Tray,34.2,79.9,29.2,1.08,7.5,1.9,3.8,8.3,0,Root Rot Risk
+Aug,Microgreen,Beetroot,Tray,34.4,75.2,29.4,1.35,6.4,2.4,3.7,11.1,0,Root Rot Risk
+Jan,Microgreen,Arugula,Tray,15.5,51.1,18.5,0.86,7.3,1.7,7.5,7.4,0,Nutrient Lockout
+May,Hydroponic,Basil (Hydro),NFT,42.4,23.2,37.4,6.43,6.1,1.4,2.0,22.8,0,Root Rot Risk
+Aug,Hydroponic,Kale,NFT,34.4,90.8,29.4,0.5,6.4,1.7,3.7,9.4,0,Root Rot Risk
+Jul,Hydroponic,Kale,NFT,30.9,94.3,25.9,0.25,6.7,0.5,4.9,10.2,0,VPD Stress
+Feb,Microgreen,Radish,Tray,26.7,35.2,29.7,2.27,5.6,1.2,3.6,15.2,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,39.4,19.2,34.4,5.76,6.5,1.6,2.0,22.4,0,Root Rot Risk
+Jul,Hydroponic,Pak Choi,NFT,28.1,70.0,31.1,1.14,6.9,1.9,3.1,10.1,0,Root Rot Risk
+Nov,Hydroponic,Mint,DWC,16.6,42.4,19.6,1.09,6.3,1.3,7.2,7.0,1,Optimal
+Oct,Microgreen,Mustard,Tray,24.8,41.7,27.8,1.82,5.5,1.6,4.3,14.9,0,Root Rot Risk
+Sep,Hydroponic,Strawberry,DWC,34.8,77.4,29.8,1.26,6.6,2.4,3.6,11.5,0,Root Rot Risk
+Feb,Hydroponic,Bell Pepper,NFT,28.9,48.4,31.9,2.05,5.4,1.7,2.9,15.0,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,16.6,57.0,19.6,0.81,7.0,1.5,7.1,5.9,1,Optimal
+Jan,Microgreen,Kohlrabi,Tray,17.0,55.2,20.0,0.87,6.8,1.0,7.0,9.1,1,Optimal
+Feb,Hydroponic,Cucumber,NFT,23.1,35.0,26.1,1.84,6.2,1.9,4.9,16.1,0,Root Rot Risk
+Sep,Hydroponic,Lettuce,NFT,33.8,88.5,28.8,0.61,7.6,1.4,3.9,8.3,0,Root Rot Risk
+Dec,Hydroponic,Bell Pepper,NFT,14.1,54.1,17.1,0.74,7.2,0.6,8.0,7.4,0,Nutrient Lockout
+Apr,Hydroponic,Bell Pepper,DWC,44.7,25.2,39.7,7.05,5.4,1.4,2.0,24.3,0,Root Rot Risk
+Oct,Microgreen,Mustard,Tray,27.2,49.2,30.2,1.83,7.4,1.8,3.4,16.6,0,Root Rot Risk
+Mar,Hydroponic,Celery,DWC,27.5,32.5,30.5,2.48,5.4,0.6,3.3,19.5,0,Root Rot Risk
+Jul,Microgreen,Cilantro,Tray,31.1,81.4,26.1,0.84,5.5,0.9,4.9,8.8,0,Root Rot Risk
+Apr,Microgreen,Arugula,Tray,39.9,25.6,34.9,5.45,7.6,1.1,2.0,21.6,0,Root Rot Risk
+Dec,Hydroponic,Cherry Tomato,NFT,18.4,50.3,21.4,1.05,7.2,1.2,6.5,7.1,0,Nutrient Lockout
+Apr,Hydroponic,Bell Pepper,DWC,44.8,21.6,39.8,7.42,5.4,1.4,2.0,22.6,0,Root Rot Risk
+Oct,Hydroponic,Cucumber,NFT,27.0,31.0,30.0,2.45,5.6,1.9,3.5,14.7,0,Root Rot Risk
+Apr,Hydroponic,Bell Pepper,NFT,42.2,24.2,37.2,6.28,5.9,2.1,2.0,22.3,0,Root Rot Risk
+Dec,Microgreen,Mustard,Tray,16.3,57.2,19.3,0.79,6.2,0.6,7.2,11.2,1,Optimal
+Sep,Microgreen,Cilantro,Tray,30.1,80.8,25.1,0.82,6.0,0.8,5.2,13.5,1,Optimal
+Apr,Microgreen,Kohlrabi,Tray,44.6,25.0,39.6,7.02,6.6,1.7,2.0,20.8,0,Root Rot Risk
+Oct,Hydroponic,Strawberry,DWC,22.7,31.8,25.7,1.88,6.8,2.1,5.0,18.9,1,Optimal
+Nov,Microgreen,Sunflower,Tray,8.2,58.7,11.2,0.45,7.6,2.0,10.1,10.9,0,Nutrient Lockout
+Aug,Microgreen,Sunflower,Tray,30.8,83.2,25.8,0.74,5.6,1.5,5.0,8.6,1,Optimal
+Jan,Microgreen,Radish,Tray,9.7,52.4,12.7,0.57,7.7,1.8,9.6,5.1,0,Nutrient Lockout
+Oct,Microgreen,Kohlrabi,Tray,27.6,34.6,30.6,2.42,6.1,2.4,3.3,18.1,0,Root Rot Risk
+Apr,Hydroponic,Cucumber,DWC,45.2,18.6,40.2,7.87,6.8,1.5,2.0,23.0,0,Root Rot Risk
+Sep,Microgreen,Amaranth,Tray,28.6,91.7,31.6,0.33,5.5,2.0,2.9,11.5,0,Root Rot Risk
+Jun,Microgreen,Sunflower,Tray,38.5,16.8,33.5,5.66,6.6,0.8,2.3,20.4,0,Root Rot Risk
+Jan,Hydroponic,Basil (Hydro),DWC,17.3,53.2,20.3,0.93,7.8,1.5,6.9,5.2,0,Nutrient Lockout
+Dec,Microgreen,Amaranth,Tray,18.5,43.8,21.5,1.19,7.0,1.4,6.5,11.5,1,Optimal
+Oct,Hydroponic,Basil (Hydro),NFT,31.6,44.7,26.6,2.57,5.4,1.5,4.7,17.9,0,Root Rot Risk
+Aug,Microgreen,Arugula,Tray,32.5,84.0,27.5,0.78,5.9,2.4,4.4,9.0,0,Root Rot Risk
+Dec,Microgreen,Amaranth,Tray,15.4,41.7,18.4,1.02,7.7,0.8,7.6,6.2,0,Nutrient Lockout
+Apr,Hydroponic,Pak Choi,NFT,43.2,20.9,38.2,6.92,7.6,1.7,2.0,21.5,0,Root Rot Risk
+Sep,Microgreen,Sunflower,Tray,30.1,88.6,25.1,0.49,6.2,1.7,5.2,13.4,0,Mold/Fungal Risk
+Dec,Hydroponic,Cherry Tomato,DWC,9.2,45.6,12.2,0.63,7.4,0.6,9.7,6.7,0,Nutrient Lockout
+Oct,Microgreen,Radish,Tray,26.7,35.4,29.7,2.26,6.5,1.1,3.6,18.2,0,Root Rot Risk
+Apr,Microgreen,Amaranth,Tray,46.9,19.7,41.9,8.47,5.2,1.3,2.0,22.0,0,Root Rot Risk
+Nov,Hydroponic,Cherry Tomato,DWC,16.8,59.0,19.8,0.78,5.9,1.6,7.1,7.6,1,Optimal
+Oct,Microgreen,Arugula,Tray,22.4,40.9,25.4,1.6,6.3,2.2,5.1,17.4,1,Optimal
+Sep,Microgreen,Radish,Tray,32.4,86.7,27.4,0.65,6.8,1.9,4.4,11.7,0,Root Rot Risk
+Jun,Hydroponic,Lettuce,DWC,41.5,20.0,36.5,6.38,6.1,0.8,2.0,19.0,0,Root Rot Risk
+Nov,Hydroponic,Cherry Tomato,NFT,12.5,45.8,15.5,0.78,6.3,2.2,8.6,9.5,1,Optimal
+Nov,Microgreen,Arugula,Tray,11.4,45.2,14.4,0.74,7.8,0.7,9.0,7.5,0,Nutrient Lockout
+Feb,Microgreen,Radish,Tray,23.0,48.7,26.0,1.44,6.4,0.6,4.9,16.1,1,Optimal
+Jul,Microgreen,Basil (MG),Tray,30.3,82.2,25.3,0.77,7.0,1.8,5.1,13.9,1,Optimal
+Nov,Microgreen,Mustard,Tray,11.3,40.8,14.3,0.79,6.1,1.0,9.0,8.6,1,Optimal
+Mar,Microgreen,Arugula,Tray,26.0,42.9,29.0,1.92,6.2,1.6,3.9,14.3,0,Root Rot Risk
+Dec,Microgreen,Amaranth,Tray,19.9,40.4,22.9,1.39,7.2,1.7,6.0,5.1,0,Nutrient Lockout
+Feb,Microgreen,Basil (MG),Tray,30.0,44.0,25.0,2.38,5.5,1.2,5.2,19.8,1,Optimal
+Feb,Hydroponic,Pak Choi,NFT,28.1,36.8,31.1,2.41,5.3,0.6,3.1,14.0,0,Root Rot Risk
+Apr,Hydroponic,Cucumber,NFT,39.8,30.0,34.8,5.1,7.0,1.6,2.0,21.1,0,Root Rot Risk
+Aug,Microgreen,Cilantro,Tray,29.6,75.7,32.6,1.01,6.6,0.6,2.6,9.1,0,Root Rot Risk
+Aug,Hydroponic,Spinach,NFT,32.7,76.6,27.7,1.16,7.7,2.0,4.3,8.1,0,Root Rot Risk
+Aug,Hydroponic,Strawberry,NFT,33.2,87.3,28.2,0.65,6.7,1.0,4.1,14.3,0,Root Rot Risk
+Nov,Hydroponic,Mint,DWC,16.0,52.6,19.0,0.86,7.3,1.6,7.4,7.8,0,Nutrient Lockout
+Oct,Microgreen,Broccoli,Tray,30.6,41.7,25.6,2.56,7.5,1.7,5.0,18.5,0,VPD Stress
+Mar,Hydroponic,Pak Choi,DWC,27.6,36.8,30.6,2.33,5.5,0.8,3.3,16.7,0,Root Rot Risk
+Mar,Hydroponic,Cherry Tomato,NFT,23.5,35.3,26.5,1.87,6.5,2.2,4.7,18.3,0,Root Rot Risk
+Aug,Hydroponic,Cherry Tomato,NFT,31.9,71.2,26.9,1.36,5.6,2.3,4.6,12.3,0,Root Rot Risk
+Sep,Hydroponic,Cherry Tomato,DWC,33.3,93.7,28.3,0.32,5.3,1.3,4.1,11.3,0,Root Rot Risk
+Nov,Microgreen,Amaranth,Tray,18.8,50.0,21.8,1.09,5.6,2.4,6.4,6.1,1,Optimal
+Nov,Hydroponic,Spinach,DWC,17.5,59.7,20.5,0.81,7.7,2.1,6.8,6.7,0,Nutrient Lockout
+Nov,Hydroponic,Cucumber,NFT,16.6,54.3,19.6,0.87,7.8,2.0,7.1,8.3,0,Nutrient Lockout
+Mar,Microgreen,Pea Shoots,Tray,22.2,33.7,25.2,1.77,6.9,1.7,5.2,19.0,1,Optimal
+May,Microgreen,Broccoli,Tray,39.9,17.9,34.9,6.01,5.6,1.1,2.0,20.8,0,Root Rot Risk
+May,Hydroponic,Spinach,DWC,43.9,21.5,38.9,7.1,6.7,1.6,2.0,21.6,0,Root Rot Risk
+Nov,Microgreen,Radish,Tray,17.5,41.9,20.5,1.16,6.0,1.5,6.8,10.8,1,Optimal
+Apr,Microgreen,Pea Shoots,Tray,41.1,15.8,36.1,6.57,7.1,2.2,2.0,20.8,0,Root Rot Risk
+Dec,Hydroponic,Cherry Tomato,NFT,14.5,45.8,17.5,0.9,6.7,1.9,7.9,9.3,1,Optimal
+Apr,Microgreen,Sunflower,Tray,45.9,15.6,40.9,8.47,5.5,1.0,2.0,24.1,0,Root Rot Risk
+Sep,Microgreen,Cilantro,Tray,34.4,78.0,29.4,1.2,6.0,0.9,3.7,14.9,0,Root Rot Risk
+May,Hydroponic,Spinach,NFT,46.6,25.0,41.6,7.79,7.4,2.1,2.0,18.9,0,Root Rot Risk
+Nov,Hydroponic,Kale,NFT,10.4,53.7,13.4,0.58,7.7,1.5,9.3,9.8,0,Nutrient Lockout
+Apr,Hydroponic,Kale,NFT,45.3,18.8,40.3,7.92,6.8,1.6,2.0,20.9,0,Root Rot Risk
+Dec,Microgreen,Cilantro,Tray,8.7,44.3,11.7,0.63,5.8,2.2,9.9,10.2,1,Optimal
+Jul,Microgreen,Beetroot,Tray,28.1,87.4,31.1,0.48,7.1,2.1,3.1,9.4,0,Root Rot Risk
+Jul,Microgreen,Basil (MG),Tray,32.2,77.0,27.2,1.11,5.4,1.5,4.5,9.8,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,38.3,26.1,33.3,4.96,6.6,1.5,2.4,23.8,0,Root Rot Risk
+Dec,Hydroponic,Lettuce,DWC,8.3,55.1,11.3,0.49,6.7,2.0,10.0,11.4,1,Optimal
+Nov,Microgreen,Pea Shoots,Tray,12.7,48.2,15.7,0.76,6.3,2.4,8.5,6.0,1,Optimal
+Feb,Hydroponic,Cucumber,DWC,28.5,32.9,31.5,2.61,6.3,0.5,3.0,15.9,0,Root Rot Risk
+Jan,Hydroponic,Cucumber,DWC,8.6,45.2,11.6,0.61,6.7,2.5,9.9,5.9,1,Optimal
+Apr,Microgreen,Sunflower,Tray,47.6,28.7,42.6,7.81,7.4,0.9,2.0,19.0,0,Root Rot Risk
+Sep,Hydroponic,Pak Choi,NFT,30.5,88.1,25.5,0.52,7.4,1.2,5.1,12.9,0,Nutrient Lockout
+Jul,Microgreen,Arugula,Tray,28.0,79.1,31.0,0.79,7.3,1.6,3.1,14.8,0,Root Rot Risk
+Jul,Microgreen,Cilantro,Tray,30.1,81.0,25.1,0.81,7.0,1.3,5.2,12.8,1,Optimal
+Feb,Hydroponic,Strawberry,NFT,22.4,44.1,25.4,1.51,5.5,1.7,5.1,19.9,1,Optimal
+Nov,Hydroponic,Celery,NFT,13.1,59.4,16.1,0.61,5.4,2.2,8.4,10.0,0,Nutrient Lockout
+Oct,Microgreen,Sunflower,Tray,28.6,30.3,31.6,2.72,7.5,1.9,2.9,18.6,0,Root Rot Risk
+Feb,Microgreen,Sunflower,Tray,27.2,47.3,30.2,1.9,7.4,1.6,3.4,14.8,0,Root Rot Risk
+May,Hydroponic,Kale,DWC,43.4,21.9,38.4,6.9,7.4,0.7,2.0,24.2,0,Root Rot Risk
+Feb,Hydroponic,Pak Choi,NFT,30.2,44.2,25.2,2.4,6.2,0.8,5.2,15.9,1,Optimal
+May,Hydroponic,Lettuce,DWC,47.5,27.3,42.5,7.91,5.5,2.2,2.0,19.4,0,Root Rot Risk
+Feb,Hydroponic,Lettuce,NFT,31.5,44.3,26.5,2.57,5.3,2.3,4.7,16.9,0,Root Rot Risk
+May,Hydroponic,Bell Pepper,NFT,37.1,22.8,32.1,4.87,7.7,1.6,2.8,20.4,0,Root Rot Risk
+Jun,Microgreen,Kohlrabi,Tray,38.8,21.5,33.8,5.44,5.9,1.3,2.2,22.6,0,Root Rot Risk
+Sep,Hydroponic,Spinach,DWC,30.7,75.0,25.7,1.11,6.9,2.0,5.0,13.3,1,Optimal
+May,Microgreen,Broccoli,Tray,41.3,18.7,36.3,6.41,5.9,0.8,2.0,24.3,0,Root Rot Risk
+Aug,Microgreen,Pea Shoots,Tray,33.9,79.1,28.9,1.1,6.4,1.8,3.9,11.0,0,Root Rot Risk
+Jul,Microgreen,Amaranth,Tray,29.9,82.6,32.9,0.73,6.0,0.7,2.5,8.2,0,Root Rot Risk
+Jun,Microgreen,Kohlrabi,Tray,37.9,24.3,32.9,4.98,6.2,1.6,2.5,20.2,0,Root Rot Risk
+Jan,Hydroponic,Pak Choi,NFT,9.5,53.8,12.5,0.55,6.7,0.7,9.6,10.9,1,Optimal
+Dec,Hydroponic,Cucumber,NFT,10.7,54.9,13.7,0.58,6.7,1.1,9.2,6.4,1,Optimal
+Jul,Hydroponic,Strawberry,NFT,28.3,83.4,31.3,0.64,5.4,2.2,3.1,12.0,0,Root Rot Risk
+Feb,Microgreen,Beetroot,Tray,28.5,37.4,31.5,2.43,7.7,2.2,3.0,16.2,0,Root Rot Risk
+May,Microgreen,Broccoli,Tray,42.2,16.5,37.2,6.93,5.4,1.4,2.0,18.3,0,Root Rot Risk
+Mar,Hydroponic,Kale,DWC,22.6,30.9,25.6,1.89,5.5,2.3,5.1,16.0,1,Optimal
+Aug,Microgreen,Mustard,Tray,32.8,83.2,27.8,0.83,7.8,0.9,4.3,12.8,0,Root Rot Risk
+Jun,Microgreen,Basil (MG),Tray,43.8,20.1,38.8,7.18,5.8,2.1,2.0,23.0,0,Root Rot Risk
+Nov,Microgreen,Basil (MG),Tray,11.0,59.5,14.0,0.53,7.0,0.7,9.1,11.7,1,Optimal
+Oct,Microgreen,Radish,Tray,28.9,43.4,31.9,2.25,7.8,0.6,2.8,15.2,0,Root Rot Risk
+Oct,Microgreen,Beetroot,Tray,30.7,49.9,25.7,2.21,5.3,1.3,5.0,19.9,0,Nutrient Lockout
+Jan,Hydroponic,Pak Choi,NFT,16.6,47.4,19.6,0.99,7.4,0.7,7.1,9.7,0,Nutrient Lockout
+Oct,Hydroponic,Spinach,NFT,23.4,36.5,26.4,1.82,5.9,1.1,4.8,19.0,0,Root Rot Risk
+Apr,Hydroponic,Celery,NFT,43.5,22.0,38.5,6.91,6.7,2.4,2.0,23.5,0,Root Rot Risk
+Feb,Hydroponic,Kale,NFT,23.8,37.1,26.8,1.86,7.2,0.8,4.6,14.5,0,Root Rot Risk
+May,Hydroponic,Bell Pepper,DWC,39.2,23.9,34.2,5.38,7.7,1.5,2.0,24.6,0,Root Rot Risk
+Apr,Hydroponic,Basil (Hydro),NFT,43.0,29.1,38.0,6.11,5.9,2.3,2.0,18.4,0,Root Rot Risk
+Feb,Hydroponic,Celery,DWC,22.6,47.6,25.6,1.44,7.6,1.0,5.0,16.7,0,Nutrient Lockout
+Feb,Hydroponic,Celery,DWC,22.6,41.0,25.6,1.62,7.7,1.6,5.1,14.1,0,Nutrient Lockout
+Dec,Microgreen,Mustard,Tray,16.7,50.4,19.7,0.94,5.3,2.3,7.1,9.2,0,Nutrient Lockout
+May,Hydroponic,Pak Choi,NFT,47.7,16.4,42.7,9.2,7.1,2.2,2.0,19.8,0,Root Rot Risk
+Jun,Hydroponic,Mint,NFT,40.0,29.9,35.0,5.16,6.9,1.0,2.0,20.0,0,Root Rot Risk
+Dec,Microgreen,Mustard,Tray,9.7,53.1,12.7,0.57,7.5,1.2,9.5,9.9,0,Nutrient Lockout
+Feb,Hydroponic,Bell Pepper,NFT,24.0,37.1,27.0,1.87,7.2,1.1,4.6,17.9,0,Root Rot Risk
+May,Microgreen,Cilantro,Tray,40.0,19.6,35.0,5.92,6.6,1.5,2.0,20.4,0,Root Rot Risk
+Jun,Hydroponic,Basil (Hydro),DWC,39.4,15.0,34.4,6.05,5.3,0.6,2.0,22.1,0,Root Rot Risk
+Jul,Hydroponic,Pak Choi,NFT,30.2,78.0,25.2,0.94,6.9,2.2,5.2,12.3,1,Optimal
+Nov,Microgreen,Cilantro,Tray,19.2,51.5,22.2,1.08,7.0,2.5,6.2,6.4,1,Optimal
+Mar,Microgreen,Arugula,Tray,28.8,41.6,31.8,2.31,7.6,1.1,2.9,16.0,0,Root Rot Risk
+Apr,Hydroponic,Spinach,DWC,43.1,25.6,38.1,6.47,7.7,2.4,2.0,21.7,0,Root Rot Risk
+Oct,Hydroponic,Basil (Hydro),DWC,22.6,48.8,25.6,1.4,7.1,1.9,5.0,14.1,0,Nutrient Lockout
+Jun,Microgreen,Cilantro,Tray,36.9,20.7,31.9,4.96,7.5,0.6,2.8,18.9,0,Root Rot Risk
+Jul,Microgreen,Radish,Tray,28.6,70.1,31.6,1.17,6.5,2.5,3.0,13.8,0,Root Rot Risk
+Feb,Microgreen,Kohlrabi,Tray,26.8,48.8,29.8,1.8,6.7,1.5,3.6,15.3,0,Root Rot Risk
+Jul,Hydroponic,Cherry Tomato,DWC,28.8,72.9,31.8,1.07,6.2,0.7,2.9,9.0,0,Root Rot Risk
+Sep,Microgreen,Amaranth,Tray,32.1,89.5,27.1,0.5,5.4,1.2,4.5,9.7,0,Root Rot Risk
+Jan,Hydroponic,Mint,NFT,11.1,47.6,14.1,0.69,7.0,0.8,9.1,7.1,1,Optimal
+Jan,Hydroponic,Celery,DWC,17.0,58.3,20.0,0.81,7.4,1.3,7.0,10.0,0,Nutrient Lockout
+May,Microgreen,Radish,Tray,36.4,29.9,31.4,4.26,7.5,2.2,3.0,21.9,0,Root Rot Risk
+Mar,Microgreen,Sunflower,Tray,23.2,32.1,26.2,1.93,6.3,1.7,4.8,14.5,0,Root Rot Risk
+Jan,Microgreen,Basil (MG),Tray,12.7,58.3,15.7,0.61,7.6,2.5,8.5,9.2,0,Nutrient Lockout
+Dec,Microgreen,Beetroot,Tray,13.6,51.6,16.6,0.75,6.5,2.2,8.2,8.4,1,Optimal
+Aug,Microgreen,Basil (MG),Tray,32.6,86.6,27.6,0.66,7.4,1.1,4.3,13.3,0,Root Rot Risk
+Mar,Microgreen,Pea Shoots,Tray,23.4,31.4,26.4,1.97,7.3,0.5,4.8,16.8,0,Root Rot Risk
+May,Hydroponic,Strawberry,DWC,44.1,20.7,39.1,7.24,6.3,2.4,2.0,20.8,0,Root Rot Risk
+Feb,Hydroponic,Cherry Tomato,DWC,30.7,48.6,25.7,2.27,5.9,1.0,5.0,14.1,1,Optimal
+Sep,Hydroponic,Pak Choi,DWC,28.2,92.2,31.2,0.3,6.1,1.5,3.1,10.7,0,Root Rot Risk
+Mar,Microgreen,Broccoli,Tray,28.2,37.8,31.2,2.38,6.2,1.9,3.1,16.2,0,Root Rot Risk
+May,Hydroponic,Cucumber,NFT,36.4,20.3,31.4,4.84,6.7,1.6,3.0,24.4,0,Root Rot Risk
+May,Hydroponic,Pak Choi,NFT,36.6,18.5,31.6,4.99,7.1,1.3,3.0,23.6,0,Root Rot Risk
+Dec,Microgreen,Pea Shoots,Tray,18.0,48.0,21.0,1.08,6.2,0.9,6.6,9.3,1,Optimal
+Aug,Microgreen,Amaranth,Tray,34.9,72.6,29.9,1.53,5.5,1.8,3.5,10.6,0,Root Rot Risk
+Sep,Hydroponic,Mint,NFT,30.3,77.3,25.3,0.98,7.3,1.2,5.1,8.2,0,Nutrient Lockout
+Mar,Microgreen,Radish,Tray,26.0,38.3,29.0,2.07,6.4,1.4,3.9,15.7,0,Root Rot Risk
+May,Hydroponic,Celery,DWC,44.0,22.2,39.0,7.09,5.5,0.9,2.0,18.5,0,Root Rot Risk
+Dec,Hydroponic,Celery,DWC,18.4,43.0,21.4,1.2,6.3,0.5,6.5,10.4,1,Optimal
+Mar,Hydroponic,Bell Pepper,DWC,27.4,42.3,30.4,2.11,6.1,0.8,3.4,15.6,0,Root Rot Risk
+Feb,Microgreen,Radish,Tray,31.8,44.8,26.8,2.6,7.4,1.6,4.6,15.2,0,Root Rot Risk
+Apr,Microgreen,Cilantro,Tray,42.8,23.5,37.8,6.54,6.0,2.0,2.0,21.6,0,Root Rot Risk
+Jun,Microgreen,Amaranth,Tray,36.9,24.1,31.9,4.74,7.0,1.6,2.8,23.4,0,Root Rot Risk
+Aug,Hydroponic,Lettuce,DWC,29.5,92.5,32.5,0.31,5.8,1.2,2.6,14.7,0,Root Rot Risk
+Sep,Microgreen,Amaranth,Tray,29.3,86.5,32.3,0.55,6.3,1.1,2.7,12.3,0,Root Rot Risk
+Dec,Microgreen,Basil (MG),Tray,11.3,48.3,14.3,0.69,5.8,2.0,9.0,5.6,1,Optimal
+Nov,Microgreen,Cilantro,Tray,17.1,55.7,20.1,0.87,7.8,1.8,7.0,5.9,0,Nutrient Lockout
+Oct,Hydroponic,Spinach,NFT,22.7,43.5,25.7,1.56,7.2,1.0,5.0,14.2,0,Nutrient Lockout
+Dec,Microgreen,Radish,Tray,17.7,53.8,20.7,0.94,6.5,2.1,6.7,7.0,1,Optimal
+Aug,Hydroponic,Spinach,NFT,32.6,72.2,27.6,1.36,7.4,1.9,4.4,12.0,0,Root Rot Risk
+May,Microgreen,Mustard,Tray,44.2,16.1,39.2,7.73,7.4,1.1,2.0,23.1,0,Root Rot Risk
+Nov,Hydroponic,Cherry Tomato,DWC,17.0,44.6,20.0,1.07,6.4,1.4,7.0,6.9,1,Optimal
+Oct,Hydroponic,Strawberry,NFT,27.2,32.3,30.2,2.44,6.3,1.9,3.4,18.3,0,Root Rot Risk
+Jul,Microgreen,Mustard,Tray,32.9,92.8,27.9,0.36,7.0,2.0,4.2,14.8,0,Root Rot Risk
+Oct,Microgreen,Pea Shoots,Tray,31.4,41.6,26.4,2.68,5.5,1.7,4.8,17.7,0,Root Rot Risk
+Dec,Microgreen,Radish,Tray,11.7,44.5,14.7,0.76,6.4,1.4,8.9,5.4,1,Optimal
+Sep,Hydroponic,Strawberry,DWC,30.5,79.5,25.5,0.89,7.7,1.2,5.1,13.0,0,Nutrient Lockout
+Apr,Microgreen,Cilantro,Tray,36.1,24.0,31.1,4.54,6.7,2.2,3.1,23.4,0,Root Rot Risk
+Apr,Hydroponic,Pak Choi,NFT,44.3,27.7,39.3,6.69,6.3,1.3,2.0,18.4,0,Root Rot Risk
+May,Microgreen,Sunflower,Tray,44.5,20.5,39.5,7.43,7.2,1.2,2.0,23.6,0,Root Rot Risk
+Apr,Hydroponic,Pak Choi,NFT,42.5,28.1,37.5,6.04,5.9,0.7,2.0,18.2,0,Root Rot Risk
+Sep,Microgreen,Beetroot,Tray,31.2,90.9,26.2,0.41,6.2,1.9,4.8,11.6,0,Root Rot Risk
+Feb,Microgreen,Pea Shoots,Tray,31.6,33.4,26.6,3.09,7.5,0.9,4.7,14.9,0,Root Rot Risk
+Jan,Hydroponic,Cherry Tomato,NFT,11.1,54.7,14.1,0.6,6.2,1.5,9.1,11.0,1,Optimal
+Feb,Microgreen,Kohlrabi,Tray,31.1,38.2,26.1,2.79,7.7,1.2,4.9,17.4,0,Root Rot Risk
+Jun,Hydroponic,Lettuce,NFT,47.1,27.0,42.1,7.78,5.7,0.7,2.0,24.3,0,Root Rot Risk
+Jun,Microgreen,Kohlrabi,Tray,40.5,21.6,35.5,5.93,5.5,1.6,2.0,19.9,0,Root Rot Risk
+Mar,Hydroponic,Lettuce,NFT,30.7,35.2,25.7,2.86,7.7,1.7,5.0,19.8,0,VPD Stress
+Nov,Hydroponic,Pak Choi,NFT,16.3,60.0,19.3,0.74,6.0,1.6,7.3,7.2,1,Optimal
+Mar,Hydroponic,Mint,NFT,29.3,33.0,32.3,2.73,6.8,2.4,2.7,18.1,0,Root Rot Risk
+Aug,Hydroponic,Bell Pepper,NFT,29.6,94.4,32.6,0.23,6.8,1.6,2.6,13.7,0,Root Rot Risk
+Nov,Hydroponic,Lettuce,DWC,18.0,41.0,21.0,1.21,6.2,1.3,6.7,7.1,1,Optimal
+Feb,Microgreen,Cilantro,Tray,26.7,37.7,29.7,2.19,7.5,0.5,3.6,19.7,0,Root Rot Risk
+May,Hydroponic,Celery,DWC,39.3,17.7,34.3,5.85,5.4,2.4,2.0,22.7,0,Root Rot Risk
+Jan,Microgreen,Arugula,Tray,16.3,50.0,19.3,0.93,6.2,2.1,7.2,6.5,1,Optimal
+Jan,Microgreen,Mustard,Tray,19.5,48.4,22.5,1.17,7.8,2.2,6.1,11.3,0,Nutrient Lockout
+Jul,Hydroponic,Lettuce,DWC,33.8,91.7,28.8,0.44,5.6,2.1,3.9,8.1,0,Root Rot Risk
+Mar,Microgreen,Beetroot,Tray,31.4,32.1,26.4,3.13,6.7,1.5,4.7,15.3,0,Root Rot Risk
+Jun,Hydroponic,Celery,DWC,42.8,20.4,37.8,6.79,6.7,2.1,2.0,21.6,0,Root Rot Risk
+Nov,Microgreen,Mustard,Tray,12.5,51.2,15.5,0.71,5.7,1.7,8.6,5.5,1,Optimal
+May,Hydroponic,Pak Choi,DWC,43.4,18.5,38.4,7.2,7.4,2.3,2.0,18.8,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,10.4,50.4,13.4,0.63,6.5,0.7,9.3,5.9,1,Optimal
+Dec,Hydroponic,Strawberry,DWC,19.8,43.5,22.8,1.3,7.6,1.6,6.0,5.3,0,Nutrient Lockout
+Oct,Hydroponic,Cucumber,NFT,28.6,49.6,31.6,1.97,6.8,2.2,3.0,18.8,0,Root Rot Risk
+Sep,Hydroponic,Strawberry,NFT,29.1,88.9,32.1,0.45,5.7,1.7,2.8,10.3,0,Root Rot Risk
+Dec,Microgreen,Mustard,Tray,11.1,52.7,14.1,0.62,6.3,0.7,9.1,10.4,1,Optimal
+Dec,Hydroponic,Mint,DWC,11.3,49.3,14.3,0.68,7.4,1.2,9.0,6.4,0,Nutrient Lockout
+May,Microgreen,Basil (MG),Tray,45.0,16.0,40.0,8.06,6.9,1.2,2.0,22.2,0,Root Rot Risk
+Aug,Hydroponic,Pak Choi,NFT,30.7,74.1,25.7,1.14,7.0,2.1,5.0,13.1,1,Optimal
+Mar,Hydroponic,Spinach,DWC,23.0,34.0,26.0,1.85,7.0,1.6,4.9,17.5,1,Optimal
+Nov,Microgreen,Sunflower,Tray,19.5,56.5,22.5,0.99,6.9,1.9,6.1,7.9,1,Optimal
+Sep,Hydroponic,Cherry Tomato,NFT,29.6,73.4,32.6,1.1,7.7,2.0,2.6,13.7,0,Root Rot Risk
+Mar,Microgreen,Sunflower,Tray,23.2,49.8,26.2,1.43,5.9,1.5,4.8,16.7,0,Root Rot Risk
+May,Hydroponic,Kale,DWC,37.6,23.1,32.6,4.97,7.0,0.7,2.6,18.8,0,Root Rot Risk
+May,Microgreen,Beetroot,Tray,40.9,23.7,35.9,5.89,6.5,0.7,2.0,19.3,0,Root Rot Risk
+Apr,Hydroponic,Cucumber,DWC,41.7,15.9,36.7,6.77,5.4,2.0,2.0,24.2,0,Root Rot Risk
+Jul,Hydroponic,Kale,DWC,29.4,87.2,32.4,0.53,7.6,1.9,2.6,14.5,0,Root Rot Risk
+Jul,Hydroponic,Bell Pepper,DWC,33.5,82.4,28.5,0.91,5.9,1.8,4.0,11.2,0,Root Rot Risk
+May,Microgreen,Amaranth,Tray,36.3,15.9,31.3,5.09,6.1,1.4,3.0,19.1,0,Root Rot Risk
+Dec,Hydroponic,Kale,DWC,14.4,52.9,17.4,0.77,7.3,1.4,7.9,6.8,0,Nutrient Lockout
+Sep,Hydroponic,Mint,NFT,28.5,87.1,31.5,0.5,6.2,1.7,3.0,11.7,0,Root Rot Risk
+Sep,Hydroponic,Lettuce,NFT,34.6,83.0,29.6,0.93,6.4,2.0,3.6,10.8,0,Root Rot Risk
+Aug,Microgreen,Amaranth,Tray,31.0,78.9,26.0,0.95,5.5,0.5,4.9,14.4,1,Optimal
+Aug,Hydroponic,Bell Pepper,DWC,32.6,70.9,27.6,1.43,5.8,2.0,4.3,12.7,0,Root Rot Risk
+Dec,Hydroponic,Celery,NFT,14.9,51.2,17.9,0.83,7.3,2.2,7.7,9.1,0,Nutrient Lockout
+Dec,Microgreen,Amaranth,Tray,15.0,40.9,18.0,1.01,6.8,1.1,7.7,5.9,1,Optimal
+Nov,Microgreen,Arugula,Tray,11.6,53.2,14.6,0.64,7.3,2.1,8.9,7.6,0,Nutrient Lockout
+May,Microgreen,Amaranth,Tray,46.9,18.9,41.9,8.58,5.3,0.8,2.0,19.6,0,Root Rot Risk
+Dec,Hydroponic,Cucumber,DWC,9.0,41.9,12.0,0.67,5.9,1.0,9.8,5.2,1,Optimal
+Dec,Microgreen,Mustard,Tray,9.8,40.5,12.8,0.72,5.2,2.1,9.5,6.2,0,Nutrient Lockout
+Mar,Microgreen,Pea Shoots,Tray,24.9,37.9,27.9,1.95,5.9,0.6,4.2,18.4,0,Root Rot Risk
+Dec,Microgreen,Arugula,Tray,11.5,48.7,14.5,0.69,5.7,0.5,8.9,7.8,1,Optimal
+Aug,Hydroponic,Pak Choi,NFT,28.3,90.8,31.3,0.35,6.4,1.8,3.1,10.5,0,Root Rot Risk
+Apr,Microgreen,Pea Shoots,Tray,37.4,27.2,32.4,4.67,6.6,2.0,2.7,23.2,0,Root Rot Risk
+Jun,Microgreen,Basil (MG),Tray,42.6,21.1,37.6,6.66,6.9,2.0,2.0,18.6,0,Root Rot Risk
+Jul,Hydroponic,Cherry Tomato,DWC,34.6,89.4,29.6,0.58,6.2,1.4,3.7,11.1,0,Root Rot Risk
+Feb,Hydroponic,Celery,DWC,24.6,32.8,27.6,2.07,5.6,1.2,4.4,16.8,0,Root Rot Risk
+Apr,Hydroponic,Pak Choi,DWC,38.9,18.2,33.9,5.69,6.0,1.1,2.1,21.8,0,Root Rot Risk
+Aug,Hydroponic,Cherry Tomato,NFT,33.8,74.6,28.8,1.33,5.3,1.9,3.9,13.2,0,Root Rot Risk
+Sep,Hydroponic,Cucumber,DWC,32.1,75.6,27.1,1.17,6.8,1.6,4.5,9.0,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,18.3,48.2,21.3,1.09,5.4,1.7,6.5,9.0,0,Nutrient Lockout
+Apr,Microgreen,Basil (MG),Tray,39.7,25.2,34.7,5.41,6.6,2.0,2.0,24.8,0,Root Rot Risk
+Jan,Hydroponic,Mint,NFT,12.1,47.0,15.1,0.75,6.7,0.8,8.7,6.9,1,Optimal
+Dec,Hydroponic,Bell Pepper,DWC,12.9,48.4,15.9,0.77,6.3,1.9,8.4,10.9,1,Optimal
+Sep,Hydroponic,Kale,DWC,29.4,74.6,32.4,1.04,7.5,1.3,2.7,10.5,0,Root Rot Risk
+Nov,Microgreen,Arugula,Tray,17.4,48.2,20.4,1.03,5.8,1.5,6.9,8.7,1,Optimal
+Aug,Hydroponic,Spinach,DWC,31.6,76.2,26.6,1.11,7.7,1.6,4.7,14.8,0,Root Rot Risk
+May,Microgreen,Mustard,Tray,37.4,17.2,32.4,5.31,7.4,0.5,2.7,21.7,0,Root Rot Risk
+May,Hydroponic,Mint,DWC,36.9,25.3,31.9,4.67,6.4,1.9,2.8,22.2,0,Root Rot Risk
+Sep,Microgreen,Broccoli,Tray,31.4,73.2,26.4,1.23,7.4,1.0,4.8,9.8,0,Root Rot Risk
+Mar,Hydroponic,Spinach,DWC,25.6,32.6,28.6,2.21,6.5,1.3,4.0,19.0,0,Root Rot Risk
+Aug,Hydroponic,Pak Choi,NFT,28.6,76.2,31.6,0.93,5.8,1.6,3.0,8.8,0,Root Rot Risk
+Jan,Hydroponic,Kale,NFT,13.6,51.4,16.6,0.76,6.2,1.4,8.2,6.1,1,Optimal
+Dec,Hydroponic,Lettuce,NFT,19.1,48.6,22.1,1.14,5.9,0.8,6.3,11.1,1,Optimal
+Mar,Microgreen,Amaranth,Tray,27.3,43.5,30.3,2.05,5.4,2.2,3.4,14.6,0,Root Rot Risk
+Mar,Microgreen,Cilantro,Tray,30.6,32.5,25.6,2.97,5.3,1.8,5.0,19.5,0,VPD Stress
+Apr,Microgreen,Arugula,Tray,42.9,24.9,37.9,6.47,6.8,2.0,2.0,18.6,0,Root Rot Risk
+Mar,Hydroponic,Bell Pepper,NFT,28.6,32.4,31.6,2.65,6.0,1.3,2.9,18.5,0,Root Rot Risk
+Oct,Hydroponic,Cucumber,NFT,24.3,42.6,27.3,1.74,5.3,2.4,4.5,18.8,0,Root Rot Risk
+Sep,Hydroponic,Spinach,DWC,29.2,82.1,32.2,0.72,5.6,1.6,2.7,10.2,0,Root Rot Risk
+Apr,Microgreen,Cilantro,Tray,45.1,29.1,40.1,6.81,6.7,1.1,2.0,20.8,0,Root Rot Risk
+Mar,Hydroponic,Cucumber,NFT,23.3,45.8,26.3,1.55,6.3,0.7,4.8,17.7,0,Root Rot Risk
+Jul,Microgreen,Kohlrabi,Tray,34.7,73.0,29.7,1.5,7.7,1.1,3.6,13.6,0,Root Rot Risk
+May,Hydroponic,Spinach,DWC,39.8,23.9,34.8,5.57,6.6,0.5,2.0,19.5,0,Root Rot Risk
+Jul,Hydroponic,Celery,DWC,34.5,90.9,29.5,0.5,5.4,2.4,3.7,8.5,0,Root Rot Risk
+Apr,Microgreen,Mustard,Tray,44.3,17.2,39.3,7.65,7.3,2.5,2.0,21.0,0,Root Rot Risk
+Jun,Microgreen,Cilantro,Tray,36.7,24.2,31.7,4.69,5.8,2.3,2.9,19.4,0,Root Rot Risk
+Mar,Hydroponic,Kale,DWC,27.0,47.5,30.0,1.87,6.6,2.3,3.5,14.8,0,Root Rot Risk
+May,Microgreen,Radish,Tray,40.5,18.3,35.5,6.2,6.3,1.8,2.0,21.5,0,Root Rot Risk
+Sep,Hydroponic,Lettuce,DWC,34.0,79.5,29.0,1.09,5.8,2.5,3.8,10.2,0,Root Rot Risk
+Jul,Hydroponic,Basil (Hydro),NFT,34.3,85.6,29.3,0.78,6.1,1.8,3.7,12.5,0,Root Rot Risk
+Oct,Microgreen,Basil (MG),Tray,30.1,37.5,25.1,2.66,6.4,2.4,5.2,16.5,0,VPD Stress
+Oct,Hydroponic,Pak Choi,NFT,28.0,31.3,31.0,2.6,6.8,1.5,3.1,15.1,0,Root Rot Risk
+Jul,Microgreen,Amaranth,Tray,32.3,93.3,27.3,0.32,6.4,0.9,4.5,14.9,0,Root Rot Risk
+Apr,Hydroponic,Strawberry,DWC,41.4,29.0,36.4,5.65,7.2,2.5,2.0,19.5,0,Root Rot Risk
+Oct,Hydroponic,Cherry Tomato,DWC,23.3,33.5,26.3,1.91,7.2,1.4,4.8,14.8,0,Root Rot Risk
+Dec,Microgreen,Mustard,Tray,14.2,45.5,17.2,0.88,7.8,1.5,8.0,5.5,0,Nutrient Lockout
+Nov,Hydroponic,Basil (Hydro),NFT,19.2,59.5,22.2,0.9,6.0,1.3,6.2,6.7,1,Optimal
+Dec,Microgreen,Arugula,Tray,16.6,43.9,19.6,1.06,5.2,2.5,7.1,5.5,0,Nutrient Lockout
+May,Hydroponic,Spinach,DWC,41.8,19.0,36.8,6.57,5.6,1.4,2.0,19.4,0,Root Rot Risk
+Jan,Microgreen,Arugula,Tray,9.4,41.6,12.4,0.69,7.6,2.0,9.6,9.8,0,Nutrient Lockout
+Jun,Microgreen,Radish,Tray,39.4,24.1,34.4,5.41,6.4,1.6,2.0,21.1,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,15.2,48.2,18.2,0.89,5.3,2.2,7.6,5.8,0,Nutrient Lockout
+Jan,Microgreen,Cilantro,Tray,12.4,58.4,15.4,0.6,7.8,1.7,8.6,5.1,0,Nutrient Lockout
+Mar,Microgreen,Basil (MG),Tray,29.9,32.5,32.9,2.85,6.5,0.9,2.5,18.3,0,Root Rot Risk
+Apr,Microgreen,Broccoli,Tray,46.5,18.2,41.5,8.47,6.9,2.0,2.0,19.8,0,Root Rot Risk
+Sep,Hydroponic,Mint,NFT,30.7,86.4,25.7,0.6,6.1,2.4,5.0,11.4,1,Optimal
+May,Hydroponic,Cherry Tomato,DWC,40.4,26.6,35.4,5.53,5.2,1.9,2.0,19.9,0,Root Rot Risk
+May,Hydroponic,Basil (Hydro),DWC,42.1,25.6,37.1,6.13,5.8,1.5,2.0,20.4,0,Root Rot Risk
+Apr,Microgreen,Amaranth,Tray,46.6,25.5,41.6,7.76,6.4,2.5,2.0,24.8,0,Root Rot Risk
+Dec,Microgreen,Pea Shoots,Tray,14.6,48.7,17.6,0.85,7.7,1.7,7.9,9.3,0,Nutrient Lockout
+Jul,Hydroponic,Pak Choi,NFT,31.8,89.6,26.8,0.49,6.6,1.0,4.6,12.4,0,Root Rot Risk
+Nov,Hydroponic,Pak Choi,DWC,8.5,50.8,11.5,0.54,5.8,1.3,10.0,9.5,1,Optimal
+Jun,Hydroponic,Cherry Tomato,DWC,43.1,26.8,38.1,6.36,5.6,0.8,2.0,20.7,0,Root Rot Risk
+Apr,Microgreen,Sunflower,Tray,39.2,24.7,34.2,5.33,6.4,1.3,2.0,24.1,0,Root Rot Risk
+Nov,Hydroponic,Cherry Tomato,NFT,14.8,51.2,17.8,0.82,6.2,1.9,7.8,5.3,1,Optimal
+May,Microgreen,Mustard,Tray,37.9,22.2,32.9,5.14,5.9,2.5,2.5,19.1,0,Root Rot Risk
+Feb,Hydroponic,Cucumber,NFT,31.4,40.0,26.4,2.76,5.9,1.7,4.8,17.9,0,Root Rot Risk
+Apr,Hydroponic,Lettuce,NFT,36.6,28.5,31.6,4.38,7.4,1.3,2.9,19.3,0,Root Rot Risk
+Dec,Microgreen,Broccoli,Tray,9.6,50.1,12.6,0.6,6.0,2.5,9.6,11.6,1,Optimal
+Apr,Hydroponic,Pak Choi,NFT,47.8,18.4,42.8,9.01,7.3,0.8,2.0,19.0,0,Root Rot Risk
+Dec,Microgreen,Cilantro,Tray,14.2,46.4,17.2,0.87,7.2,1.7,8.0,8.3,0,Nutrient Lockout
+Feb,Microgreen,Beetroot,Tray,31.8,42.4,26.8,2.7,6.3,0.9,4.6,16.8,0,Root Rot Risk
+Mar,Hydroponic,Bell Pepper,NFT,26.7,30.9,29.7,2.42,6.2,1.1,3.6,19.9,0,Root Rot Risk
+Nov,Hydroponic,Celery,DWC,17.6,54.5,20.6,0.91,7.0,0.5,6.8,5.1,1,Optimal
+Oct,Microgreen,Basil (MG),Tray,26.4,42.0,29.4,2.0,6.9,1.7,3.7,16.1,0,Root Rot Risk
+Dec,Hydroponic,Bell Pepper,DWC,18.4,49.2,21.4,1.08,6.5,0.7,6.5,8.5,1,Optimal
+Sep,Hydroponic,Pak Choi,NFT,33.5,90.3,28.5,0.5,6.8,2.0,4.0,12.3,0,Root Rot Risk
+Aug,Microgreen,Pea Shoots,Tray,30.4,86.3,25.4,0.6,6.0,0.7,5.1,14.8,0,Mold/Fungal Risk
+Apr,Microgreen,Basil (MG),Tray,39.4,29.1,34.4,5.06,7.6,1.4,2.0,20.1,0,Root Rot Risk
+Aug,Hydroponic,Cucumber,NFT,31.3,85.4,26.3,0.67,6.7,1.8,4.8,13.7,0,Root Rot Risk
+Jan,Microgreen,Broccoli,Tray,8.4,46.5,11.4,0.59,5.8,1.3,10.0,10.3,1,Optimal
+Jan,Hydroponic,Basil (Hydro),DWC,13.0,54.2,16.0,0.69,6.6,1.3,8.4,8.8,1,Optimal
+Feb,Hydroponic,Lettuce,NFT,24.7,39.5,27.7,1.88,5.2,1.6,4.3,16.5,0,Root Rot Risk
+Nov,Microgreen,Beetroot,Tray,11.2,52.4,14.2,0.63,6.3,0.6,9.0,6.6,1,Optimal
+Nov,Hydroponic,Bell Pepper,DWC,19.7,40.1,22.7,1.37,7.3,1.3,6.1,5.9,0,Nutrient Lockout
+Aug,Microgreen,Beetroot,Tray,32.8,73.1,27.8,1.34,6.3,1.9,4.3,13.0,0,Root Rot Risk
+Feb,Hydroponic,Basil (Hydro),DWC,24.5,35.1,27.5,2.0,6.9,1.2,4.4,16.2,0,Root Rot Risk
+Jun,Microgreen,Beetroot,Tray,43.6,28.3,38.6,6.4,6.6,2.4,2.0,19.1,0,Root Rot Risk
+Feb,Hydroponic,Spinach,NFT,23.1,34.7,26.1,1.84,5.2,1.0,4.9,15.6,0,Root Rot Risk
+Apr,Microgreen,Arugula,Tray,46.8,21.5,41.8,8.25,7.1,2.4,2.0,23.7,0,Root Rot Risk
+Oct,Microgreen,Cilantro,Tray,25.5,43.9,28.5,1.83,7.5,0.9,4.0,19.1,0,Root Rot Risk
+Oct,Hydroponic,Celery,DWC,28.0,43.2,31.0,2.14,5.7,0.7,3.2,14.9,0,Root Rot Risk
+Jan,Hydroponic,Lettuce,NFT,15.4,58.7,18.4,0.72,7.8,2.0,7.6,11.3,0,Nutrient Lockout
+Oct,Microgreen,Beetroot,Tray,22.5,35.6,25.5,1.76,7.2,0.9,5.1,15.0,0,Nutrient Lockout
+Jul,Microgreen,Mustard,Tray,34.6,73.5,29.6,1.45,7.5,0.6,3.6,12.6,0,Root Rot Risk
+Aug,Microgreen,Sunflower,Tray,34.6,87.7,29.6,0.68,7.4,1.2,3.7,9.0,0,Root Rot Risk
+Jul,Hydroponic,Pak Choi,DWC,31.5,70.9,26.5,1.34,6.7,1.7,4.7,8.5,0,Root Rot Risk
+May,Microgreen,Pea Shoots,Tray,40.5,18.8,35.5,6.16,6.8,2.1,2.0,18.5,0,Root Rot Risk
+Dec,Microgreen,Amaranth,Tray,16.7,45.3,19.7,1.04,5.4,2.3,7.1,11.8,0,Nutrient Lockout
+Jan,Microgreen,Broccoli,Tray,15.7,59.4,18.7,0.72,5.2,2.4,7.5,5.4,0,Nutrient Lockout
+Jul,Microgreen,Mustard,Tray,30.1,89.0,25.1,0.47,5.2,2.5,5.2,8.7,0,Mold/Fungal Risk
+Jan,Hydroponic,Bell Pepper,NFT,11.3,43.7,14.3,0.75,7.6,0.8,9.0,8.3,0,Nutrient Lockout
+Sep,Hydroponic,Bell Pepper,DWC,30.9,77.2,25.9,1.02,6.7,1.8,4.9,10.8,1,Optimal
+Jan,Hydroponic,Mint,DWC,9.1,49.1,12.1,0.59,7.5,2.1,9.8,9.9,0,Nutrient Lockout
+Aug,Hydroponic,Celery,NFT,32.0,94.1,27.0,0.28,7.3,2.4,4.5,9.7,0,Root Rot Risk
+Jul,Hydroponic,Pak Choi,NFT,28.8,86.5,31.8,0.53,5.4,2.4,2.9,13.7,0,Root Rot Risk
+Sep,Hydroponic,Spinach,NFT,34.4,93.3,29.4,0.36,5.5,1.1,3.7,13.4,0,Root Rot Risk
+Jun,Microgreen,Pea Shoots,Tray,41.5,18.9,36.5,6.47,6.3,2.1,2.0,18.7,0,Root Rot Risk
+Aug,Hydroponic,Bell Pepper,DWC,34.7,73.5,29.7,1.46,5.2,1.2,3.6,12.6,0,Root Rot Risk
+Dec,Microgreen,Amaranth,Tray,11.9,48.6,14.9,0.71,6.0,1.4,8.8,8.0,1,Optimal
+Dec,Microgreen,Radish,Tray,19.5,49.4,22.5,1.15,6.5,0.6,6.1,8.9,1,Optimal
+Mar,Microgreen,Amaranth,Tray,27.9,32.7,30.9,2.53,5.6,2.0,3.2,15.4,0,Root Rot Risk
+Dec,Hydroponic,Lettuce,NFT,18.3,54.6,21.3,0.96,6.4,1.5,6.5,8.0,1,Optimal
+Mar,Microgreen,Mustard,Tray,27.9,41.6,30.9,2.2,7.5,1.8,3.2,15.2,0,Root Rot Risk
+Feb,Hydroponic,Celery,NFT,26.0,40.7,29.0,1.99,5.6,2.1,3.9,18.5,0,Root Rot Risk
+Sep,Hydroponic,Pak Choi,NFT,29.6,74.1,32.6,1.07,6.0,1.5,2.6,14.4,0,Root Rot Risk
+Mar,Microgreen,Radish,Tray,31.2,36.8,26.2,2.87,6.0,0.9,4.8,15.8,0,Root Rot Risk
+Feb,Hydroponic,Strawberry,DWC,24.9,31.1,27.9,2.17,7.3,0.6,4.2,16.2,0,Root Rot Risk
+Apr,Microgreen,Mustard,Tray,37.0,25.3,32.0,4.69,7.5,0.8,2.8,22.4,0,Root Rot Risk
+Dec,Hydroponic,Celery,NFT,14.0,40.2,17.0,0.96,7.1,2.4,8.0,6.8,0,Nutrient Lockout
+Mar,Microgreen,Pea Shoots,Tray,31.1,42.0,26.1,2.62,6.3,1.2,4.9,16.4,0,Root Rot Risk
+Nov,Hydroponic,Kale,DWC,8.4,42.6,11.4,0.63,5.3,1.6,10.0,5.1,0,Nutrient Lockout
+Jul,Hydroponic,Bell Pepper,DWC,31.3,75.5,26.3,1.12,6.3,1.2,4.8,11.1,0,Root Rot Risk
+Sep,Hydroponic,Strawberry,DWC,34.8,80.1,29.8,1.11,7.1,2.3,3.6,14.9,0,Root Rot Risk
+Apr,Hydroponic,Celery,NFT,45.8,16.4,40.8,8.35,5.7,1.7,2.0,21.4,0,Root Rot Risk
+Jul,Hydroponic,Strawberry,NFT,29.0,70.9,32.0,1.17,6.7,2.2,2.8,9.9,0,Root Rot Risk
+Jan,Microgreen,Cilantro,Tray,11.9,44.9,14.9,0.77,7.3,0.8,8.8,10.9,0,Nutrient Lockout
+Feb,Hydroponic,Spinach,NFT,24.1,31.5,27.1,2.05,7.6,0.6,4.5,17.0,0,Root Rot Risk
+Apr,Microgreen,Mustard,Tray,44.4,26.8,39.4,6.81,7.0,0.6,2.0,21.9,0,Root Rot Risk
+Jun,Microgreen,Mustard,Tray,44.8,15.5,39.8,8.03,6.1,2.1,2.0,18.8,0,Root Rot Risk
+Aug,Hydroponic,Mint,DWC,29.0,71.0,32.0,1.16,5.2,1.2,2.8,12.2,0,Root Rot Risk
+Sep,Hydroponic,Strawberry,NFT,29.1,70.1,32.1,1.21,5.7,1.9,2.8,14.3,0,Root Rot Risk
+Oct,Microgreen,Basil (MG),Tray,22.6,47.1,25.6,1.45,7.0,1.2,5.1,19.8,1,Optimal
+Mar,Microgreen,Arugula,Tray,28.7,42.0,31.7,2.28,7.0,0.9,2.9,15.0,0,Root Rot Risk
+Oct,Hydroponic,Cherry Tomato,DWC,24.0,38.8,27.0,1.83,6.9,0.8,4.5,16.1,0,Root Rot Risk
+Jun,Hydroponic,Basil (Hydro),NFT,47.2,23.0,42.2,8.25,7.0,2.2,2.0,20.2,0,Root Rot Risk
+Jun,Hydroponic,Lettuce,NFT,40.2,19.0,35.2,6.02,5.3,0.9,2.0,18.5,0,Root Rot Risk
+Dec,Microgreen,Pea Shoots,Tray,18.9,59.9,21.9,0.88,7.2,2.1,6.3,10.4,0,Nutrient Lockout
+May,Hydroponic,Basil (Hydro),DWC,36.4,28.1,31.4,4.38,7.2,1.0,3.0,24.7,0,Root Rot Risk
+Jan,Hydroponic,Cherry Tomato,DWC,14.6,46.0,17.6,0.9,7.3,1.9,7.9,6.4,0,Nutrient Lockout
+Nov,Microgreen,Sunflower,Tray,11.2,43.2,14.2,0.75,6.0,1.3,9.0,6.6,1,Optimal
+May,Hydroponic,Basil (Hydro),NFT,45.5,22.2,40.5,7.65,5.9,0.8,2.0,20.5,0,Root Rot Risk
+Sep,Microgreen,Arugula,Tray,31.9,88.3,26.9,0.55,6.0,1.3,4.6,13.1,0,Root Rot Risk
+Sep,Microgreen,Sunflower,Tray,28.9,85.7,31.9,0.57,6.4,1.2,2.8,9.9,0,Root Rot Risk
+Apr,Microgreen,Cilantro,Tray,40.7,15.7,35.7,6.46,7.3,2.2,2.0,23.2,0,Root Rot Risk
+Nov,Hydroponic,Cucumber,DWC,10.0,53.7,13.0,0.57,7.4,0.5,9.5,5.5,0,Nutrient Lockout
+Feb,Microgreen,Broccoli,Tray,27.2,46.2,30.2,1.95,5.3,2.3,3.4,17.6,0,Root Rot Risk
+Dec,Hydroponic,Bell Pepper,NFT,13.4,55.9,16.4,0.68,6.3,1.0,8.3,7.8,1,Optimal
+Jun,Microgreen,Radish,Tray,47.2,21.6,42.2,8.4,7.2,2.1,2.0,21.9,0,Root Rot Risk
+Feb,Microgreen,Broccoli,Tray,31.1,30.8,26.1,3.12,6.8,2.0,4.9,16.3,0,Root Rot Risk
+Sep,Hydroponic,Cucumber,DWC,28.9,92.8,31.9,0.28,6.6,0.6,2.8,10.8,0,Root Rot Risk
+Sep,Microgreen,Amaranth,Tray,34.8,91.2,29.8,0.49,5.2,1.4,3.6,12.9,0,Root Rot Risk
+Jul,Hydroponic,Kale,NFT,32.3,78.3,27.3,1.05,5.5,1.6,4.4,13.3,0,Root Rot Risk
+Dec,Hydroponic,Mint,DWC,18.4,48.0,21.4,1.1,5.3,1.1,6.5,6.9,0,Nutrient Lockout
+Dec,Hydroponic,Strawberry,DWC,17.4,52.3,20.4,0.95,7.7,1.5,6.8,9.2,0,Nutrient Lockout
+Jul,Hydroponic,Celery,NFT,34.9,71.4,29.9,1.59,6.6,1.3,3.5,11.0,0,Root Rot Risk
+Nov,Hydroponic,Celery,NFT,12.1,57.3,15.1,0.6,7.4,0.9,8.7,8.4,0,Nutrient Lockout
+Jul,Hydroponic,Strawberry,NFT,34.1,70.1,29.1,1.6,6.0,1.1,3.8,11.4,0,Root Rot Risk
+Feb,Hydroponic,Pak Choi,NFT,26.8,32.9,29.8,2.36,6.2,0.5,3.6,18.8,0,Root Rot Risk
+Feb,Hydroponic,Mint,NFT,23.6,36.1,26.6,1.86,6.3,0.8,4.7,19.3,0,Root Rot Risk
+Jul,Microgreen,Kohlrabi,Tray,30.1,72.9,25.1,1.16,6.6,0.8,5.2,14.4,1,Optimal
+Feb,Microgreen,Arugula,Tray,22.1,40.9,25.1,1.57,5.5,1.2,5.2,19.7,1,Optimal
+Mar,Microgreen,Beetroot,Tray,22.2,33.2,25.2,1.79,6.0,0.9,5.2,19.3,1,Optimal
+Mar,Hydroponic,Lettuce,NFT,28.0,44.8,31.0,2.09,6.0,1.4,3.2,16.8,0,Root Rot Risk
+Aug,Hydroponic,Cherry Tomato,DWC,31.8,87.1,26.8,0.61,7.0,1.1,4.6,11.6,0,Root Rot Risk
+Jun,Microgreen,Mustard,Tray,40.0,25.8,35.0,5.46,6.6,0.9,2.0,23.5,0,Root Rot Risk
+May,Hydroponic,Cucumber,DWC,47.6,28.6,42.6,7.81,6.1,2.4,2.0,19.1,0,Root Rot Risk
+Feb,Hydroponic,Cherry Tomato,NFT,27.9,47.0,30.9,2.0,6.2,0.9,3.2,15.4,0,Root Rot Risk
+Oct,Microgreen,Kohlrabi,Tray,31.8,38.0,26.8,2.92,6.1,0.6,4.6,15.0,0,Root Rot Risk
+Oct,Microgreen,Basil (MG),Tray,27.2,43.7,30.2,2.02,5.9,1.0,3.4,15.7,0,Root Rot Risk
+Aug,Hydroponic,Celery,NFT,33.1,77.4,28.1,1.14,6.3,2.3,4.2,13.4,0,Root Rot Risk
+Jan,Hydroponic,Lettuce,NFT,14.2,46.4,17.2,0.87,7.1,1.8,8.0,9.2,0,Nutrient Lockout
+Oct,Hydroponic,Cucumber,NFT,26.7,39.2,29.7,2.14,6.8,2.4,3.6,19.6,0,Root Rot Risk
+Dec,Hydroponic,Celery,DWC,12.8,50.6,15.8,0.73,5.8,0.7,8.5,12.0,1,Optimal
+Dec,Hydroponic,Lettuce,DWC,15.4,56.3,18.4,0.77,6.6,1.0,7.5,11.5,1,Optimal
+Jan,Microgreen,Pea Shoots,Tray,18.9,59.3,21.9,0.89,5.3,0.7,6.3,12.0,0,Nutrient Lockout
+Jun,Microgreen,Radish,Tray,36.7,24.5,31.7,4.65,6.9,1.7,2.9,18.7,0,Root Rot Risk
+May,Hydroponic,Celery,NFT,47.2,15.9,42.2,9.0,5.7,2.1,2.0,21.3,0,Root Rot Risk
+Nov,Hydroponic,Spinach,DWC,9.2,45.4,12.2,0.64,5.9,2.0,9.7,10.9,1,Optimal
+Jan,Microgreen,Pea Shoots,Tray,15.2,53.8,18.2,0.8,5.9,2.4,7.6,12.0,1,Optimal
+Oct,Microgreen,Arugula,Tray,28.1,34.3,31.1,2.49,7.6,1.6,3.1,15.8,0,Root Rot Risk
+Oct,Hydroponic,Cherry Tomato,DWC,23.0,46.8,26.0,1.49,6.7,2.3,4.9,14.7,1,Optimal
+Apr,Hydroponic,Cherry Tomato,DWC,39.7,18.3,34.7,5.93,5.8,1.4,2.0,18.4,0,Root Rot Risk
+Mar,Microgreen,Kohlrabi,Tray,27.1,40.5,30.1,2.13,6.3,1.9,3.5,18.6,0,Root Rot Risk
+Mar,Microgreen,Cilantro,Tray,28.9,31.5,31.9,2.73,6.5,1.2,2.8,17.1,0,Root Rot Risk
+Jan,Microgreen,Basil (MG),Tray,15.6,46.7,18.6,0.94,7.5,1.7,7.5,5.4,0,Nutrient Lockout
+Aug,Hydroponic,Bell Pepper,NFT,31.5,85.3,26.5,0.68,7.5,1.3,4.7,14.3,0,Root Rot Risk
+Oct,Microgreen,Broccoli,Tray,31.1,49.0,26.1,2.3,7.4,0.7,4.9,18.5,0,Root Rot Risk
+Jun,Microgreen,Mustard,Tray,44.4,25.5,39.4,6.93,6.8,1.2,2.0,20.6,0,Root Rot Risk
+Jul,Microgreen,Radish,Tray,29.7,83.9,32.7,0.67,6.4,0.6,2.5,9.8,0,Root Rot Risk
+Jul,Microgreen,Pea Shoots,Tray,28.1,92.7,31.1,0.28,5.3,1.7,3.1,10.3,0,Root Rot Risk
+Aug,Hydroponic,Cherry Tomato,NFT,34.3,87.7,29.3,0.66,7.2,1.3,3.7,14.5,0,Root Rot Risk
+May,Microgreen,Mustard,Tray,36.4,23.8,31.4,4.62,5.6,0.7,3.0,21.9,0,Root Rot Risk
+Jan,Microgreen,Beetroot,Tray,14.1,50.2,17.1,0.8,5.2,0.9,8.0,10.7,0,Nutrient Lockout
+Feb,Microgreen,Basil (MG),Tray,22.7,41.0,25.7,1.62,6.9,1.0,5.0,19.2,1,Optimal
+Mar,Hydroponic,Mint,DWC,23.8,40.3,26.8,1.76,7.1,2.3,4.6,18.4,0,Root Rot Risk
+Apr,Microgreen,Radish,Tray,40.3,28.7,35.3,5.35,6.2,1.1,2.0,23.7,0,Root Rot Risk
+Apr,Hydroponic,Pak Choi,DWC,45.8,22.1,40.8,7.8,6.9,1.3,2.0,21.5,0,Root Rot Risk
+Aug,Microgreen,Arugula,Tray,30.5,71.4,25.5,1.25,7.7,1.9,5.1,13.2,0,Nutrient Lockout
+Sep,Hydroponic,Kale,NFT,33.3,75.4,28.3,1.26,7.1,1.1,4.1,9.6,0,Root Rot Risk
+Feb,Microgreen,Beetroot,Tray,30.9,31.0,25.9,3.08,6.8,1.7,4.9,19.1,0,VPD Stress
+Jan,Microgreen,Basil (MG),Tray,13.3,46.4,16.3,0.82,5.8,0.7,8.3,6.2,1,Optimal
+Sep,Microgreen,Kohlrabi,Tray,33.5,88.8,28.5,0.58,5.2,2.5,4.0,10.3,0,Root Rot Risk
+Feb,Hydroponic,Bell Pepper,NFT,28.6,47.5,31.6,2.05,6.2,1.8,2.9,18.5,0,Root Rot Risk
+Feb,Microgreen,Beetroot,Tray,23.6,35.8,26.6,1.88,7.7,1.3,4.7,17.3,0,Root Rot Risk
+Jun,Hydroponic,Spinach,NFT,38.5,15.6,33.5,5.73,7.0,0.9,2.3,20.9,0,Root Rot Risk
+Feb,Hydroponic,Cucumber,DWC,29.4,36.6,32.4,2.6,7.2,1.2,2.7,19.3,0,Root Rot Risk
+Apr,Hydroponic,Celery,NFT,41.2,24.9,36.2,5.9,6.9,1.7,2.0,20.6,0,Root Rot Risk
+Jul,Hydroponic,Strawberry,DWC,28.7,82.2,31.7,0.7,5.9,0.6,2.9,13.1,0,Root Rot Risk
+Jun,Microgreen,Arugula,Tray,42.3,17.8,37.3,6.84,7.6,1.3,2.0,18.0,0,Root Rot Risk
+Aug,Microgreen,Kohlrabi,Tray,31.0,72.1,26.0,1.26,6.3,0.8,4.9,12.6,0,Root Rot Risk
+Oct,Microgreen,Radish,Tray,31.4,35.0,26.4,2.99,7.5,0.7,4.8,15.1,0,Root Rot Risk
+Dec,Hydroponic,Spinach,DWC,8.7,53.8,11.7,0.52,6.8,2.2,9.9,7.5,1,Optimal
+Feb,Microgreen,Radish,Tray,27.0,34.9,30.0,2.31,6.4,0.8,3.5,19.1,0,Root Rot Risk
+Nov,Microgreen,Amaranth,Tray,10.7,58.1,13.7,0.54,6.3,1.6,9.2,11.6,1,Optimal
+Apr,Microgreen,Sunflower,Tray,36.3,17.9,31.3,4.97,7.5,1.3,3.0,23.1,0,Root Rot Risk
+Jul,Hydroponic,Mint,NFT,33.2,75.4,28.2,1.25,6.2,1.3,4.1,12.1,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,12.8,41.9,15.8,0.86,5.7,2.2,8.5,6.7,1,Optimal
+Dec,Microgreen,Basil (MG),Tray,15.2,43.3,18.2,0.98,7.8,0.6,7.6,11.0,0,Nutrient Lockout
+Sep,Hydroponic,Lettuce,DWC,31.6,88.6,26.6,0.53,7.4,1.6,4.7,13.3,0,Root Rot Risk
+Jul,Hydroponic,Cucumber,DWC,33.1,79.0,28.1,1.06,7.4,1.5,4.2,11.8,0,Root Rot Risk
+Jun,Microgreen,Radish,Tray,47.3,27.5,42.3,7.81,5.5,1.6,2.0,21.5,0,Root Rot Risk
+Mar,Microgreen,Basil (MG),Tray,29.0,37.1,32.0,2.52,5.4,2.1,2.8,14.0,0,Root Rot Risk
+Jul,Hydroponic,Spinach,DWC,34.2,75.5,29.2,1.32,7.4,0.6,3.8,14.0,0,Root Rot Risk
+Jul,Hydroponic,Cucumber,NFT,30.1,75.8,25.1,1.03,6.4,0.6,5.2,14.8,1,Optimal
+Sep,Hydroponic,Spinach,DWC,33.1,79.3,28.1,1.05,6.7,1.2,4.2,13.6,0,Root Rot Risk
+Nov,Hydroponic,Kale,NFT,12.5,52.0,15.5,0.7,7.1,1.5,8.6,11.0,0,Nutrient Lockout
+Jul,Hydroponic,Pak Choi,DWC,28.8,89.1,31.8,0.43,7.3,1.0,2.9,14.3,0,Root Rot Risk
+May,Hydroponic,Basil (Hydro),NFT,39.4,29.8,34.4,5.02,6.4,1.2,2.0,18.1,0,Root Rot Risk
+Aug,Microgreen,Beetroot,Tray,33.4,77.2,28.4,1.18,7.1,0.8,4.0,13.8,0,Root Rot Risk
+Mar,Microgreen,Kohlrabi,Tray,31.1,33.6,26.1,3.0,7.2,0.9,4.9,14.3,0,Root Rot Risk
+May,Hydroponic,Celery,NFT,43.7,23.3,38.7,6.87,6.3,2.5,2.0,22.0,0,Root Rot Risk
+Jan,Hydroponic,Celery,DWC,12.7,49.3,15.7,0.74,6.3,2.1,8.5,10.6,1,Optimal
+Jan,Hydroponic,Mint,DWC,10.0,47.6,13.0,0.64,7.2,1.5,9.4,11.6,0,Nutrient Lockout
+Nov,Hydroponic,Bell Pepper,DWC,11.1,57.9,14.1,0.56,6.5,0.6,9.1,10.4,1,Optimal
+Nov,Microgreen,Sunflower,Tray,14.1,51.0,17.1,0.79,6.2,2.4,8.0,11.6,1,Optimal
+Jul,Microgreen,Cilantro,Tray,34.1,85.3,29.1,0.78,6.8,1.2,3.8,12.6,0,Root Rot Risk
+May,Hydroponic,Cherry Tomato,DWC,38.4,16.8,33.4,5.62,6.6,1.7,2.3,20.8,0,Root Rot Risk
+Dec,Hydroponic,Cherry Tomato,NFT,15.8,42.6,18.8,1.03,7.3,0.9,7.4,5.2,0,Nutrient Lockout
+Mar,Microgreen,Pea Shoots,Tray,25.0,42.6,28.0,1.82,5.2,2.2,4.2,16.7,0,Root Rot Risk
+Jun,Hydroponic,Lettuce,DWC,38.3,27.1,33.3,4.92,7.0,1.8,2.3,20.1,0,Root Rot Risk
+Jan,Hydroponic,Strawberry,DWC,10.8,41.9,13.8,0.75,6.6,0.5,9.2,9.2,1,Optimal
+Sep,Microgreen,Broccoli,Tray,34.7,93.6,29.7,0.35,6.8,1.7,3.6,8.6,0,Root Rot Risk
+Oct,Microgreen,Basil (MG),Tray,23.7,32.7,26.7,1.97,5.9,1.1,4.7,17.6,0,Root Rot Risk
+May,Hydroponic,Lettuce,NFT,42.1,20.7,37.1,6.53,6.8,1.2,2.0,19.7,0,Root Rot Risk
+Mar,Microgreen,Mustard,Tray,27.0,42.6,30.0,2.04,7.8,2.3,3.5,17.4,0,Root Rot Risk
+Aug,Hydroponic,Kale,DWC,33.6,78.2,28.6,1.13,6.9,1.3,4.0,9.9,0,Root Rot Risk
+Apr,Microgreen,Mustard,Tray,38.4,17.9,33.4,5.56,6.1,2.3,2.3,22.9,0,Root Rot Risk
+Sep,Hydroponic,Lettuce,DWC,28.8,82.4,31.8,0.7,6.9,2.3,2.9,14.7,0,Root Rot Risk
+Aug,Hydroponic,Cucumber,NFT,28.9,81.1,31.9,0.75,5.2,2.4,2.8,10.4,0,Root Rot Risk
+Jan,Microgreen,Cilantro,Tray,19.9,56.7,22.9,1.01,5.8,0.7,6.0,6.2,1,Optimal
+Oct,Microgreen,Amaranth,Tray,27.5,44.4,30.5,2.04,7.0,2.4,3.3,16.7,0,Root Rot Risk
+Jan,Microgreen,Broccoli,Tray,10.8,45.5,13.8,0.7,6.0,0.7,9.2,5.9,1,Optimal
+Aug,Microgreen,Broccoli,Tray,34.3,83.2,29.3,0.91,6.3,1.2,3.8,11.6,0,Root Rot Risk
+Nov,Hydroponic,Spinach,NFT,8.2,48.8,11.2,0.56,6.3,1.9,10.1,7.6,1,Optimal
+Jan,Microgreen,Mustard,Tray,9.9,51.6,12.9,0.59,6.7,1.6,9.5,7.3,1,Optimal
+Nov,Hydroponic,Cherry Tomato,NFT,16.9,48.6,19.9,0.99,6.7,1.0,7.0,9.5,1,Optimal
+May,Microgreen,Broccoli,Tray,46.3,19.3,41.3,8.26,6.3,2.0,2.0,23.4,0,Root Rot Risk
+Nov,Hydroponic,Pak Choi,NFT,13.4,40.5,16.4,0.92,5.3,1.9,8.3,9.3,0,Nutrient Lockout
+Aug,Hydroponic,Basil (Hydro),DWC,29.9,79.9,32.9,0.85,7.0,2.4,2.5,8.9,0,Root Rot Risk
+Aug,Microgreen,Cilantro,Tray,28.2,75.2,31.2,0.95,5.9,1.2,3.1,14.5,0,Root Rot Risk
+Sep,Hydroponic,Spinach,DWC,29.2,74.9,32.2,1.02,5.6,2.1,2.7,8.3,0,Root Rot Risk
+Dec,Microgreen,Radish,Tray,13.9,45.6,16.9,0.86,5.4,2.2,8.1,6.6,0,Nutrient Lockout
+Dec,Hydroponic,Pak Choi,DWC,10.7,47.7,13.7,0.67,7.4,0.9,9.2,8.0,0,Nutrient Lockout
+Oct,Microgreen,Basil (MG),Tray,24.5,42.8,27.5,1.76,7.5,1.4,4.4,17.5,0,Root Rot Risk
+Mar,Microgreen,Mustard,Tray,29.2,33.6,32.2,2.69,6.6,0.5,2.7,18.5,0,Root Rot Risk
+Jan,Hydroponic,Kale,DWC,14.0,58.1,17.0,0.67,6.7,1.0,8.0,5.5,1,Optimal
+Dec,Hydroponic,Kale,NFT,12.3,59.3,15.3,0.58,5.4,2.4,8.7,7.2,0,Nutrient Lockout
+Jun,Hydroponic,Cherry Tomato,DWC,43.8,29.9,38.8,6.33,6.9,1.4,2.0,19.0,0,Root Rot Risk
+Jul,Hydroponic,Celery,DWC,33.7,78.2,28.7,1.14,7.7,2.3,4.0,13.5,0,Root Rot Risk
+Mar,Hydroponic,Spinach,NFT,31.2,44.9,26.2,2.5,5.9,0.5,4.8,14.8,0,Root Rot Risk
+Nov,Hydroponic,Kale,DWC,16.9,46.7,19.9,1.03,5.4,1.9,7.0,11.8,0,Nutrient Lockout
+Oct,Microgreen,Beetroot,Tray,27.4,49.4,30.4,1.84,6.7,1.6,3.4,16.6,0,Root Rot Risk
+Apr,Hydroponic,Cherry Tomato,NFT,43.4,29.7,38.4,6.19,6.1,0.8,2.0,20.2,0,Root Rot Risk
+Dec,Microgreen,Beetroot,Tray,12.5,50.3,15.5,0.72,7.4,0.5,8.6,10.0,0,Nutrient Lockout
+Sep,Hydroponic,Celery,DWC,33.8,79.3,28.8,1.09,7.3,1.0,3.9,10.7,0,Root Rot Risk
+Sep,Hydroponic,Mint,DWC,30.9,74.3,25.9,1.15,7.1,1.9,4.9,9.7,0,Nutrient Lockout
+Oct,Hydroponic,Bell Pepper,NFT,23.9,34.6,26.9,1.94,5.8,0.7,4.6,18.0,0,Root Rot Risk
+Dec,Hydroponic,Mint,DWC,15.5,50.4,18.5,0.87,6.5,1.5,7.5,7.8,1,Optimal
+Sep,Microgreen,Broccoli,Tray,31.3,85.9,26.3,0.64,6.6,0.7,4.8,9.1,0,Root Rot Risk
+Apr,Microgreen,Mustard,Tray,37.1,25.5,32.1,4.7,6.6,2.1,2.8,22.6,0,Root Rot Risk
+Dec,Hydroponic,Spinach,DWC,18.0,56.1,21.0,0.91,7.5,2.1,6.7,8.6,0,Nutrient Lockout
+Apr,Microgreen,Basil (MG),Tray,44.9,25.7,39.9,7.08,6.6,0.7,2.0,22.7,0,Root Rot Risk
+Apr,Hydroponic,Strawberry,NFT,40.4,17.4,35.4,6.24,5.9,1.6,2.0,18.5,0,Root Rot Risk
+Feb,Hydroponic,Basil (Hydro),NFT,27.5,49.5,30.5,1.85,6.5,0.6,3.3,15.5,0,Root Rot Risk
+Feb,Microgreen,Kohlrabi,Tray,24.4,35.7,27.4,1.97,6.0,2.4,4.4,17.6,0,Root Rot Risk
+May,Microgreen,Broccoli,Tray,47.7,23.6,42.7,8.38,7.4,1.6,2.0,20.5,0,Root Rot Risk
+Feb,Microgreen,Mustard,Tray,28.7,35.6,31.7,2.54,7.5,2.3,2.9,15.6,0,Root Rot Risk
+Oct,Hydroponic,Cucumber,DWC,28.8,41.4,31.8,2.33,5.5,1.4,2.9,19.6,0,Root Rot Risk
+Apr,Microgreen,Radish,Tray,41.4,18.8,36.4,6.44,5.8,1.1,2.0,23.3,0,Root Rot Risk
+Oct,Microgreen,Radish,Tray,26.3,43.3,29.3,1.94,6.7,2.2,3.8,17.2,0,Root Rot Risk
+Feb,Hydroponic,Pak Choi,DWC,30.9,35.7,25.9,2.87,7.7,1.1,4.9,16.1,0,VPD Stress
+Jan,Hydroponic,Cucumber,DWC,8.0,50.3,11.0,0.53,5.9,1.1,10.1,5.1,1,Optimal
+Jun,Microgreen,Basil (MG),Tray,39.4,24.5,34.4,5.4,5.5,2.3,2.0,21.5,0,Root Rot Risk
+Sep,Microgreen,Sunflower,Tray,28.3,92.8,31.3,0.28,7.0,0.8,3.1,11.5,0,Root Rot Risk
+Sep,Microgreen,Radish,Tray,29.5,90.5,32.5,0.39,5.6,0.7,2.6,8.5,0,Root Rot Risk
+Nov,Microgreen,Pea Shoots,Tray,14.5,50.9,17.5,0.81,5.3,1.9,7.9,11.0,0,Nutrient Lockout
+Jul,Hydroponic,Lettuce,NFT,34.4,94.4,29.4,0.3,5.9,0.6,3.7,10.4,0,Root Rot Risk
+Nov,Hydroponic,Kale,NFT,12.7,43.0,15.7,0.84,5.9,2.1,8.5,11.6,1,Optimal
+Feb,Hydroponic,Basil (Hydro),NFT,30.6,44.1,25.6,2.45,7.6,1.8,5.1,14.5,0,Nutrient Lockout
+Oct,Microgreen,Amaranth,Tray,29.1,49.5,32.1,2.04,7.7,2.1,2.8,16.3,0,Root Rot Risk
+Sep,Hydroponic,Lettuce,NFT,29.9,84.5,32.9,0.65,7.6,0.6,2.5,8.5,0,Root Rot Risk
+Jun,Hydroponic,Basil (Hydro),DWC,46.9,22.1,41.9,8.22,5.7,2.1,2.0,19.2,0,Root Rot Risk
+Feb,Hydroponic,Strawberry,NFT,29.9,37.2,32.9,2.64,7.6,1.9,2.5,18.1,0,Root Rot Risk
+Aug,Microgreen,Cilantro,Tray,32.8,90.6,27.8,0.47,5.4,2.1,4.3,9.6,0,Root Rot Risk
+Sep,Microgreen,Arugula,Tray,32.6,94.2,27.6,0.29,7.6,1.2,4.3,8.9,0,Root Rot Risk
+May,Hydroponic,Pak Choi,DWC,38.0,22.8,33.0,5.11,7.7,1.2,2.5,24.7,0,Root Rot Risk
+Oct,Microgreen,Kohlrabi,Tray,30.3,39.5,25.3,2.61,7.1,2.2,5.1,17.1,0,VPD Stress
+Nov,Microgreen,Kohlrabi,Tray,9.8,52.7,12.8,0.57,5.9,1.6,9.5,7.5,1,Optimal
+Nov,Microgreen,Arugula,Tray,12.4,44.1,15.4,0.8,6.9,2.3,8.6,6.8,1,Optimal
+Apr,Microgreen,Sunflower,Tray,36.8,24.2,31.8,4.71,6.5,1.5,2.9,21.3,0,Root Rot Risk
+Dec,Microgreen,Broccoli,Tray,13.4,50.2,16.4,0.77,6.2,2.1,8.3,10.9,1,Optimal
+Aug,Hydroponic,Celery,DWC,28.9,92.5,31.9,0.3,5.3,1.5,2.8,8.8,0,Root Rot Risk
+Jun,Hydroponic,Strawberry,NFT,46.3,18.0,41.3,8.39,7.0,1.5,2.0,20.1,0,Root Rot Risk
+Apr,Microgreen,Kohlrabi,Tray,42.4,27.8,37.4,6.06,7.4,0.6,2.0,20.4,0,Root Rot Risk
+Aug,Hydroponic,Bell Pepper,NFT,32.8,74.2,27.8,1.29,7.3,2.3,4.3,12.7,0,Root Rot Risk
+Oct,Microgreen,Basil (MG),Tray,26.6,43.1,29.6,1.99,5.3,0.7,3.6,19.1,0,Root Rot Risk
+Jun,Microgreen,Broccoli,Tray,46.0,29.2,41.0,7.15,7.0,0.6,2.0,22.3,0,Root Rot Risk
+Apr,Hydroponic,Celery,DWC,36.1,28.3,31.1,4.29,6.9,1.7,3.1,18.5,0,Root Rot Risk
+Dec,Microgreen,Arugula,Tray,15.8,59.9,18.8,0.72,6.0,0.7,7.4,9.1,1,Optimal
+Dec,Microgreen,Mustard,Tray,15.9,53.4,18.9,0.84,6.3,1.2,7.4,10.3,1,Optimal
+Jul,Hydroponic,Lettuce,NFT,34.6,88.8,29.6,0.62,6.0,0.7,3.7,13.8,0,Root Rot Risk
+Feb,Hydroponic,Spinach,DWC,27.9,42.0,30.9,2.18,7.6,0.6,3.2,17.0,0,Root Rot Risk
+Nov,Hydroponic,Cucumber,DWC,16.5,55.8,19.5,0.83,5.5,0.8,7.2,6.1,1,Optimal
+Apr,Hydroponic,Strawberry,NFT,45.2,16.2,40.2,8.1,6.7,1.4,2.0,23.2,0,Root Rot Risk
+Mar,Microgreen,Mustard,Tray,22.1,36.7,25.1,1.69,5.4,0.7,5.2,19.6,0,Nutrient Lockout
+Jan,Microgreen,Pea Shoots,Tray,16.2,53.1,19.2,0.86,5.6,1.1,7.3,5.9,1,Optimal
+Jan,Microgreen,Radish,Tray,15.5,52.9,18.5,0.83,6.7,1.8,7.5,6.5,1,Optimal
+Sep,Microgreen,Amaranth,Tray,34.5,88.0,29.5,0.66,7.6,1.8,3.7,11.5,0,Root Rot Risk
+Dec,Hydroponic,Bell Pepper,DWC,8.6,58.6,11.6,0.46,7.0,2.2,9.9,9.6,1,Optimal
+Jul,Microgreen,Kohlrabi,Tray,29.8,82.1,32.8,0.75,6.2,0.8,2.5,13.2,0,Root Rot Risk
+Jan,Hydroponic,Cucumber,DWC,13.4,57.2,16.4,0.66,7.2,2.1,8.2,6.4,0,Nutrient Lockout
+Mar,Hydroponic,Cucumber,NFT,27.2,43.4,30.2,2.05,5.5,1.6,3.4,17.0,0,Root Rot Risk
+Aug,Hydroponic,Mint,NFT,31.8,71.5,26.8,1.34,7.2,2.2,4.6,11.9,0,Root Rot Risk
+Jun,Microgreen,Broccoli,Tray,47.0,18.1,42.0,8.67,5.6,1.7,2.0,22.6,0,Root Rot Risk
+Feb,Hydroponic,Cherry Tomato,NFT,29.5,33.7,32.5,2.73,5.9,2.4,2.6,19.0,0,Root Rot Risk
+Dec,Microgreen,Radish,Tray,16.4,46.5,19.4,1.0,7.6,0.9,7.2,11.4,0,Nutrient Lockout
+Jun,Microgreen,Kohlrabi,Tray,40.2,24.6,35.2,5.61,7.8,1.4,2.0,22.0,0,Root Rot Risk
+Apr,Hydroponic,Basil (Hydro),NFT,42.2,24.8,37.2,6.24,5.3,1.9,2.0,21.9,0,Root Rot Risk
+Mar,Microgreen,Cilantro,Tray,25.6,39.6,28.6,1.99,5.2,2.1,4.0,14.8,0,Root Rot Risk
+Apr,Microgreen,Arugula,Tray,43.4,20.8,38.4,7.0,6.1,1.2,2.0,18.6,0,Root Rot Risk
+Aug,Hydroponic,Pak Choi,DWC,34.6,92.4,29.6,0.42,6.4,2.5,3.6,10.9,0,Root Rot Risk
+Mar,Microgreen,Sunflower,Tray,23.0,48.2,26.0,1.45,5.3,1.9,4.9,16.3,0,Nutrient Lockout
+Nov,Microgreen,Pea Shoots,Tray,17.8,43.3,20.8,1.15,6.3,1.2,6.7,9.6,1,Optimal
+Apr,Microgreen,Amaranth,Tray,41.9,18.5,36.9,6.66,5.4,0.6,2.0,20.8,0,Root Rot Risk
+Sep,Hydroponic,Bell Pepper,DWC,34.7,82.0,29.7,1.0,5.2,0.7,3.6,13.4,0,Root Rot Risk
+Dec,Microgreen,Amaranth,Tray,13.6,40.5,16.6,0.93,6.7,1.6,8.2,5.3,1,Optimal
+Mar,Hydroponic,Lettuce,DWC,29.7,48.7,32.7,2.13,5.7,1.5,2.6,17.1,0,Root Rot Risk
+Jan,Microgreen,Amaranth,Tray,17.8,45.5,20.8,1.11,7.3,2.1,6.7,6.6,0,Nutrient Lockout
+Jan,Microgreen,Kohlrabi,Tray,14.2,47.6,17.2,0.85,6.3,0.9,8.0,5.7,1,Optimal
+Aug,Hydroponic,Celery,DWC,28.9,85.8,31.9,0.57,6.5,0.6,2.8,8.8,0,Root Rot Risk
+May,Microgreen,Kohlrabi,Tray,47.4,21.3,42.4,8.54,7.6,1.3,2.0,24.7,0,Root Rot Risk
+Apr,Hydroponic,Strawberry,NFT,44.3,25.5,39.3,6.9,6.7,2.3,2.0,18.5,0,Root Rot Risk
+Mar,Hydroponic,Cherry Tomato,DWC,26.2,34.9,29.2,2.22,6.3,1.6,3.8,19.2,0,Root Rot Risk
+Aug,Hydroponic,Pak Choi,NFT,28.1,78.0,31.1,0.84,6.7,1.9,3.1,10.1,0,Root Rot Risk
+May,Microgreen,Pea Shoots,Tray,39.9,22.8,34.9,5.68,6.9,0.9,2.0,18.1,0,Root Rot Risk
+Nov,Hydroponic,Mint,DWC,9.8,58.5,12.8,0.5,7.1,1.8,9.5,6.1,0,Nutrient Lockout
+May,Hydroponic,Cucumber,DWC,45.0,26.6,40.0,7.05,6.3,0.7,2.0,19.1,0,Root Rot Risk
+Apr,Microgreen,Mustard,Tray,38.1,24.1,33.1,5.06,7.7,1.0,2.4,22.2,0,Root Rot Risk
+Jan,Hydroponic,Mint,NFT,9.8,45.4,12.8,0.66,5.3,0.7,9.5,6.3,0,Nutrient Lockout
+Nov,Hydroponic,Pak Choi,DWC,19.1,45.9,22.1,1.19,7.6,1.4,6.3,5.1,0,Nutrient Lockout
+Aug,Microgreen,Pea Shoots,Tray,31.1,87.3,26.1,0.57,7.1,1.6,4.9,11.7,0,Root Rot Risk
+Jun,Microgreen,Mustard,Tray,37.2,22.5,32.2,4.91,6.8,1.4,2.7,21.0,0,Root Rot Risk
+Jul,Hydroponic,Cucumber,NFT,34.0,92.4,29.0,0.4,5.6,2.2,3.9,8.5,0,Root Rot Risk
+Oct,Microgreen,Radish,Tray,31.3,39.1,26.3,2.79,5.9,0.6,4.8,19.9,0,Root Rot Risk
+Feb,Hydroponic,Celery,DWC,23.7,30.9,26.7,2.02,6.3,0.7,4.7,18.2,0,Root Rot Risk
+Aug,Microgreen,Radish,Tray,32.5,84.0,27.5,0.78,7.7,2.4,4.4,13.3,0,Root Rot Risk
+Sep,Hydroponic,Cherry Tomato,DWC,32.8,77.1,27.8,1.14,6.4,1.1,4.3,12.4,0,Root Rot Risk
+Feb,Microgreen,Beetroot,Tray,22.6,42.7,25.6,1.57,6.9,0.9,5.0,16.1,1,Optimal
+May,Microgreen,Basil (MG),Tray,38.1,25.2,33.1,4.98,6.7,1.9,2.4,23.2,0,Root Rot Risk
+Oct,Hydroponic,Lettuce,NFT,28.4,37.9,31.4,2.4,7.6,1.4,3.0,19.7,0,Root Rot Risk
+Jan,Microgreen,Sunflower,Tray,11.7,58.0,14.7,0.58,6.6,1.8,8.9,10.6,1,Optimal
+Jun,Microgreen,Kohlrabi,Tray,36.9,15.5,31.9,5.26,7.5,1.7,2.8,24.2,0,Root Rot Risk
+Jan,Microgreen,Sunflower,Tray,18.6,45.0,21.6,1.18,6.0,1.2,6.4,7.7,1,Optimal
+Nov,Microgreen,Arugula,Tray,14.4,52.3,17.4,0.78,7.1,0.6,7.9,10.3,0,Nutrient Lockout
+Jul,Microgreen,Broccoli,Tray,30.9,76.5,25.9,1.05,5.5,1.2,4.9,12.7,1,Optimal
+Dec,Hydroponic,Cherry Tomato,NFT,18.7,45.0,21.7,1.19,6.2,0.9,6.4,10.8,1,Optimal
+Mar,Hydroponic,Cucumber,DWC,25.8,41.3,28.8,1.95,6.5,1.5,3.9,19.8,0,Root Rot Risk
+Aug,Hydroponic,Mint,NFT,33.8,86.2,28.8,0.73,6.9,1.0,3.9,11.1,0,Root Rot Risk
+Dec,Hydroponic,Celery,DWC,15.6,42.5,18.6,1.02,5.4,1.0,7.5,6.4,0,Nutrient Lockout
+Dec,Hydroponic,Pak Choi,NFT,18.5,57.9,21.5,0.9,7.3,2.0,6.5,8.8,0,Nutrient Lockout
+Nov,Hydroponic,Spinach,NFT,19.8,48.0,22.8,1.2,6.5,1.6,6.0,10.9,1,Optimal
+Oct,Hydroponic,Cherry Tomato,DWC,22.6,35.0,25.6,1.79,6.3,1.8,5.0,14.3,1,Optimal
+Oct,Microgreen,Basil (MG),Tray,31.8,35.7,26.8,3.02,7.5,2.3,4.6,19.3,0,Root Rot Risk
+Oct,Microgreen,Kohlrabi,Tray,31.1,31.4,26.1,3.09,6.2,1.6,4.9,18.7,0,Root Rot Risk
+Jan,Hydroponic,Celery,NFT,15.4,43.4,18.4,0.99,5.4,2.4,7.6,9.0,0,Nutrient Lockout
+Oct,Microgreen,Basil (MG),Tray,31.4,32.9,26.4,3.08,6.9,0.8,4.8,19.1,0,Root Rot Risk
+Aug,Microgreen,Kohlrabi,Tray,29.8,73.6,32.8,1.11,5.3,1.6,2.5,10.9,0,Root Rot Risk
+Sep,Microgreen,Radish,Tray,29.6,73.4,32.6,1.1,7.3,2.2,2.6,11.8,0,Root Rot Risk
+Mar,Hydroponic,Mint,DWC,26.1,37.0,29.1,2.12,6.6,2.3,3.8,16.3,0,Root Rot Risk
+Nov,Hydroponic,Strawberry,NFT,16.3,43.5,19.3,1.05,6.5,2.0,7.2,8.3,1,Optimal
+Feb,Hydroponic,Lettuce,DWC,25.7,33.1,28.7,2.21,7.6,1.5,3.9,15.6,0,Root Rot Risk
+Feb,Hydroponic,Mint,NFT,26.7,43.2,29.7,1.99,6.5,1.7,3.6,16.5,0,Root Rot Risk
+Dec,Hydroponic,Cucumber,NFT,12.6,53.9,15.6,0.67,5.3,2.0,8.5,5.4,0,Nutrient Lockout
+Apr,Microgreen,Cilantro,Tray,44.0,18.1,39.0,7.45,6.2,1.7,2.0,20.8,0,Root Rot Risk
+Jun,Hydroponic,Cucumber,DWC,39.7,18.9,34.7,5.87,6.1,2.2,2.0,21.2,0,Root Rot Risk
+Sep,Microgreen,Pea Shoots,Tray,30.9,94.5,25.9,0.24,5.8,1.3,4.9,8.7,0,Mold/Fungal Risk
+Mar,Microgreen,Sunflower,Tray,22.3,35.8,25.3,1.73,5.7,2.3,5.2,17.5,1,Optimal
+Oct,Hydroponic,Cucumber,DWC,27.3,38.0,30.3,2.25,5.4,2.3,3.4,16.0,0,Root Rot Risk
+Jan,Hydroponic,Cucumber,NFT,12.7,46.2,15.7,0.79,7.1,2.4,8.5,8.8,0,Nutrient Lockout
+Jul,Hydroponic,Lettuce,DWC,30.4,94.1,25.4,0.26,5.4,2.2,5.1,11.2,0,VPD Stress
+Apr,Microgreen,Cilantro,Tray,44.4,25.3,39.4,6.93,5.4,1.1,2.0,24.3,0,Root Rot Risk
+Jul,Microgreen,Pea Shoots,Tray,34.6,71.0,29.6,1.59,6.2,1.4,3.6,14.0,0,Root Rot Risk
+Apr,Hydroponic,Cucumber,DWC,46.8,28.2,41.8,7.55,6.5,0.9,2.0,19.7,0,Root Rot Risk
+Jun,Microgreen,Cilantro,Tray,41.8,28.7,36.8,5.8,7.4,1.1,2.0,22.5,0,Root Rot Risk
+Jun,Microgreen,Sunflower,Tray,42.8,15.3,37.8,7.26,7.7,2.0,2.0,21.0,0,Root Rot Risk
+Nov,Microgreen,Sunflower,Tray,16.8,44.0,19.8,1.07,5.4,0.6,7.1,6.8,0,Nutrient Lockout
+Nov,Hydroponic,Basil (Hydro),DWC,14.1,50.8,17.1,0.79,5.4,1.0,8.0,10.1,0,Nutrient Lockout
+Sep,Hydroponic,Spinach,DWC,34.0,81.8,29.0,0.97,5.2,1.9,3.8,8.2,0,Root Rot Risk
+Jan,Microgreen,Kohlrabi,Tray,15.1,58.6,18.1,0.71,5.3,1.3,7.7,6.6,0,Nutrient Lockout
+Sep,Microgreen,Kohlrabi,Tray,30.6,86.2,25.6,0.61,5.5,2.5,5.0,12.1,0,Mold/Fungal Risk
+Sep,Microgreen,Basil (MG),Tray,31.2,84.4,26.2,0.71,6.7,1.6,4.8,13.2,0,Root Rot Risk
+Mar,Hydroponic,Lettuce,NFT,25.9,48.4,28.9,1.73,6.6,0.9,3.9,16.1,0,Root Rot Risk

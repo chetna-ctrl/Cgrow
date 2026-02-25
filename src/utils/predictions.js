@@ -64,10 +64,24 @@ export const predictHarvestDate = (crop, sowDate, solarHistory = []) => {
 };
 
 /**
- * Predict yield based on crop type and quantity
+ * Predict yield based on crop type, quantity, and accumulated stress
+ * @param {string} crop - Crop Name
+ * @param {number} quantity - Number of plants
+ * @param {number} stressHours - Total hours plant spent in "Danger Zone" (Lifetime)
  */
-export const predictYield = (crop, quantity = 1) => {
-    return getAverageYield(crop, quantity); // Returns grams
+export const predictYield = (crop, quantity = 1, stressHours = 0) => {
+    let idealYield = getAverageYield(crop, quantity); // Returns grams
+
+    // STRESS MEMORY LOSS
+    // 1 Day of stress (24h) = 2% permanent loss
+    // Why? Photosynthesis machinery damages take time to repair.
+    if (stressHours > 0) {
+        const stressDays = stressHours / 24;
+        const penaltyFactor = 1 - (stressDays * 0.02); // 2% per day
+        idealYield = idealYield * Math.max(0.5, penaltyFactor); // Max loss capped at 50%
+    }
+
+    return Math.floor(idealYield);
 };
 
 /**

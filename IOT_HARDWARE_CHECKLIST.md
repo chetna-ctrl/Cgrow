@@ -9,8 +9,12 @@ Before starting, ensure you have the following:
 - [ ] **Capacitive Soil Moisture Sensor v1.2** (Corrosion resistant)
 - [ ] **BH1750 Light Sensor** (Lux Measurement)
 - [ ] **1-Channel Relay Module** (5V or 3.3V trigger)
-- [ ] **12V DC Water Pump** (Small submersible)
-- [ ] **12V 2A Power Adapter** (For pump)
+- [ ] **12V DC Water Pump** (Generic "Chota Pump" - 3W to 5W submersible)
+- [ ] **12V 2A Power Adapter** (DC Jack) - Powers both Pump and cooling fans
+- [ ] **CO2 Sensor (Optional):**
+    - *Budget:* **SGP30** or **CCS811** (eCO2 - approx ₹800-1200)
+    - *Pro:* **MH-Z19B** (NDIR - approx ₹3500)
+    - *Expert Tip:* For beginners, skip CO2. Use a **12V DC Fan** for fresh air instead.
 - [ ] **Resistors:** 4.7k ohm (For DHT22)
 - [ ] **Jumper Wires:** Male-to-Female and Female-to-Female
 

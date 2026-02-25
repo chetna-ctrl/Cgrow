@@ -4,31 +4,49 @@ import { supabase } from '../lib/supabaseClient';
 // Get all harvest records (from localStorage in demo mode, or Supabase in real mode)
 // Get all harvest records (from Supabase)
 export async function getAllHarvests() {
-    // 🔒 PRODUCTION MODE: Fetch from Supabase
     try {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return [];
 
-        const { data, error } = await supabase
-            .from('harvests') // <--- NEW TABLE
+        // 1. Fetch from 'harvests' (Microgreens)
+        const { data: microData, error: microError } = await supabase
+            .from('harvests')
             .select('*')
-            .eq('user_id', user.id)
-            .order('harvest_date', { ascending: false });
+            .eq('user_id', user.id);
 
-        if (error) {
-            console.error('[Harvest Data] Error fetching:', error);
-            return [];
-        }
+        // 2. Fetch from 'harvest_records' (Hydroponics)
+        const { data: hydroData, error: hydroError } = await supabase
+            .from('harvest_records')
+            .select('*')
+            .eq('user_id', user.id);
 
-        // MAP TO LEGACY FORMAT for compatibility
-        return (data || []).map(h => ({
+        if (microError) console.error('[Harvest Data] Microgreens error:', microError);
+        if (hydroError) console.error('[Harvest Data] Hydroponics error:', hydroError);
+
+        // Normalize Microgreens
+        const micro = (microData || []).map(h => ({
             ...h,
             id: h.id,
-            total_revenue: h.revenue,
+            total_revenue: h.revenue || 0,
             yield_kg: (h.quantity_weight || 0) / 1000,
-            source_type: 'microgreens', // Default for now as table links to batches
+            source_type: 'microgreens',
+            display_notes: h.notes || 'Microgreens Harvest',
             harvest_date: h.harvest_date
         }));
+
+        // Normalize Hydroponics
+        const hydro = (hydroData || []).map(h => ({
+            ...h,
+            id: h.id,
+            total_revenue: h.total_revenue || 0,
+            yield_kg: h.yield_kg || 0,
+            source_type: 'hydroponics',
+            display_notes: `${h.crop || 'Hydro'} Harvest (${h.quality_grade || 'A'})`,
+            harvest_date: h.harvest_date
+        }));
+
+        // Combine and sort
+        return [...micro, ...hydro].sort((a, b) => new Date(b.harvest_date) - new Date(a.harvest_date));
     } catch (err) {
         console.error('[Harvest Data] Exception:', err);
         return [];

@@ -284,7 +284,23 @@ export function getDailyTaskAdvice(batch, dailyLogLightHours = 0, currentHumidit
     // 1. SAFETY CHECKS (Overrides Routine)
     // ==========================================
 
-    // CHECK A: High Humidity / Heavy Tray (Prevent Root Rot)
+    // CHECK A: Monsoon / High Humidity (Delhi Special)
+    // In July-Aug, humidity stays >80%. Misting > Mold.
+    if (currentHumidity > 80) {
+        return {
+            age,
+            watering: {
+                type: "⛔ NO MISTING",
+                tip: "Monsoon Mode: Humidity is high (>80%). Leaves will rot if wet.",
+                icon: "🌧️",
+                action: "MAX OUT FANS"
+            },
+            lighting: { status: "FAN OVERDRIVE", action: "Keep fans ON 24/7", is_blackout: isBlackoutPhase },
+            alerts: [{ type: 'danger', msg: '🌧️ Monsoon Alert: High fungal risk. Stop all foliar sprays.' }]
+        };
+    }
+
+    // CHECK B: High Humidity / Heavy Tray (Prevent Root Rot)
     const isHighHumidity = currentHumidity && currentHumidity > 75;
     const isTrayHeavy = trayWeightStatus === 'HEAVY' || trayWeightStatus === 'SOGGY' || trayWeightStatus === 'Bohot Bhaari (Soggy)';
 
@@ -430,18 +446,19 @@ export function estimatePPFD(lightType, weatherCondition = 'Sunny', distance = '
 export function calculateDLI(ppfd, hours, sensorLux = null, lightType = 'LED_TUBES_WHITE') {
     let finalPPFD = ppfd;
 
-    // 1. IOT SENSOR OVERRIDE (Precision Mode)
-    // Supports BH1750 (Digital Lux) and TSL2561
+    // 1. IOT SENSOR OVERRIDE (Precision Mode & Spectrum Logic)
     if (sensorLux && sensorLux > 0) {
-        // Scientific Conversion Factors (umol/m2/s per Lux)
-        const conversionFactor =
-            (lightType === 'SUNLIGHT' || lightType === 'WINDOW') ? 0.0185 : // Sunlight baseline
-                (lightType.includes('LED') || lightType.includes('GROW')) ? 0.022 : // LED-specific (More efficient photons)
-                    (lightType.includes('DIY') || lightType.includes('BULB')) ? 0.015 : // Generic Bulb
-                        0.0135; // Fluorescent/CFL
+        // IMPROVED: Spectrum-Specific Conversion Factors (Micromoles per Lux)
+        let conversionFactor = 0.0135; // Default White LED
+
+        // Specific Factors
+        if (lightType === 'SUNLIGHT' || lightType === 'WINDOW') conversionFactor = 0.0185;
+        else if (lightType === 'GROW_LIGHTS_PURPLE' || lightType === 'Blurple_LED') conversionFactor = 0.0120; // Purple efficient
+        else if (lightType === 'LED_TUBES_WHITE' || lightType === 'White_LED') conversionFactor = 0.0135;
+        else if (lightType === 'HPS') conversionFactor = 0.0120; // HPS
 
         finalPPFD = sensorLux * conversionFactor;
-        // console.log(`📡 IoT DLI Mode: ${sensorLux} Lux -> ${finalPPFD.toFixed(1)} PPFD`);
+        // console.log(`📡 IoT DLI Mode: ${sensorLux} Lux * ${conversionFactor} = ${finalPPFD.toFixed(1)} PPFD`);
     }
 
     // Formula: (PPFD * Hours * 3600) / 1,000,000
@@ -479,17 +496,32 @@ function calculateSVP(tempC) {
  * @returns {Object} { vpd_kpa, status, risk_factor, recommendation }
  */
 export function calculateVPD(airTempC, relativeHumidity) {
-    const svp = calculateSVP(airTempC);
-    const vpd = svp * (1 - relativeHumidity / 100);
+    // DELHI UPGRADE: Leaf Temperature Offset
+    // Leaves cool themselves via transpiration. T_leaf is typically ~2°C lower than T_air.
+    // Using T_air directly overestimates SVP at the leaf surface.
+    const leafTempOffset = 2.0;
+    const leafTempC = airTempC - leafTempOffset;
+
+    // SVP is calculated at the LEAF temperature
+    const svp = calculateSVP(leafTempC);
+
+    // VPD = SVP (Leaf) - VP (Air)
+    // But standard approximation: VPD = SVP * (1 - RH/100) using air temp is often used.
+    // For scientific accuracy (Agri-OS v2):
+    const vpAir = calculateSVP(airTempC) * (relativeHumidity / 100);
+    const vpd = svp - vpAir;
+
+    // Warning: If Vpd is negative (Dew Point reached on leaf), it's bad.
+    const finalVpd = Math.max(0, vpd);
 
     let status, risk_factor, recommendation;
 
     // Thresholds based on research (Table 2 from source document)
-    if (vpd < 0.4) {
+    if (finalVpd < 0.4) {
         status = 'DANGER: Fungal Risk';
         risk_factor = 'HIGH';
         recommendation = 'Increase ventilation or reduce humidity. Transpiration has stalled - Calcium transport blocked (Tip Burn risk).';
-    } else if (vpd >= 0.4 && vpd < 0.8) {
+    } else if (finalVpd >= 0.4 && finalVpd < 0.8) {
         status = 'CAUTION: Low Transpiration';
         risk_factor = 'MEDIUM';
         recommendation = 'Slightly increase air movement. Nutrient transport is suboptimal.';
@@ -1339,11 +1371,17 @@ export function calculateFarmHealth(logs, batchAge = 99, sourceType = 'hydroponi
         reasons.push("⚠️ Log Gap: Score adjusted due to estimated weather data for missing days.");
     }
 
+    // --------------------------------------------------------
+    // F. CALIBRATION & MAINTENANCE (Pro Check)
+    // --------------------------------------------------------
+    if (logs.days_since_calibration > 30) {
+        score -= 5;
+        reasons.push('📉 Calibration Drift: Sensors unchecked for >30 days. Accuracy penalty applied.');
+    }
+
     // CAP SCORE: If any Red Dot (DANGER), Max Score = 70.
-    if (details.light === 'DANGER' || details.air === 'DANGER' || details.nutrient === 'DANGER') {
+    if (reasons.some(r => r.includes('CRITICAL') || r.includes('DANGER'))) {
         score = Math.min(score, 70);
-    } else {
-        score = Math.min(score, 100);
     }
 
     return {

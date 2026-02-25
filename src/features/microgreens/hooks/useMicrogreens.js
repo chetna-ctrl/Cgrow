@@ -45,7 +45,7 @@ export const useMicrogreens = () => {
 
             const batchToInsert = {
                 user_id: user.id,
-                batch_id: `B${Date.now().toString().slice(-6)}`,
+                batch_id: newBatch.id || `B${Date.now().toString().slice(-6)}`,
                 crop: validated.crop,
                 qty: validated.qty,
                 tray_id: `${validated.qty} Trays`,
@@ -105,7 +105,7 @@ export const useMicrogreens = () => {
 
     // 3. MUTATION: Harvest Batch
     const harvestBatchMutation = useMutation({
-        mutationFn: async ({ id, yield_grams, quality_grade, price_per_kg, harvest_date }) => {
+        mutationFn: async ({ id, yield_kg, rating, revenue, harvestDate }) => {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) throw new Error("User not authenticated");
 
@@ -123,10 +123,10 @@ export const useMicrogreens = () => {
                 .from('batches')
                 .update({
                     status: 'Harvested',
-                    lifecycle_stage: 'completed', // <--- Added lifecycle update
-                    harvest_date,
-                    yield_grams,
-                    revenue: (yield_grams / 1000) * price_per_kg
+                    lifecycle_stage: 'completed',
+                    harvest_date: harvestDate,
+                    yield_grams: yield_kg * 1000,
+                    revenue: revenue
                 })
                 .eq('id', id);
 
@@ -134,15 +134,17 @@ export const useMicrogreens = () => {
 
             // 2. Create Harvest Record
             const { error: recordError } = await supabase
-                .from('harvests') // <--- CHANGED from harvest_records
+                .from('harvest_records')
                 .insert([{
                     user_id: user.id,
-                    batch_id: batch.id, // Use valid UUID
-                    quantity_weight: yield_grams, // Store in grams as per schema
-                    revenue: (yield_grams / 1000) * price_per_kg,
-                    waste_weight: 0, // Default for now
-                    harvest_date,
-                    notes: `Harvested ${batch.crop}. Grade: ${quality_grade}`
+                    source_type: 'microgreens',
+                    source_id: batch.id,
+                    crop: batch.crop,
+                    harvest_date: harvestDate,
+                    yield_kg: yield_kg,
+                    quality_grade: String(rating),
+                    total_revenue: revenue,
+                    notes: `Harvested ${batch.crop}. Rating: ${rating}/5`
                 }]);
 
             if (recordError) throw recordError;

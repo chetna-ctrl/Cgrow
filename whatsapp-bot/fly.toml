@@ -1,0 +1,40 @@
+# fly.toml — cGrow WhatsApp Bot
+# Auto-generated for Fly.io deployment
+# Docs: https://fly.io/docs/reference/configuration/
+
+app = "cgrow-whatsapp-bot"
+primary_region = "bom"          # Mumbai region (India ke nearest)
+kill_signal = "SIGINT"
+kill_timeout = "5s"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "3001"
+  NODE_ENV = "production"
+
+# Persistent Volume — WhatsApp session save karne ke liye
+# (Bina iske har restart pe dobara QR scan karna padega)
+[mounts]
+  source = "whatsapp_session"
+  destination = "/app/.wwebjs_auth"
+
+[http_service]
+  internal_port = 3001
+  force_https = true
+  auto_stop_machines = false     # Hamesha chalta rahe
+  auto_start_machines = true
+  min_machines_running = 1       # Always 1 machine on
+
+  [[http_service.checks]]
+    grace_period = "30s"
+    interval = "30s"
+    method = "GET"
+    path = "/status"
+    timeout = "5s"
+
+[[vm]]
+  memory = "512mb"               # Puppeteer ke liye minimum 512MB chahiye
+  cpu_kind = "shared"
+  cpus = 1

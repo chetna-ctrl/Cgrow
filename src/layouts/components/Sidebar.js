@@ -2,19 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
     LayoutDashboard,
-    Sprout,
-    Droplets,
-    DollarSign,
-    Activity,
+    Activity, // Operations Hub
+    Briefcase, // Business Hub
+    Cpu, // Tech Hub
     Settings,
     LogOut,
     User,
-    BarChart2,
-    Clock,
-    Bell, // Operations icon
-    X,
-    BookOpen,
-    Zap, // IoT Devices icon
+    ChevronRight,
+    Search,
+    X
 } from 'lucide-react';
 import { supabase } from '../../lib/supabaseClient';
 // import { isDemoMode } from '../../utils/sampleData';
@@ -67,54 +63,25 @@ const Sidebar = ({ onClose, onLogout }) => {
             </div>
 
             {/* 2. NAVIGATION - GROUPED STRUCTURE */}
-            <nav className="flex-1 overflow-y-auto p-4 custom-scrollbar">
-                {/* DASHBOARD SECTION */}
+            <nav className="flex-1 overflow-y-auto p-4 custom-scrollbar space-y-2 text-white">
+                {/* 1. CONTROL CENTER */}
                 <NavLink to="/dashboard" className={linkClasses}>
-                    <LayoutDashboard size={18} /> <span className="text-sm font-medium">Dashboard</span>
-                </NavLink>
-                <NavLink to="/tracker" className={linkClasses}>
-                    <Clock size={18} /> <span className="text-sm font-medium">Daily Tracker</span>
+                    <LayoutDashboard size={18} /> <span className="text-sm font-medium text-white">Dashboard</span>
                 </NavLink>
 
-                {/* Divider */}
-                <div className="border-t border-slate-700 my-3"></div>
-
-                {/* PRODUCTION SECTION */}
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2 flex items-center justify-between">
-                    Farm Operations
-                </p>
-                <NavLink to="/microgreens" className={linkClasses}>
-                    <Sprout size={18} /> <span className="text-sm font-medium">Microgreens</span>
-                </NavLink>
-                <NavLink to="/hydroponics" className={linkClasses}>
-                    <Droplets size={18} /> <span className="text-sm font-medium">Hydroponics</span>
-                </NavLink>
-                <NavLink to="/scheduler" className={linkClasses}>
-                    <Bell size={18} /> <span className="text-sm font-medium">Operations</span>
+                {/* 2. OPERATIONS HUB */}
+                <NavLink to="/ops" className={linkClasses}>
+                    <Activity size={18} className="text-emerald-400" /> <span className="text-sm font-medium text-white">Farm Ops</span>
                 </NavLink>
 
-                {/* Divider */}
-                <div className="border-t border-slate-700 my-3"></div>
-
-                {/* INTELLIGENCE SECTION */}
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Intelligence</p>
-                <NavLink to="/analytics" className={linkClasses}>
-                    <BarChart2 size={18} /> <span className="text-sm font-medium">Analytics</span>
-                </NavLink>
-                <NavLink to="/finance" className={linkClasses}>
-                    <DollarSign size={18} /> <span className="text-sm font-medium">Finance</span>
+                {/* 3. BUSINESS HUB */}
+                <NavLink to="/business" className={linkClasses}>
+                    <Briefcase size={18} className="text-indigo-400" /> <span className="text-sm font-medium text-white">Business Hub</span>
                 </NavLink>
 
-                {/* Divider */}
-                <div className="border-t border-slate-700 my-3"></div>
-
-                {/* RESOURCES SECTION */}
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Resources</p>
-                <NavLink to="/guide" className={linkClasses}>
-                    <BookOpen size={18} /> <span className="text-sm font-medium">Farming Guide</span>
-                </NavLink>
-                <NavLink to="/iot-devices" className={linkClasses}>
-                    <Zap size={18} /> <span className="text-sm font-medium">IoT Devices</span>
+                {/* 4. TECH HUB */}
+                <NavLink to="/tech" className={linkClasses}>
+                    <Cpu size={18} className="text-blue-400" /> <span className="text-sm font-medium text-white">Tech Academy</span>
                 </NavLink>
             </nav>
 

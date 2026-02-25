@@ -1,152 +1,164 @@
-import React, { useState } from 'react';
-import { TrendingUp, TrendingDown, Package, ShoppingCart, IndianRupee, BarChart3, Sparkles, Store, Edit2, Save, X } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { calculateOptimalPrice } from '../../utils/mlIntelligence';
+import { TrendingUp, TrendingDown, Package, ShoppingCart, IndianRupee, BarChart3, Sparkles, Store, Edit2, Save, X, Globe, RefreshCw, ArrowUpRight, Search, Map as MapIcon, Hammer, Box, Zap, Sprout, ShoppingBag, Droplets } from 'lucide-react';
+
+const cropPrices = [
+    { name: 'Basil', price: 350, change: 12.3, trend: 'up', demand: 'Very High', season: 'Summer/Monsoon' },
+    { name: 'Lettuce', price: 180, change: -2.1, trend: 'down', demand: 'High', season: 'Winter Standard' },
+    { name: 'Sunflower', price: 150, change: 5.4, trend: 'up', demand: 'Medium', season: 'Year-Round' },
+    { name: 'Arugula', price: 210, change: 0.8, trend: 'up', demand: 'High', season: 'Cool Season' },
+    { name: 'Radish', price: 120, change: -1.5, trend: 'down', demand: 'Stable', season: 'Year-Round' }
+];
+
+const categories = [
+    { id: 'crops', name: 'Crop Prices', icon: Sprout },
+    { id: 'microgreens', name: 'Microgreens Kit', icon: Box },
+    { id: 'hydroponics', name: 'Hydro Hardware', icon: Droplets },
+    { id: 'automation', name: 'IoT & Sensors', icon: Zap }
+];
+
+const equipmentCatalog = {
+    microgreens: [
+        { item: 'Industrial Grow Rack (5-Tier)', price: 4500, capacity: '20 Trays/Rack', supplier: 'Agri-Steel India' },
+        { item: '1020 Propagation Trays', price: 120, capacity: 'Standard', supplier: 'Mould-Tech' },
+        { item: 'Full Spectrum LED Bar', price: 1200, capacity: '20W per bar', supplier: 'Photonics' }
+    ],
+    hydroponics: [
+        { item: 'NFT Channel (110mm)', price: 850, capacity: '12ft / 24 plants', supplier: 'PipeLine' },
+        { item: '200L Nutrient Tank', price: 5000, capacity: '200L', supplier: 'Everlast Tanks' },
+        { item: 'High-Flow Water Pump', price: 2000, capacity: '1800 LPH', supplier: 'AquaFlow' }
+    ],
+    automation: [
+        { item: 'Smart Controller (Agri-OS)', price: 1200, capacity: '6-Relay Hub', supplier: 'Agri-Tech DIY' },
+        { item: 'Agri-Sensor Pro Kit', price: 3500, capacity: 'pH/EC/Temp', supplier: 'Datalogger Labs' },
+        { item: 'Solenoid Valve (1/2")', price: 850, capacity: 'Standard', supplier: 'Valvo' }
+    ]
+};
 
 const MarketPage = () => {
     const [selectedCategory, setSelectedCategory] = useState('crops');
     const [editMode, setEditMode] = useState(false);
-    const [editingItem, setEditingItem] = useState(null);
     const [customPrices, setCustomPrices] = useState({});
+    const [weatherData, setWeatherData] = useState({ temp: 30, humidity: 45 });
+    const [editingItem, setEditingItem] = useState(null);
 
-    // Market Prices for Microgreens (India)
-    const cropPrices = [
-        { name: 'Radish (Mooli)', price: 180, change: +8.5, trend: 'up', demand: 'High', season: 'Year-round' },
-        { name: 'Fenugreek (Methi)', price: 150, change: +5.2, trend: 'up', demand: 'High', season: 'Winter peak' },
-        { name: 'Mustard (Sarson)', price: 160, change: -2.1, trend: 'down', demand: 'Medium', season: 'Year-round' },
-        { name: 'Coriander (Dhania)', price: 220, change: +12.3, trend: 'up', demand: 'Very High', season: 'Year-round' },
-        { name: 'Sunflower', price: 200, change: +6.8, trend: 'up', demand: 'High', season: 'Summer peak' },
-        { name: 'Amaranth (Chaulai)', price: 170, change: +3.4, trend: 'up', demand: 'Medium', season: 'Monsoon peak' }
-    ];
+    useEffect(() => {
+        const cached = localStorage.getItem('cGrow_weather_cache');
+        if (cached) setWeatherData(JSON.parse(cached));
+    }, []);
 
-    // Equipment Prices (Comprehensive)
-    const equipmentPrices = {
-        hydroponics: [
-            { item: 'NFT System (Basic)', capacity: '50 plants', price: 10000, supplier: 'Local vendors' },
-            { item: 'NFT System (Pro)', capacity: '100 plants', price: 22000, supplier: 'Specialized suppliers' },
-            { item: 'DWC System', capacity: '20 plants', price: 6500, supplier: 'DIY kits' },
-            { item: 'Water Pump (18W)', capacity: '-', price: 600, supplier: 'Aquarium shops' },
-            { item: 'Air Pump + Stone', capacity: '-', price: 450, supplier: 'Aquarium shops' },
-            { item: 'pH Meter (Digital)', capacity: '-', price: 1200, supplier: 'Amazon, Flipkart' },
-            { item: 'EC Meter', capacity: '-', price: 1800, supplier: 'Amazon, Agri stores' },
-            { item: 'Grow Lights (20W LED)', capacity: '-', price: 1000, supplier: 'Electronics stores' },
-            { item: 'Net Pots (50 pcs)', capacity: '-', price: 300, supplier: 'Hydroponics stores' },
-            { item: 'Reservoir Tank (100L)', capacity: '-', price: 1200, supplier: 'Plastic vendors' }
-        ],
-        microgreens: [
-            { item: 'Growing Trays (10x20")', capacity: '1 tray', price: 75, supplier: 'Gardening stores' },
-            { item: 'Blackout Dome', capacity: '1 tray', price: 150, supplier: 'Gardening stores' },
-            { item: 'Grow Rack (4 shelves)', capacity: '16 trays', price: 4000, supplier: 'Local fabricators' },
-            { item: 'LED Grow Lights (40W)', capacity: '4 trays', price: 2000, supplier: 'Electronics stores' },
-            { item: 'Spray Bottle', capacity: '-', price: 75, supplier: 'General stores' },
-            { item: 'Harvesting Scissors', capacity: '-', price: 200, supplier: 'Gardening stores' }
-        ],
-        inputs: [
-            { item: 'Cocopeat Block (5kg)', capacity: 'Expands to 75L', price: 125, supplier: 'Amazon, Nurseries' },
-            { item: 'LECA (10L)', capacity: 'Reusable', price: 400, supplier: 'Hydroponics stores' },
-            { item: 'Perlite (10L)', capacity: 'Lightweight', price: 325, supplier: 'Gardening stores' },
-            { item: 'Rockwool Cubes (100 pcs)', capacity: 'For seedlings', price: 500, supplier: 'Hydroponics stores' },
-            { item: 'Nutrient Solution (A+B, 1L)', capacity: 'Lasts 2-3 months', price: 600, supplier: 'Hydroponics stores' },
-            { item: 'pH Down (500ml)', capacity: 'Adjust pH', price: 300, supplier: 'Hydroponics stores' },
-            { item: 'pH Up (500ml)', capacity: 'Adjust pH', price: 300, supplier: 'Hydroponics stores' }
-        ],
-        seeds: [
-            { item: 'Radish Seeds (500g)', capacity: '7 days harvest', price: 200, supplier: 'Seed suppliers' },
-            { item: 'Fenugreek Seeds (500g)', capacity: '10 days harvest', price: 150, supplier: 'Seed suppliers' },
-            { item: 'Mustard Seeds (500g)', capacity: '8 days harvest', price: 170, supplier: 'Seed suppliers' },
-            { item: 'Coriander Seeds (500g)', capacity: '14 days harvest', price: 275, supplier: 'Seed suppliers' },
-            { item: 'Amaranth Seeds (500g)', capacity: '12 days harvest', price: 240, supplier: 'Seed suppliers' },
-            { item: 'Sunflower Seeds (500g)', capacity: '10 days harvest', price: 325, supplier: 'Seed suppliers' }
-        ]
+    const currentEquipment = useMemo(() => {
+        return equipmentCatalog[selectedCategory] || [];
+    }, [selectedCategory]);
+
+    const getPrice = (category, idx) => {
+        const id = `${category}_${idx}`;
+        if (customPrices[id] !== undefined) return customPrices[id];
+        return equipmentCatalog[category]?.[idx]?.price || 0;
     };
 
-    const categories = [
-        { id: 'crops', name: 'Crop Prices', icon: Sparkles },
-        { id: 'hydroponics', name: 'Hydroponics', icon: Package },
-        { id: 'microgreens', name: 'Microgreens', icon: Package },
-        { id: 'inputs', name: 'Growing Media', icon: ShoppingCart },
-        { id: 'seeds', name: 'Seeds', icon: Store }
-    ];
-
-    // Apply custom prices if set
-    const getPrice = (category, index) => {
-        const key = `${category}_${index}`;
-        return customPrices[key] !== undefined ? customPrices[key] : equipmentPrices[category][index].price;
-    };
-
-    const handleEditPrice = (category, index, item) => {
-        setEditingItem({ category, index, item, currentPrice: getPrice(category, index) });
+    const handleEditPrice = (category, idx, item) => {
+        setEditingItem({ category, idx, item, currentPrice: getPrice(category, idx) });
     };
 
     const handleSavePrice = (newPrice) => {
-        const key = `${editingItem.category}_${editingItem.index}`;
-        setCustomPrices(prev => ({ ...prev, [key]: Number(newPrice) }));
+        if (!editingItem) return;
+        const price = parseFloat(newPrice);
+        if (!isNaN(price)) {
+            setCustomPrices(prev => ({
+                ...prev,
+                [`${editingItem.category}_${editingItem.idx}`]: price
+            }));
+        }
         setEditingItem(null);
     };
 
     const handleResetPrices = () => {
-        setCustomPrices({});
-        setEditMode(false);
+        if (window.confirm('Reset all catalog prices to factory defaults?')) {
+            setCustomPrices({});
+        }
     };
 
-    const currentEquipment = equipmentPrices[selectedCategory] || [];
-
     return (
-        <div className="space-y-6">
-            {/* Header */}
-            <div>
-                <h1 className="text-2xl font-bold text-slate-900">Market Intelligence & Equipment Prices</h1>
-                <p className="text-slate-600">Real-time crop prices and comprehensive equipment catalog</p>
+        <div className="flex flex-col gap-8 pb-20 animate-in fade-in duration-700">
+            {/* 1. TRADE HEADER */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-amber-600 p-8 rounded-[2.5rem] shadow-xl text-white">
+                <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center text-white">
+                        <Globe size={32} />
+                    </div>
+                    <div>
+                        <h1 className="text-3xl font-black tracking-tight">Trade Hub & Intel</h1>
+                        <p className="text-amber-100 font-bold uppercase text-[10px] tracking-widest font-black">
+                            External Market Trends • Benchmarking • Sourcing
+                        </p>
+                    </div>
+                </div>
+                <div className="bg-amber-700/50 px-6 py-3 rounded-2xl border border-white/10">
+                    <p className="text-[10px] font-black uppercase text-amber-200 mb-1">Last Sync</p>
+                    <p className="text-sm font-black flex items-center gap-2">
+                        <RefreshCw size={14} className="animate-spin-slow" /> LIVE: DELHI NCR
+                    </p>
+                </div>
             </div>
 
             {/* Market Prices */}
-            <div className="bg-white p-6 rounded-xl border border-slate-200">
-                <div className="flex items-center gap-2 mb-4">
-                    <BarChart3 className="text-emerald-600" size={24} />
-                    <h2 className="text-xl font-bold text-slate-900">Microgreens Market Prices (India)</h2>
+            {selectedCategory === 'crops' && (
+                <div className="bg-white p-6 rounded-xl border border-slate-200">
+                    <div className="flex items-center gap-2 mb-4">
+                        <BarChart3 className="text-emerald-600" size={24} />
+                        <h2 className="text-xl font-bold text-slate-900">Microgreens Market Prices (India)</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {cropPrices.map((crop) => (
+                            <div key={crop.name} className="bg-gradient-to-br from-slate-50 to-white border border-slate-200 p-5 rounded-xl hover:border-emerald-300 transition-all cursor-pointer group shadow-sm">
+                                <div className="flex justify-between items-start mb-3">
+                                    <div>
+                                        <h3 className="text-lg font-bold text-slate-900">{crop.name}</h3>
+                                        <p className="text-xs text-slate-500">Delhi NCR Market</p>
+                                    </div>
+                                    <span className={`px-2 py-1 rounded text-xs font-bold ${crop.trend === 'up' ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'
+                                        }`}>
+                                        {crop.change > 0 ? '+' : ''}{crop.change}%
+                                    </span>
+                                </div>
+
+                                <div className="flex items-baseline gap-1 mb-3">
+                                    <span className="text-3xl font-bold text-slate-900">₹{crop.price}</span>
+                                    <span className="text-sm text-slate-500">/ kg</span>
+                                </div>
+
+                                <div className="pt-3 border-t border-slate-100 space-y-1">
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-slate-500">Demand:</span>
+                                        <span className={`font-bold ${crop.demand === 'Very High' ? 'text-emerald-600' :
+                                            crop.demand === 'High' ? 'text-blue-600' : 'text-slate-600'
+                                            }`}>{crop.demand}</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs">
+                                        <span className="text-slate-500">Season:</span>
+                                        <span className="font-bold text-slate-700">{crop.season}</span>
+                                    </div>
+                                </div>
+
+                                <div className="mt-3 flex items-center justify-between">
+                                    <div className="flex flex-col">
+                                        <span className="text-[9px] text-indigo-600 font-black uppercase tracking-widest">AI Suggested</span>
+                                        <span className="text-sm font-black text-indigo-600">
+                                            ₹{calculateOptimalPrice(crop.price, weatherData).suggested}/kg
+                                        </span>
+                                    </div>
+                                    {crop.trend === 'up' ? (
+                                        <TrendingUp size={16} className="text-emerald-500" />
+                                    ) : (
+                                        <TrendingDown size={16} className="text-red-500" />
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {cropPrices.map((crop) => (
-                        <div key={crop.name} className="bg-gradient-to-br from-slate-50 to-white border border-slate-200 p-5 rounded-xl hover:border-emerald-300 transition-all cursor-pointer group shadow-sm">
-                            <div className="flex justify-between items-start mb-3">
-                                <div>
-                                    <h3 className="text-lg font-bold text-slate-900">{crop.name}</h3>
-                                    <p className="text-xs text-slate-500">Delhi NCR Market</p>
-                                </div>
-                                <span className={`px-2 py-1 rounded text-xs font-bold ${crop.trend === 'up' ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'
-                                    }`}>
-                                    {crop.change > 0 ? '+' : ''}{crop.change}%
-                                </span>
-                            </div>
-
-                            <div className="flex items-baseline gap-1 mb-3">
-                                <span className="text-3xl font-bold text-slate-900">₹{crop.price}</span>
-                                <span className="text-sm text-slate-500">/ kg</span>
-                            </div>
-
-                            <div className="pt-3 border-t border-slate-100 space-y-1">
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-slate-500">Demand:</span>
-                                    <span className={`font-bold ${crop.demand === 'Very High' ? 'text-emerald-600' :
-                                        crop.demand === 'High' ? 'text-blue-600' : 'text-slate-600'
-                                        }`}>{crop.demand}</span>
-                                </div>
-                                <div className="flex justify-between text-xs">
-                                    <span className="text-slate-500">Season:</span>
-                                    <span className="font-bold text-slate-700">{crop.season}</span>
-                                </div>
-                            </div>
-
-                            <div className="mt-3 flex items-center justify-between">
-                                <span className="text-xs text-slate-400">7-day forecast</span>
-                                {crop.trend === 'up' ? (
-                                    <TrendingUp size={16} className="text-emerald-500" />
-                                ) : (
-                                    <TrendingDown size={16} className="text-red-500" />
-                                )}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
+            )}
 
             {/* AI Insight */}
             <div className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 p-6 rounded-xl">
@@ -178,8 +190,8 @@ const MarketPage = () => {
                         <button
                             onClick={() => setEditMode(!editMode)}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all ${editMode
-                                    ? 'bg-emerald-500 text-white'
-                                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                ? 'bg-emerald-500 text-white'
+                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                                 }`}
                         >
                             <Edit2 size={16} />
@@ -197,8 +209,8 @@ const MarketPage = () => {
                                 key={cat.id}
                                 onClick={() => setSelectedCategory(cat.id)}
                                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition-all ${selectedCategory === cat.id
-                                        ? 'bg-emerald-500 text-white'
-                                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                    ? 'bg-emerald-500 text-white'
+                                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                                     }`}
                             >
                                 <Icon size={16} />
@@ -366,3 +378,4 @@ const MarketPage = () => {
 };
 
 export default MarketPage;
+

@@ -21,10 +21,12 @@ import {
     calculateDLI
 } from '../../utils/agriUtils';
 import { detectThermalStress } from '../../utils/agronomyAlgorithms'; // Fixed Import Source
-import { CheckSquare, ClipboardList, Activity, Search, HelpCircle, Wind, Zap, Thermometer } from 'lucide-react'; // Restored/Consolidated
+import { applyMLRules } from '../../utils/mlIntelligence';
+import { CheckSquare, ClipboardList, Activity, Search, HelpCircle, Wind, Zap, Thermometer, Brain } from 'lucide-react'; // Restored/Consolidated
 import ScientificInfoModal from '../../components/ScientificInfoModal';
 import { useBeginnerMode } from '../../context/BeginnerModeContext';
 import CostCalculator from '../../components/CostCalculator';
+import { useOfflineSync } from './hooks/useOfflineSync';
 
 
 
@@ -153,6 +155,10 @@ const DailyTrackerPage = () => {
     const location = useLocation(); // <--- Added this
     const { isBeginnerMode, t } = useBeginnerMode();
     const queryClient = useQueryClient();
+    const { syncStatus, addToQueue, syncOfflineLogs, queueLength } = useOfflineSync();
+
+    // OFFLINE INDICATOR (Visual)
+    const isOffline = !navigator.onLine;
     const [loading, setLoading] = useState(false);
     const [showInfoModal, setShowInfoModal] = useState(false);
     const [lightDist, setLightDist] = useState('close'); // New DLI Distance Logic
@@ -288,6 +294,28 @@ const DailyTrackerPage = () => {
     }, [hydroponicsEntry.temperature, hydroponicsEntry.targetId, activeSystems]);
 
 
+    // ML BRAIN: Decision Tree Rules Implementation
+    const microMLAdvice = useMemo(() => {
+        const data = {
+            waterTemp: 22, // Default for microgreens if not provided
+            ph: 6.0,       // Default for microgreens
+            airTemp: parseFloat(microgreensEntry.temperature) || 25,
+            vpd: vpdData?.vpd_kpa || 1.0
+        };
+        return applyMLRules(data);
+    }, [microgreensEntry.temperature, vpdData]);
+
+    const hydroMLAdvice = useMemo(() => {
+        const data = {
+            waterTemp: parseFloat(hydroponicsEntry.waterTemp) || 24,
+            ph: parseFloat(hydroponicsEntry.ph) || 6.0,
+            airTemp: parseFloat(hydroponicsEntry.temperature) || 25,
+            vpd: (hydroponicsEntry.temperature && hydroponicsEntry.humidity) ? calculateVPD(parseFloat(hydroponicsEntry.temperature), parseFloat(hydroponicsEntry.humidity))?.vpd_kpa : 1.0
+        };
+        return applyMLRules(data);
+    }, [hydroponicsEntry.waterTemp, hydroponicsEntry.ph, hydroponicsEntry.temperature, hydroponicsEntry.humidity]);
+
+
     // Load streak
     useEffect(() => {
         const loadStreak = async () => {
@@ -305,48 +333,7 @@ const DailyTrackerPage = () => {
         loadStreak();
     }, []);
 
-    // OFFLINE SYNC LOGIC
-    useEffect(() => {
-        const syncOfflineLogs = async () => {
-            const queue = JSON.parse(localStorage.getItem('offline_logs_queue') || '[]');
-            if (queue.length > 0 && navigator.onLine) {
-                console.log("Attempting to sync", queue.length, "logs...");
-                try {
-                    const { data: { user } } = await supabase.auth.getUser();
-                    if (!user) return;
-
-                    // FIXED: Use upsert with conflict resolution to prevent overwriting newer data
-                    const logsToInsert = queue.map(log => ({
-                        ...log,
-                        user_id: user.id,
-                        // Ensure we have a unique identifier for conflict resolution
-                        sync_id: log.sync_id || `${user.id}_${log.created_at}`
-                    }));
-
-                    const { error } = await supabase
-                        .from('daily_logs')
-                        .upsert(logsToInsert, {
-                            onConflict: 'sync_id',
-                            ignoreDuplicates: false
-                        });
-
-                    if (!error) {
-                        alert(`✅ Synced ${queue.length} offline logs to cloud!`);
-                        localStorage.removeItem('offline_logs_queue');
-                        window.location.reload(); // Refresh to update streaks/logs
-                    }
-                } catch (e) {
-                    console.error("Sync failed", e);
-                }
-            }
-        };
-
-        window.addEventListener('online', syncOfflineLogs);
-        // Try on mount too
-        setTimeout(syncOfflineLogs, 2000);
-
-        return () => window.removeEventListener('online', syncOfflineLogs);
-    }, []);
+    // OFFLINE SYNC LOGIC (Now handled by useOfflineSync hook)
 
     // SAVE LOGIC
     const handleSave = async (e, type) => {
@@ -385,7 +372,9 @@ const DailyTrackerPage = () => {
 
                 // GDD Calculation
                 if (logData.temp) {
-                    const selectedBatch = activeBatches.find(b => b.id == microgreensEntry.batchId);
+                    const selectedBatch = activeBatches.find(b => String(b.id) === String(microgreensEntry.batchId) || b.batch_id === microgreensEntry.batchId);
+                    // Use internal numeric ID for foreign key
+                    logData.batch_id = selectedBatch ? selectedBatch.id : null;
                     const cropName = selectedBatch ? selectedBatch.crop : 'Lettuce';
                     const gdd = calculateDailyGDD(logData.temp + 2, logData.temp - 2, cropName);
                     derivedMetrics.gdd_daily = gdd;
@@ -407,7 +396,7 @@ const DailyTrackerPage = () => {
                     ...logData,
                     observation_tags: microgreensEntry.visualSymptoms
                 };
-                const selectedBatchObject = activeBatches.find(b => b.id == microgreensEntry.batchId);
+                const selectedBatchObject = activeBatches.find(b => String(b.id) === String(microgreensEntry.batchId) || b.batch_id === microgreensEntry.batchId);
                 const batchAge = selectedBatchObject ? calculateDays(selectedBatchObject.sow_date, new Date()) : 99;
                 const healthRes = calculateFarmHealth(logForHealth, batchAge, 'microgreens', selectedBatchObject?.crop);
 
@@ -440,7 +429,9 @@ const DailyTrackerPage = () => {
 
                 // GDD Calculation (Hydroponics)
                 if (logData.temp) {
-                    const selectedSystem = activeSystems.find(s => s.id == hydroponicsEntry.targetId);
+                    const selectedSystem = activeSystems.find(s => String(s.id) === String(hydroponicsEntry.targetId) || s.system_id === hydroponicsEntry.targetId);
+                    // Map to numeric PK
+                    logData.target_id = selectedSystem ? selectedSystem.id : null;
                     const cropName = selectedSystem ? selectedSystem.crop : 'Lettuce';
                     derivedMetrics.gdd_daily = calculateDailyGDD(logData.temp + 2, logData.temp - 2, cropName);
                 }
@@ -455,7 +446,7 @@ const DailyTrackerPage = () => {
                 derivedMetrics.dli_mol_per_m2 = parseFloat(dli);
 
                 // Unified Health Score via Engine
-                const selectedSystem = activeSystems.find(s => s.id == hydroponicsEntry.targetId);
+                const selectedSystem = activeSystems.find(s => String(s.id) === String(hydroponicsEntry.targetId) || s.system_id === hydroponicsEntry.targetId);
                 const batchAge = selectedSystem ? calculateDays(selectedSystem.plant_date, new Date()) : 99;
 
                 // Add Sub-Type Telemetry to Log Data for Health Engine
@@ -484,20 +475,26 @@ const DailyTrackerPage = () => {
 
             const enhancedLogData = { ...logData, ...derivedMetrics };
 
-            // OFFLINE CHECK
+            // OFFLINE CHECK (Phase 6: Using useOfflineSync Hook)
             if (!navigator.onLine) {
-                const existingQueue = JSON.parse(localStorage.getItem('offline_logs_queue') || '[]');
-                existingQueue.push(enhancedLogData);
-                localStorage.setItem('offline_logs_queue', JSON.stringify(existingQueue));
-                alert("💾 Saved to Offline Queue! Will sync when internet returns.");
+                addToQueue(enhancedLogData);
+                alert(`💾 Saved to Offline Queue! (${queueLength + 1} logs pending sync).`);
+                setStreak(streak + 1); // Give immediate reward
             } else {
                 const { data: { user } } = await supabase.auth.getUser();
                 if (!user) throw new Error('Not logged in');
-                const { error } = await supabase.from('daily_logs').insert([{ ...enhancedLogData, user_id: user.id }]);
+
+                // Add sync_id for consistent tracking
+                const finalLog = {
+                    ...enhancedLogData,
+                    user_id: user.id,
+                    sync_id: `${user.id}_${enhancedLogData.created_at}`
+                };
+
+                const { error } = await supabase.from('daily_logs').insert([finalLog]);
                 if (error) throw error;
 
                 // Invalidate all views that depend on daily logs
-                // We explicitely invalidate specific keys to force re-renders in Dashboard and System pages
                 await Promise.all([
                     queryClient.invalidateQueries({ queryKey: ['daily_logs'] }),
                     queryClient.invalidateQueries({ queryKey: ['microgreens'] }),
@@ -509,7 +506,11 @@ const DailyTrackerPage = () => {
                 alert("✅ Log saved successfully!");
             }
         } catch (err) {
-            alert('❌ Error saving log: ' + err.message);
+            if (err.message && err.message.includes('sync_id')) {
+                alert('❌ Database Update Required!\n\nSupabase SQL Editor mein yeh run karein:\n\nALTER TABLE daily_logs ADD COLUMN IF NOT EXISTS sync_id TEXT UNIQUE;');
+            } else {
+                alert('❌ Error saving log: ' + err.message);
+            }
         } finally {
             setLoading(false);
         }
@@ -778,7 +779,23 @@ const DailyTrackerPage = () => {
                                             <p className="text-xs text-orange-700 leading-tight">{smartAdvice.lighting.action}</p>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        )}
 
+                        {/* ML BRAIN CARD */}
+                        {microMLAdvice && (
+                            <div className={`p-4 rounded-xl border-2 animate-fade-in flex items-start gap-3 ${microMLAdvice.isRecommended ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'}`}>
+                                <div className={`p-2 rounded-lg ${microMLAdvice.isRecommended ? 'bg-emerald-500/10 text-emerald-600' : 'bg-rose-500/10 text-rose-600'}`}>
+                                    <Brain size={20} />
+                                </div>
+                                <div>
+                                    <h4 className={`text-sm font-black uppercase tracking-tighter ${microMLAdvice.isRecommended ? 'text-emerald-800' : 'text-rose-800'}`}>
+                                        ML Brain Logic (Decision Tree)
+                                    </h4>
+                                    <p className={`text-xs font-medium ${microMLAdvice.isRecommended ? 'text-emerald-700' : 'text-rose-700'}`}>
+                                        {microMLAdvice.riskFactor}
+                                    </p>
                                 </div>
                             </div>
                         )}
@@ -1219,6 +1236,23 @@ const DailyTrackerPage = () => {
 
                         {/* SMART ASSISTANT BLOCK */}
                         <HydroGuide />
+
+                        {/* ML BRAIN CARD (Hydroponics) */}
+                        {hydroMLAdvice && (
+                            <div className={`p-4 rounded-xl border-2 animate-fade-in flex items-start gap-3 mb-4 ${hydroMLAdvice.isRecommended ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'}`}>
+                                <div className={`p-2 rounded-lg ${hydroMLAdvice.isRecommended ? 'bg-emerald-500/10 text-emerald-600' : 'bg-rose-500/10 text-rose-600'}`}>
+                                    <Brain size={20} />
+                                </div>
+                                <div>
+                                    <h4 className={`text-sm font-black uppercase tracking-tighter ${hydroMLAdvice.isRecommended ? 'text-emerald-800' : 'text-rose-800'}`}>
+                                        ML Brain Logic (Decision Tree)
+                                    </h4>
+                                    <p className={`text-xs font-medium ${hydroMLAdvice.isRecommended ? 'text-emerald-700' : 'text-rose-700'}`}>
+                                        {hydroMLAdvice.riskFactor}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
 
 
                         {/* MANUAL OBSERVATION SECTION (Hydroponics) */}
