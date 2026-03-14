@@ -147,6 +147,11 @@ function App() {
 
                           {/* GLOBAL SETTINGS */}
                           <Route path="/settings" element={<SettingsPage />} />
+
+                          {/* FALLBACK REDIRECTS FOR LEGACY WIKI LINKS */}
+                          <Route path="/hydroponics" element={<Navigate to="/ops/hydro" replace />} />
+                          <Route path="/microgreens" element={<Navigate to="/ops/micro" replace />} />
+                          <Route path="/tracker" element={<Navigate to="/ops/tracker" replace />} />
                         </Routes>
                       </Suspense>
                     </DashboardLayout>

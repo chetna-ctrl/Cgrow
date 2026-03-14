@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import DailyTrackerPage from '../tracker/DailyTrackerPage';
 import MicrogreensPage from '../microgreens/MicrogreensPage';
 import HydroponicsPage from '../hydroponics/HydroponicsPage';
@@ -13,7 +14,29 @@ import {
 } from 'lucide-react';
 
 const OperationsHub = () => {
-    const [activeTab, setActiveTab] = useState('tracker');
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    // Derive active tab from URL path to support deep linking and fix white screen crashes
+    const getTabFromPath = () => {
+        const path = location.pathname;
+        if (path.includes('/hydro')) return 'hydro';
+        if (path.includes('/micro')) return 'micro';
+        if (path.includes('/tasks')) return 'tasks';
+        return 'tracker'; // default
+    };
+
+    const [activeTab, setActiveTab] = useState(getTabFromPath());
+
+    // Sync tab state if URL changes externally
+    useEffect(() => {
+        setActiveTab(getTabFromPath());
+    }, [location.pathname]);
+
+    const handleTabChange = (tabId) => {
+        setActiveTab(tabId);
+        navigate(`/ops/${tabId}`); // Update URL when tab clicked
+    };
 
     const tabs = [
         { id: 'tracker', label: 'Daily Tracker', icon: Clock, color: 'text-emerald-600', bg: 'bg-emerald-50' },
@@ -43,7 +66,7 @@ const OperationsHub = () => {
                     {tabs.map(tab => (
                         <button
                             key={tab.id}
-                            onClick={() => setActiveTab(tab.id)}
+                            onClick={() => handleTabChange(tab.id)}
                             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-black text-xs transition-all whitespace-nowrap ${activeTab === tab.id
                                     ? 'bg-white text-slate-900 shadow-sm border border-slate-200'
                                     : 'text-slate-500 hover:text-slate-700'
