@@ -17,7 +17,13 @@ export const getCropOptimalValues = (crop) => {
         ph: (thresholds.ph[0] + thresholds.ph[1]) / 2,
         ec: (thresholds.ec[0] + thresholds.ec[1]) / 2,
         temp: (thresholds.temp[0] + thresholds.temp[1]) / 2,
-        base_temp: params.base_temp
+        base_temp: params.base_temp,
+        _source: {
+            ph: 'default',
+            ec: 'default',
+            temp: 'default',
+            logsAnalyzed: 0
+        }
     };
 };
 

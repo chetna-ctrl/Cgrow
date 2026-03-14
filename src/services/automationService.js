@@ -32,9 +32,29 @@ export const processDueChains = async (chains, customers, orders) => {
         // Logic for auto-advancing (Step 1 is usually manual, but Step 2+ can be auto)
         // In this "Autopilot" mode, we allow Step 2 and 3 to fire automatically.
         if (nextStep >= 2) {
+            // New: Try to get an AI personalized message first
+            let customBody = null;
+            try {
+                const aiRes = await fetch('http://localhost:3001/generate-marketing-msg', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        campaignType: nextStep === 2 ? 'HARVEST_READY' : 'FLASH_SALE',
+                        customerName: customer.name,
+                        topCrop: 'Radish Microgreens'
+                    })
+                });
+                const aiData = await aiRes.json();
+                customBody = aiData.message;
+            } catch (e) {
+                console.warn("Autopilot AI fallback to template");
+            }
+
             const res = await sendCloudMessage(customer, {
                 date: now.toLocaleDateString('en-IN'),
-                time: 'Scheduled Autopilot'
+                time: 'Scheduled Autopilot',
+                customBody,
+                step: nextStep
             }, 'SEQUENCE_STEP');
 
             if (res.success) {
@@ -77,9 +97,28 @@ export const runPredictiveAutoRefill = async (customers, orders) => {
                 .gte('created_at', new Date(now.getTime() - 48 * 60 * 60 * 1000).toISOString());
 
             if (!logs || logs.length === 0) {
+                // New: Try to get an AI personalized message for refill
+                let customBody = null;
+                try {
+                    const aiRes = await fetch('http://localhost:3001/generate-marketing-msg', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            campaignType: 'REFILL_REMINDER',
+                            customerName: customer.name,
+                            topCrop: 'Radish Microgreens'
+                        })
+                    });
+                    const aiData = await aiRes.json();
+                    customBody = aiData.message;
+                } catch (e) {
+                    console.warn("Auto-Refill AI fallback to template");
+                }
+
                 const res = await sendCloudMessage(customer, {
                     date: now.toLocaleDateString('en-IN'),
-                    time: 'AI Auto-Refill'
+                    time: 'AI Auto-Refill',
+                    customBody
                 }, 'AUTO_REFILL');
 
                 if (res.success) {

@@ -28,7 +28,7 @@ export default defineConfig({
         outDir: 'dist',
         sourcemap: false,
         // Ensure compatibility with older browsers (matching CRA defaults)
-        target: 'es2015',
+        target: 'es2022',
         rollupOptions: {
             output: {
                 manualChunks: {

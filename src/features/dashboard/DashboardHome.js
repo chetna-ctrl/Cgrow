@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import {
     Sprout, Droplets, Thermometer, TrendingUp, ArrowRight, Activity, CloudRain, AlertTriangle, Shield, Wallet, Brain, BookOpen,
-    Moon, Sun, ShoppingCart, Edit,
+    Moon, Sun, ShoppingCart, Edit, Camera,
     Calendar, CheckCircle, Clock, Layout, Wind, Zap, Sparkles, Settings, Info, HelpCircle
 } from 'lucide-react';
 import { useBeginnerMode } from '../../context/BeginnerModeContext';
@@ -35,6 +35,8 @@ import OnboardingTutorial from '../../components/OnboardingTutorial';
 import { calculateHealthDecay, getTrendBasedDefaults } from '../../utils/trendAnalysis';
 import { requestNotificationPermission, scheduleReminder, areNotificationsEnabled } from '../../utils/notificationUtils';
 import { useGhostSync } from './hooks/useGhostSync';
+import ProfessorChat from '../../components/ProfessorChat';
+import ai_data from '../../data/ai_metadata.json';
 const getTimeAgo = (date) => {
     if (!date) return null;
     const seconds = Math.floor((new Date() - new Date(date)) / 1000);
@@ -513,7 +515,7 @@ const DashboardContent = () => {
                                         humidity: currentConditions.humidity,
                                         ph: cropDefaults.ph,
                                         ec: cropDefaults.ec
-                                    }, b.daysCurrent || 0, 'microgreens');
+                                    }, b.daysCurrent || 0, 'microgreens', b.crop);
 
                                     logsToInsert.push({
                                         user_id: user.id,
@@ -523,11 +525,16 @@ const DashboardContent = () => {
                                         notes: `1-Tap Log: Validated against local weather (${currentConditions.temp}°C). Defaults: ${cropDefaults._source.ph}/${cropDefaults._source.ec}`,
                                         created_at: timestamp,
                                         health_score: healthCheck.score,
+                                        ph: cropDefaults.ph,
+                                        ec: cropDefaults.ec,
+                                        temp: currentConditions.temp,
+                                        humidity: currentConditions.humidity,
                                         details: {
                                             airTemp: currentConditions.temp,
                                             humidity: currentConditions.humidity,
                                             ph: cropDefaults.ph,
                                             ec: cropDefaults.ec,
+                                            source_metadata: cropDefaults._source || {},
                                             lightHours: 16
                                         }
                                     });
@@ -549,6 +556,10 @@ const DashboardContent = () => {
                                         notes: `1-Tap Log: Validated against local weather (${currentConditions.temp}°C)`,
                                         created_at: timestamp,
                                         health_score: healthCheck.score,
+                                        ph: 6.0,
+                                        ec: 1.8,
+                                        temp: currentConditions.temp,
+                                        humidity: currentConditions.humidity,
                                         details: {
                                             airTemp: currentConditions.temp,
                                             humidity: currentConditions.humidity,
@@ -577,6 +588,14 @@ const DashboardContent = () => {
 
 
                     <div className="flex items-center gap-3 bg-white p-1.5 rounded-2xl shadow-sm border border-slate-100">
+                        {/* AI AGENT STATUS BADGE */}
+                        <div className="flex items-center gap-2 px-3 py-2 bg-indigo-50 border border-indigo-100 rounded-xl">
+                            <Brain size={16} className="text-indigo-600" />
+                            <div className="flex flex-col">
+                                <span className="text-[10px] font-black leading-none text-indigo-700">AI BRAIN</span>
+                                <span className="text-[8px] font-black text-indigo-400">V2.1 HYBRID</span>
+                            </div>
+                        </div>
                         <button
                             onClick={() => toggleMode()}
                             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${isBeginnerMode ? 'bg-emerald-500 text-white shadow-md shadow-emerald-200' : 'text-slate-400 hover:bg-slate-50'}`}
@@ -680,6 +699,41 @@ const DashboardContent = () => {
                     </div>
                 </div>
             </div>
+
+            {/* AI DIAGNOSTIC CENTER: Instant Plant Doctor Access */}
+            <Link to="/tech" className="block group mb-6">
+                <div className="bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600 rounded-[2.5rem] p-6 text-white shadow-2xl shadow-fuchsia-200/50 hover:shadow-fuchsia-300/50 transition-all hover:scale-[1.01] relative overflow-hidden">
+                    {/* Decorative Elements */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl group-hover:scale-110 transition-transform"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-fuchsia-400/20 rounded-full -ml-32 -mb-32 blur-3xl"></div>
+
+                    <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div className="flex items-center gap-6">
+                            <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center animate-bounce-slow">
+                                <Sparkles size={32} className="text-white" />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-black tracking-tighter">Plant Doctor AI</h3>
+                                <p className="text-white/80 font-bold text-sm">Instant Crop Diagnosis & Health Insights</p>
+                                <div className="flex items-center gap-2 mt-2">
+                                    <span className="bg-white/20 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest">Mobile Camera Ready</span>
+                                    <span className="bg-emerald-400/40 text-emerald-50 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest">Active</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-4">
+                            <div className="hidden lg:block text-right">
+                                <p className="text-[10px] font-black uppercase tracking-widest text-white/60 mb-1">In-Browser AI</p>
+                                <p className="text-xs font-bold italic">"Snap a photo, find the fix."</p>
+                            </div>
+                            <button className="bg-white text-fuchsia-600 px-8 py-4 rounded-2xl font-black text-sm flex items-center gap-3 shadow-xl hover:bg-fuchsia-50 transition-colors">
+                                <Camera size={20} /> SNAP & DIAGNOSE <ArrowRight size={18} />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </Link>
 
             {/* DISEASE RISK ALERTS (UPGRADED) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -850,7 +904,7 @@ const DashboardContent = () => {
             {/* Scientific Intelligence Help Button */}
             <button
                 onClick={() => setShowInfoModal(true)}
-                className="fixed bottom-6 right-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 z-40"
+                className="fixed bottom-6 right-48 bg-gradient-to-r from-green-600 to-emerald-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 z-40"
                 title="Learn about the Science"
             >
                 <BookOpen size={24} />
@@ -870,6 +924,8 @@ const DashboardContent = () => {
 
             {/* PHASE 5: Onboarding Tutorial */}
             <OnboardingTutorial />
+            {/* PROFESSOR AI CHAT WIDGET */}
+            <ProfessorChat />
         </div>
     );
 };

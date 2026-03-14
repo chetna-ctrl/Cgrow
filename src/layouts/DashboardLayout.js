@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import { Menu } from 'lucide-react';
 import WhatsAppWidget from '../components/WhatsAppWidget';
+import AIChatWidget from '../components/AIChatWidget';
 
 const DashboardLayout = ({ children, onLogout }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -81,6 +82,9 @@ const DashboardLayout = ({ children, onLogout }) => {
 
                 {/* WHATSAPP WIDGET (Global) */}
                 <WhatsAppWidget />
+
+                {/* AI CHAT WIDGET (Global) */}
+                <AIChatWidget />
             </main>
         </div>
     );

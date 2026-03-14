@@ -103,7 +103,7 @@ const SmartHeader = () => {
                 <div className="text-center lg:text-left">
                     <div className="flex items-center gap-2 justify-center lg:justify-start">
                         <Clock size={18} className="text-emerald-400" />
-                        <h2 className="text-3xl font-bold text-white tracking-tight font-mono">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-mono">
                             {formattedTime}
                         </h2>
                     </div>

@@ -1,28 +1,40 @@
--- ============================================
--- FIX DAILY LOGS SCHEMA (v4.0)
--- Adds missing columns expected by the Frontend
--- ============================================
+-- FIX: Add missing columns to daily_logs for 1-Tap OK and AI Intelligence
+-- Run this in the Supabase SQL Editor
 
--- 1. Add Batch and Target ID columns
-ALTER TABLE public.daily_logs 
-  ADD COLUMN IF NOT EXISTS batch_id TEXT,
-  ADD COLUMN IF NOT EXISTS target_id TEXT;
+DO $$ 
+BEGIN 
+    -- 1. Add health_score
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'daily_logs' AND column_name = 'health_score') THEN
+        ALTER TABLE public.daily_logs ADD COLUMN health_score INTEGER;
+    END IF;
 
--- 2. Add Watering System (to match JS property)
-ALTER TABLE public.daily_logs 
-  ADD COLUMN IF NOT EXISTS watering_system TEXT;
+    -- 2. Add ph (Top level)
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'daily_logs' AND column_name = 'ph') THEN
+        ALTER TABLE public.daily_logs ADD COLUMN ph NUMERIC(4,2);
+    END IF;
 
--- 3. Make system_id optional (as it might be a Microgreens batch now)
-ALTER TABLE public.daily_logs 
-  ALTER COLUMN system_id DROP NOT NULL;
+    -- 3. Add ec (Top level)
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'daily_logs' AND column_name = 'ec') THEN
+        ALTER TABLE public.daily_logs ADD COLUMN ec NUMERIC(5,2);
+    END IF;
 
--- 4. Create indexes for the new ID columns
-CREATE INDEX IF NOT EXISTS idx_daily_logs_batch_id ON public.daily_logs(batch_id);
-CREATE INDEX IF NOT EXISTS idx_daily_logs_target_id ON public.daily_logs(target_id);
+    -- 4. Add temp (Top level)
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'daily_logs' AND column_name = 'temp') THEN
+        ALTER TABLE public.daily_logs ADD COLUMN temp NUMERIC(5,2);
+    END IF;
 
--- 5. RELOAD SCHEMA CACHE (Internal note: This happens automatically in Supabase usually)
-COMMENT ON TABLE public.daily_logs IS 'Tracks daily metrics for both Microgreens and Hydroponics';
+    -- 5. Add humidity (Top level)
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'daily_logs' AND column_name = 'humidity') THEN
+        ALTER TABLE public.daily_logs ADD COLUMN humidity NUMERIC(5,2);
+    END IF;
 
--- ============================================
--- SQL FIX COMPLETE
--- ============================================
+    -- 6. Add source_id (text version for robustness)
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'daily_logs' AND column_name = 'source_id') THEN
+        ALTER TABLE public.daily_logs ADD COLUMN source_id TEXT;
+    END IF;
+
+END $$;
+
+COMMENT ON COLUMN public.daily_logs.health_score IS 'AI-calculated health score (0-100)';
+COMMENT ON COLUMN public.daily_logs.ph IS 'Actual or predicted pH level';
+COMMENT ON COLUMN public.daily_logs.ec IS 'Actual or predicted EC level';

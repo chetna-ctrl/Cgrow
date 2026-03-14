@@ -117,14 +117,15 @@ const YieldChart = () => {
                             }}
                         />
                         <Legend
-                            wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }}
+                            wrapperStyle={{ fontSize: '10px', paddingTop: '10px', fontWeight: 'bold' }}
                         />
                         <Bar
                             dataKey="target"
-                            fill="#e5e7eb"
+                            fill="#6366f1"
                             radius={[4, 4, 0, 0]}
-                            name="Target Yield"
+                            name="AI Predicted"
                             barSize={20}
+                            opacity={0.6}
                         />
                         <Bar
                             dataKey="actual"
@@ -136,8 +137,8 @@ const YieldChart = () => {
                     </BarChart>
                 </ResponsiveContainer>
             </div>
-            <p className="text-xs text-slate-500 mt-2">
-                📊 Compares last 5 harvests vs expected yields. Green = meeting targets.
+            <p className="text-[10px] uppercase tracking-widest font-black text-slate-400 mt-3 flex items-center gap-1.5">
+                <span className="w-2 h-2 bg-indigo-500 rounded-full"></span> AI Engine Analysis Active: Last 5 harvests vs Prediction
             </p>
         </div>
     );

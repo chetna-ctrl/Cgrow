@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
 import { calculateOptimalPrice } from '../../utils/mlIntelligence';
 import { TrendingUp, TrendingDown, Package, ShoppingCart, IndianRupee, BarChart3, Sparkles, Store, Edit2, Save, X, Globe, RefreshCw, ArrowUpRight, Search, Map as MapIcon, Hammer, Box, Zap, Sprout, ShoppingBag, Droplets } from 'lucide-react';
+import scrapingService from '../../services/scrapingService';
 
 const cropPrices = [
     { name: 'Basil', price: 350, change: 12.3, trend: 'up', demand: 'Very High', season: 'Summer/Monsoon' },
@@ -41,6 +41,20 @@ const MarketPage = () => {
     const [customPrices, setCustomPrices] = useState({});
     const [weatherData, setWeatherData] = useState({ temp: 30, humidity: 45 });
     const [editingItem, setEditingItem] = useState(null);
+    const [isScraping, setIsScraping] = useState(false);
+    const [scrapedResults, setScrapedResults] = useState([]);
+
+    const handleLiveScrape = async () => {
+        setIsScraping(true);
+        try {
+            const results = await scrapingService.getMarketPrices('Microgreens');
+            setScrapedResults(results);
+        } catch (error) {
+            console.error('Scraping error:', error);
+        } finally {
+            setIsScraping(false);
+        }
+    };
 
     useEffect(() => {
         const cached = localStorage.getItem('cGrow_weather_cache');
@@ -94,13 +108,52 @@ const MarketPage = () => {
                         </p>
                     </div>
                 </div>
-                <div className="bg-amber-700/50 px-6 py-3 rounded-2xl border border-white/10">
-                    <p className="text-[10px] font-black uppercase text-amber-200 mb-1">Last Sync</p>
-                    <p className="text-sm font-black flex items-center gap-2">
-                        <RefreshCw size={14} className="animate-spin-slow" /> LIVE: DELHI NCR
-                    </p>
+                <div className="flex flex-col items-end gap-2">
+                    <div className="bg-amber-700/50 px-6 py-3 rounded-2xl border border-white/10">
+                        <p className="text-[10px] font-black uppercase text-amber-200 mb-1">Last Sync</p>
+                        <p className="text-sm font-black flex items-center gap-2">
+                            <RefreshCw size={14} className={isScraping ? "animate-spin" : "animate-spin-slow"} /> {isScraping ? 'SCRAPING...' : 'LIVE: DELHI NCR'}
+                        </p>
+                    </div>
+                    <button 
+                        onClick={handleLiveScrape}
+                        disabled={isScraping}
+                        className="flex items-center gap-2 px-4 py-2 bg-white text-amber-700 rounded-xl font-bold text-xs hover:bg-amber-50 transition-colors disabled:opacity-50"
+                    >
+                        <Search size={14} />
+                        START DEEP SCRAPE
+                    </button>
                 </div>
             </div>
+
+            {/* Scraped Results Display */}
+            {scrapedResults.length > 0 && (
+                <div className="bg-blue-900/5 border border-blue-200 p-6 rounded-[2rem] animate-in slide-in-from-top-4 duration-500">
+                    <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-2 text-blue-900">
+                            <Globe size={20} />
+                            <h2 className="font-black text-lg">Web Scraped Intelligence</h2>
+                        </div>
+                        <button onClick={() => setScrapedResults([])} className="text-blue-400 hover:text-blue-600">
+                            <X size={16} />
+                        </button>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {scrapedResults.map((res, i) => (
+                            <div key={i} className="bg-white p-4 rounded-2xl border border-blue-100 shadow-sm flex justify-between items-center group hover:border-blue-300 transition-all">
+                                <div>
+                                    <p className="text-xs font-bold text-blue-600 uppercase mb-1">Source: AgriFarming</p>
+                                    <p className="font-bold text-slate-800 text-sm">{res.title}</p>
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-blue-600 font-black">{res.price || 'N/A'}</p>
+                                    <ArrowUpRight size={14} className="ml-auto text-blue-300 group-hover:text-blue-600 transition-colors" />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* Market Prices */}
             {selectedCategory === 'crops' && (

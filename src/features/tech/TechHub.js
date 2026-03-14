@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import FarmingGuidePage from '../guide/FarmingGuidePage';
 import IoTDevicesPage from '../iot/IoTDevicesPage';
+import PlantDoctor from './PlantDoctor';
+import AITrainingHub from './AITrainingHub';
 import {
     Cpu,
     BookOpen,
     Zap,
     Wrench,
-    Binary
+    Binary,
+    Activity
 } from 'lucide-react';
 
 const TechHub = () => {
@@ -14,6 +17,8 @@ const TechHub = () => {
 
     const tabs = [
         { id: 'iot', label: 'IoT Devices', icon: Zap, color: 'text-indigo-600', bg: 'bg-indigo-50' },
+        { id: 'doctor', label: 'Plant Doctor', icon: Activity, color: 'text-fuchsia-600', bg: 'bg-fuchsia-50' },
+        { id: 'training', label: 'AI Training', icon: Binary, color: 'text-blue-600', bg: 'bg-blue-50' },
         { id: 'guide', label: 'Farming Wiki', icon: BookOpen, color: 'text-emerald-600', bg: 'bg-emerald-50' }
     ];
 
@@ -54,6 +59,8 @@ const TechHub = () => {
             {/* TAB CONTENT */}
             <div className="bg-white/50 rounded-[2rem] overflow-hidden">
                 {activeTab === 'iot' && <IoTDevicesPage />}
+                {activeTab === 'doctor' && <PlantDoctor />}
+                {activeTab === 'training' && <AITrainingHub />}
                 {activeTab === 'guide' && <FarmingGuidePage />}
             </div>
         </div>

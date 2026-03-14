@@ -50,16 +50,104 @@ const SalesMarketingPage = () => {
     const [showPosterModal, setShowPosterModal] = useState(false);
     const [showCaptionModal, setShowCaptionModal] = useState(false);
     const [generatedCaption, setGeneratedCaption] = useState('');
-    const [loadingCustomerId, setLoadingCustomerId] = useState(null);
-    const [showLocalBuyers, setShowLocalBuyers] = useState(false);
-    const [weatherData, setWeatherData] = useState({ temp: 30, humidity: 45 }); // Default Delhi
+    const [botStatus, setBotStatus] = useState('Checking...');
+    const [campaignState, setCampaignState] = useState({
+        type: 'FLASH_SALE',
+        targetType: 'Individual',
+        selectedCustomerId: '',
+        isGenerating: false,
+        generatedMsg: '',
+        showPreview: false
+    });
+
+    // New: Check WhatsApp Bot Status (Port 3001)
+    useEffect(() => {
+        const checkBot = async () => {
+            try {
+                const res = await fetch('http://localhost:3001/status');
+                if (!res.ok) throw new Error('Offline');
+                const data = await res.json();
+                setBotStatus(data.ready ? 'Online' : 'Pending');
+            } catch (err) {
+                setBotStatus('Offline');
+            }
+        };
+        checkBot();
+        const interval = setInterval(checkBot, 30000);
+        return () => clearInterval(interval);
+    }, []);
+
+    // New: AI Campaign Generator Call
+    const handleGenerateCampaign = async () => {
+        const customer = customers.find(c => c.id === campaignState.selectedCustomerId) || { name: 'Valued Customer' };
+        setCampaignState(prev => ({ ...prev, isGenerating: true }));
+        try {
+            const res = await fetch('http://localhost:3001/generate-marketing-msg', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    campaignType: campaignState.type,
+                    customerName: customer.name,
+                    topCrop: 'Radish Microgreens' // This could be dynamic based on inventory
+                })
+            });
+            const data = await res.json();
+            setCampaignState(prev => ({ 
+                ...prev, 
+                generatedMsg: data.message, 
+                isGenerating: false,
+                showPreview: true 
+            }));
+        } catch (err) {
+            console.error("AI Generation Error:", err);
+            setCampaignState(prev => ({ ...prev, isGenerating: false }));
+            alert("Bot is offline. Please start the WhatsApp Bot first.");
+        }
+    };
+
+    const handleSendCampaign = async (finalMsg) => {
+        const customer = customers.find(c => c.id === campaignState.selectedCustomerId);
+        if (!customer) return;
+        
+        setCampaignState(prev => ({ ...prev, isGenerating: true }));
+        try {
+            const res = await fetch('http://localhost:3001/send-msg', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    number: customer.whatsapp_number || customer.phone,
+                    message: finalMsg
+                })
+            });
+            if (res.ok) {
+                alert("✅ Campaign Message Sent!");
+                setCampaignState(prev => ({ ...prev, showPreview: false }));
+            } else {
+                alert("❌ Failed to send. Check Bot status.");
+            }
+        } catch (err) {
+            alert("❌ Bot error. Is it running?");
+        }
+        setCampaignState(prev => ({ ...prev, isGenerating: false }));
+    };
+
     const queryClient = useQueryClient();
 
-    // 0. Fetch Weather for Smart Pricing
+    // 0. Weather Data for Smart Pricing
+    const [weatherData, setWeatherData] = useState({ temp: 30, humidity: 60 });
+
     useEffect(() => {
         const cached = localStorage.getItem('cGrow_weather_cache');
-        if (cached) setWeatherData(JSON.parse(cached));
+        if (cached) {
+            try {
+                const parsed = JSON.parse(cached);
+                setWeatherData(parsed);
+            } catch (e) {
+                console.warn("Weather cache parse failed", e);
+            }
+        }
     }, []);
+
 
 
     // 1. Fetch Customers
@@ -416,6 +504,10 @@ const SalesMarketingPage = () => {
                     </div>
                 </div>
                 <div className="flex gap-3">
+                    <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-100 rounded-2xl mr-2">
+                        <div className={`w-2 h-2 rounded-full ${botStatus === 'Online' ? 'bg-emerald-500' : botStatus === 'Pending' ? 'bg-amber-500 animate-pulse' : 'bg-rose-500'}`} />
+                        <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Bot: {botStatus}</span>
+                    </div>
                     <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-100 rounded-2xl mr-4">
                         <div className={`w-2 h-2 rounded-full ${autopilotStatus === 'Optimized' ? 'bg-emerald-500' : autopilotStatus === 'Checking...' ? 'bg-blue-500 animate-pulse' : 'bg-slate-300'}`} />
                         <span className="text-[9px] font-black text-indigo-900 uppercase tracking-widest">Autopilot: {autopilotStatus}</span>
@@ -749,7 +841,74 @@ const SalesMarketingPage = () => {
 
                     {activeTab === 'marketing' && (
                         <div className="p-8">
-                            <h3 className="text-xl font-black text-slate-800 mb-8">Digital Asset Engine</h3>
+                            <div className="flex items-center justify-between mb-8">
+                                <h3 className="text-xl font-black text-slate-800">Digital Asset Engine</h3>
+                                <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${botStatus === 'Online' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-rose-50 text-rose-600 border border-rose-100'}`}>
+                                    {botStatus === 'Online' ? 'Bot Connected' : 'Bot Offline'}
+                                </div>
+                            </div>
+
+                            {/* Campaign Creator Card */}
+                            <div className="mb-12 p-8 bg-indigo-50/50 rounded-[2.5rem] border border-indigo-100 shadow-inner">
+                                <div className="flex items-center gap-4 mb-8">
+                                    <div className="w-12 h-12 bg-indigo-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-200">
+                                        <Sparkles size={24} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-lg font-black text-slate-800">AI Campaign Creator</h4>
+                                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Generate Personalized High-Conversion Campaigns</p>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                    <div className="space-y-1">
+                                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">Campaign Type</label>
+                                        <select 
+                                            value={campaignState.type}
+                                            onChange={e => setCampaignState(prev => ({ ...prev, type: e.target.value }))}
+                                            className="w-full p-4 bg-white border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 font-bold"
+                                        >
+                                            <option value="FLASH_SALE">Flash Sale (20% OFF)</option>
+                                            <option value="HARVEST_READY">Harvest Ready Alert</option>
+                                            <option value="REFILL_REMINDER">Refill Reminder</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">Select Target</label>
+                                        <select 
+                                            value={campaignState.selectedCustomerId}
+                                            onChange={e => setCampaignState(prev => ({ ...prev, selectedCustomerId: e.target.value }))}
+                                            className="w-full p-4 bg-white border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 font-bold"
+                                        >
+                                            <option value="">Choose a customer...</option>
+                                            {customers.filter(c => c.marketing_consent).map(c => (
+                                                <option key={c.id} value={c.id}>{c.name} ({c.type})</option>
+                                            ))}
+                                            {customers.filter(c => c.marketing_consent).length === 0 && <option disabled>No customers with consent</option>}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={handleGenerateCampaign}
+                                    disabled={!campaignState.selectedCustomerId || campaignState.isGenerating || botStatus !== 'Online'}
+                                    className={`w-full py-5 rounded-[2rem] font-black text-sm transition-all flex items-center justify-center gap-3 shadow-xl ${
+                                        !campaignState.selectedCustomerId || botStatus !== 'Online' 
+                                            ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none' 
+                                            : 'bg-indigo-600 text-white shadow-indigo-900/20 hover:scale-[1.02] active:scale-95'
+                                    }`}
+                                >
+                                    {campaignState.isGenerating ? (
+                                        <>Generating with AI...</>
+                                    ) : (
+                                        <>
+                                            <Sparkles size={18} /> 
+                                            {botStatus === 'Online' ? 'GENERATE PERSONALIZED CAMPAIGN' : 'BOT DISCONNECTED'}
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="p-6 border-2 border-dashed border-slate-200 rounded-3xl hover:border-indigo-300 transition-all group flex flex-col items-center text-center">
                                     <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -1002,6 +1161,15 @@ const SalesMarketingPage = () => {
                 <CaptionPreviewModal
                     caption={generatedCaption}
                     onClose={() => setShowCaptionModal(false)}
+                />
+            )}
+
+            {campaignState.showPreview && (
+                <AICampaignPreviewModal 
+                    message={campaignState.generatedMsg}
+                    onClose={() => setCampaignState(prev => ({ ...prev, showPreview: false }))}
+                    onSend={handleSendCampaign}
+                    isSending={campaignState.isGenerating}
                 />
             )}
         </div>
@@ -1342,16 +1510,18 @@ const AddCustomerModal = ({ onClose, onSubmit, onBulkSubmit, isLoading }) => {
                     </button>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 mb-8">
-                    <div className="flex-1">
-                        <button
-                            type="button"
-                            onClick={handleContactPicker}
-                            className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-50 text-indigo-600 rounded-2xl border border-indigo-100 font-black text-[10px] hover:bg-indigo-100 transition-all uppercase tracking-widest"
-                        >
-                            <Contact size={16} /> Select from Phone
-                        </button>
-                        <p className="text-[7px] text-slate-400 font-bold uppercase mt-1 text-center">Mobile/Chrome Only</p>
-                    </div>
+                    {('contacts' in navigator && 'select' in navigator.contacts) && (
+                        <div className="flex-1">
+                            <button
+                                type="button"
+                                onClick={handleContactPicker}
+                                className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-50 text-indigo-600 rounded-2xl border border-indigo-100 font-black text-[10px] hover:bg-indigo-100 transition-all uppercase tracking-widest"
+                            >
+                                <Contact size={16} /> Select from Phone
+                            </button>
+                            <p className="text-[7px] text-slate-400 font-bold uppercase mt-1 text-center">Mobile/Chrome Only</p>
+                        </div>
+                    )}
                     <button
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
@@ -1805,6 +1975,41 @@ const SalesLab = () => {
                             SEND
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const AICampaignPreviewModal = ({ message, onClose, onSend, isSending }) => {
+    const [editableMsg, setEditableMsg] = useState(message);
+    useEffect(() => setEditableMsg(message), [message]);
+
+    return (
+        <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[250] flex items-center justify-center p-4">
+            <div className="bg-white w-full max-w-xl rounded-[2.5rem] p-8 shadow-2xl animate-in zoom-in-95">
+                <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-xl font-black text-slate-800">AI Campaign Preview</h3>
+                    <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full"><X size={20} /></button>
+                </div>
+                <textarea 
+                    className="w-full h-48 p-6 bg-slate-50 rounded-3xl border border-slate-100 font-bold text-sm text-slate-700 outline-none focus:ring-2 focus:ring-indigo-500"
+                    value={editableMsg}
+                    onChange={e => setEditableMsg(e.target.value)}
+                />
+                <div className="flex gap-4 mt-8">
+                    <button onClick={onClose} className="flex-1 py-4 bg-slate-100 text-slate-600 rounded-2xl font-black text-sm">CANCEL</button>
+                    <button 
+                        onClick={() => onSend(editableMsg)}
+                        disabled={isSending}
+                        className="flex-1 py-4 bg-emerald-600 text-white rounded-2xl font-black text-sm shadow-xl shadow-emerald-200 flex items-center justify-center gap-2"
+                    >
+                        {isSending ? (
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        ) : (
+                            <><MessageCircle size={18} /> SEND ON WHATSAPP</>
+                        )}
+                    </button>
                 </div>
             </div>
         </div>

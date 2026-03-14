@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Sprout, ArrowRight, CheckCircle, BarChart3, Droplets, Leaf } from 'lucide-react';
+import AIChatWidget from '../../components/AIChatWidget';
+import WhatsAppWidget from '../../components/WhatsAppWidget';
 
 const LandingPage = () => {
 
@@ -13,11 +15,11 @@ const LandingPage = () => {
                 {/* Header with Login Link */}
                 <header className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md border-b border-slate-200 z-50">
                     <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-                        <div className="flex items-center gap-5">
-                            <div className="w-20 h-20 bg-white rounded-2xl p-2 shadow-xl border-2 border-emerald-500/20">
+                        <div className="flex items-center gap-3 md:gap-5">
+                            <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-white rounded-2xl p-1 md:p-2 shadow-xl border-2 border-emerald-500/20">
                                 <img src="/logo_cgro.png" alt="cGrow Logo" className="w-full h-full object-contain" />
                             </div>
-                            <span className="text-5xl font-black text-slate-900 tracking-tighter">cGrow</span>
+                            <span className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">cGrow</span>
                         </div>
                         <Link
                             to="/login"
@@ -39,7 +41,7 @@ const LandingPage = () => {
                     <div className="absolute top-0 right-0 w-1/2 h-full bg-emerald-50/50 -mr-32 -skew-x-12"></div>
                     <div className="max-w-7xl mx-auto relative z-10">
                         <div className="max-w-3xl">
-                            <h1 className="text-7xl font-black text-slate-900 leading-[0.95] tracking-tighter mb-8">
+                            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[0.95] tracking-tighter mb-8">
                                 Conscious Growth.
                                 <span className="block text-emerald-600">Smartly Automated.</span>
                             </h1>
@@ -144,6 +146,10 @@ const LandingPage = () => {
                         <div className="absolute inset-0 bg-emerald-500/10 rounded-full blur-2xl"></div>
                     </div>
                 </div>
+
+                {/* Global Widgets */}
+                <WhatsAppWidget />
+                <AIChatWidget />
             </div>
         </div>
     );

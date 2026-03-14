@@ -164,6 +164,32 @@ const getSalesAdvisorResponse = async (sender, text, liveData) => {
     return response;
 };
 
+/**
+ * AI Marketing Generation (MOCKED LLM CALL)
+ */
+app.post('/generate-marketing-msg', async (req, res) => {
+    const { campaignType, customerName, topCrop } = req.body;
+    
+    // In a real scenario, this would call Professor AI service or OpenAI/Mistral
+    let aiMessage = '';
+    
+    switch(campaignType) {
+        case 'FLASH_SALE':
+            aiMessage = `⚡ *FLASH SALE ALERT* ⚡\n\nHi ${customerName}! 🌿 Exciting news - your favorite ${topCrop} is being harvested TODAY! \n\nSince you're a regular, we've got a *20% OFF* deal just for you on this batch. \n\nDirect order link: https://cgrow.farm/deals\n\n_Valid for today only!_`;
+            break;
+        case 'HARVEST_READY':
+            aiMessage = `🌱 *Freshly Picked!* 🌱\n\nHi ${customerName}! Our precision-grown ${topCrop} is ready for pickup. \n\nIoT Verified Health: 98.4%\nNutrient Density: High\n\nOrder now to get it while it's crisp! 🥗`;
+            break;
+        case 'REFILL_REMINDER':
+            aiMessage = `🥤 *Time for a Refill?* \n\nHi ${customerName}! Based on your last order, you might be running low on your favorite greens soon. \n\nDon't let your nutrition gap grow! 🚜 We have fresh ${topCrop} ready. Shall we reserve a tray for you?`;
+            break;
+        default:
+            aiMessage = `Hi ${customerName}, check out our latest from cGrow farm!`;
+    }
+    
+    res.json({ success: true, message: aiMessage });
+});
+
 // ─── WhatsApp Client Setup ───────────────────────────────────
 
 // CORS — React dashboard aur any origin ko allow karna
