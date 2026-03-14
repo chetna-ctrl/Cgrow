@@ -42,20 +42,22 @@ const BusinessHub = () => {
                 </div>
 
                 {/* TAB SELECTOR */}
-                <div className="flex bg-slate-800/50 p-1.5 rounded-2xl border border-slate-700 w-full md:w-auto overflow-x-auto">
-                    {tabs.map(tab => (
-                        <button
-                            key={tab.id}
-                            onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-black text-xs transition-all whitespace-nowrap ${activeTab === tab.id
-                                ? `${tab.bg} text-slate-900 shadow-xl`
-                                : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
-                                }`}
-                        >
-                            <tab.icon size={16} className={activeTab === tab.id ? tab.color : 'text-slate-500'} />
-                            {tab.label.toUpperCase()}
-                        </button>
-                    ))}
+                <div className="flex bg-slate-800/50 p-1.5 rounded-2xl border border-slate-700 w-full overflow-x-auto no-scrollbar pb-1">
+                    <div className="flex items-center flex-nowrap min-w-max">
+                        {tabs.map(tab => (
+                            <button
+                                key={tab.id}
+                                onClick={() => setActiveTab(tab.id)}
+                                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-black text-xs transition-all whitespace-nowrap mx-1 ${activeTab === tab.id
+                                    ? `${tab.bg} text-slate-900 shadow-xl`
+                                    : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
+                                    }`}
+                            >
+                                <tab.icon size={16} className={activeTab === tab.id ? tab.color : 'text-slate-500'} />
+                                {tab.label.toUpperCase()}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
 
