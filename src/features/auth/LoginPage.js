@@ -47,7 +47,6 @@ const LoginPage = () => {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    // This creates: http://localhost:3000/dashboard OR http://192.168.x.x:3000/dashboard
                     redirectTo: `${window.location.origin}/dashboard`
                 }
             });

@@ -5,6 +5,7 @@ import html2canvas from 'html2canvas';
 import { supabase } from '../../lib/supabaseClient';
 import { sendCloudMessage, openWhatsAppFallback } from '../../services/twilioService';
 import { processDueChains, runPredictiveAutoRefill } from '../../services/automationService';
+import API_CONFIG from '../../config/apiConfig';
 import {
     Users,
     ShoppingBag,
@@ -60,11 +61,11 @@ const SalesMarketingPage = () => {
         showPreview: false
     });
 
-    // New: Check WhatsApp Bot Status (Port 3001)
+    // New: Check WhatsApp Bot Status
     useEffect(() => {
         const checkBot = async () => {
             try {
-                const res = await fetch('http://localhost:3001/status');
+                const res = await fetch(`${API_CONFIG.BOT_URL}/status`);
                 if (!res.ok) throw new Error('Offline');
                 const data = await res.json();
                 setBotStatus(data.ready ? 'Online' : 'Pending');
@@ -82,7 +83,7 @@ const SalesMarketingPage = () => {
         const customer = customers.find(c => c.id === campaignState.selectedCustomerId) || { name: 'Valued Customer' };
         setCampaignState(prev => ({ ...prev, isGenerating: true }));
         try {
-            const res = await fetch('http://localhost:3001/generate-marketing-msg', {
+            const res = await fetch(`${API_CONFIG.BOT_URL}/generate-marketing-msg`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -111,7 +112,7 @@ const SalesMarketingPage = () => {
         
         setCampaignState(prev => ({ ...prev, isGenerating: true }));
         try {
-            const res = await fetch('http://localhost:3001/send-msg', {
+            const res = await fetch(`${API_CONFIG.BOT_URL}/send-msg`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

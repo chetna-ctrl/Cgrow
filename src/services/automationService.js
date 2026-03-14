@@ -1,6 +1,7 @@
 import { supabase } from '../lib/supabaseClient';
 import { sendCloudMessage } from './twilioService';
 import { predictConsumption } from '../utils/mlIntelligence';
+import API_CONFIG from '../config/apiConfig';
 
 /**
  * Automation Service (Autopilot Engine)
@@ -35,7 +36,7 @@ export const processDueChains = async (chains, customers, orders) => {
             // New: Try to get an AI personalized message first
             let customBody = null;
             try {
-                const aiRes = await fetch('http://localhost:3001/generate-marketing-msg', {
+                const aiRes = await fetch(`${API_CONFIG.BOT_URL}/generate-marketing-msg`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -100,7 +101,7 @@ export const runPredictiveAutoRefill = async (customers, orders) => {
                 // New: Try to get an AI personalized message for refill
                 let customBody = null;
                 try {
-                    const aiRes = await fetch('http://localhost:3001/generate-marketing-msg', {
+                    const aiRes = await fetch(`${API_CONFIG.BOT_URL}/generate-marketing-msg`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
