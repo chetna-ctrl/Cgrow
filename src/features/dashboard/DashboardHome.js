@@ -35,7 +35,6 @@ import OnboardingTutorial from '../../components/OnboardingTutorial';
 import { calculateHealthDecay, getTrendBasedDefaults } from '../../utils/trendAnalysis';
 import { requestNotificationPermission, scheduleReminder, areNotificationsEnabled } from '../../utils/notificationUtils';
 import { useGhostSync } from './hooks/useGhostSync';
-import ProfessorChat from '../../components/ProfessorChat';
 import ai_data from '../../data/ai_metadata.json';
 const getTimeAgo = (date) => {
     if (!date) return null;
@@ -924,8 +923,6 @@ const DashboardContent = () => {
 
             {/* PHASE 5: Onboarding Tutorial */}
             <OnboardingTutorial />
-            {/* PROFESSOR AI CHAT WIDGET */}
-            <ProfessorChat />
         </div>
     );
 };
